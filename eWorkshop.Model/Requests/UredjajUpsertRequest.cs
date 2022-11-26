@@ -14,7 +14,6 @@ namespace eWorkshop.Model.Requests
 
         public DateTime DatumIzvedbe { get; set; }
 
-        public string StateMachine { get; set; }
 
         public int LokacijaId { get; set; }
     }

@@ -15,5 +15,7 @@ namespace eWorkshop.Model.Requests
         public int RadniZadatakId { get; set; }
 
         public DateTime? Datum { get; set; }
+
+        public List<int> KomponenteIdList { get; set; } = new List<int>();
     }
 }

@@ -18,6 +18,8 @@ namespace eWorkshop.Services
             CreateMap<Servi, ServisVM>();
             CreateMap<RadniZadatak, RadniZadatakVM>();
             CreateMap<Korisnici, KorisniciVM>();
+            CreateMap<Komponente, KomponenteVM>();
+            CreateMap<IzvrseniServi, ServisIzvrsenVM>();
 
             CreateMap<UredjajUpsertRequest, Uredjaj>();
             CreateMap<ServisInsertRequest, Servi>();
@@ -25,6 +27,8 @@ namespace eWorkshop.Services
             CreateMap<RadniZadatakUpsertRequest, RadniZadatak>();
             CreateMap<KorisniciInsertRequest, Korisnici>();
             CreateMap<KorisniciUpdateRequest, Korisnici>();
+            CreateMap<ServisIzvrsenUpsertRequest, IzvrseniServi>();
+            CreateMap<KomponenteUpsertRequest, Komponente>(); 
             
         }
     }

@@ -25,4 +25,8 @@
     <ProjectReference Include="..\eWorkshop.Model\eWorkshop.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RadniZadatakStateMachine\" />
+  </ItemGroup>
+
 </Project>

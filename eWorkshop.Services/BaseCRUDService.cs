@@ -17,7 +17,7 @@ namespace eWorkshop.Services
 
         }
 
- 
+        
 
         public virtual TModel Insert(TInsert insert)
         {
@@ -33,7 +33,7 @@ namespace eWorkshop.Services
             return Mapper.Map<TModel>(entity);
         }
 
-        public TModel Update(int id, TUpdate update)
+        public virtual TModel Update(int id, TUpdate update)
         {
             var set = Context.Set<TDb>();
 

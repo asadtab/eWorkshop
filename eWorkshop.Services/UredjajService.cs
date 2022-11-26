@@ -3,6 +3,8 @@ using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
+using eWorkshop.Services.UredjajiStateMachine;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,90 @@ namespace eWorkshop.Services
         IUredjajService
     {
 
-        public UredjajService(_190128Context context, IMapper mapper) : base(context, mapper)
+        public BaseState BaseState { get; set; }
+
+        public UredjajService(_190128Context context, IMapper mapper, BaseState baseState) : base(context, mapper)
         {
+            BaseState = baseState;
+
+        }
+
+        public UredjajVM Parts(int id)
+        {
+            var uredjaj = Context.Uredjajs.Find(id);
+
+            var state = BaseState.CreateState(uredjaj.Status);
+            state.CurrentEntity = uredjaj;
+
+            state.SpareParts();
+
+            return Mapper.Map<UredjajVM>(uredjaj);
+        }
+
+        public UredjajLokacijaVM Posalji(UredjajLokacijaVM uredjajLokacija)
+        {
+            var state = BaseState.CreateState("ready");
+            var uredjaj = Context.Uredjajs.Find(uredjajLokacija.UredjajId);
+            state.CurrentEntity = uredjaj;
+
+            state.Posalji(uredjajLokacija);
+
+            return uredjajLokacija;
+        }
+
+        public override UredjajVM Insert(UredjajUpsertRequest insert)
+        {
+            var state = BaseState.CreateState("initial");
+
+            return state.Insert(insert);
+        }
+
+        public override UredjajVM Update(int id, UredjajUpsertRequest update)
+        {
+            var uredjaj = Context.Uredjajs.Find(id);
+
+            var state = BaseState.CreateState(uredjaj.Status);
+            state.CurrentEntity = uredjaj;
+            state.Context = Context;
+
+            state.Update(update);
+
+            return GetById(id);
+        }
+
+        public UredjajVM Aktiviraj(int id)
+        {
+            var uredjaj = Context.Uredjajs.Find(id);
+
+            var state = BaseState.CreateState(uredjaj.Status);
+
+            state.CurrentEntity = uredjaj;
+
+            if (uredjaj.Status == "idle")
+            {
+                state.Aktiviraj();
+                return GetById(id);
+            }
+
+            if (uredjaj.Status == "fix")
+            {
+                state.Ready();
+                return GetById(id);
+            }
+
+            /*if (uredjaj.Status == "ready")
+            {
+                state.Posalji();
+                return GetById(id);
+            }
+*/
+            if (uredjaj.Status == "out")
+            {
+                state.Vrati();
+                return GetById(id);
+            }
+
+            return GetById(id);
         }
 
         public override IQueryable<Uredjaj> AddFilter(IQueryable<Uredjaj> query, UredjajSearchObject search = null)
@@ -31,6 +115,5 @@ namespace eWorkshop.Services
 
             return filter;
         }
-
     }
 }

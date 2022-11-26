@@ -14,7 +14,7 @@ namespace eWorkshop.Model.SearchObject
 
         public string SerijskiBroj { get; set; }
 
-        public string StateMachine { get; set; }
+        public string Status { get; set; }
 
         public int Lokacija { get; set; }
     }

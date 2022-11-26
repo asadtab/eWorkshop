@@ -27,6 +27,12 @@ namespace eWorkshop.Controllers
             return Service.Get(search);
         }
 
+        [HttpGet("{id}")]
+        public TModel GetById(int id)
+        {
+            return Service.GetById(id);
+        }
+
         [HttpPut("{id}")]
         public TModel Update(int id, [FromBody] TUpdate update)
         {

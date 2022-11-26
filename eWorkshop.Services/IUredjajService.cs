@@ -11,5 +11,9 @@ namespace eWorkshop.Services
 {
     public interface IUredjajService : ICRUDService<UredjajVM, UredjajSearchObject, UredjajUpsertRequest, UredjajUpsertRequest>
     {
+        UredjajVM Aktiviraj(int id);
+        //ServisVM Servisiraj(ServisInsertRequest request);
+        UredjajLokacijaVM Posalji(UredjajLokacijaVM uredjajLokacija);
+        UredjajVM Parts(int id);
     }
 }

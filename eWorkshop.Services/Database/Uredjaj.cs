@@ -15,7 +15,7 @@ public partial class Uredjaj
 
     public string? GodinaIzvedbe { get; set; }
 
-    public string? StateMachine { get; set; }
+    public string? Status { get; set; }
 
     public int? LokacijaId { get; set; }
 

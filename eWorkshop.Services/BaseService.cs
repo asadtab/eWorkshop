@@ -31,6 +31,15 @@ namespace eWorkshop.Services
 
         }
 
+        public virtual TModel GetById(int id)
+        {
+            var set = Context.Set<TDb>();
+
+            var entity = set.Find(id);
+
+            return Mapper.Map<TModel>(entity);
+        }
+
         public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)
         {
             return query;

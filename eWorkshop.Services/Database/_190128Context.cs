@@ -260,7 +260,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Koda).HasMaxLength(255);
             entity.Property(e => e.LokacijaId).HasColumnName("LokacijaID");
             entity.Property(e => e.SerijskiBroj).HasMaxLength(255);
-            entity.Property(e => e.StateMachine).HasMaxLength(255);
+            entity.Property(e => e.Status).HasMaxLength(255);
             entity.Property(e => e.TipId).HasColumnName("TipID");
 
             entity.HasOne(d => d.Lokacija).WithMany(p => p.Uredjajs)
