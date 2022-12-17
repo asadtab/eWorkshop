@@ -12,7 +12,7 @@ namespace eWorkshop.Model.Requests
 
         public string SerijskiBroj { get; set; }
 
-        public DateTime DatumIzvedbe { get; set; }
+        public string DatumIzvedbe { get; set; }
 
 
         public int LokacijaId { get; set; }

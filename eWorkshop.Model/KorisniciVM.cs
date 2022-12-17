@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace eWorkshop.Model
@@ -8,7 +9,7 @@ namespace eWorkshop.Model
     {
         public int KorisniciId { get; set; }
 
-        public string Ime { get; set; } 
+        public string Ime { get; set; }     
 
         public string Prezime { get; set; } 
 
@@ -19,5 +20,8 @@ namespace eWorkshop.Model
         public string Telefon { get; set; }
 
         public bool Status { get; set; }
+
+        public virtual ICollection<KorisniciUlogeVM> KorisniciUloges { get; } = new List<KorisniciUlogeVM>();
+        public string NaziviUloga => string.Join(", ", KorisniciUloges?.Select(x => x.Uloga?.Naziv)?.ToList());
     }
 }

@@ -10,6 +10,6 @@ namespace eWorkshop.Model.Requests
 
         public DateTime Datum { get; set; }
 
-        public string StateMachine { get; set; }
+        //public string StateMachine { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Services.Database;
 using eWorkshop.Services.UredjajiStateMachine;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,13 @@ namespace eWorkshop.Services
         public ReparacijaService(_190128Context context, IMapper mapper, BaseState baseState) : base(context, mapper)
         {
             BaseState = baseState;
+        }
+
+        public override IQueryable<Servi> AddInclude(IQueryable<Servi> query, object search = null)
+        {
+            query = query.Include("RadniZadatak");
+
+            return query;
         }
 
         public override ServisVM Insert(ServisInsertRequest insert)

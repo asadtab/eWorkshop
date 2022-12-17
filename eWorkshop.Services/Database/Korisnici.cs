@@ -5,6 +5,7 @@ namespace eWorkshop.Services.Database;
 
 public partial class Korisnici
 {
+
     public int KorisniciId { get; set; }
 
     public string Ime { get; set; } = null!;
@@ -24,6 +25,8 @@ public partial class Korisnici
     public bool? Status { get; set; }
 
     public virtual ICollection<KorisniciUloge> KorisniciUloges { get; } = new List<KorisniciUloge>();
+
+    public virtual ICollection<RadniZadatakUredjaj> RadniZadatakUredjajs { get; } = new List<RadniZadatakUredjaj>();
 
     public virtual ICollection<Servi> Servis { get; } = new List<Servi>();
 }

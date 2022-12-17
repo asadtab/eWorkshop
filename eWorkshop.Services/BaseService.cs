@@ -23,7 +23,9 @@ namespace eWorkshop.Services
         public IEnumerable<TModel> Get(TSearch search = null)
         {
             var entity = Context.Set<TDb>().AsQueryable();
+
             entity = AddFilter(entity, search);
+            entity = AddInclude(entity, search);
 
             var list = entity.ToList();
 
@@ -41,6 +43,11 @@ namespace eWorkshop.Services
         }
 
         public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)
+        {
+            return query;
+        }
+
+        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch search = null)
         {
             return query;
         }

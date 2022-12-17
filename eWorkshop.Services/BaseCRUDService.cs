@@ -17,13 +17,13 @@ namespace eWorkshop.Services
 
         }
 
-        
-
         public virtual TModel Insert(TInsert insert)
         {
             var set = Context.Set<TDb>();
 
             TDb entity = Mapper.Map<TDb>(insert);
+
+            BeforeInsert(insert, entity);
 
             set.Add(entity);
 
@@ -49,6 +49,26 @@ namespace eWorkshop.Services
             return Mapper.Map<TModel>(entity);
         }
 
+        
 
+        public virtual void BeforeInsert(TInsert insert, TDb entity)
+        {
+
+        }
+
+        public TModel Delete(int id)
+        {
+            var set = Context.Set<TDb>();
+
+            var entity = set.Find(id);
+
+            if (entity == null)
+                return null;
+
+            set.Remove(entity);
+            Context.SaveChanges();
+
+            return Mapper.Map<TModel>(entity);
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace eWorkshop.Services
     {
         TModel Insert(TInsert insert);
         TModel Update(int id, TUpdate update);
+
+        TModel Delete(int id);
         
     }
 }

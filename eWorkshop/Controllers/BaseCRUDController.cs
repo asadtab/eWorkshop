@@ -1,5 +1,6 @@
 ﻿using eWorkshop.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace eWorkshop.Controllers
 {
@@ -39,6 +40,14 @@ namespace eWorkshop.Controllers
             var result = ((ICRUDService<TModel, TSearch, TInsert, TUpdate>)this.Service).Update(id, update);
 
             return result;
+        }
+
+        [HttpDelete("{id}")]
+        public virtual ActionResult Delete(int id)
+        {
+            ((ICRUDService<TModel, TSearch, TInsert, TUpdate>)this.Service).Delete(id);
+
+            return Ok("Entitet izbrisan");
         }
     }
 }

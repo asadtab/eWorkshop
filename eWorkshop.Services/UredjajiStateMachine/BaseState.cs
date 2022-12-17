@@ -69,6 +69,10 @@ namespace eWorkshop.Services.UredjajiStateMachine
         {
             throw new Exception("Not allowed");
         }
+        public virtual void RadniZadatak()
+        {
+            throw new Exception("Not allowed");
+        }
 
         public  BaseState CreateState(string state)
         {
@@ -82,6 +86,9 @@ namespace eWorkshop.Services.UredjajiStateMachine
                     break;
                 case "active":
                     return ServiceProvider.GetService<ActiveDeviceState>();
+                    break;
+                case "task":
+                    return ServiceProvider.GetService<TaskDeviceState>();
                     break;
                 case "fix":
                     return ServiceProvider.GetService<FixDeviceState>(); ;
@@ -98,6 +105,6 @@ namespace eWorkshop.Services.UredjajiStateMachine
                 default:
                     throw new Exception("Not supported!");
             }
-        }
+            }
     }
 }

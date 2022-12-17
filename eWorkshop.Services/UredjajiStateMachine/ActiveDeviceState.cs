@@ -28,6 +28,12 @@ namespace eWorkshop.Services.UredjajiStateMachine
             Context.SaveChanges();
         }
 
+        public override void RadniZadatak()
+        {
+            CurrentEntity.Status = "task";
+            Context.SaveChanges();
+        }
+
         public override void Update(UredjajUpsertRequest request)
         {
             base.Update(request);

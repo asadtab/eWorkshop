@@ -4,6 +4,7 @@ using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
 using eWorkshop.Services.UredjajiStateMachine;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,13 @@ namespace eWorkshop.Services
         {
             BaseState = baseState;
 
+        }
+
+        public override IQueryable<Uredjaj> AddInclude(IQueryable<Uredjaj> query, UredjajSearchObject search = null)
+        {
+            query = query.Include("Tip");
+
+            return query;
         }
 
         public UredjajVM Parts(int id)
@@ -68,6 +76,23 @@ namespace eWorkshop.Services
             return GetById(id);
         }
 
+        public UredjajVM VratiIzTaska(int id)
+        {
+            var uredjaj = Context.Uredjajs.Find(id);
+
+            var state = BaseState.CreateState(uredjaj.Status);
+
+            state.CurrentEntity = uredjaj;
+
+            if(uredjaj.Status == "task")
+            {
+                state.Aktiviraj();
+                return GetById(id);
+            }
+
+            return GetById(id);
+        }
+
         public UredjajVM Aktiviraj(int id)
         {
             var uredjaj = Context.Uredjajs.Find(id);
@@ -100,6 +125,12 @@ namespace eWorkshop.Services
                 return GetById(id);
             }
 
+            if(uredjaj.Status == "task")
+            {
+                state.Servisiraj();
+                return GetById(id);
+            }
+
             return GetById(id);
         }
 
@@ -112,6 +143,9 @@ namespace eWorkshop.Services
 
             if (search.UredjajId != 0)
                 filter = filter.Where(x => x.UredjajId == search.UredjajId);
+
+            if(!string.IsNullOrEmpty(search.Status))
+                filter = filter.Where(x => x.Status == search.Status);
 
             return filter;
         }

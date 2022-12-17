@@ -17,5 +17,7 @@ namespace eWorkshop.Model
         public int RadniZadatakId { get; set; }
 
         public DateTime? Datum { get; set; }
+
+        public RadniZadatakVM RadniZadatak { get; set; } = new RadniZadatakVM();
     }
 }

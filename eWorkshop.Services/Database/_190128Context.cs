@@ -31,6 +31,8 @@ public partial class _190128Context : DbContext
 
     public virtual DbSet<RadniZadatak> RadniZadataks { get; set; }
 
+    public virtual DbSet<RadniZadatakUredjaj> RadniZadatakUredjajs { get; set; }
+
     public virtual DbSet<Servi> Servis { get; set; }
 
     public virtual DbSet<TipUredjaja> TipUredjajas { get; set; }
@@ -271,6 +273,29 @@ public partial class _190128Context : DbContext
                 .HasForeignKey(d => d.TipId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UredjajTip");
+        });
+
+        modelBuilder.Entity<RadniZadatakUredjaj>(entity =>
+        {
+            entity.ToTable("RadniZadatakUredjaj");
+
+            entity.Property(e => e.Napomena)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Korisnik).WithMany(p => p.RadniZadatakUredjajs)
+                .HasForeignKey(d => d.KorisnikId)
+                .HasConstraintName("FK_Korisnik");
+
+            entity.HasOne(d => d.RadniZadatak).WithMany(p => p.RadniZadatakUredjajs)
+                .HasForeignKey(d => d.RadniZadatakId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RadniZadatak");
+
+            entity.HasOne(d => d.Uredjaj).WithMany(p => p.RadniZadatakUredjajs)
+                .HasForeignKey(d => d.UredjajId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Uredjaj");
         });
 
         OnModelCreatingPartial(modelBuilder);

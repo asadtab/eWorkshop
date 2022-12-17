@@ -12,10 +12,13 @@ namespace eWorkshop.Controllers
     {
         public IUredjajService Service { get; set; }
         public IReparacijaService ReparacijaService{ get; set; }
-        public UredjajController(IUredjajService service, IReparacijaService reparacijaService) : base(service)
+        public IRadniZadatakUredjajService RadniZadatakService { get; set; }
+
+        public UredjajController(IUredjajService service, IReparacijaService reparacijaService, IRadniZadatakUredjajService radniZadatakService) : base(service)
         {
             Service = service;
             ReparacijaService = reparacijaService;
+            RadniZadatakService = radniZadatakService;
         }
 
         [HttpPut("{id}/Aktiviraj-Ready-Vrati")]
@@ -41,5 +44,18 @@ namespace eWorkshop.Controllers
         {
             return Service.Parts(id);
         }
+
+        [HttpPut("RadniZadatak")]
+        public RadniZadatakUredjajBasicVM RadniZadatak([FromBody] RadniZadatakUredjajUpsertRequest request)
+        {
+            return RadniZadatakService.Dodaj(request);
+        }
+            
+        [HttpPost]
+        public override UredjajVM Insert([FromBody] UredjajUpsertRequest insert)
+        {
+            return Service.Insert(insert);
+        }
+        
     }
 }

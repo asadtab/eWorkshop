@@ -8,16 +8,20 @@ namespace eWorkshop.Model
     {
         public int UredjajId { get; set; }
 
-        public int TipId{ get; set; }
 
         public string Koda { get; set; }
 
         public string SerijskiBroj { get; set; }
 
-        public DateTime DatumIzvedbe { get; set; }
+        public string DatumIzvedbe { get; set; }
 
         public string Status { get; set; }
 
         public int LokacijaId { get; set; }
+
+        public TipUredjajaVM Tip { get; set; } = new TipUredjajaVM();
+        public string TipOpisNaziv { get { return Tip?.OpisNaziv; } set { } }
+
+        public string IdTip { get { return UredjajId + " - " + TipOpisNaziv; } set { } }
     }
 }
