@@ -1,5 +1,6 @@
 ﻿using eWorkshop.Model;
 using eWorkshop.Model.Requests;
+using eWorkshop.Model.SearchObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eWorkshop.Services
 {
-    public interface IReparacijaService : ICRUDService<ServisVM, object, ServisInsertRequest, ServisUpdateRequest>
+    public interface IReparacijaService : ICRUDService<ServisVM, ReparacijaSearchObject, ServisInsertRequest, ServisUpdateRequest>
     {
     }
 }

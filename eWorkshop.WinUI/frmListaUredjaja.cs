@@ -20,7 +20,11 @@ namespace eWorkshop.WinUI
         public frmListaUredjaja()
         {
             InitializeComponent();
+
             dgvLista.AutoGenerateColumns = false;
+
+            dgvLista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLista.MultiSelect = false;
         }
 
         private void populateCmb()
@@ -60,5 +64,24 @@ namespace eWorkshop.WinUI
 
             dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
         }
+
+        private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+
+            var selectedRow = dgvLista.Rows[index];
+
+            //MessageBox.Show(selectedRow.Cells[0].Value.ToString());
+
+            int evBroj = (int)selectedRow.Cells[0].Value;
+
+            frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj);
+            childForm.MdiParent = this.MdiParent;
+            childForm.Text = "Window ";
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
+        }
+
+
     }
 }

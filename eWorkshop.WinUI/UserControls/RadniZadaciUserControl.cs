@@ -44,7 +44,6 @@ namespace eWorkshop.WinUI.UserControls
                 pbProcenatZavrsenihUredjaja.Value = rezultat;
             }
         }
-
     }
 }
  

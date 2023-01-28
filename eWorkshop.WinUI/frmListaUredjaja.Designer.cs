@@ -58,44 +58,52 @@
             this.akcija});
             this.dgvLista.Location = new System.Drawing.Point(12, 129);
             this.dgvLista.Name = "dgvLista";
+            this.dgvLista.ReadOnly = true;
             this.dgvLista.RowTemplate.Height = 25;
             this.dgvLista.Size = new System.Drawing.Size(696, 435);
             this.dgvLista.TabIndex = 0;
+            this.dgvLista.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLista_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "UredjajId";
             this.dataGridViewTextBoxColumn1.HeaderText = "Evidencijski broj";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "TipOpisNaziv";
             this.dataGridViewTextBoxColumn2.HeaderText = "Tip";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "Koda";
             this.dataGridViewTextBoxColumn3.HeaderText = "Koda";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // serijskibroj
             // 
             this.serijskibroj.DataPropertyName = "SerijskiBroj";
             this.serijskibroj.HeaderText = "Serijski broj";
             this.serijskibroj.Name = "serijskibroj";
+            this.serijskibroj.ReadOnly = true;
             // 
             // lokacija
             // 
             this.lokacija.DataPropertyName = "LokacijaId";
             this.lokacija.HeaderText = "Lokacija";
             this.lokacija.Name = "lokacija";
+            this.lokacija.ReadOnly = true;
             // 
             // akcija
             // 
             this.akcija.HeaderText = "Akcija";
             this.akcija.Name = "akcija";
+            this.akcija.ReadOnly = true;
             // 
             // cmbStateMachine
             // 

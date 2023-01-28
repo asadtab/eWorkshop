@@ -38,6 +38,7 @@ namespace eWorkshop.Services
             var set = Context.Set<TDb>();
 
             var entity = set.Find(id);
+            
 
             return Mapper.Map<TModel>(entity);
         }

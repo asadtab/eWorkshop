@@ -139,5 +139,14 @@ namespace eWorkshop.WinUI
             childForm.Dock = DockStyle.Fill;
             childForm.Show();
         }
+
+        private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDodajKomponentu childForm = new frmDodajKomponentu();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
+        }
     }
 }

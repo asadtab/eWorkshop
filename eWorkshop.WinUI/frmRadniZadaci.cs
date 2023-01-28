@@ -29,12 +29,18 @@ namespace eWorkshop.WinUI
         {
             var zadaci = await RadniZadatakService.Get<List<RadniZadatakVM>>();
 
-            cmbRadniZadaci.DataSource = zadaci;
-            cmbRadniZadaci.DisplayMember = "Naziv";
-            cmbRadniZadaci.ValueMember = "RadniZadatakID";
+            InMemoryLoad(zadaci);
 
             PopulateListBoxZadaci();
             PopulateListBoxUredjaji();
+        }
+
+        //metoda za rad sa podaci u RAM memoriji
+        private void InMemoryLoad(List<RadniZadatakVM> zadaci)
+        {
+            cmbRadniZadaci.DataSource = zadaci;
+            cmbRadniZadaci.DisplayMember = "Naziv";
+            cmbRadniZadaci.ValueMember = "RadniZadatakID";
         }
 
         private async void cmbRadniZadaci_SelectedIndexChanged(object sender, EventArgs e)

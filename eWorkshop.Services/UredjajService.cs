@@ -33,6 +33,13 @@ namespace eWorkshop.Services
             return query;
         }
 
+        public override UredjajVM GetById(int id)
+        {
+            var uredjaj = Context.Uredjajs.Include(x => x.Tip).FirstOrDefault(x => x.UredjajId == id);
+
+            return Mapper.Map<UredjajVM>(uredjaj);
+        }
+
         public UredjajVM Parts(int id)
         {
             var uredjaj = Context.Uredjajs.Find(id);
