@@ -19,5 +19,11 @@ namespace eWorkshop.Services.UredjajiStateMachine
             CurrentEntity.Status = "ready";
             Context.SaveChanges();
         }
+
+        public override void Servisiraj()
+        {
+            CurrentEntity.Status = "fix";
+            Context.SaveChanges();
+        }
     }
 }

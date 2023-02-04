@@ -48,6 +48,7 @@
             this.lblUkupno = new System.Windows.Forms.Label();
             this.lblStanje = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbRadniZadaci.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -75,6 +76,7 @@
             this.lbUredjaji.Name = "lbUredjaji";
             this.lbUredjaji.Size = new System.Drawing.Size(193, 255);
             this.lbUredjaji.TabIndex = 0;
+            this.lbUredjaji.DoubleClick += new System.EventHandler(this.lbUredjaji_SelectedIndexChanged);
             // 
             // cmbUredjaji
             // 
@@ -106,6 +108,7 @@
             this.lbRadniZadatakUredjaj.Name = "lbRadniZadatakUredjaj";
             this.lbRadniZadatakUredjaj.Size = new System.Drawing.Size(193, 255);
             this.lbRadniZadatakUredjaj.TabIndex = 0;
+            this.lbRadniZadatakUredjaj.DoubleClick += new System.EventHandler(this.lbRadniZadatakUredjaj_SelectedIndexChanged);
             // 
             // cmbRadniZadaci
             // 
@@ -270,11 +273,26 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Info";
             // 
+            // btnExit
+            // 
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExit.ForeColor = System.Drawing.Color.IndianRed;
+            this.btnExit.Location = new System.Drawing.Point(659, 12);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(49, 48);
+            this.btnExit.TabIndex = 23;
+            this.btnExit.Text = "X";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // frmRadniZadaci
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 430);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnDodaj);
             this.Controls.Add(this.button3);
@@ -316,5 +334,6 @@
         private Label lblStanje;
         private Label lblUkupno;
         private GroupBox groupBox3;
+        private Button btnExit;
     }
 }

@@ -27,12 +27,17 @@ namespace eWorkshop.WinUI
 
         private async void frmRadniZadaci_Load(object sender, EventArgs e)
         {
+            
+
             var zadaci = await RadniZadatakService.Get<List<RadniZadatakVM>>();
 
             InMemoryLoad(zadaci);
 
             PopulateListBoxZadaci();
             PopulateListBoxUredjaji();
+            lbUredjaji.ClearSelected();
+            lbRadniZadatakUredjaj.ClearSelected();
+
         }
 
         //metoda za rad sa podaci u RAM memoriji
@@ -156,6 +161,34 @@ namespace eWorkshop.WinUI
             RadniZadatakUredjajService.Delete((lbRadniZadatakUredjaj.SelectedItem as RadniZadatakUredjajVM).Id);
             this.Invalidate();
             
+        }
+
+        private void lbRadniZadatakUredjaj_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var uredjaj = (RadniZadatakUredjajVM)lbRadniZadatakUredjaj.SelectedItem;
+
+            LoadFrmUredjajDetalji(uredjaj.UredjajId);
+        }
+
+        private void LoadFrmUredjajDetalji(int id)
+        {
+            frmUredjajDetalji childForm = new frmUredjajDetalji(id);
+            childForm.MdiParent = MdiParent;
+            childForm.Text = "Detalji uređaja";
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
+        }
+
+        private void lbUredjaji_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var uredjaj = (UredjajVM)lbUredjaji.SelectedItem;
+
+            LoadFrmUredjajDetalji(uredjaj.UredjajId);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

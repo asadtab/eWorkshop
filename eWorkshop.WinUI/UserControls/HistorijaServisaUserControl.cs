@@ -1,4 +1,7 @@
-﻿using System;
+﻿using eWorkshop.Model;
+using eWorkshop.Model.SearchObject;
+using eWorkshop.WinUI.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +15,62 @@ namespace eWorkshop.WinUI.UserControls
 {
     public partial class HistorijaServisaUserControl : UserControl
     {
-        public HistorijaServisaUserControl()
+        APIService ReparacijaService { get; set; } = new APIService("Reparacija");
+        APIService ServisIzvrsenService { get; set; } = new APIService("ServisIzvrsen");
+        public List<ServisIzvrsenVM> Komponente { get; set; } = new List<ServisIzvrsenVM>();
+        public string Datum { get; set; }
+        public HistorijaServisaUserControl(List<ServisIzvrsenVM> komponente, string datum)
         {
             InitializeComponent();
+            Datum = datum;
+            Komponente = komponente;
+            HidePanel();
+            UcitajKomponente(komponente);
         }
 
+        private async void UcitajKomponente(List<ServisIzvrsenVM> komponente)
+        {
+            btnDatum.Text = Datum;
 
+            for (int i = 0; i < komponente.Count; i++)
+            {
+                ListViewItem item = new ListViewItem(komponente[i].Komponenta.Naziv);
+                item.SubItems.Add(komponente[i].Komponenta.Vrijednost);
+                item.SubItems.Add(komponente[i].Komponenta.Tip);
+                lvKomponente.Items.Add(item);
+                //lvKomponente.Items.Add()
+            }
+        }
+
+        
+        private void HidePanel()
+        {
+            pnlLista.Visible = false;
+        }
+
+        private void ShowHidePanel()
+        {
+            if (pnlLista.Visible)
+                pnlLista.Visible = false;
+        }
+
+        private void showPanel(Panel subMenu)
+        {
+            if (!subMenu.Visible)
+            {
+                ShowHidePanel();
+                subMenu.Visible = true;
+            }
+            else
+            {
+                subMenu.Visible = false;
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            showPanel(pnlLista);
+        }
     }
 }

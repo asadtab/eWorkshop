@@ -37,8 +37,6 @@
             this.btnIzvjestaj = new System.Windows.Forms.Button();
             this.pnlUredjaj = new System.Windows.Forms.Panel();
             this.btnLista = new System.Windows.Forms.Button();
-            this.btnIsporuka = new System.Windows.Forms.Button();
-            this.btnServis = new System.Windows.Forms.Button();
             this.btnPrijemUredjaja = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -56,9 +54,9 @@
             this.detaljiToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.magacinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.komponenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uređajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vidiSveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uređajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.pnlKorisnici.SuspendLayout();
             this.pnlUredjaj.SuspendLayout();
@@ -90,7 +88,7 @@
             this.pnlKorisnici.Controls.Add(this.btnListaKorisnika);
             this.pnlKorisnici.Controls.Add(this.btnDodajKorisnika);
             this.pnlKorisnici.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlKorisnici.Location = new System.Drawing.Point(0, 478);
+            this.pnlKorisnici.Location = new System.Drawing.Point(0, 388);
             this.pnlKorisnici.Name = "pnlKorisnici";
             this.pnlKorisnici.Size = new System.Drawing.Size(228, 140);
             this.pnlKorisnici.TabIndex = 14;
@@ -134,7 +132,7 @@
             this.btnKorisnici.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKorisnici.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnKorisnici.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnKorisnici.Location = new System.Drawing.Point(0, 434);
+            this.btnKorisnici.Location = new System.Drawing.Point(0, 344);
             this.btnKorisnici.Name = "btnKorisnici";
             this.btnKorisnici.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnKorisnici.Size = new System.Drawing.Size(228, 44);
@@ -151,7 +149,7 @@
             this.btnStatistika.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStatistika.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnStatistika.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnStatistika.Location = new System.Drawing.Point(0, 390);
+            this.btnStatistika.Location = new System.Drawing.Point(0, 300);
             this.btnStatistika.Name = "btnStatistika";
             this.btnStatistika.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnStatistika.Size = new System.Drawing.Size(228, 44);
@@ -168,7 +166,7 @@
             this.btnIzvjestaj.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIzvjestaj.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnIzvjestaj.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnIzvjestaj.Location = new System.Drawing.Point(0, 346);
+            this.btnIzvjestaj.Location = new System.Drawing.Point(0, 256);
             this.btnIzvjestaj.Name = "btnIzvjestaj";
             this.btnIzvjestaj.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnIzvjestaj.Size = new System.Drawing.Size(228, 44);
@@ -180,13 +178,11 @@
             // pnlUredjaj
             // 
             this.pnlUredjaj.Controls.Add(this.btnLista);
-            this.pnlUredjaj.Controls.Add(this.btnIsporuka);
-            this.pnlUredjaj.Controls.Add(this.btnServis);
             this.pnlUredjaj.Controls.Add(this.btnPrijemUredjaja);
             this.pnlUredjaj.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlUredjaj.Location = new System.Drawing.Point(0, 165);
             this.pnlUredjaj.Name = "pnlUredjaj";
-            this.pnlUredjaj.Size = new System.Drawing.Size(228, 181);
+            this.pnlUredjaj.Size = new System.Drawing.Size(228, 91);
             this.pnlUredjaj.TabIndex = 5;
             // 
             // btnLista
@@ -196,7 +192,7 @@
             this.btnLista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLista.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnLista.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLista.Location = new System.Drawing.Point(0, 132);
+            this.btnLista.Location = new System.Drawing.Point(0, 44);
             this.btnLista.Name = "btnLista";
             this.btnLista.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.btnLista.Size = new System.Drawing.Size(228, 44);
@@ -205,40 +201,6 @@
             this.btnLista.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLista.UseVisualStyleBackColor = true;
             this.btnLista.Click += new System.EventHandler(this.btnLista_Click);
-            // 
-            // btnIsporuka
-            // 
-            this.btnIsporuka.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnIsporuka.FlatAppearance.BorderSize = 0;
-            this.btnIsporuka.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIsporuka.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnIsporuka.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnIsporuka.Location = new System.Drawing.Point(0, 88);
-            this.btnIsporuka.Name = "btnIsporuka";
-            this.btnIsporuka.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnIsporuka.Size = new System.Drawing.Size(228, 44);
-            this.btnIsporuka.TabIndex = 2;
-            this.btnIsporuka.Text = "Isporuka";
-            this.btnIsporuka.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIsporuka.UseVisualStyleBackColor = true;
-            this.btnIsporuka.Click += new System.EventHandler(this.btnIsporuka_Click);
-            // 
-            // btnServis
-            // 
-            this.btnServis.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnServis.FlatAppearance.BorderSize = 0;
-            this.btnServis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnServis.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnServis.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnServis.Location = new System.Drawing.Point(0, 44);
-            this.btnServis.Name = "btnServis";
-            this.btnServis.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnServis.Size = new System.Drawing.Size(228, 44);
-            this.btnServis.TabIndex = 1;
-            this.btnServis.Text = "Servis";
-            this.btnServis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnServis.UseVisualStyleBackColor = true;
-            this.btnServis.Click += new System.EventHandler(this.btnServis_Click);
             // 
             // btnPrijemUredjaja
             // 
@@ -403,27 +365,27 @@
             this.dodajToolStripMenuItem,
             this.vidiSveToolStripMenuItem});
             this.komponenteToolStripMenuItem.Name = "komponenteToolStripMenuItem";
-            this.komponenteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.komponenteToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.komponenteToolStripMenuItem.Text = "Komponente";
-            // 
-            // uređajToolStripMenuItem
-            // 
-            this.uređajToolStripMenuItem.Name = "uređajToolStripMenuItem";
-            this.uređajToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.uređajToolStripMenuItem.Text = "Uređaj";
             // 
             // dodajToolStripMenuItem
             // 
             this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
-            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.dodajToolStripMenuItem.Text = "Dodaj";
             this.dodajToolStripMenuItem.Click += new System.EventHandler(this.dodajToolStripMenuItem_Click);
             // 
             // vidiSveToolStripMenuItem
             // 
             this.vidiSveToolStripMenuItem.Name = "vidiSveToolStripMenuItem";
-            this.vidiSveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.vidiSveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.vidiSveToolStripMenuItem.Text = "Vidi sve";
+            // 
+            // uređajToolStripMenuItem
+            // 
+            this.uređajToolStripMenuItem.Name = "uređajToolStripMenuItem";
+            this.uređajToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.uređajToolStripMenuItem.Text = "Uređaj";
             // 
             // mdiPocetna
             // 
@@ -458,8 +420,6 @@
         private Button button1;
         private Panel pnlUredjaj;
         private Button btnLista;
-        private Button btnIsporuka;
-        private Button btnServis;
         private Button btnPrijemUredjaja;
         private Button btnStatistika;
         private Button btnIzvjestaj;

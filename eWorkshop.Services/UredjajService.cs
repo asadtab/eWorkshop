@@ -29,13 +29,14 @@ namespace eWorkshop.Services
         public override IQueryable<Uredjaj> AddInclude(IQueryable<Uredjaj> query, UredjajSearchObject search = null)
         {
             query = query.Include("Tip");
+            query = query.Include("Lokacija");
 
             return query;
         }
 
         public override UredjajVM GetById(int id)
         {
-            var uredjaj = Context.Uredjajs.Include(x => x.Tip).FirstOrDefault(x => x.UredjajId == id);
+            var uredjaj = Context.Uredjajs.Include(x => x.Tip).Include(x => x.Lokacija).FirstOrDefault(x => x.UredjajId == id);
 
             return Mapper.Map<UredjajVM>(uredjaj);
         }

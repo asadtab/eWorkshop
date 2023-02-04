@@ -3,6 +3,7 @@ using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,22 @@ namespace eWorkshop.Services
         {
             var filter = base.AddFilter(query, search);
 
-            if(search.ServisId != null)
+            if(search.ServisId != null && search.ServisId != 0)
                 filter = filter.Where(x => x.ServisId == search.ServisId);
 
+            if (search.UredjajId != null && search.UredjajId != 0)
+                filter = filter.Where(x => x.Servis.UredjajId == search.UredjajId);
+
             return filter;
+        }
+
+        public override IQueryable<IzvrseniServi> AddInclude(IQueryable<IzvrseniServi> query, ServisIzvrsenSearchObject search = null)
+        {
+            query = query.Include("Komponenta");
+            query = query.Include("Servis");
+            query = query.Include("Servis.RadniZadatak");
+
+            return query;
         }
     }
 }

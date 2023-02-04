@@ -49,6 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtLokacija = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtKoda
@@ -246,14 +247,29 @@
             this.button1.Text = "Novi radni zadatak";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // btnExit
+            // 
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExit.ForeColor = System.Drawing.Color.IndianRed;
+            this.btnExit.Location = new System.Drawing.Point(659, 12);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(49, 48);
+            this.btnExit.TabIndex = 22;
+            this.btnExit.Text = "X";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // frmPrijemUredjaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(730, 450);
+            this.ClientSize = new System.Drawing.Size(720, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtLokacija);
@@ -315,5 +331,6 @@
         private Label label9;
         private TextBox txtLokacija;
         private Button button1;
+        private Button btnExit;
     }
 }

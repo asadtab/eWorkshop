@@ -17,11 +17,15 @@ namespace eWorkshop.Model
 
         public string Status { get; set; }
 
-        public int LokacijaId { get; set; }
+        //public int LokacijaId { get; set; }
 
         public TipUredjajaVM Tip { get; set; } = new TipUredjajaVM();
         public string TipOpisNaziv { get { return Tip?.OpisNaziv; } set { } }
 
         public string IdTip { get { return UredjajId + " - " + TipOpisNaziv; } set { } }
+        public LokacijaVM Lokacija { get; set; } = new LokacijaVM();
+
+        //public string LokacijaNaziv { get { return Lokacija.Naziv; } set { } }
+
     }
 }

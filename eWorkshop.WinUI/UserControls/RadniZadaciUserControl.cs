@@ -44,6 +44,19 @@ namespace eWorkshop.WinUI.UserControls
                 pbProcenatZavrsenihUredjaja.Value = rezultat;
             }
         }
+
+        private void lbUredjaji_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem = lbUredjaji.SelectedItem.ToString();
+
+            int uredjaj = Int32.Parse(selectedItem.Substring(0, selectedItem.IndexOf(" ")));
+
+            frmUredjajDetalji childForm = new frmUredjajDetalji(uredjaj);
+            childForm.MdiParent = mdiPocetna.ActiveForm;
+            childForm.Text = "Detalji uređaja";
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
+        }
     }
 }
  

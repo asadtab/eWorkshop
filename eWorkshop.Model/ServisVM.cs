@@ -14,10 +14,12 @@ namespace eWorkshop.Model
 
         public int UredjajId { get; set; }
 
-        public int RadniZadatakId { get; set; }
+        //public int RadniZadatakId { get; set; }
 
         public DateTime? Datum { get; set; }
 
         public RadniZadatakVM RadniZadatak { get; set; } = new RadniZadatakVM();
+
+        /*public UredjajVM Uredjaj { get; set; }*/
     }
 }

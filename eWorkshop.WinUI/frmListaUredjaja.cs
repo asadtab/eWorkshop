@@ -1,5 +1,6 @@
 ﻿using eWorkshop.Model;
 using eWorkshop.Model.SearchObject;
+using eWorkshop.WinUI.Helper_classes;
 using eWorkshop.WinUI.Service;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace eWorkshop.WinUI
     {
         public APIService UredjajiService { get; set; } = new APIService("Uredjaj");
         List<UredjajiStateMachine> states = new List<UredjajiStateMachine>();
+        public StatusHelper Status { get; set; } = new StatusHelper();
         public frmListaUredjaja()
         {
             InitializeComponent();
@@ -29,17 +31,13 @@ namespace eWorkshop.WinUI
 
         private void populateCmb()
         {
-            string[] nizNaziv = { "idle", "active", "fix", "ready", "out", "parts" };
-            string[] nizOpis = { "Idle", "Aktivni uređaji", "Servisirani uređaji", "Spremni uređaji", "Poslani uređaji", "Rezervni uređaji" };
-
-            for (int i = 0; i < nizNaziv.Length; i++)
+            for (int i = 0; i < Status.nizNaziv.Length; i++)
                 states.Add(new UredjajiStateMachine()
                 {
                     Id = i,
-                    Naziv = nizNaziv[i],
-                    Opis = nizOpis[i]
+                    Naziv = Status.nizNaziv[i],
+                    Opis = Status.nizOpis[i]
                 });
-            
         }
 
         private async void frmListaUredjaja_Load(object sender, EventArgs e)
@@ -82,6 +80,9 @@ namespace eWorkshop.WinUI
             childForm.Show();
         }
 
-
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

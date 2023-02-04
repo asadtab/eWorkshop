@@ -59,6 +59,9 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.KomponentaId).HasColumnName("KomponentaID");
             entity.Property(e => e.ServisId).HasColumnName("ServisID");
+            entity.Property(e => e.KomponentaNaziv).HasColumnName("KomponentaNaziv");
+            entity.Property(e => e.KomponentaTip).HasColumnName("KomponentaTip");
+            entity.Property(e => e.KomponentaVrijednost).HasColumnName("KomponentaVrijednost");
 
             entity.HasOne(d => d.Komponenta).WithMany(p => p.IzvrseniServis)
                 .HasForeignKey(d => d.KomponentaId)

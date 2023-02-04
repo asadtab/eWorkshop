@@ -84,6 +84,7 @@
             this.lbUredjaji.Name = "lbUredjaji";
             this.lbUredjaji.Size = new System.Drawing.Size(124, 150);
             this.lbUredjaji.TabIndex = 1;
+            this.lbUredjaji.DoubleClick += new System.EventHandler(this.lbUredjaji_SelectedIndexChanged);
             // 
             // pbProcenatZavrsenihUredjaja
             // 

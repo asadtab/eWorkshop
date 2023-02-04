@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +95,7 @@
             // 
             // lokacija
             // 
-            this.lokacija.DataPropertyName = "LokacijaId";
+            this.lokacija.DataPropertyName = "LokacijaNaziv";
             this.lokacija.HeaderText = "Lokacija";
             this.lokacija.Name = "lokacija";
             this.lokacija.ReadOnly = true;
@@ -169,11 +170,26 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Pretraga:";
             // 
+            // btnExit
+            // 
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExit.ForeColor = System.Drawing.Color.IndianRed;
+            this.btnExit.Location = new System.Drawing.Point(659, 12);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(49, 48);
+            this.btnExit.TabIndex = 24;
+            this.btnExit.Text = "X";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // frmListaUredjaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 634);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
@@ -197,15 +213,16 @@
         private DataGridViewTextBoxColumn EvBroj;
         private DataGridViewTextBoxColumn Tip;
         private DataGridViewTextBoxColumn Koda;
+        private Label label1;
+        private Label label2;
+        private TextBox textBox1;
+        private Label label3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn serijskibroj;
         private DataGridViewTextBoxColumn lokacija;
         private DataGridViewButtonColumn akcija;
-        private Label label1;
-        private Label label2;
-        private TextBox textBox1;
-        private Label label3;
+        private Button btnExit;
     }
 }

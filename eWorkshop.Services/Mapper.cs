@@ -23,6 +23,7 @@ namespace eWorkshop.Services
             CreateMap<TipUredjaja, TipUredjajaVM>();
             CreateMap<RadniZadatakUredjaj, RadniZadatakUredjajVM>();
             CreateMap<RadniZadatakUredjaj, RadniZadatakUredjajBasicVM>();
+            CreateMap<Lokacija, LokacijaVM>();
 
             CreateMap<KorisniciUloge, KorisniciUlogeVM>();
             CreateMap<Uloge, UlogeVM>();

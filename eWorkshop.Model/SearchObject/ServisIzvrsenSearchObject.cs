@@ -7,5 +7,8 @@ namespace eWorkshop.Model.SearchObject
     public class ServisIzvrsenSearchObject
     {
         public int ServisId { get; set; }
+        public int UredjajId { get; set; }
+
+
     }
 }

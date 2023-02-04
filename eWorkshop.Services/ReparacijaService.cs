@@ -44,6 +44,8 @@ namespace eWorkshop.Services
         public override IQueryable<Servi> AddInclude(IQueryable<Servi> query, ReparacijaSearchObject search = null)
         {
             query = query.Include("RadniZadatak");
+            query = query.Include("Uredjaj");
+            //query = query.Include("Korisnik");
 
             return query;
         }
