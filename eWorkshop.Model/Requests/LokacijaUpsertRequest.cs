@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace eWorkshop.Model
+namespace eWorkshop.Model.Requests
 {
-    public class LokacijaVM
+    public class LokacijaUpsertRequest
     {
-        public int LokacijaId { get; set; }
         public string Naziv { get; set; }
 
         public string Opis { get; set; }

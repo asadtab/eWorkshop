@@ -27,6 +27,7 @@ namespace eWorkshop.Services
         public override IQueryable<RadniZadatakUredjaj> AddInclude(IQueryable<RadniZadatakUredjaj> query, RadniZadatakUredjajSearchObject search = null)
         {
             query = query.Include("RadniZadatak").Include("Uredjaj.Tip");
+            query = query.Include("Uredjaj.Lokacija");
 
             return query;
         }
@@ -47,6 +48,16 @@ namespace eWorkshop.Services
             if (!string.IsNullOrEmpty(search.UredjajState))
                 filter = filter.Where(x => x.Uredjaj.Status == search.UredjajState);
 
+            if (search.ZadatakState.Length > 0)
+            {
+                /*for (int i = 0; i < search.ZadatakState.Length; i++)
+                    filter = filter.Where(x => x.RadniZadatak.StateMachine == search.ZadatakState[i]);
+*/
+                filter = filter.Where(x => x.RadniZadatak.StateMachine == search.ZadatakState[0] 
+                || x.RadniZadatak.StateMachine == search.ZadatakState[1]);
+               // filter = filter.Where(x => x.RadniZadatak.StateMachine == search.ZadatakState[1]);
+            }
+
             return filter;
         }
 
@@ -61,7 +72,7 @@ namespace eWorkshop.Services
 
             if (radniZadatak.StateMachine == "idle")
             {
-                var stateRadniZadatak = RadniZadatakBaseState.CreateState(radniZadatak.StateMachine);
+                var stateRadniZadatak = RadniZadatakBaseState.CreateState("active");
                 stateRadniZadatak.CurrentEntity = radniZadatak;
                 stateRadniZadatak.Context = Context;
 

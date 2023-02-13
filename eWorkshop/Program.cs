@@ -40,9 +40,10 @@ builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<IKomponenteService, KomponenteService>();
 builder.Services.AddTransient<IServisIzvrsenService, ServisIzvrsenService>();
-builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
+//builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
 builder.Services.AddTransient<ITipUredjajaService, TipUredjajaService>();
 builder.Services.AddTransient<IRadniZadatakUredjajService, RadniZadatakUredjajService>();
+builder.Services.AddTransient<ILokacijaService, LokacijaService>();
 
 
 builder.Services.AddAutoMapper(typeof(UredjajService));

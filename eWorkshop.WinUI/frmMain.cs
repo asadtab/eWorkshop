@@ -34,10 +34,11 @@ namespace eWorkshop.WinUI
 
             var RadniZadatakDistinctIdList = getZadatakUredjaj.Select(x => x.RadniZadatakId).Distinct().ToList();
             
-            for (int i = 0; i < RadniZadatakDistinctIdList.Count; i++)
+            for (int i = 0; i < getZadaci.Count; i++)
             {
-                if (getZadaci[i].RadniZadatakId == RadniZadatakDistinctIdList[i])
+                if (getZadaci[i].StateMachine == "active")
                 {
+                    //filtriranje radnih zadataka na osnovu stanja (state machine pattern)
                     var control = new RadniZadaciUserControl(getZadatakUredjaj.Where(x => x.RadniZadatakId == getZadaci[i].RadniZadatakId).ToList());
                     control.Location = new Point(x, y);
 
@@ -45,6 +46,12 @@ namespace eWorkshop.WinUI
                     y += control.Height;
                 }
             }
+        }
+
+        private void btnNoviRadniZadatak_Click(object sender, EventArgs e)
+        {
+            frmNoviRadniZadatak childForm = new frmNoviRadniZadatak();
+            childForm.ShowDialog();
         }
     }
 }

@@ -20,6 +20,8 @@ namespace eWorkshop.WinUI
         APIService RadniZadatakUredjajService { get; set; } = new APIService("RadniZadatakUredjaj");
         APIService UredjajiService { get; set; } = new APIService("Uredjaj");
         APIService UredjajChangeStateTask { get; set; } = new APIService("Uredjaj/RadniZadatak");
+        public List<RadniZadatakUredjajVM> RadniZadatak { get; set; } = new List<RadniZadatakUredjajVM>();
+
         public frmRadniZadaci()
         {
             InitializeComponent();
@@ -27,59 +29,68 @@ namespace eWorkshop.WinUI
 
         private async void frmRadniZadaci_Load(object sender, EventArgs e)
         {
-            
+            var search = new RadniZadatakSearchObject();
 
-            var zadaci = await RadniZadatakService.Get<List<RadniZadatakVM>>();
+            search.StateMachineArray = new string[2] { "idle", "active" };
 
-            InMemoryLoad(zadaci);
+            var zadaci = await RadniZadatakService.Get<List<RadniZadatakVM>>(search);
 
-            PopulateListBoxZadaci();
-            PopulateListBoxUredjaji();
-            lbUredjaji.ClearSelected();
-            lbRadniZadatakUredjaj.ClearSelected();
-
-        }
-
-        //metoda za rad sa podaci u RAM memoriji
-        private void InMemoryLoad(List<RadniZadatakVM> zadaci)
-        {
             cmbRadniZadaci.DataSource = zadaci;
             cmbRadniZadaci.DisplayMember = "Naziv";
             cmbRadniZadaci.ValueMember = "RadniZadatakID";
+
+
+            PopulateListBoxUredjaji();
+            PopulateListBoxZadaci();
+            PopulateInfo();
         }
 
-        private async void cmbRadniZadaci_SelectedIndexChanged(object sender, EventArgs e)
+        private void PopulateInfo()
+        {
+            var radniZadatakCmb = cmbRadniZadaci.SelectedItem as RadniZadatakVM;
+
+
+            lblNaziv.Text = radniZadatakCmb.Naziv;
+            lblDatum.Text = radniZadatakCmb.Datum.Day.ToString() + "." + radniZadatakCmb.Datum.Month.ToString() + "." + radniZadatakCmb.Datum.Year.ToString();
+            lblStanje.Text = radniZadatakCmb.StateMachine;
+            //lblUkupno.Text = uredjaji.Count.ToString();
+        }
+
+/*        private async void PopulateCmbZadaci()
+        {
+            var search = new RadniZadatakUredjajSearchObject();
+
+            search.ZadatakState = new string[2] { "idle", "active" };
+
+            var zadaci = await RadniZadatakService.Get<List<RadniZadatakVM>>(search);
+
+            cmbRadniZadaci.DataSource = zadaci;
+            cmbRadniZadaci.DisplayMember = "Naziv";
+            cmbRadniZadaci.ValueMember = "RadniZadatakID";
+
+            PopulateInfo();
+        }*/
+
+/*        private async void cmbRadniZadaci_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateListBoxZadaci();
-        }
-
+        }*/
 
         //filtriranje liste prema radnim zadacima
-
-
         private async void PopulateListBoxZadaci()
         {
             var radniZadatakCmb = cmbRadniZadaci.SelectedItem as RadniZadatakVM;
 
             var search = new RadniZadatakUredjajSearchObject();
             search.RadniZadatakId = radniZadatakCmb.RadniZadatakId;
-            //search.UredjajState = "task";
 
-            var uredjaji = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(search);
+            RadniZadatak = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(search);
 
-
-            lblNaziv.Text = radniZadatakCmb.Naziv;
-            lblDatum.Text = radniZadatakCmb.Datum.ToString();
-            lblStanje.Text = radniZadatakCmb.StateMachine;
-            lblUkupno.Text = uredjaji.Count.ToString();
-
-            //lbRadniZadatakUredjaj.DataSource = uredjaji;
-
-            lbRadniZadatakUredjaj.Items.Clear();
-            lbRadniZadatakUredjaj.Items.AddRange(uredjaji.Cast<object>().ToArray());
+            lbRadniZadatakUredjaj.DataSource = RadniZadatak;
             lbRadniZadatakUredjaj.DisplayMember = "IdTip";
             lbRadniZadatakUredjaj.ValueMember = "UredjajId";
 
+            lblUkupno.Text = RadniZadatak.Count.ToString();
         }
 
         private async void PopulateListBoxUredjaji()
@@ -93,34 +104,15 @@ namespace eWorkshop.WinUI
             lbUredjaji.DataSource = uredjaji;
             lbUredjaji.DisplayMember = "IdTip";
             lbUredjaji.ValueMember = "UredjajId";
-
         }
-
         
         private async void btnDodaj_Click(object sender, EventArgs e)
         {
-            /*var bw = new BackgroundWorker();
-
-            bw.DoWork += (sender, e) => DodajUredjajURadniZadatak();
-            bw.RunWorkerCompleted += (sender, r) => PopulateListBoxZadaci();
-            bw.RunWorkerCompleted += (sender, r) => PopulateListBoxUredjaji();
-            bw.RunWorkerAsync();*/
-
             DodajUredjajURadniZadatak();
 
             PopulateListBoxZadaci();
             PopulateListBoxUredjaji();
 
-            lbRadniZadatakUredjaj.Refresh();
-            lbRadniZadatakUredjaj.Update();
-            lbUredjaji.Update();
-            lbUredjaji.Refresh();
-
-
-            
-
-
-            MessageBox.Show("Uredjaj je uspjesno dodan u radni zadatak");
             this.Invalidate();
         }
 
@@ -131,16 +123,17 @@ namespace eWorkshop.WinUI
 
             var search = new RadniZadatakUredjajSearchObject();
             search.RadniZadatakId = radniZadatakId;
-            search.UredjajId = uredjajId;
+            //search.UredjajId = uredjajId;
 
             var radniZadaci = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(search);
-            //provjera da li uredjaj postoji u radnom zadatku
+            //provjera da li uredjaj postoji u radnom zadatku i da li radni zadatak zavrsen
             foreach (var uredjaj in radniZadaci)
             {
-                if (uredjaj.UredjajId == uredjajId && uredjaj.RadniZadatakId == radniZadatakId 
-                    || uredjaj.UredjajId == uredjajId && uredjaj.RadniZadatakId != radniZadatakId)
+                if (uredjaj.UredjajId == uredjajId
+                    || uredjaj.RadniZadatak.StateMachine == "done"
+                    || uredjaj.RadniZadatak.StateMachine == "invoice")
                 {
-                    MessageBox.Show("Uredjaj postoji u radnom zadatku");
+                    MessageBox.Show("Uredjaj postoji u radnom zadatku ili je radni zadatak završen.");
                     return;
                 }
             }
@@ -152,15 +145,44 @@ namespace eWorkshop.WinUI
                 KorisnikId = 1,
                 Napomena = "napomena"
             };
-            //RadniZadatakUredjajService.Post<RadniZadatakUredjajVM>(request);
-            UredjajChangeStateTask.Put<UredjajVM>(request);
+
+            var zadatak = await UredjajChangeStateTask.Put<UredjajVM>(request);
+
+            if (zadatak != null)
+            {
+                PopulateListBoxUredjaji();
+                PopulateListBoxZadaci();
+                MessageBox.Show("Uredjaj je uspjesno dodan u radni zadatak");
+            }
         }
 
-        private void btnIzbaci_Click(object sender, EventArgs e)
+        private async void btnIzbaci_Click(object sender, EventArgs e)
         {
-            RadniZadatakUredjajService.Delete((lbRadniZadatakUredjaj.SelectedItem as RadniZadatakUredjajVM).Id);
+            var selectedItem = (lbRadniZadatakUredjaj.SelectedItem as RadniZadatakUredjajVM);
+
+            await RadniZadatakUredjajService.Delete(selectedItem.Id);
+
+            var search = new RadniZadatakUredjajSearchObject();
+            search.RadniZadatakId = selectedItem.RadniZadatakId;
+
+            var provjera = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(search);
+            bool flag = false;
+
+            //provjera da li uredjaj postoji jos uvijek u radnom zadatku
+            for (int i = 0; i < provjera.Count; i++)
+                if (provjera[i].UredjajId == selectedItem.UredjajId)
+                    flag = true;
+
+            if (!flag)
+            {
+                PopulateListBoxZadaci();
+                PopulateListBoxUredjaji();
+                MessageBox.Show("Uređaj je izbačen iz radnog zadatka.");
+                return;
+            }
+
+            MessageBox.Show("Došlo je do greške.");
             this.Invalidate();
-            
         }
 
         private void lbRadniZadatakUredjaj_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,6 +211,26 @@ namespace eWorkshop.WinUI
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cmbRadniZadaci_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateListBoxZadaci();
+        }
+
+        private void btnNoviRadniZadatak_Click(object sender, EventArgs e)
+        {
+            frmNoviRadniZadatak childForm = new frmNoviRadniZadatak();
+            childForm.ShowDialog();
+        }
+
+        private void btnRadniZadatakDetalji_Click(object sender, EventArgs e)
+        {
+            frmRadniZadatakDetalji childForm = new frmRadniZadatakDetalji(RadniZadatak);
+            childForm.MdiParent = MdiParent;
+            childForm.Text = "Window ";
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
         }
     }
 }

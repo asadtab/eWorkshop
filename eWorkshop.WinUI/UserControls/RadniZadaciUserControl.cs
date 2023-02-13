@@ -13,6 +13,9 @@ namespace eWorkshop.WinUI.UserControls
 {
     public partial class RadniZadaciUserControl : UserControl
     {
+        public List<RadniZadatakUredjajVM> RadniZadatak { get; set; } = new List<RadniZadatakUredjajVM>();
+        public double Ukupno { get; set; }
+        public double Progres { get; set; }
         public RadniZadaciUserControl()
         {
             InitializeComponent();
@@ -20,6 +23,8 @@ namespace eWorkshop.WinUI.UserControls
 
         public RadniZadaciUserControl(List<RadniZadatakUredjajVM> radniZadatak = null) : this()
         {
+            RadniZadatak = radniZadatak;
+
             double zavrseniUredjaji = 0;
             if (radniZadatak != null)
             {
@@ -29,19 +34,24 @@ namespace eWorkshop.WinUI.UserControls
                 {
                     string infoUredjaj = radniZadatak[i].UredjajId + " - " + radniZadatak[i].Uredjaj.Tip.Naziv;
 
-                    if (radniZadatak[i].Uredjaj.Status == "fix")
+                    if (radniZadatak[i].Uredjaj.Status == "fix" 
+                        || radniZadatak[i].Uredjaj.Status == "ready"
+                        || radniZadatak[i].Uredjaj.Status == "out")
                         zavrseniUredjaji++;
 
                     lbUredjaji.Items.Add(infoUredjaj);
                 }
 
                 double ukupno = radniZadatak.Count;
-
+                
                 double procenat = zavrseniUredjaji / ukupno;
 
                 int rezultat = (int)(procenat * 100);
 
                 pbProcenatZavrsenihUredjaja.Value = rezultat;
+
+                Ukupno = ukupno;
+                Progres = rezultat;
             }
         }
 
@@ -54,6 +64,15 @@ namespace eWorkshop.WinUI.UserControls
             frmUredjajDetalji childForm = new frmUredjajDetalji(uredjaj);
             childForm.MdiParent = mdiPocetna.ActiveForm;
             childForm.Text = "Detalji uređaja";
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
+        }
+
+        private void btnDetalji_Click(object sender, EventArgs e)
+        {
+            frmRadniZadatakDetalji childForm = new frmRadniZadatakDetalji(RadniZadatak);
+            childForm.MdiParent = mdiPocetna.ActiveForm;
+            childForm.Text = "Radni zadatak";
             childForm.Dock = DockStyle.Fill;
             childForm.Show();
         }

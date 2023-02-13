@@ -61,20 +61,20 @@ namespace eWorkshop.Services.RadniZadatakStateMachine
         {
             switch (state)
             {
-                case "inital":
+                case "initial":
                     return ServiceProvider.GetService<InitialTaskState>();
                     break;
-                case "idle": 
+                case "active": 
                     return ServiceProvider.GetService<IdleTaskState>();
                     break;
-                case "active":
+                case "done":
                     return ServiceProvider.GetService<ActiveTaskState>();
                     break;
-                case "done":
+                case "invoice":
                     return ServiceProvider.GetService<DoneTaskState>();
                     break;
-                case "invoice":
-                    return ServiceProvider.GetService<InvoiceTaskState>();
+                //case "invoice":
+                    //return ServiceProvider.GetService<InvoiceTaskState>();
                 default:
                     throw new Exception("Akcija ne postoji");
             }

@@ -29,25 +29,26 @@
         private void InitializeComponent()
         {
             this.flPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNoviRadniZadatak = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flPanel
             // 
             this.flPanel.AutoScroll = true;
-            this.flPanel.Location = new System.Drawing.Point(155, 120);
+            this.flPanel.Location = new System.Drawing.Point(155, 97);
             this.flPanel.Name = "flPanel";
-            this.flPanel.Size = new System.Drawing.Size(633, 210);
+            this.flPanel.Size = new System.Drawing.Size(633, 266);
             this.flPanel.TabIndex = 0;
             // 
-            // button1
+            // btnNoviRadniZadatak
             // 
-            this.button1.Location = new System.Drawing.Point(3, 214);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Dodaj novi radni zadatak";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNoviRadniZadatak.Location = new System.Drawing.Point(3, 214);
+            this.btnNoviRadniZadatak.Name = "btnNoviRadniZadatak";
+            this.btnNoviRadniZadatak.Size = new System.Drawing.Size(146, 23);
+            this.btnNoviRadniZadatak.TabIndex = 2;
+            this.btnNoviRadniZadatak.Text = "Dodaj novi radni zadatak";
+            this.btnNoviRadniZadatak.UseVisualStyleBackColor = true;
+            this.btnNoviRadniZadatak.Click += new System.EventHandler(this.btnNoviRadniZadatak_Click);
             // 
             // frmMain
             // 
@@ -56,7 +57,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnNoviRadniZadatak);
             this.Controls.Add(this.flPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -71,6 +72,6 @@
         #endregion
 
         private FlowLayoutPanel flPanel;
-        private Button button1;
+        private Button btnNoviRadniZadatak;
     }
 }

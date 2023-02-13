@@ -44,12 +44,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnRegistruj = new System.Windows.Forms.Button();
             this.cmbTipUredjaja = new System.Windows.Forms.ComboBox();
-            this.cmbRadniZadatak = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtLokacija = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.cmbLokacija = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtKoda
@@ -68,7 +65,6 @@
             this.label1.Size = new System.Drawing.Size(34, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Koda";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -136,7 +132,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(299, 40);
+            this.label6.Location = new System.Drawing.Point(176, 34);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(202, 37);
             this.label6.TabIndex = 10;
@@ -145,7 +141,7 @@
             // 
             // btnGenerisiSerijskiBroj
             // 
-            this.btnGenerisiSerijskiBroj.Location = new System.Drawing.Point(554, 242);
+            this.btnGenerisiSerijskiBroj.Location = new System.Drawing.Point(555, 192);
             this.btnGenerisiSerijskiBroj.Name = "btnGenerisiSerijskiBroj";
             this.btnGenerisiSerijskiBroj.Size = new System.Drawing.Size(132, 29);
             this.btnGenerisiSerijskiBroj.TabIndex = 11;
@@ -155,7 +151,7 @@
             // 
             // btnNoviTipUredjaja
             // 
-            this.btnNoviTipUredjaja.Location = new System.Drawing.Point(554, 142);
+            this.btnNoviTipUredjaja.Location = new System.Drawing.Point(555, 142);
             this.btnNoviTipUredjaja.Name = "btnNoviTipUredjaja";
             this.btnNoviTipUredjaja.Size = new System.Drawing.Size(132, 29);
             this.btnNoviTipUredjaja.TabIndex = 12;
@@ -166,7 +162,7 @@
             // txtEvBroj
             // 
             this.txtEvBroj.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtEvBroj.Location = new System.Drawing.Point(554, 310);
+            this.txtEvBroj.Location = new System.Drawing.Point(555, 242);
             this.txtEvBroj.Name = "txtEvBroj";
             this.txtEvBroj.ReadOnly = true;
             this.txtEvBroj.Size = new System.Drawing.Size(132, 29);
@@ -177,7 +173,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(554, 292);
+            this.label7.Location = new System.Drawing.Point(555, 224);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(145, 15);
             this.label7.TabIndex = 14;
@@ -185,7 +181,7 @@
             // 
             // btnRegistruj
             // 
-            this.btnRegistruj.Location = new System.Drawing.Point(554, 359);
+            this.btnRegistruj.Location = new System.Drawing.Point(555, 292);
             this.btnRegistruj.Name = "btnRegistruj";
             this.btnRegistruj.Size = new System.Drawing.Size(132, 29);
             this.btnRegistruj.TabIndex = 15;
@@ -201,51 +197,15 @@
             this.cmbTipUredjaja.Name = "cmbTipUredjaja";
             this.cmbTipUredjaja.Size = new System.Drawing.Size(235, 29);
             this.cmbTipUredjaja.TabIndex = 16;
-            this.cmbTipUredjaja.SelectedIndexChanged += new System.EventHandler(this.cmbTipUredjaja_SelectedIndexChanged);
-            // 
-            // cmbRadniZadatak
-            // 
-            this.cmbRadniZadatak.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmbRadniZadatak.FormattingEnabled = true;
-            this.cmbRadniZadatak.Location = new System.Drawing.Point(12, 242);
-            this.cmbRadniZadatak.Name = "cmbRadniZadatak";
-            this.cmbRadniZadatak.Size = new System.Drawing.Size(235, 29);
-            this.cmbRadniZadatak.TabIndex = 18;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 224);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(80, 15);
-            this.label8.TabIndex = 17;
-            this.label8.Text = "Radni zadatak";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(259, 224);
+            this.label9.Location = new System.Drawing.Point(12, 224);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(50, 15);
             this.label9.TabIndex = 20;
             this.label9.Text = "Lokacija";
-            // 
-            // txtLokacija
-            // 
-            this.txtLokacija.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtLokacija.Location = new System.Drawing.Point(259, 242);
-            this.txtLokacija.Name = "txtLokacija";
-            this.txtLokacija.Size = new System.Drawing.Size(235, 29);
-            this.txtLokacija.TabIndex = 19;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(554, 192);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 29);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Novi radni zadatak";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // btnExit
             // 
@@ -261,6 +221,18 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // cmbLokacija
+            // 
+            this.cmbLokacija.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbLokacija.FormattingEnabled = true;
+            this.cmbLokacija.Items.AddRange(new object[] {
+            "Odaberi lokaciju"});
+            this.cmbLokacija.Location = new System.Drawing.Point(12, 242);
+            this.cmbLokacija.Name = "cmbLokacija";
+            this.cmbLokacija.Size = new System.Drawing.Size(235, 29);
+            this.cmbLokacija.TabIndex = 23;
+            this.cmbLokacija.Text = "Odaberi lokaciju";
+            // 
             // frmPrijemUredjaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -269,12 +241,9 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(720, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.cmbLokacija);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtLokacija);
-            this.Controls.Add(this.cmbRadniZadatak);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.cmbTipUredjaja);
             this.Controls.Add(this.btnRegistruj);
             this.Controls.Add(this.label7);
@@ -326,11 +295,8 @@
         private Label label7;
         private Button btnRegistruj;
         private ComboBox cmbTipUredjaja;
-        private ComboBox cmbRadniZadatak;
-        private Label label8;
         private Label label9;
-        private TextBox txtLokacija;
-        private Button button1;
         private Button btnExit;
+        private ComboBox cmbLokacija;
     }
 }

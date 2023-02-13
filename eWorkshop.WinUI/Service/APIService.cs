@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eWorkshop.Model;
+using System.Net;
 
 namespace eWorkshop.WinUI.Service
 {
@@ -51,11 +52,11 @@ namespace eWorkshop.WinUI.Service
 
             return result;
         }
-        public async Task Delete(int id)
+        public async Task Delete (int id)
         {
             await $"{EndPoint}{Resource}/{id}".WithBasicAuth(username, password).DeleteAsync();
 
-            //return result;
+            //return T;
         }
 
     }

@@ -16,15 +16,6 @@ namespace eWorkshop.Controllers
             RadniZadatakUredjajService = radniZadatakUredjajService;
         }
 
-/*        [HttpPut]
-        public RadniZadatakUredjajVM Dodaj([FromBody] RadniZadatakUredjajUpsertRequest request)
-        {
-            return RadniZadatakUredjajService.Dodaj(request);
-        }*/
-
-
-
-
         [HttpDelete("{id}")]
         public override ActionResult Delete(int id)
         {

@@ -178,7 +178,6 @@
             this.lblKoda.Size = new System.Drawing.Size(52, 21);
             this.lblKoda.TabIndex = 7;
             this.lblKoda.Text = "label7";
-            this.lblKoda.Click += new System.EventHandler(this.lblKoda_Click);
             // 
             // label5
             // 
@@ -298,7 +297,6 @@
             this.groupBox3.Size = new System.Drawing.Size(118, 171);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // btnVrati
             // 

@@ -63,6 +63,7 @@
             this.dgvLista.RowTemplate.Height = 25;
             this.dgvLista.Size = new System.Drawing.Size(696, 435);
             this.dgvLista.TabIndex = 0;
+            this.dgvLista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLista_CellContentClick_1);
             this.dgvLista.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLista_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1

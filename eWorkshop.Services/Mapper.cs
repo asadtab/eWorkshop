@@ -38,6 +38,7 @@ namespace eWorkshop.Services
             CreateMap<KomponenteUpsertRequest, Komponente>(); 
             CreateMap<TipUredjajaUpsertRequest, TipUredjaja>(); 
             CreateMap<RadniZadatakUredjajUpsertRequest, RadniZadatakUredjaj>(); 
+            CreateMap<LokacijaUpsertRequest, Lokacija>(); 
         }
     }
 }

@@ -369,7 +369,6 @@
             this.label9.Size = new System.Drawing.Size(110, 15);
             this.label9.TabIndex = 21;
             this.label9.Text = "Vrijednost/Količina:";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // txtKomponentaVrijednost
             // 

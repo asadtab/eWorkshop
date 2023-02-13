@@ -35,8 +35,8 @@
             this.lbRadniZadatakUredjaj = new System.Windows.Forms.ListBox();
             this.cmbRadniZadaci = new System.Windows.Forms.ComboBox();
             this.btnIzbaci = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnRadniZadatakDetalji = new System.Windows.Forms.Button();
+            this.btnNoviRadniZadatak = new System.Windows.Forms.Button();
             this.btnDodaj = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblNaziv = new System.Windows.Forms.Label();
@@ -134,23 +134,25 @@
             this.btnIzbaci.UseVisualStyleBackColor = true;
             this.btnIzbaci.Click += new System.EventHandler(this.btnIzbaci_Click);
             // 
-            // button2
+            // btnRadniZadatakDetalji
             // 
-            this.button2.Location = new System.Drawing.Point(506, 395);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(143, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Završi";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnRadniZadatakDetalji.Location = new System.Drawing.Point(506, 395);
+            this.btnRadniZadatakDetalji.Name = "btnRadniZadatakDetalji";
+            this.btnRadniZadatakDetalji.Size = new System.Drawing.Size(143, 23);
+            this.btnRadniZadatakDetalji.TabIndex = 4;
+            this.btnRadniZadatakDetalji.Text = "Detalji";
+            this.btnRadniZadatakDetalji.UseVisualStyleBackColor = true;
+            this.btnRadniZadatakDetalji.Click += new System.EventHandler(this.btnRadniZadatakDetalji_Click);
             // 
-            // button3
+            // btnNoviRadniZadatak
             // 
-            this.button3.Location = new System.Drawing.Point(506, 366);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Novi radni zadatak";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnNoviRadniZadatak.Location = new System.Drawing.Point(506, 366);
+            this.btnNoviRadniZadatak.Name = "btnNoviRadniZadatak";
+            this.btnNoviRadniZadatak.Size = new System.Drawing.Size(143, 23);
+            this.btnNoviRadniZadatak.TabIndex = 5;
+            this.btnNoviRadniZadatak.Text = "Novi radni zadatak";
+            this.btnNoviRadniZadatak.UseVisualStyleBackColor = true;
+            this.btnNoviRadniZadatak.Click += new System.EventHandler(this.btnNoviRadniZadatak_Click);
             // 
             // btnDodaj
             // 
@@ -295,8 +297,8 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnDodaj);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnNoviRadniZadatak);
+            this.Controls.Add(this.btnRadniZadatakDetalji);
             this.Controls.Add(this.btnIzbaci);
             this.Controls.Add(this.gbRadniZadaci);
             this.Controls.Add(this.groupBox1);
@@ -321,8 +323,8 @@
         private ListBox lbRadniZadatakUredjaj;
         private ComboBox cmbRadniZadaci;
         private Button btnIzbaci;
-        private Button button2;
-        private Button button3;
+        private Button btnRadniZadatakDetalji;
+        private Button btnNoviRadniZadatak;
         private Button btnDodaj;
         private Label label1;
         private Label lblNaziv;

@@ -39,14 +39,12 @@ namespace eWorkshop.WinUI
             lblKoda.Text = Uredjaj.Koda.ToString();
             lblLokacija.Text = Uredjaj.Lokacija.Naziv.ToString();
             lblSerBroj.Text = Uredjaj.SerijskiBroj.ToString();
-            lblStatus.Text = StatusHelp.ProvjeraStatusa(Uredjaj.Status);
+            lblStatus.Text = StatusHelp.ProvjeraStatusa(Uredjaj.Status, StatusHelp.nizNaziv, StatusHelp.nizOpis);
             lblTip.Text = Uredjaj.Tip.Naziv.ToString();
         }
 
         private async void btnKomponenta_Click(object sender, EventArgs e)
         {
-            //KomponenteId.Add(1);
-
             ListViewItem item = new ListViewItem(Brojac++.ToString());
             item.SubItems.Add(txtKomponentaNaziv.Text);
             item.SubItems.Add(txtKomponentaVrijednost.Text);
@@ -67,9 +65,10 @@ namespace eWorkshop.WinUI
 
             var request = new KomponenteVM();
 
-            if (search == null)
+            if (search.Count == 0)
             {
                 request = await KomponenteService.Post<KomponenteVM>(komponenta);
+                KomponenteId.Add(request.KomponentaId);
             }
 
             if(request != null)
@@ -77,11 +76,6 @@ namespace eWorkshop.WinUI
                 MessageBox.Show("Komponenta je uspjesno dodana.");
                 OcistiTextBox();
             }
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
         }
 
         private async void button1_Click(object sender, EventArgs e)

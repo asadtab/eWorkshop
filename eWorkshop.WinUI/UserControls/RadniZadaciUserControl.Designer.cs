@@ -33,6 +33,7 @@
             this.cmsDesniKlik = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.asdaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDetalji = new System.Windows.Forms.Button();
             this.lbUredjaji = new System.Windows.Forms.ListBox();
             this.pbProcenatZavrsenihUredjaja = new System.Windows.Forms.ProgressBar();
             this.gbZadatak.SuspendLayout();
@@ -43,12 +44,14 @@
             // 
             this.gbZadatak.BackColor = System.Drawing.Color.Transparent;
             this.gbZadatak.ContextMenuStrip = this.cmsDesniKlik;
+            this.gbZadatak.Controls.Add(this.btnDetalji);
             this.gbZadatak.Controls.Add(this.lbUredjaji);
             this.gbZadatak.Controls.Add(this.pbProcenatZavrsenihUredjaja);
+            this.gbZadatak.Cursor = System.Windows.Forms.Cursors.Hand;
             this.gbZadatak.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbZadatak.Location = new System.Drawing.Point(0, 0);
             this.gbZadatak.Name = "gbZadatak";
-            this.gbZadatak.Size = new System.Drawing.Size(130, 202);
+            this.gbZadatak.Size = new System.Drawing.Size(130, 239);
             this.gbZadatak.TabIndex = 1;
             this.gbZadatak.TabStop = false;
             this.gbZadatak.Text = "groupBox1";
@@ -73,10 +76,21 @@
             this.asdToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.asdToolStripMenuItem.Text = "asd";
             // 
+            // btnDetalji
+            // 
+            this.btnDetalji.Location = new System.Drawing.Point(6, 208);
+            this.btnDetalji.Name = "btnDetalji";
+            this.btnDetalji.Size = new System.Drawing.Size(118, 23);
+            this.btnDetalji.TabIndex = 2;
+            this.btnDetalji.Text = "Otvori";
+            this.btnDetalji.UseVisualStyleBackColor = true;
+            this.btnDetalji.Click += new System.EventHandler(this.btnDetalji_Click);
+            // 
             // lbUredjaji
             // 
             this.lbUredjaji.BackColor = System.Drawing.SystemColors.Control;
             this.lbUredjaji.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbUredjaji.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.lbUredjaji.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbUredjaji.FormattingEnabled = true;
             this.lbUredjaji.ItemHeight = 15;
@@ -89,8 +103,10 @@
             // pbProcenatZavrsenihUredjaja
             // 
             this.pbProcenatZavrsenihUredjaja.Location = new System.Drawing.Point(0, 179);
+            this.pbProcenatZavrsenihUredjaja.MarqueeAnimationSpeed = 50;
             this.pbProcenatZavrsenihUredjaja.Name = "pbProcenatZavrsenihUredjaja";
             this.pbProcenatZavrsenihUredjaja.Size = new System.Drawing.Size(130, 23);
+            this.pbProcenatZavrsenihUredjaja.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pbProcenatZavrsenihUredjaja.TabIndex = 0;
             // 
             // RadniZadaciUserControl
@@ -100,7 +116,7 @@
             this.ContextMenuStrip = this.cmsDesniKlik;
             this.Controls.Add(this.gbZadatak);
             this.Name = "RadniZadaciUserControl";
-            this.Size = new System.Drawing.Size(130, 202);
+            this.Size = new System.Drawing.Size(130, 239);
             this.gbZadatak.ResumeLayout(false);
             this.cmsDesniKlik.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -115,5 +131,6 @@
         private ContextMenuStrip cmsDesniKlik;
         private ToolStripMenuItem asdaToolStripMenuItem;
         private ToolStripMenuItem asdToolStripMenuItem;
+        private Button btnDetalji;
     }
 }

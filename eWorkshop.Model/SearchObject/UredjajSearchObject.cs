@@ -17,5 +17,6 @@ namespace eWorkshop.Model.SearchObject
         public string Status { get; set; }
 
         public int Lokacija { get; set; }
+        public bool GetNajveciEvBroj { get; set; } = false;
     }
 }

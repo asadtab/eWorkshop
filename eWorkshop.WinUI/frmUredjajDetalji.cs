@@ -44,14 +44,9 @@ namespace eWorkshop.WinUI
             lblStatus.Text = Uredjaj.Status.ToString();
             lblLokacija.Text = Uredjaj.Lokacija.Naziv.ToString();
             //Prikazivanje human readable statusa za uredjaje preko helper metode
-            lblStatus.Text = Status.ProvjeraStatusa(Uredjaj.Status);
+            lblStatus.Text = Status.ProvjeraStatusa(Uredjaj.Status, Status.nizNaziv, Status.nizOpis);
 
             EnableDisableButtons();
-        }
-
-        private void lblKoda_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void frmUredjajDetalji_Load(object sender, EventArgs e)
@@ -133,6 +128,18 @@ namespace eWorkshop.WinUI
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = false;
             }
+
+            //status - task
+            if (Uredjaj.Status == Status.nizNaziv[6])
+            {
+                btnAktiviraj.Enabled = false;
+                //btnDeaktiviraj.Enabled = false;
+                btnDijelovi.Enabled = false;
+                btnPosalji.Enabled = false;
+                btnServisiraj.Enabled = true;
+                btnSpremi.Enabled = false;
+                btnVrati.Enabled = false;
+            }
         }
 
         private async void UcitajHistorijuServisiranja()
@@ -155,20 +162,21 @@ namespace eWorkshop.WinUI
              koje odgovaraju odredjenom servisu*/
             for (int i = 0; i < reparacija.Count; i++)
             {
+                var datum = reparacija[i].Datum.Value.Day.ToString()
+                    + "." +
+                    reparacija[i].Datum.Value.Month.ToString()
+                    + "." +
+                    reparacija[i].Datum.Value.Year.ToString();
+
                 var control = 
                     new HistorijaServisaUserControl(komponente
-                    .Where(x => x.Servis.ServisId == reparacija[i].ServisId).ToList(), reparacija[i].Datum.ToString());
+                    .Where(x => x.Servis.ServisId == reparacija[i].ServisId).ToList(), datum);
 
                 control.Location = new Point(x, y);
 
                 flpHistorija.Controls.Add(control);
                 y += control.Height;
             }
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void AktivirajReadyVratiClick() 

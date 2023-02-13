@@ -84,5 +84,10 @@ namespace eWorkshop.WinUI
         {
             this.Close();
         }
+
+        private void dgvLista_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
