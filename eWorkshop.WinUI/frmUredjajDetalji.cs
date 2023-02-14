@@ -24,8 +24,8 @@ namespace eWorkshop.WinUI
         APIService ServisIzvrsenService { get; set; } = new APIService("ServisIzvrsen");
         public StatusHelper Status { get; set; } = new StatusHelper();
         UredjajVM Uredjaj { get; set; } = new UredjajVM();
+        public FormControl FormControl { get; set; } = new FormControl();
 
-        
 
         public frmUredjajDetalji(int evBroj)
         {
@@ -207,10 +207,7 @@ namespace eWorkshop.WinUI
         private void btnServisiraj_Click(object sender, EventArgs e)
         {
             frmServis childForm = new frmServis(Uredjaj);
-            childForm.MdiParent = MdiParent;
-            childForm.Text = "Servis";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void btnExit_Click(object sender, EventArgs e)

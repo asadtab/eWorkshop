@@ -18,12 +18,14 @@ namespace eWorkshop.WinUI
     {
         public List<RadniZadatakUredjajVM> RadniZadatakUredjaj { get; }
         public APIService RadniZadatakUredjajService { get; set; } = new APIService("RadniZadatakUredjaj");
+        public APIService UredjajService { get; set; }
         public APIService RadniZadatakService { get; set; }
         public RadniZadatakUredjajVM RadniZadatak { get; }
         public List<RadniZadatakUredjajVM> RadniZadatakAll { get; }
         public StatusHelper StatusHelp { get; set; } = new StatusHelper();
         public double Ukupno { get; set; }
         public double Progres { get; set; }
+        public FormControl FormControl { get; set; } = new FormControl();
 
         public frmRadniZadatakDetalji()
         {
@@ -34,14 +36,8 @@ namespace eWorkshop.WinUI
         {
             RadniZadatak = radniZadaci[0];
             RadniZadatakAll = radniZadaci;
-            //Ukupno = ukupno;
-            //Progres = progres;
 
-            dgvUredjaji.AutoGenerateColumns = false;
-
-
-            dgvUredjaji.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUredjaji.MultiSelect = false;
+            FormControl.OpcijeTabele(dgvUredjaji);
         }
 
         private void frmRadniZadatakDetalji_Load(object sender, EventArgs e)
@@ -126,19 +122,10 @@ namespace eWorkshop.WinUI
 
         private void dgvUredjaji_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int index = e.RowIndex;
-
-            var selectedRow = dgvUredjaji.Rows[index];
-
-            //MessageBox.Show(selectedRow.Cells[0].Value.ToString());
-
-            int evBroj = (int)selectedRow.Cells[0].Value;
+            int evBroj = FormControl.SelektujRedIVratiId(dgvUredjaji, e);
 
             frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj);
-            childForm.MdiParent = this.MdiParent;
-            childForm.Text = "Window ";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -149,15 +136,23 @@ namespace eWorkshop.WinUI
         private void btnDodajUredjaj_Click(object sender, EventArgs e)
         {
             frmRadniZadaci childForm = new frmRadniZadaci();
-            childForm.MdiParent = MdiParent;
-            childForm.Text = "Radni zadaci";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private async void btnZavrsi_Click(object sender, EventArgs e)
         {
             RadniZadatakService = new APIService("RadniZadatak/Zavrsi/" + RadniZadatak.RadniZadatak.RadniZadatakId);
+
+            UredjajSearchObject search = new UredjajSearchObject();
+
+            for (int i = 0; i < RadniZadatakAll.Count; i++)
+            {
+                search.UredjajId = RadniZadatakAll[i].UredjajId;
+                UredjajService = new APIService("Uredjaj/VratiIzTaska/" + search.UredjajId);
+
+                if (RadniZadatakAll[i].Uredjaj.Status == "task")
+                    await UredjajService.Put<UredjajVM>(search);
+            }
 
             await RadniZadatakService.Put<RadniZadatakVM>(null);
         }

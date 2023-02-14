@@ -19,14 +19,12 @@ namespace eWorkshop.WinUI
         public APIService UredjajiService { get; set; } = new APIService("Uredjaj");
         List<UredjajiStateMachine> states = new List<UredjajiStateMachine>();
         public StatusHelper Status { get; set; } = new StatusHelper();
+        public FormControl FormControl { get; set; } = new FormControl();
         public frmListaUredjaja()
         {
             InitializeComponent();
 
-            dgvLista.AutoGenerateColumns = false;
-
-            dgvLista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLista.MultiSelect = false;
+            FormControl.OpcijeTabele(dgvLista);
         }
 
         private void populateCmb()
@@ -42,11 +40,7 @@ namespace eWorkshop.WinUI
 
         private async void frmListaUredjaja_Load(object sender, EventArgs e)
         {
-            //var uredjaji = await UredjajiService.Get<List<UredjajVM>>();
-
             populateCmb();
-
-            //dgvLista.DataSource = uredjaji;
 
             cmbStateMachine.DataSource = states;
             cmbStateMachine.ValueMember = "Id";
@@ -55,29 +49,18 @@ namespace eWorkshop.WinUI
 
         private async void cmbStateMachine_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             UredjajSearchObject search = new UredjajSearchObject();
             search.Status = (cmbStateMachine.SelectedItem as UredjajiStateMachine)?.Naziv;
-
 
             dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
         }
 
         private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int index = e.RowIndex;
-
-            var selectedRow = dgvLista.Rows[index];
-
-            //MessageBox.Show(selectedRow.Cells[0].Value.ToString());
-
-            int evBroj = (int)selectedRow.Cells[0].Value;
+            int evBroj = FormControl.SelektujRedIVratiId(dgvLista, e);
 
             frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj);
-            childForm.MdiParent = this.MdiParent;
-            childForm.Text = "Window ";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -85,9 +68,5 @@ namespace eWorkshop.WinUI
             this.Close();
         }
 
-        private void dgvLista_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

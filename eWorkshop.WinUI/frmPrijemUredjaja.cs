@@ -63,9 +63,6 @@ namespace eWorkshop.WinUI
             var result = await RadniZadatakService.Get<List<RadniZadatakVM>>(searchZadatak);
             var zadaci = result.Where(x => x.StateMachine == "idle" || x.StateMachine == "active").ToList();
 
-            /*cmbRadniZadatak.DataSource = zadaci;
-            cmbRadniZadatak.ValueMember = "RadniZadatakId";
-            cmbRadniZadatak.DisplayMember = "Naziv";*/
         }
 
         private void SelectDefault()
@@ -76,8 +73,6 @@ namespace eWorkshop.WinUI
             cmbTipUredjaja.SelectedItem = null;
             cmbTipUredjaja.SelectedText = "--Odaberi tip--";
 
-            /*cmbRadniZadatak.SelectedItem = null;
-            cmbRadniZadatak.SelectedText = "--Odaberi radni zadatak--";*/
         }
 
         private async Task getLokacija()
@@ -111,15 +106,6 @@ namespace eWorkshop.WinUI
                 SelectDefault();
             }
 
-/*            if(cmbRadniZadatak.SelectedItem != null)
-            {
-                RadniZadatakUredjajUpsertRequest requestZadatak = new RadniZadatakUredjajUpsertRequest();
-                requestZadatak.UredjajId = uredjaj.UredjajId;
-                requestZadatak.RadniZadatakId = (cmbRadniZadatak.SelectedItem as RadniZadatakVM).RadniZadatakId;
-                requestZadatak.KorisnikId = 1;
-                
-                await RadniZadatakUredjajService.Put<RadniZadatakUredjajBasicVM>(requestZadatak);
-            }*/
         }
 
         private async void btnNoviTipUredjaja_Click(object sender, EventArgs e)

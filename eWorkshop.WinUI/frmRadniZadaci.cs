@@ -21,6 +21,7 @@ namespace eWorkshop.WinUI
         APIService UredjajiService { get; set; } = new APIService("Uredjaj");
         APIService UredjajChangeStateTask { get; set; } = new APIService("Uredjaj/RadniZadatak");
         public List<RadniZadatakUredjajVM> RadniZadatak { get; set; } = new List<RadniZadatakUredjajVM>();
+        public FormControl FormControl { get; set; } = new FormControl();
 
         public frmRadniZadaci()
         {
@@ -53,28 +54,7 @@ namespace eWorkshop.WinUI
             lblNaziv.Text = radniZadatakCmb.Naziv;
             lblDatum.Text = radniZadatakCmb.Datum.Day.ToString() + "." + radniZadatakCmb.Datum.Month.ToString() + "." + radniZadatakCmb.Datum.Year.ToString();
             lblStanje.Text = radniZadatakCmb.StateMachine;
-            //lblUkupno.Text = uredjaji.Count.ToString();
         }
-
-/*        private async void PopulateCmbZadaci()
-        {
-            var search = new RadniZadatakUredjajSearchObject();
-
-            search.ZadatakState = new string[2] { "idle", "active" };
-
-            var zadaci = await RadniZadatakService.Get<List<RadniZadatakVM>>(search);
-
-            cmbRadniZadaci.DataSource = zadaci;
-            cmbRadniZadaci.DisplayMember = "Naziv";
-            cmbRadniZadaci.ValueMember = "RadniZadatakID";
-
-            PopulateInfo();
-        }*/
-
-/*        private async void cmbRadniZadaci_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateListBoxZadaci();
-        }*/
 
         //filtriranje liste prema radnim zadacima
         private async void PopulateListBoxZadaci()
@@ -195,10 +175,7 @@ namespace eWorkshop.WinUI
         private void LoadFrmUredjajDetalji(int id)
         {
             frmUredjajDetalji childForm = new frmUredjajDetalji(id);
-            childForm.MdiParent = MdiParent;
-            childForm.Text = "Detalji uređaja";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void lbUredjaji_SelectedIndexChanged(object sender, EventArgs e)
@@ -227,10 +204,7 @@ namespace eWorkshop.WinUI
         private void btnRadniZadatakDetalji_Click(object sender, EventArgs e)
         {
             frmRadniZadatakDetalji childForm = new frmRadniZadatakDetalji(RadniZadatak);
-            childForm.MdiParent = MdiParent;
-            childForm.Text = "Window ";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
     }
 }

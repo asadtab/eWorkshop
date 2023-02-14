@@ -13,26 +13,13 @@ namespace eWorkshop.WinUI
     public partial class mdiPocetna : Form
     {
         private int childFormNumber = 0;
-
+        public FormControl FormControl { get; set; } = new FormControl();
         public mdiPocetna()
         {
             InitializeComponent();
             HidePanels();
         }
 
-        private void ShowNewForm(object sender, EventArgs e)
-        {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        
         private void HidePanels()
         {
             pnlUredjaj.Visible = false;
@@ -68,23 +55,7 @@ namespace eWorkshop.WinUI
         private void btnPrijemUredjaja_Click(object sender, EventArgs e)
         {
             frmPrijemUredjaja childForm = new frmPrijemUredjaja();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock= DockStyle.Fill;
-            childForm.Show();
-        }
-
-        private void btnServis_Click(object sender, EventArgs e)
-        {
-            /*frmServis childForm = new frmServis();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();*/
-        }
-
-        private void btnIsporuka_Click(object sender, EventArgs e)
-        {
+            FormControl.NovaFormaOpcije(childForm);
 
         }
 
@@ -96,10 +67,7 @@ namespace eWorkshop.WinUI
         private void btnLista_Click(object sender, EventArgs e)
         {
             frmListaUredjaja childForm = new frmListaUredjaja();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void mdiPocetna_Load(object sender, EventArgs e)
@@ -114,54 +82,43 @@ namespace eWorkshop.WinUI
         private void btnStatistika_Click(object sender, EventArgs e)
         {
             frmTest childForm = new frmTest();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
-
-
 
         private void btnMain_Click(object sender, EventArgs e)
         {
             frmMain childForm = new frmMain();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void detaljiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRadniZadaci childForm = new frmRadniZadaci();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmDodajKomponentu childForm = new frmDodajKomponentu();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void prijemUređajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmPrijemUredjaja childForm = new frmPrijemUredjaja();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void dodajNoviToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmNoviRadniZadatak childForm = new frmNoviRadniZadatak();
             childForm.ShowDialog();
+        }
+
+        private void listaRadnihZadatakaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRadniZadaciLista childForm = new frmRadniZadaciLista();
+            FormControl.NovaFormaOpcije(childForm);
         }
     }
 }

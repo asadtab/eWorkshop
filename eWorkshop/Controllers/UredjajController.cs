@@ -56,6 +56,12 @@ namespace eWorkshop.Controllers
         {
             return Service.Insert(insert);
         }
+
+        [HttpPut("VratiIzTaska/{id}")]
+        public UredjajVM VratiIzTaska(int id)
+        {
+            return Service.VratiIzTaska(id);
+        }
         
     }
 }

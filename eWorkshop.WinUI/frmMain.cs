@@ -48,10 +48,6 @@ namespace eWorkshop.WinUI
             }
         }
 
-        private void btnNoviRadniZadatak_Click(object sender, EventArgs e)
-        {
-            frmNoviRadniZadatak childForm = new frmNoviRadniZadatak();
-            childForm.ShowDialog();
-        }
+
     }
 }

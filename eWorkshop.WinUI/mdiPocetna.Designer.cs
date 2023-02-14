@@ -57,6 +57,7 @@
             this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vidiSveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uređajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaRadnihZadatakaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.pnlKorisnici.SuspendLayout();
             this.pnlUredjaj.SuspendLayout();
@@ -81,7 +82,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(228, 623);
             this.panel1.TabIndex = 10;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             // 
             // pnlKorisnici
             // 
@@ -290,7 +290,8 @@
             // 
             this.radniZadaciToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dodajNoviToolStripMenuItem,
-            this.detaljiToolStripMenuItem});
+            this.detaljiToolStripMenuItem,
+            this.listaRadnihZadatakaToolStripMenuItem});
             this.radniZadaciToolStripMenuItem.Name = "radniZadaciToolStripMenuItem";
             this.radniZadaciToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.radniZadaciToolStripMenuItem.Text = "Radni zadaci";
@@ -298,15 +299,15 @@
             // dodajNoviToolStripMenuItem
             // 
             this.dodajNoviToolStripMenuItem.Name = "dodajNoviToolStripMenuItem";
-            this.dodajNoviToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dodajNoviToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.dodajNoviToolStripMenuItem.Text = "Dodaj novi";
             this.dodajNoviToolStripMenuItem.Click += new System.EventHandler(this.dodajNoviToolStripMenuItem_Click);
             // 
             // detaljiToolStripMenuItem
             // 
             this.detaljiToolStripMenuItem.Name = "detaljiToolStripMenuItem";
-            this.detaljiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.detaljiToolStripMenuItem.Text = "Detalji";
+            this.detaljiToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.detaljiToolStripMenuItem.Text = "Opcije";
             this.detaljiToolStripMenuItem.Click += new System.EventHandler(this.detaljiToolStripMenuItem_Click);
             // 
             // uređajiToolStripMenuItem
@@ -321,14 +322,14 @@
             // prijemUređajaToolStripMenuItem
             // 
             this.prijemUređajaToolStripMenuItem.Name = "prijemUređajaToolStripMenuItem";
-            this.prijemUređajaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.prijemUređajaToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.prijemUređajaToolStripMenuItem.Text = "Prijem uređaja";
             this.prijemUređajaToolStripMenuItem.Click += new System.EventHandler(this.prijemUređajaToolStripMenuItem_Click);
             // 
             // detaljiToolStripMenuItem1
             // 
             this.detaljiToolStripMenuItem1.Name = "detaljiToolStripMenuItem1";
-            this.detaljiToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.detaljiToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
             this.detaljiToolStripMenuItem1.Text = "Detalji";
             // 
             // korisniciToolStripMenuItem
@@ -367,7 +368,7 @@
             this.dodajToolStripMenuItem,
             this.vidiSveToolStripMenuItem});
             this.komponenteToolStripMenuItem.Name = "komponenteToolStripMenuItem";
-            this.komponenteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.komponenteToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.komponenteToolStripMenuItem.Text = "Komponente";
             // 
             // dodajToolStripMenuItem
@@ -386,8 +387,15 @@
             // uređajToolStripMenuItem
             // 
             this.uređajToolStripMenuItem.Name = "uređajToolStripMenuItem";
-            this.uređajToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uređajToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.uređajToolStripMenuItem.Text = "Uređaj";
+            // 
+            // listaRadnihZadatakaToolStripMenuItem
+            // 
+            this.listaRadnihZadatakaToolStripMenuItem.Name = "listaRadnihZadatakaToolStripMenuItem";
+            this.listaRadnihZadatakaToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.listaRadnihZadatakaToolStripMenuItem.Text = "Lista radnih zadataka";
+            this.listaRadnihZadatakaToolStripMenuItem.Click += new System.EventHandler(this.listaRadnihZadatakaToolStripMenuItem_Click);
             // 
             // mdiPocetna
             // 
@@ -447,6 +455,7 @@
         private ToolStripMenuItem uređajToolStripMenuItem;
         private ToolStripMenuItem dodajToolStripMenuItem;
         private ToolStripMenuItem vidiSveToolStripMenuItem;
+        private ToolStripMenuItem listaRadnihZadatakaToolStripMenuItem;
     }
 }
 
