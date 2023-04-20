@@ -10,6 +10,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Azure.Core;
+using System.Net.Http.Headers;
+using System.Web;
+using System.Security.Principal;
 
 namespace eWorkshop.Services
 {
@@ -95,5 +101,8 @@ namespace eWorkshop.Services
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
         }
-    }
+
+
+
+        }
 }

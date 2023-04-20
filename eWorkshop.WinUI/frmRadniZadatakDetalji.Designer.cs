@@ -28,373 +28,358 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblProgres = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblUkupno = new System.Windows.Forms.Label();
-            this.lblDatum = new System.Windows.Forms.Label();
-            this.lblNaziv = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblLokacija = new System.Windows.Forms.Label();
-            this.pbProgres = new System.Windows.Forms.ProgressBar();
-            this.btnIzvjestaj = new System.Windows.Forms.Button();
-            this.btnDodajUredjaj = new System.Windows.Forms.Button();
-            this.btnIsporuci = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnZavrsi = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dgvUredjaji = new System.Windows.Forms.DataGridView();
-            this.UredjajId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipOpisNaziv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Koda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SerijskiBroj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUredjaji)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.SuspendLayout();
+            groupBox1 = new GroupBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            lblProgres = new Label();
+            label6 = new Label();
+            lblStatus = new Label();
+            label5 = new Label();
+            label1 = new Label();
+            lblUkupno = new Label();
+            lblDatum = new Label();
+            lblNaziv = new Label();
+            label4 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            lblLokacija = new Label();
+            pbProgres = new ProgressBar();
+            btnIzvjestaj = new Button();
+            btnDodajUredjaj = new Button();
+            groupBox2 = new GroupBox();
+            btnZavrsi = new Button();
+            groupBox3 = new GroupBox();
+            dgvUredjaji = new DataGridView();
+            UredjajId = new DataGridViewTextBoxColumn();
+            TipOpisNaziv = new DataGridViewTextBoxColumn();
+            Koda = new DataGridViewTextBoxColumn();
+            SerijskiBroj = new DataGridViewTextBoxColumn();
+            Status = new DataGridViewTextBoxColumn();
+            groupBox4 = new GroupBox();
+            btnExit = new Button();
+            groupBox1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvUredjaji).BeginInit();
+            groupBox4.SuspendLayout();
+            SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(347, 177);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Info";
+            groupBox1.Controls.Add(tableLayoutPanel1);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(347, 177);
+            groupBox1.TabIndex = 14;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Info";
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.41177F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.58823F));
-            this.tableLayoutPanel1.Controls.Add(this.lblProgres, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.lblStatus, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblUkupno, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblDatum, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblNaziv, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblLokacija, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 15);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.91667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.08333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(335, 156);
-            this.tableLayoutPanel1.TabIndex = 4;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.41177F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.58823F));
+            tableLayoutPanel1.Controls.Add(lblProgres, 1, 5);
+            tableLayoutPanel1.Controls.Add(label6, 0, 5);
+            tableLayoutPanel1.Controls.Add(lblStatus, 1, 4);
+            tableLayoutPanel1.Controls.Add(label5, 0, 4);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Controls.Add(lblUkupno, 1, 3);
+            tableLayoutPanel1.Controls.Add(lblDatum, 1, 2);
+            tableLayoutPanel1.Controls.Add(lblNaziv, 1, 0);
+            tableLayoutPanel1.Controls.Add(label4, 0, 3);
+            tableLayoutPanel1.Controls.Add(label2, 0, 1);
+            tableLayoutPanel1.Controls.Add(label3, 0, 2);
+            tableLayoutPanel1.Controls.Add(lblLokacija, 1, 1);
+            tableLayoutPanel1.Location = new Point(6, 15);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 6;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 47.91667F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 52.08333F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
+            tableLayoutPanel1.Size = new Size(335, 156);
+            tableLayoutPanel1.TabIndex = 4;
             // 
             // lblProgres
             // 
-            this.lblProgres.AutoSize = true;
-            this.lblProgres.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblProgres.Location = new System.Drawing.Point(185, 128);
-            this.lblProgres.Name = "lblProgres";
-            this.lblProgres.Size = new System.Drawing.Size(43, 21);
-            this.lblProgres.TabIndex = 12;
-            this.lblProgres.Text = "label";
+            lblProgres.AutoSize = true;
+            lblProgres.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblProgres.Location = new Point(185, 128);
+            lblProgres.Name = "lblProgres";
+            lblProgres.Size = new Size(43, 21);
+            lblProgres.TabIndex = 12;
+            lblProgres.Text = "label";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(3, 128);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 21);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Progres:";
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Location = new Point(3, 128);
+            label6.Name = "label6";
+            label6.Size = new Size(67, 21);
+            label6.TabIndex = 11;
+            label6.Text = "Progres:";
             // 
             // lblStatus
             // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblStatus.Location = new System.Drawing.Point(185, 104);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(52, 21);
-            this.lblStatus.TabIndex = 10;
-            this.lblStatus.Text = "label6";
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblStatus.Location = new Point(185, 104);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(52, 21);
+            lblStatus.TabIndex = 10;
+            lblStatus.Text = "label6";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(3, 104);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 21);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Status:";
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(3, 104);
+            label5.Name = "label5";
+            label5.Size = new Size(55, 21);
+            label5.TabIndex = 9;
+            label5.Text = "Status:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Naziv:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(52, 21);
+            label1.TabIndex = 0;
+            label1.Text = "Naziv:";
             // 
             // lblUkupno
             // 
-            this.lblUkupno.AutoSize = true;
-            this.lblUkupno.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblUkupno.Location = new System.Drawing.Point(185, 74);
-            this.lblUkupno.Name = "lblUkupno";
-            this.lblUkupno.Size = new System.Drawing.Size(82, 21);
-            this.lblUkupno.TabIndex = 8;
-            this.lblUkupno.Text = "lblUkupno";
+            lblUkupno.AutoSize = true;
+            lblUkupno.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblUkupno.Location = new Point(185, 74);
+            lblUkupno.Name = "lblUkupno";
+            lblUkupno.Size = new Size(82, 21);
+            lblUkupno.TabIndex = 8;
+            lblUkupno.Text = "lblUkupno";
             // 
             // lblDatum
             // 
-            this.lblDatum.AutoSize = true;
-            this.lblDatum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDatum.Location = new System.Drawing.Point(185, 48);
-            this.lblDatum.Name = "lblDatum";
-            this.lblDatum.Size = new System.Drawing.Size(74, 21);
-            this.lblDatum.TabIndex = 7;
-            this.lblDatum.Text = "lblDatum";
+            lblDatum.AutoSize = true;
+            lblDatum.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDatum.Location = new Point(185, 48);
+            lblDatum.Name = "lblDatum";
+            lblDatum.Size = new Size(74, 21);
+            lblDatum.TabIndex = 7;
+            lblDatum.Text = "lblDatum";
             // 
             // lblNaziv
             // 
-            this.lblNaziv.AutoSize = true;
-            this.lblNaziv.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblNaziv.Location = new System.Drawing.Point(185, 0);
-            this.lblNaziv.Name = "lblNaziv";
-            this.lblNaziv.Size = new System.Drawing.Size(66, 21);
-            this.lblNaziv.TabIndex = 5;
-            this.lblNaziv.Text = "lblNaziv";
+            lblNaziv.AutoSize = true;
+            lblNaziv.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNaziv.Location = new Point(185, 0);
+            lblNaziv.Name = "lblNaziv";
+            lblNaziv.Size = new Size(66, 21);
+            lblNaziv.TabIndex = 5;
+            lblNaziv.Text = "lblNaziv";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(3, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 21);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Ukupno uređaja:";
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(3, 74);
+            label4.Name = "label4";
+            label4.Size = new Size(124, 21);
+            label4.TabIndex = 3;
+            label4.Text = "Ukupno uređaja:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(3, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 21);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Lokacija:";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(3, 23);
+            label2.Name = "label2";
+            label2.Size = new Size(69, 21);
+            label2.TabIndex = 1;
+            label2.Text = "Lokacija:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(3, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 21);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Datum kreiranja";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(3, 48);
+            label3.Name = "label3";
+            label3.Size = new Size(122, 21);
+            label3.TabIndex = 2;
+            label3.Text = "Datum kreiranja";
             // 
             // lblLokacija
             // 
-            this.lblLokacija.AutoSize = true;
-            this.lblLokacija.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblLokacija.Location = new System.Drawing.Point(185, 23);
-            this.lblLokacija.Name = "lblLokacija";
-            this.lblLokacija.Size = new System.Drawing.Size(83, 21);
-            this.lblLokacija.TabIndex = 6;
-            this.lblLokacija.Text = "lblLokacija";
+            lblLokacija.AutoSize = true;
+            lblLokacija.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblLokacija.Location = new Point(185, 23);
+            lblLokacija.Name = "lblLokacija";
+            lblLokacija.Size = new Size(83, 21);
+            lblLokacija.TabIndex = 6;
+            lblLokacija.Text = "lblLokacija";
             // 
             // pbProgres
             // 
-            this.pbProgres.Location = new System.Drawing.Point(6, 21);
-            this.pbProgres.Name = "pbProgres";
-            this.pbProgres.Size = new System.Drawing.Size(335, 21);
-            this.pbProgres.TabIndex = 15;
+            pbProgres.Location = new Point(6, 21);
+            pbProgres.Name = "pbProgres";
+            pbProgres.Size = new Size(335, 21);
+            pbProgres.TabIndex = 15;
             // 
             // btnIzvjestaj
             // 
-            this.btnIzvjestaj.Location = new System.Drawing.Point(6, 22);
-            this.btnIzvjestaj.Name = "btnIzvjestaj";
-            this.btnIzvjestaj.Size = new System.Drawing.Size(98, 23);
-            this.btnIzvjestaj.TabIndex = 16;
-            this.btnIzvjestaj.Text = "Kreiraj izvještaj";
-            this.btnIzvjestaj.UseVisualStyleBackColor = true;
+            btnIzvjestaj.Location = new Point(6, 22);
+            btnIzvjestaj.Name = "btnIzvjestaj";
+            btnIzvjestaj.Size = new Size(98, 23);
+            btnIzvjestaj.TabIndex = 16;
+            btnIzvjestaj.Text = "Kreiraj izvještaj";
+            btnIzvjestaj.UseVisualStyleBackColor = true;
+            btnIzvjestaj.Click += btnIzvjestaj_Click;
             // 
             // btnDodajUredjaj
             // 
-            this.btnDodajUredjaj.Location = new System.Drawing.Point(6, 51);
-            this.btnDodajUredjaj.Name = "btnDodajUredjaj";
-            this.btnDodajUredjaj.Size = new System.Drawing.Size(98, 23);
-            this.btnDodajUredjaj.TabIndex = 17;
-            this.btnDodajUredjaj.Text = "Dodaj uređaj";
-            this.btnDodajUredjaj.UseVisualStyleBackColor = true;
-            this.btnDodajUredjaj.Click += new System.EventHandler(this.btnDodajUredjaj_Click);
-            // 
-            // btnIsporuci
-            // 
-            this.btnIsporuci.Location = new System.Drawing.Point(6, 80);
-            this.btnIsporuci.Name = "btnIsporuci";
-            this.btnIsporuci.Size = new System.Drawing.Size(98, 23);
-            this.btnIsporuci.TabIndex = 18;
-            this.btnIsporuci.Text = "Isporuči";
-            this.btnIsporuci.UseVisualStyleBackColor = true;
+            btnDodajUredjaj.Location = new Point(6, 51);
+            btnDodajUredjaj.Name = "btnDodajUredjaj";
+            btnDodajUredjaj.Size = new Size(98, 23);
+            btnDodajUredjaj.TabIndex = 17;
+            btnDodajUredjaj.Text = "Dodaj uređaj";
+            btnDodajUredjaj.UseVisualStyleBackColor = true;
+            btnDodajUredjaj.Click += btnDodajUredjaj_Click;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnZavrsi);
-            this.groupBox2.Controls.Add(this.btnIzvjestaj);
-            this.groupBox2.Controls.Add(this.btnIsporuci);
-            this.groupBox2.Controls.Add(this.btnDodajUredjaj);
-            this.groupBox2.Location = new System.Drawing.Point(365, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(110, 140);
-            this.groupBox2.TabIndex = 19;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Opcije";
+            groupBox2.Controls.Add(btnZavrsi);
+            groupBox2.Controls.Add(btnIzvjestaj);
+            groupBox2.Controls.Add(btnDodajUredjaj);
+            groupBox2.Location = new Point(365, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(110, 140);
+            groupBox2.TabIndex = 19;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Opcije";
             // 
             // btnZavrsi
             // 
-            this.btnZavrsi.Location = new System.Drawing.Point(6, 109);
-            this.btnZavrsi.Name = "btnZavrsi";
-            this.btnZavrsi.Size = new System.Drawing.Size(98, 23);
-            this.btnZavrsi.TabIndex = 19;
-            this.btnZavrsi.Text = "Završi";
-            this.btnZavrsi.UseVisualStyleBackColor = true;
-            this.btnZavrsi.Click += new System.EventHandler(this.btnZavrsi_Click);
+            btnZavrsi.Location = new Point(6, 80);
+            btnZavrsi.Name = "btnZavrsi";
+            btnZavrsi.Size = new Size(98, 23);
+            btnZavrsi.TabIndex = 19;
+            btnZavrsi.Text = "Završi";
+            btnZavrsi.UseVisualStyleBackColor = true;
+            btnZavrsi.Click += btnZavrsi_Click;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.pbProgres);
-            this.groupBox3.Location = new System.Drawing.Point(12, 189);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(347, 48);
-            this.groupBox3.TabIndex = 20;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Progres";
+            groupBox3.Controls.Add(pbProgres);
+            groupBox3.Location = new Point(12, 189);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(347, 48);
+            groupBox3.TabIndex = 20;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Progres";
             // 
             // dgvUredjaji
             // 
-            this.dgvUredjaji.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUredjaji.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.UredjajId,
-            this.TipOpisNaziv,
-            this.Koda,
-            this.SerijskiBroj,
-            this.Status});
-            this.dgvUredjaji.Location = new System.Drawing.Point(6, 22);
-            this.dgvUredjaji.Name = "dgvUredjaji";
-            this.dgvUredjaji.RowTemplate.Height = 25;
-            this.dgvUredjaji.Size = new System.Drawing.Size(665, 312);
-            this.dgvUredjaji.TabIndex = 21;
-            this.dgvUredjaji.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUredjaji_CellContentClick);
+            dgvUredjaji.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUredjaji.Columns.AddRange(new DataGridViewColumn[] { UredjajId, TipOpisNaziv, Koda, SerijskiBroj, Status });
+            dgvUredjaji.Location = new Point(6, 22);
+            dgvUredjaji.Name = "dgvUredjaji";
+            dgvUredjaji.RowTemplate.Height = 25;
+            dgvUredjaji.Size = new Size(665, 312);
+            dgvUredjaji.TabIndex = 21;
+            dgvUredjaji.CellContentDoubleClick += dgvUredjaji_CellContentClick;
             // 
             // UredjajId
             // 
-            this.UredjajId.DataPropertyName = "UredjajId";
-            this.UredjajId.HeaderText = "Ev. Broj";
-            this.UredjajId.Name = "UredjajId";
-            this.UredjajId.Width = 50;
+            UredjajId.DataPropertyName = "UredjajId";
+            UredjajId.HeaderText = "Ev. Broj";
+            UredjajId.Name = "UredjajId";
+            UredjajId.Width = 50;
             // 
             // TipOpisNaziv
             // 
-            this.TipOpisNaziv.DataPropertyName = "TipOpisNaziv";
-            this.TipOpisNaziv.HeaderText = "Tip";
-            this.TipOpisNaziv.Name = "TipOpisNaziv";
-            this.TipOpisNaziv.Width = 200;
+            TipOpisNaziv.DataPropertyName = "TipOpisNaziv";
+            TipOpisNaziv.HeaderText = "Tip";
+            TipOpisNaziv.Name = "TipOpisNaziv";
+            TipOpisNaziv.Width = 200;
             // 
             // Koda
             // 
-            this.Koda.DataPropertyName = "Koda";
-            this.Koda.HeaderText = "Koda";
-            this.Koda.Name = "Koda";
-            this.Koda.Width = 150;
+            Koda.DataPropertyName = "Koda";
+            Koda.HeaderText = "Koda";
+            Koda.Name = "Koda";
+            Koda.Width = 150;
             // 
             // SerijskiBroj
             // 
-            this.SerijskiBroj.DataPropertyName = "SerijskiBroj";
-            this.SerijskiBroj.HeaderText = "SerijskiBroj";
-            this.SerijskiBroj.Name = "SerijskiBroj";
+            SerijskiBroj.DataPropertyName = "SerijskiBroj";
+            SerijskiBroj.HeaderText = "SerijskiBroj";
+            SerijskiBroj.Name = "SerijskiBroj";
             // 
             // Status
             // 
-            this.Status.DataPropertyName = "Status";
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.Width = 120;
+            Status.DataPropertyName = "Status";
+            Status.HeaderText = "Status";
+            Status.Name = "Status";
+            Status.Width = 120;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.dgvUredjaji);
-            this.groupBox4.Location = new System.Drawing.Point(12, 243);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(677, 340);
-            this.groupBox4.TabIndex = 22;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Lista uređaja";
+            groupBox4.Controls.Add(dgvUredjaji);
+            groupBox4.Location = new Point(12, 243);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(677, 340);
+            groupBox4.TabIndex = 22;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Lista uređaja";
             // 
             // btnExit
             // 
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExit.ForeColor = System.Drawing.Color.IndianRed;
-            this.btnExit.Location = new System.Drawing.Point(659, 12);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(49, 48);
-            this.btnExit.TabIndex = 25;
-            this.btnExit.Text = "X";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            btnExit.FlatAppearance.BorderSize = 0;
+            btnExit.FlatStyle = FlatStyle.Flat;
+            btnExit.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point);
+            btnExit.ForeColor = Color.IndianRed;
+            btnExit.Location = new Point(659, 12);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(49, 48);
+            btnExit.TabIndex = 25;
+            btnExit.Text = "X";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // frmRadniZadatakDetalji
             // 
-            this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(720, 634);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "frmRadniZadatakDetalji";
-            this.ShowIcon = false;
-            this.Text = "frmRadniZadatakDetalji";
-            this.Load += new System.EventHandler(this.frmRadniZadatakDetalji_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUredjaji)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AccessibleRole = AccessibleRole.None;
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImageLayout = ImageLayout.None;
+            ClientSize = new Size(720, 634);
+            ControlBox = false;
+            Controls.Add(btnExit);
+            Controls.Add(groupBox4);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "frmRadniZadatakDetalji";
+            ShowIcon = false;
+            Text = "frmRadniZadatakDetalji";
+            FormClosing += frmRadniZadatakDetalji_FormClosing;
+            Load += frmRadniZadatakDetalji_Load;
+            groupBox1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvUredjaji).EndInit();
+            groupBox4.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -412,7 +397,6 @@
         private ProgressBar pbProgres;
         private Button btnIzvjestaj;
         private Button btnDodajUredjaj;
-        private Button btnIsporuci;
         private GroupBox groupBox2;
         private Button btnZavrsi;
         private GroupBox groupBox3;

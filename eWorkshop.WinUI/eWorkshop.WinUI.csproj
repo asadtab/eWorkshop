@@ -9,8 +9,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Report\DokumentacijaServisa.rdlc" />
+    <None Remove="Report\rptRadniZadatak.rdlc" />
+    <None Remove="Report\ServisnaDokumentacija.rdlc" />
+    <None Remove="Report\test.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Report\DokumentacijaServisa.rdlc" />
+    <EmbeddedResource Include="Report\rptRadniZadatak.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\test.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ServisnaDokumentacija.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
     <PackageReference Include="Krypton.Toolkit" Version="70.22.11.312" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1400.0" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +66,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Report\dsServis.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsServis.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +78,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Report\dsServis.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsServis.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Report\DataSource\" />
   </ItemGroup>
 
 </Project>

@@ -44,6 +44,7 @@ builder.Services.AddTransient<IServisIzvrsenService, ServisIzvrsenService>();
 builder.Services.AddTransient<ITipUredjajaService, TipUredjajaService>();
 builder.Services.AddTransient<IRadniZadatakUredjajService, RadniZadatakUredjajService>();
 builder.Services.AddTransient<ILokacijaService, LokacijaService>();
+builder.Services.AddTransient<IServisAdapter, ServisAdapter>();
 
 
 builder.Services.AddAutoMapper(typeof(UredjajService));

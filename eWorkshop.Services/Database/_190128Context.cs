@@ -267,6 +267,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.SerijskiBroj).HasMaxLength(255);
             entity.Property(e => e.Status).HasMaxLength(255);
             entity.Property(e => e.TipId).HasColumnName("TipID");
+            entity.Property(e => e.isDeleted).HasColumnName("isDeleted");
 
             entity.HasOne(d => d.Lokacija).WithMany(p => p.Uredjajs)
                 .HasForeignKey(d => d.LokacijaId)

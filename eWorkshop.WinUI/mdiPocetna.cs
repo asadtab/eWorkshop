@@ -1,9 +1,12 @@
-﻿using System;
+﻿using eWorkshop.WinUI.Report;
+using eWorkshop.WinUI.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +17,7 @@ namespace eWorkshop.WinUI
     {
         private int childFormNumber = 0;
         public FormControl FormControl { get; set; } = new FormControl();
+
         public mdiPocetna()
         {
             InitializeComponent();
@@ -35,13 +39,14 @@ namespace eWorkshop.WinUI
                 pnlKorisnici.Visible = false;
         }
 
-        private void showPanel (Panel subMenu)
+        private void showPanel(Panel subMenu)
         {
-            if(!subMenu.Visible)
+            if (!subMenu.Visible)
             {
                 ShowHidePanel();
-                subMenu.Visible = true; 
-            } else
+                subMenu.Visible = true;
+            }
+            else
             {
                 subMenu.Visible = false;
             }
@@ -79,11 +84,7 @@ namespace eWorkshop.WinUI
             childForm.Show();
         }
 
-        private void btnStatistika_Click(object sender, EventArgs e)
-        {
-            frmTest childForm = new frmTest();
-            FormControl.NovaFormaOpcije(childForm);
-        }
+
 
         private void btnMain_Click(object sender, EventArgs e)
         {
@@ -118,6 +119,34 @@ namespace eWorkshop.WinUI
         private void listaRadnihZadatakaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRadniZadaciLista childForm = new frmRadniZadaciLista();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void btnListaKorisnika_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mojRačunToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRacun childForm = new frmRacun();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void odjaviSeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = frmPotvrda.Show("Da li se želite odjaviti?", "Da", "Ne");
+
+            if (result == DialogResult.Yes)
+            {
+                APIService.Korisnik = null;
+                this.Close();
+            }
+        }
+
+        private void btnIzvjestaj_Click(object sender, EventArgs e)
+        {
+            frmReportPicker childForm = new frmReportPicker();
             FormControl.NovaFormaOpcije(childForm);
         }
     }

@@ -12,6 +12,8 @@ namespace eWorkshop.Services
     public interface IRadniZadatakUredjajService : ICRUDService<RadniZadatakUredjajBasicVM, RadniZadatakUredjajSearchObject, RadniZadatakUredjajUpsertRequest, RadniZadatakUredjajUpsertRequest>
     {
         RadniZadatakUredjajBasicVM Dodaj(RadniZadatakUredjajUpsertRequest request);
+        int Progres(int id);
+        List<RadniZadatakFlutterVM> RadniZadatakFlutter( int RadniZadatakId, string status);
     }
 
 }

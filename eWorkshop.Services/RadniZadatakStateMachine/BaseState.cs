@@ -64,11 +64,14 @@ namespace eWorkshop.Services.RadniZadatakStateMachine
                 case "initial":
                     return ServiceProvider.GetService<InitialTaskState>();
                     break;
-                case "active": 
+                case "idle":
                     return ServiceProvider.GetService<IdleTaskState>();
                     break;
-                case "done":
+                case "active":
                     return ServiceProvider.GetService<ActiveTaskState>();
+                    break;
+                case "done":
+                    return ServiceProvider.GetService<DoneTaskState>();
                     break;
                 case "invoice":
                     return ServiceProvider.GetService<DoneTaskState>();

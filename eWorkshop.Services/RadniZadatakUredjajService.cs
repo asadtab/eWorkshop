@@ -28,6 +28,7 @@ namespace eWorkshop.Services
         {
             query = query.Include("RadniZadatak").Include("Uredjaj.Tip");
             query = query.Include("Uredjaj.Lokacija");
+            query = query.Include("Uredjaj");
 
             return query;
         }
@@ -42,11 +43,14 @@ namespace eWorkshop.Services
             if (search.UredjajId != null && search.UredjajId != 0)
                 filter = filter.Where(x => x.UredjajId == search.UredjajId);
 
-            if (search.KorisnikId != null && search.KorisnikId != 0)
-                filter = filter.Where(x => x.KorisnikId == search.KorisnikId);
+            /*if (search.KorisnikId != null && search.KorisnikId != 0)
+                filter = filter.Where(x => x.KorisnikId == search.KorisnikId);*/
 
             if (!string.IsNullOrEmpty(search.UredjajState))
                 filter = filter.Where(x => x.Uredjaj.Status == search.UredjajState);
+
+            if (!string.IsNullOrEmpty(search.RadniZadatakState))
+                filter = filter.Where(x => x.RadniZadatak.StateMachine == search.RadniZadatakState);
 
             if (search.ZadatakState.Length > 0)
             {
@@ -72,7 +76,7 @@ namespace eWorkshop.Services
 
             if (radniZadatak.StateMachine == "idle")
             {
-                var stateRadniZadatak = RadniZadatakBaseState.CreateState("active");
+                var stateRadniZadatak = RadniZadatakBaseState.CreateState(radniZadatak.StateMachine);
                 stateRadniZadatak.CurrentEntity = radniZadatak;
                 stateRadniZadatak.Context = Context;
 
@@ -84,6 +88,66 @@ namespace eWorkshop.Services
             return base.Insert(request);
 
             //return Mapper.Map<RadniZadatakUredjajVM>(request);
+        }
+
+        public int Progres(int id)
+        {
+            var radniZadatak = Context.RadniZadatakUredjajs.Include("Uredjaj").Where(x => x.RadniZadatakId == id).ToList();
+            double brojac = 0;
+            for (int i = 0; i < radniZadatak.Count; i++)
+            {
+                if (radniZadatak[i].Uredjaj.Status == "fix" 
+                    || radniZadatak[i].Uredjaj.Status == "ready"
+                    || radniZadatak[i].Uredjaj.Status == "out")
+                {
+                    brojac++;
+                }
+            }
+            double procenat = brojac / radniZadatak.Count;
+            return (int)(procenat * 100);
+        }
+
+        public List<RadniZadatakFlutterVM> RadniZadatakFlutter(int RadniZadatakId, string status = null)
+        {
+            RadniZadatakUredjajSearchObject search = new RadniZadatakUredjajSearchObject();
+            search.RadniZadatakState = status;
+            search.RadniZadatakId = RadniZadatakId;
+
+            var radniZadatakUredjaj = Context.RadniZadatakUredjajs
+                .Include("Uredjaj").Include("RadniZadatak")
+                .Select(x => new RadniZadatakFlutterVM()
+                {
+                    RadniZadatakId = x.RadniZadatakId,
+                    UredjajId = x.UredjajId,
+                    RadniZadatakNaziv = x.RadniZadatak.Naziv,
+                    RadniZadatakStatus = x.RadniZadatak.StateMachine,
+                    RadniZadatakDatum =
+                    x.RadniZadatak.Datum.Value.Day.ToString()
+                    + "." +
+                    x.RadniZadatak.Datum.Value.Month.ToString()
+                    + "." +
+                    x.RadniZadatak.Datum.Value.Year.ToString(),
+                    Koda = x.Uredjaj.Koda,
+                    SerijskiBroj = x.Uredjaj.SerijskiBroj,
+                    UredjajStatus = x.Uredjaj.Status,
+                    UredjajDatumIzvedbe = x.Uredjaj.GodinaIzvedbe,
+                    TipNaziv = x.Uredjaj.Tip.Naziv,
+                    TipOpis = x.Uredjaj.Tip.Opis,
+                    Lokacija = x.Uredjaj.Lokacija.Naziv
+                })
+                .ToList();
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                radniZadatakUredjaj = radniZadatakUredjaj.Where(x => x.RadniZadatakStatus == status).ToList();
+            }
+
+            if (RadniZadatakId != 0)
+            {
+                radniZadatakUredjaj = radniZadatakUredjaj.Where(x => x.RadniZadatakId == RadniZadatakId).ToList();
+            }
+
+            return radniZadatakUredjaj;
         }
     }
 }

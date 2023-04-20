@@ -25,5 +25,17 @@ namespace eWorkshop.Controllers
 
             return base.Delete(id);
         }
+
+        [HttpGet("Progres")]
+        public int Progres (int id)
+        {
+            return RadniZadatakUredjajService.Progres(id);
+        }
+
+        [HttpGet("Flutter")]
+        public List<RadniZadatakFlutterVM> RadniZadatakFlutter(string? search, int RadniZadatakId)
+        {
+            return RadniZadatakUredjajService.RadniZadatakFlutter(RadniZadatakId, search);
+        }
     }
 }

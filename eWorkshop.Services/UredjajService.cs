@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace eWorkshop.Services
 {
@@ -88,6 +89,11 @@ namespace eWorkshop.Services
         {
             var uredjaj = Context.Uredjajs.Find(id);
 
+            var radniZadatakUredjaj = Context.RadniZadatakUredjajs.Where(x => x.UredjajId == id).FirstOrDefault();
+            Context.RadniZadatakUredjajs.Remove(radniZadatakUredjaj);
+            Context.SaveChanges();
+            
+
             var state = BaseState.CreateState(uredjaj.Status);
 
             state.CurrentEntity = uredjaj;
@@ -139,6 +145,12 @@ namespace eWorkshop.Services
                 return GetById(id);
             }
 
+            if (uredjaj.Status == "parts")
+            {
+                state.Aktiviraj();
+                return GetById(id);
+            }
+
             return GetById(id);
         }
 
@@ -146,16 +158,33 @@ namespace eWorkshop.Services
         {
             var filter = base.AddFilter(query, search);
 
-            if (search.Tip != 0)
+            if (search != null && search.Tip != 0)
                 filter = filter.Where(x => x.TipId == search.Tip);
 
-            if (search.UredjajId != 0)
+            if (search != null && search.UredjajId != 0)
                 filter = filter.Where(x => x.UredjajId == search.UredjajId);
 
-            if(!string.IsNullOrEmpty(search.Status))
+            if(search != null && !string.IsNullOrEmpty(search.Status))
                 filter = filter.Where(x => x.Status == search.Status);
 
+            if(search != null)
+                filter = filter.Where(x => x.isDeleted ==  search.isDeleted);
+           
+
             return filter;
+        }
+
+        public UredjajVM Deaktiviraj(int id)
+        {
+            var uredjaj = Context.Uredjajs.Find(id);
+
+            var state = BaseState.CreateState(uredjaj.Status);
+            state.CurrentEntity = uredjaj;
+            state.Context = Context;
+
+            state.Deaktiviraj();
+
+            return GetById(id);
         }
     }
 }

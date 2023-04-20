@@ -20,7 +20,8 @@ namespace eWorkshop.WinUI
         public APIService RadniZadaciService { get; set; } = new APIService("RadniZadatak");
         public APIService RadniZadatakUredjajService { get; set; } = new APIService("RadniZadatakUredjaj");
         public FormControl FormControl { get; set; } = new FormControl();
-        public StatusHelper Status{ get; set; } = new StatusHelper();
+        public StatusHelper Status { get; set; } = new StatusHelper();
+        public List<RadniZadatakUredjajVM> ZadatakUredjaji { get; set; } = new List<RadniZadatakUredjajVM>();
 
         public frmRadniZadaciLista()
         {
@@ -31,6 +32,12 @@ namespace eWorkshop.WinUI
         {
             PopulateTable();
             PopulateCmb();
+            PopulateInfo();
+        }
+
+        private void PopulateInfo()
+        {
+            //lblZadatak.Text = ZadatakUredjaji[0].RadniZadatak.Naziv;
         }
 
         private void PopulateCmb()
@@ -50,18 +57,10 @@ namespace eWorkshop.WinUI
             cmbStateMachine.DisplayMember = "Opis";
         }
 
-        
-
         private async void PopulateTable()
         {
             FormControl.OpcijeTabele(dgvLista);
             FormControl.OpcijeTabele(dgvUredjaji);
-            
-
-            var zadaci = await RadniZadaciService.Get<List<RadniZadatakVM>>();
-
-            dgvLista.DataSource = zadaci;
-            
         }
 
         private async void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -71,9 +70,35 @@ namespace eWorkshop.WinUI
             RadniZadatakUredjajSearchObject zadatakSearch = new RadniZadatakUredjajSearchObject();
             zadatakSearch.RadniZadatakId = zadatakId;
 
-            var uredjaji = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(zadatakSearch);
+            ZadatakUredjaji = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(zadatakSearch);
+            var uredjaji = ZadatakUredjaji.Select(x => x.Uredjaj).ToList();
+
+            for (int  i = 0;  i < uredjaji.Count;  i++)
+                uredjaji[i].Status = Status.ProvjeraStatusa(uredjaji[i].Status, Status.nizNaziv, Status.nizOpis);
+            
 
             dgvUredjaji.DataSource = uredjaji;
+        }
+
+        private async void cmbStateMachine_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RadniZadatakSearchObject search = new RadniZadatakSearchObject();
+            search.StateMachine = (cmbStateMachine.SelectedItem as UredjajiStateMachine)?.Naziv;
+
+            dgvLista.DataSource = await RadniZadaciService.Get<List<RadniZadatakVM>>(search);
+        }
+
+        private void dgvUredjaji_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int UredjajId = FormControl.SelektujRedIVratiId(dgvUredjaji, e);
+
+            frmUredjajDetalji forma = new frmUredjajDetalji(UredjajId);
+            FormControl.NovaFormaOpcije(forma);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

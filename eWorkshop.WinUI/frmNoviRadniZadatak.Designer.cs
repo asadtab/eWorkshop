@@ -28,70 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblNaziv = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            btnPotvrdi = new Button();
+            SuspendLayout();
             // 
-            // textBox1
+            // lblNaziv
             // 
-            this.textBox1.Location = new System.Drawing.Point(32, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(155, 23);
-            this.textBox1.TabIndex = 0;
+            lblNaziv.Location = new Point(32, 104);
+            lblNaziv.Name = "lblNaziv";
+            lblNaziv.Size = new Size(155, 23);
+            lblNaziv.TabIndex = 0;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Naziv:";
+            label1.AutoSize = true;
+            label1.Location = new Point(32, 86);
+            label1.Name = "label1";
+            label1.Size = new Size(39, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Naziv:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(32, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(155, 21);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Novi radni zadatak";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(32, 30);
+            label2.Name = "label2";
+            label2.Size = new Size(155, 21);
+            label2.TabIndex = 2;
+            label2.Text = "Novi radni zadatak";
             // 
-            // button1
+            // btnPotvrdi
             // 
-            this.button1.Location = new System.Drawing.Point(32, 143);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Potvrdi";
-            this.button1.UseVisualStyleBackColor = true;
+            btnPotvrdi.Location = new Point(32, 143);
+            btnPotvrdi.Name = "btnPotvrdi";
+            btnPotvrdi.Size = new Size(155, 23);
+            btnPotvrdi.TabIndex = 3;
+            btnPotvrdi.Text = "Potvrdi";
+            btnPotvrdi.UseVisualStyleBackColor = true;
+            btnPotvrdi.Click += btnPotvrdi_Click;
             // 
             // frmNoviRadniZadatak
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(219, 207);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "frmNoviRadniZadatak";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmNoviRadniZadatak";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(219, 207);
+            Controls.Add(btnPotvrdi);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(lblNaziv);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Name = "frmNoviRadniZadatak";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "frmNoviRadniZadatak";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
+        private TextBox lblNaziv;
         private Label label1;
         private Label label2;
-        private Button button1;
+        private Button btnPotvrdi;
     }
 }

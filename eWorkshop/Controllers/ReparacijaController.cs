@@ -10,11 +10,16 @@ namespace eWorkshop.Controllers
     [Route("[controller]")]
     public class ReparacijaController : BaseCRUDController<ServisVM, ReparacijaSearchObject, ServisInsertRequest, ServisUpdateRequest>
     {
-        public ReparacijaController(IReparacijaService service) : base(service)
+        IServisAdapter ServisAdapter { get; set; }
+        public ReparacijaController(IReparacijaService service, IServisAdapter servisAdapter) : base(service)
         {
-
+            ServisAdapter = servisAdapter;
         }
 
-
+        [HttpGet("IzvrseniServis")]
+        public ActionResult<List<ServisIzvrsenFlutterVM>> IzvrseniServis(int id)
+        {
+            return ServisAdapter.Servis(id);
+        }
     }
 }

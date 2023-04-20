@@ -20,6 +20,7 @@ namespace eWorkshop.WinUI
         List<UredjajiStateMachine> states = new List<UredjajiStateMachine>();
         public StatusHelper Status { get; set; } = new StatusHelper();
         public FormControl FormControl { get; set; } = new FormControl();
+        public int SelectedId { get; set; }
         public frmListaUredjaja()
         {
             InitializeComponent();
@@ -50,6 +51,16 @@ namespace eWorkshop.WinUI
         private async void cmbStateMachine_SelectedIndexChanged(object sender, EventArgs e)
         {
             UredjajSearchObject search = new UredjajSearchObject();
+
+            if (cbDeleted.Checked)
+            {
+                search.isDeleted = true;
+            }
+            else
+            {
+                search.isDeleted = false;
+            }
+
             search.Status = (cmbStateMachine.SelectedItem as UredjajiStateMachine)?.Naziv;
 
             dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
@@ -68,5 +79,49 @@ namespace eWorkshop.WinUI
             this.Close();
         }
 
+        private async void cbDeleted_CheckedChanged(object sender, EventArgs e)
+        {
+            UredjajSearchObject search = new UredjajSearchObject();
+
+            if (cbDeleted.Checked)
+            {
+                search.isDeleted = true;
+            }
+            else
+            {
+                search.isDeleted = false;
+                search.Status = (cmbStateMachine.SelectedItem as UredjajiStateMachine)?.Naziv;
+            }
+
+            dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
+        }
+
+
+
+
+
+        private async void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            int evBroj = 0;
+
+            UredjajSearchObject search = new UredjajSearchObject();
+
+            search.Status = (cmbStateMachine.SelectedItem as UredjajiStateMachine)?.Naziv;
+
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+            {
+                evBroj = int.Parse(txtSearch.Text);
+
+            }
+            else
+            {
+                dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
+            }
+
+            search.UredjajId = evBroj;
+
+            if (evBroj != 0 && !string.IsNullOrEmpty(txtSearch.Text))
+                dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace eWorkshop.WinUI
     {
         int EvidencijskiBroj;
         APIService UredjajService { get; set; } = new APIService("Uredjaj");
-        APIService UredjajAkcija{ get; set; }
+        APIService UredjajAkcija { get; set; }
         APIService ReparacijaService { get; set; } = new APIService("Reparacija");
         APIService ServisIzvrsenService { get; set; } = new APIService("ServisIzvrsen");
         public StatusHelper Status { get; set; } = new StatusHelper();
@@ -42,7 +42,7 @@ namespace eWorkshop.WinUI
             lblSerBroj.Text = Uredjaj.SerijskiBroj.ToString();
             lblTip.Text = Uredjaj.Tip.Naziv.ToString();
             lblStatus.Text = Uredjaj.Status.ToString();
-            lblLokacija.Text = Uredjaj.Lokacija.Naziv.ToString();
+            lblLokacija.Text = Uredjaj.Lokacija.Naziv?.ToString();
             //Prikazivanje human readable statusa za uredjaje preko helper metode
             lblStatus.Text = Status.ProvjeraStatusa(Uredjaj.Status, Status.nizNaziv, Status.nizOpis);
 
@@ -57,102 +57,140 @@ namespace eWorkshop.WinUI
 
         private void EnableDisableButtons()
         {
-            //status - idle
-            if(Uredjaj.Status == Status.nizNaziv[0])
+            if (Uredjaj.isDeleted)
             {
+                btnRecikliraj.Enabled = true;
+                btnDeaktiviraj.Enabled = false;
+                btnAktiviraj.Enabled = false;
+                btnDijelovi.Enabled = false;
+                btnPosalji.Enabled = false;
+                btnServisiraj.Enabled = false;
+                btnSpremi.Enabled = false;
+                btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = false;
+                btnUredi.Enabled = false;
+                return;
+            } else
+            {
+                btnRecikliraj.Enabled = false;
+            }
+         
+
+            //status - idle
+            if (Uredjaj.Status == Status.nizNaziv[0])
+            {
+                btnDeaktiviraj.Enabled = false;
                 btnAktiviraj.Enabled = true;
-                //btnDeaktiviraj.Enabled = false;
                 btnDijelovi.Enabled = true;
                 btnPosalji.Enabled = false;
                 btnServisiraj.Enabled = false;
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = true;
+                btnUredi.Enabled = true;
+                
             }
 
             //status - active
             if (Uredjaj.Status == Status.nizNaziv[1])
             {
+                btnDeaktiviraj.Enabled = true;
                 btnAktiviraj.Enabled = false;
-                //btnDeaktiviraj.Enabled = true;
                 btnDijelovi.Enabled = false;
                 btnPosalji.Enabled = false;
                 btnServisiraj.Enabled = true;
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = false;
+                btnUredi.Enabled = false;
             }
 
             //status - fix
             if (Uredjaj.Status == Status.nizNaziv[2])
             {
+                btnDeaktiviraj.Enabled = true;
                 btnAktiviraj.Enabled = false;
-                //btnDeaktiviraj.Enabled = true;
                 btnDijelovi.Enabled = false;
                 btnPosalji.Enabled = false;
                 btnServisiraj.Enabled = true;
                 btnSpremi.Enabled = true;
                 btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = false;
+                btnUredi.Enabled = false;
             }
 
             //status - ready
             if (Uredjaj.Status == Status.nizNaziv[3])
             {
+                btnDeaktiviraj.Enabled = false;
                 btnAktiviraj.Enabled = false;
-                //btnDeaktiviraj.Enabled = true;
                 btnDijelovi.Enabled = false;
                 btnPosalji.Enabled = true;
                 btnServisiraj.Enabled = true;
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = false;
+                btnUredi.Enabled = false;
             }
 
             //status - out
             if (Uredjaj.Status == Status.nizNaziv[4])
             {
+                btnDeaktiviraj.Enabled = false;
                 btnAktiviraj.Enabled = false;
-                //btnDeaktiviraj.Enabled = false;
                 btnDijelovi.Enabled = false;
                 btnPosalji.Enabled = false;
                 btnServisiraj.Enabled = false;
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = true;
+                btnIzbrisi.Enabled = false;
+                btnUredi.Enabled = false;
             }
 
             //status - parts
             if (Uredjaj.Status == Status.nizNaziv[5])
             {
+                btnDeaktiviraj.Enabled = false;
                 btnAktiviraj.Enabled = true;
-               //btnDeaktiviraj.Enabled = false;
                 btnDijelovi.Enabled = false;
                 btnPosalji.Enabled = false;
                 btnServisiraj.Enabled = false;
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = true;
+                btnUredi.Enabled = true;
             }
 
             //status - task
             if (Uredjaj.Status == Status.nizNaziv[6])
             {
+                btnDeaktiviraj.Enabled = false;
                 btnAktiviraj.Enabled = false;
-                //btnDeaktiviraj.Enabled = false;
                 btnDijelovi.Enabled = false;
                 btnPosalji.Enabled = false;
                 btnServisiraj.Enabled = true;
                 btnSpremi.Enabled = false;
                 btnVrati.Enabled = false;
+                btnIzbrisi.Enabled = false;
+                btnUredi.Enabled = false;
             }
         }
 
         private async void UcitajHistorijuServisiranja()
         {
-            ReparacijaSearchObject reparacijaVM = new ReparacijaSearchObject();
-            ServisIzvrsenSearchObject servisIzvrsenVM = new ServisIzvrsenSearchObject();
+            ReparacijaSearchObject reparacijaSearch = new ReparacijaSearchObject();
+            ServisIzvrsenSearchObject servisIzvrsenSearch = new ServisIzvrsenSearchObject();
 
-            reparacijaVM.UredjajId = EvidencijskiBroj;
+            reparacijaSearch.UredjajId = EvidencijskiBroj;
 
-            var reparacija = await ReparacijaService.Get<List<ServisVM>>(reparacijaVM);
+            var reparacija = await ReparacijaService.Get<List<ServisVM>>(reparacijaSearch);
 
-           
-            var komponente = await ServisIzvrsenService.Get<List<ServisIzvrsenVM>>(servisIzvrsenVM);
+
+
+            servisIzvrsenSearch.UredjajId = EvidencijskiBroj;
+
+
+            var komponente = await ServisIzvrsenService.Get<List<ServisIzvrsenVM>>(servisIzvrsenSearch);
 
 
             int x = 0;
@@ -162,15 +200,24 @@ namespace eWorkshop.WinUI
              koje odgovaraju odredjenom servisu*/
             for (int i = 0; i < reparacija.Count; i++)
             {
-                var datum = reparacija[i].Datum.Value.Day.ToString()
+                string datum;
+
+                if (reparacija[i].Datum == null)
+                {
+                    datum = "Nepoznato";
+                }
+                else
+                {
+                    datum = reparacija[i].Datum.Value.Day.ToString()
                     + "." +
                     reparacija[i].Datum.Value.Month.ToString()
                     + "." +
                     reparacija[i].Datum.Value.Year.ToString();
+                }
 
-                var control = 
+                var control =
                     new HistorijaServisaUserControl(komponente
-                    .Where(x => x.Servis.ServisId == reparacija[i].ServisId).ToList(), datum);
+                    .Where(x => x.Servis.ServisId == reparacija[i].ServisId).Distinct().ToList(), datum, reparacija[i]);
 
                 control.Location = new Point(x, y);
 
@@ -179,14 +226,16 @@ namespace eWorkshop.WinUI
             }
         }
 
-        private void AktivirajReadyVratiClick() 
+        private void AktivirajReadyVratiClick()
         {
-            UredjajAkcija = new APIService("Uredjaj/" + EvidencijskiBroj + "/Aktiviraj-Ready-Vrati");
+            UredjajAkcija = new APIService("Uredjaj/Aktiviraj-Ready-Vrati/" + EvidencijskiBroj);
 
             UredjajAkcija.Put<UredjajVM>(null);
 
             PreuzmiDetaljeUredjaja(EvidencijskiBroj);
-            Refresh();
+            this.Close();
+            frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void btnAktiviraj_Click(object sender, EventArgs e)
@@ -208,11 +257,115 @@ namespace eWorkshop.WinUI
         {
             frmServis childForm = new frmServis(Uredjaj);
             FormControl.NovaFormaOpcije(childForm);
+            Close();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void btnUredi_Click(object sender, EventArgs e)
+        {
+            frmPrijemUredjaja childForm = new frmPrijemUredjaja(Uredjaj);
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private async void btnDijelovi_Click(object sender, EventArgs e)
+        {
+            UredjajAkcija = new APIService("Uredjaj/SpareParts/" + Uredjaj.UredjajId);
+
+            DialogResult result = frmPotvrda.Show("Da li želite ostaviti uređaj za rezervne dijelove?", "Potvrdi", "Poništi");
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    await UredjajAkcija.Put<UredjajVM>(null);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                this.Close();
+                frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+                FormControl.NovaFormaOpcije(childForm);
+            }
+        }
+
+        private async void btnIzbrisi_Click(object sender, EventArgs e)
+        {
+
+
+            DialogResult result = frmPotvrda.Show("Da li želite izbrisati uređaj?", "Potvrdi", "Poništi");
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+
+
+                    await UredjajService.Delete(Uredjaj.UredjajId);
+
+                    MessageBox.Show("Uspješno je izbrisan uređaj sa evidencijskim brojem: " + Uredjaj.UredjajId.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                this.Close();
+                frmListaUredjaja childForm = new frmListaUredjaja();
+                FormControl.NovaFormaOpcije(childForm);
+            }
+        }
+
+        private async void btnDeaktiviraj_Click(object sender, EventArgs e)
+        {
+            UredjajAkcija = new APIService("Uredjaj/Deaktiviraj/" + Uredjaj.UredjajId);
+
+            DialogResult result = frmPotvrda.Show("Da li želite deaktivirati uređaj?", "Potvrdi", "Poništi");
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    await UredjajAkcija.Put<UredjajVM>(null);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                this.Close();
+                frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+                FormControl.NovaFormaOpcije(childForm);
+            }
+        }
+
+        private async void btnPosalji_Click(object sender, EventArgs e)
+        {
+            UredjajAkcija = new APIService("Uredjaj/Posalji");
+
+            UredjajLokacijaVM uredjajLokacija = new UredjajLokacijaVM();
+            uredjajLokacija.UredjajId = Uredjaj.UredjajId;
+            uredjajLokacija.LokacijaId = Uredjaj.Lokacija.LokacijaId;
+
+
+            DialogResult result = frmPotvrda.Show("Da li želite poslati uređaj?", "Potvrdi", "Poništi");
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    await UredjajAkcija.Put<UredjajVM>(uredjajLokacija);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                this.Close();
+                frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+                FormControl.NovaFormaOpcije(childForm);
+            }
         }
     }
 }

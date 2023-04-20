@@ -28,73 +28,86 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            btnLogin = new Button();
+            txtUsername = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            txtPassword = new TextBox();
+            groupBox1 = new GroupBox();
+            groupBox1.SuspendLayout();
+            SuspendLayout();
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(12, 149);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(202, 23);
-            this.btnLogin.TabIndex = 0;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            btnLogin.Location = new Point(80, 189);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(202, 23);
+            btnLogin.TabIndex = 0;
+            btnLogin.Text = "Login";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(12, 34);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(202, 23);
-            this.txtUsername.TabIndex = 1;
-            this.txtUsername.Text = "asad.tabak";
+            txtUsername.Location = new Point(80, 74);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(202, 23);
+            txtUsername.TabIndex = 1;
+            txtUsername.Text = "asad.tabak";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 15);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Username";
+            label1.AutoSize = true;
+            label1.Location = new Point(80, 49);
+            label1.Name = "label1";
+            label1.Size = new Size(60, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Username";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Password";
+            label2.AutoSize = true;
+            label2.Location = new Point(80, 115);
+            label2.Name = "label2";
+            label2.Size = new Size(57, 15);
+            label2.TabIndex = 4;
+            label2.Text = "Password";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(12, 100);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(202, 23);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "asd";
+            txtPassword.Location = new Point(80, 140);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(202, 23);
+            txtPassword.TabIndex = 3;
+            txtPassword.Text = "asd";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(btnLogin);
+            groupBox1.Controls.Add(txtPassword);
+            groupBox1.Controls.Add(txtUsername);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(382, 268);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Login";
             // 
             // frmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(233, 192);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.btnLogin);
-            this.Name = "frmLogin";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmLogin";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(404, 293);
+            Controls.Add(groupBox1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Name = "frmLogin";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "frmLogin";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -104,5 +117,6 @@
         private Label label1;
         private Label label2;
         private TextBox txtPassword;
+        private GroupBox groupBox1;
     }
 }

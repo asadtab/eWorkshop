@@ -14,6 +14,8 @@ namespace eWorkshop.WinUI.Service
         private string Resource = null;
         public string EndPoint = "https://localhost:7189/";
 
+        public static KorisniciVM Korisnik;
+
         public static string username { get; set; } = null;
         public static string password { get; set; } = null;
         public APIService(string resource)
@@ -56,7 +58,6 @@ namespace eWorkshop.WinUI.Service
         {
             await $"{EndPoint}{Resource}/{id}".WithBasicAuth(username, password).DeleteAsync();
 
-            //return T;
         }
 
     }

@@ -18,19 +18,28 @@ namespace eWorkshop.WinUI.UserControls
         APIService ReparacijaService { get; set; } = new APIService("Reparacija");
         APIService ServisIzvrsenService { get; set; } = new APIService("ServisIzvrsen");
         public List<ServisIzvrsenVM> Komponente { get; set; } = new List<ServisIzvrsenVM>();
+
+        ServisVM Reparacija = new ServisVM();
         public string Datum { get; set; }
-        public HistorijaServisaUserControl(List<ServisIzvrsenVM> komponente, string datum)
+        public HistorijaServisaUserControl(List<ServisIzvrsenVM> komponente, string datum, ServisVM servisVM)
         {
             InitializeComponent();
+            Reparacija = servisVM;
             Datum = datum;
             Komponente = komponente;
             HidePanel();
             UcitajKomponente(komponente);
+            LoadInfo();
+        }
+
+        private void LoadInfo()
+        {
+
         }
 
         private async void UcitajKomponente(List<ServisIzvrsenVM> komponente)
         {
-            btnDatum.Text = Datum;
+            btnDatum.Text = Datum + " - " + Reparacija.UredjajId;
 
             for (int i = 0; i < komponente.Count; i++)
             {
@@ -40,9 +49,14 @@ namespace eWorkshop.WinUI.UserControls
                 lvKomponente.Items.Add(item);
                 //lvKomponente.Items.Add()
             }
+
+
+            var ime = Reparacija.Korisnik.Ime + " " + Reparacija.Korisnik.Prezime;
+
+            lblServiser.Text = ime;
         }
 
-        
+
         private void HidePanel()
         {
             pnlLista.Visible = false;

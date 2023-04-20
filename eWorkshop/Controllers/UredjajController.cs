@@ -21,7 +21,7 @@ namespace eWorkshop.Controllers
             RadniZadatakService = radniZadatakService;
         }
 
-        [HttpPut("{id}/Aktiviraj-Ready-Vrati")]
+        [HttpPut("Aktiviraj-Ready-Vrati/{id}")]
         public UredjajVM Aktiviraj(int id)
         {
             return Service.Aktiviraj(id);
@@ -39,7 +39,7 @@ namespace eWorkshop.Controllers
             return Service.Posalji(uredjajLokacija);
         }
 
-        [HttpPut("{id}/SpareParts")]
+        [HttpPut("SpareParts/{id}")]
         public UredjajVM SpareParts(int id)
         {
             return Service.Parts(id);
@@ -62,6 +62,41 @@ namespace eWorkshop.Controllers
         {
             return Service.VratiIzTaska(id);
         }
-        
+
+        [HttpPut("Deaktiviraj/{id}")]
+        public UredjajVM Deaktiviraj(int id)
+        {
+            return Service.Deaktiviraj(id);
+        }
+
+        [HttpGet("Statistika")]
+        public StatistikaVM Statistika()
+        {
+            StatistikaVM statistika = new StatistikaVM();
+
+            List<UredjajVM> uredjaji = Service.Get().ToList();
+
+            for (int i = 0; i < uredjaji.Count(); i++)
+            {
+                statistika.UredjajiUkupno++;
+
+                if (uredjaji[i].Status == "task")
+                    statistika.RadniZadaciUredjaji++;
+
+                if (uredjaji[i].Status == "fix")
+                    statistika.ServisiraniUredjaji++;
+
+                if (uredjaji[i].Status == "out")
+                    statistika.PoslaniUredjaji++;
+
+                if (uredjaji[i].Status == "ready")
+                    statistika.SpremniUredjaji++;
+
+                if (uredjaji[i].Status == "active")
+                    statistika.AktivniUredjaji++;
+            }
+
+            return statistika;
+        }
     }
 }

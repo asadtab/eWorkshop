@@ -19,11 +19,13 @@ public partial class Uredjaj
 
     public int? LokacijaId { get; set; }
 
+    public bool isDeleted { get; set; }
+
     public virtual Lokacija? Lokacija { get; set; }
 
     public virtual ICollection<Servi> Servis { get; } = new List<Servi>();
 
-    public virtual TipUredjaja Tip { get; set; } = null!;
+    public virtual TipUredjaja Tip { get; set; } 
 
     public virtual ICollection<RadniZadatakUredjaj> RadniZadatakUredjajs { get; } = new List<RadniZadatakUredjaj>();
 }

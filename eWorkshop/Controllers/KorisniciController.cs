@@ -11,7 +11,7 @@ namespace eWorkshop.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class KorisniciController : BaseCRUDController<KorisniciVM, KorisniciSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
     {
         public KorisniciController(IKorisniciService service) : base(service)

@@ -45,7 +45,7 @@ namespace eWorkshop.Services
         {
             query = query.Include("RadniZadatak");
             query = query.Include("Uredjaj");
-            //query = query.Include("Korisnik");
+            query = query.Include("Korisnik");
 
             return query;
         }
@@ -75,5 +75,8 @@ namespace eWorkshop.Services
 
             return entity;
         }
+
+
+
     }
 }

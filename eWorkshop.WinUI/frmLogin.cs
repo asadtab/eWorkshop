@@ -1,4 +1,5 @@
 ﻿using eWorkshop.Model;
+using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Service;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,16 @@ namespace eWorkshop.WinUI
 
             try
             {
-                var result = await KorisniciService.Get<dynamic>();
-                var form = new mdiPocetna();
+                KorisniciSearchObject search = new KorisniciSearchObject();
+                search.KorisnickoIme = APIService.username;
+
+                var result = await KorisniciService.Get<List<KorisniciVM>>(search);
+
+                APIService.Korisnik = new KorisniciVM();
+
+                APIService.Korisnik = result.FirstOrDefault();
+
+                mdiPocetna form = new mdiPocetna();
                 form.Show();
             }
             catch (Exception)
@@ -36,7 +45,7 @@ namespace eWorkshop.WinUI
                 MessageBox.Show("Pogresno korisnicko ime ili password => forma");
             }
 
-            
+
         }
     }
 }

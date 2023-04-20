@@ -34,6 +34,12 @@ namespace eWorkshop.Services.UredjajiStateMachine
             Context.SaveChanges();
         }
 
+        public override void Deaktiviraj()
+        {
+            CurrentEntity.Status = "idle";
+            Context.SaveChanges();
+        }
+
         public override void Update(UredjajUpsertRequest request)
         {
             base.Update(request);

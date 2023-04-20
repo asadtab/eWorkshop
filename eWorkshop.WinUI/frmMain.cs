@@ -12,6 +12,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ComponentFactory.Krypton.Toolkit;
 using eWorkshop.WinUI.UserControls;
 using eWorkshop.WinUI.Service;
+using eWorkshop.WinUI.Helper_classes;
 
 namespace eWorkshop.WinUI
 {
@@ -19,12 +20,51 @@ namespace eWorkshop.WinUI
     {
         APIService zadatak = new APIService("RadniZadatak");
         APIService zadatakUredjaj = new APIService("RadniZadatakUredjaj");
+        APIService UredjajService = new APIService("Uredjaj");
+        APIService StatistikaUredjajiService = new APIService("Statistika/Uredjaji");
+        APIService StatistikaZadaciService = new APIService("Statistika/RadniZadaci");
+        StatistikaVM StatistikaUredjaji = new StatistikaVM();
+        StatistikaVM StatistikaZadaci = new StatistikaVM();
+        public  int  AktivniRadniZadaci { get; set; } = 0;
+        public  int  ServisiraniUredjaji { get; set; } = 0;
+        public  int  AktivniUredjaji { get; set; } = 0;
+        public  int  PoslaniUredjaji { get; set; } = 0;
+        public  int  SpremniUredjaji { get; set; } = 0;
+        public  int  UredjajiUkupno { get; set; } = 0;
+        public  int  RezervniDijeloviUredjaji { get; set; } = 0;
+        public  int  RadniZadaciUredjaji { get; set; } = 0;
         public frmMain()
         {
             InitializeComponent();
         }
 
         private async void frmMain_Load(object sender, EventArgs e)
+        {
+
+            StatistikaUredjaji = await StatistikaUredjajiService.Get<StatistikaVM>();
+            StatistikaZadaci = await StatistikaZadaciService.Get<StatistikaVM>();
+
+            LoadRadneZadatke();
+            StatistikaInfo();
+        }
+
+
+        private async void StatistikaInfo()
+        {
+            lblUkupnoUredjaja.Text = StatistikaUredjaji.UredjajiUkupno.ToString();
+            lblAktivniUredjaji.Text = StatistikaUredjaji.AktivniUredjaji.ToString();
+            lblPoslaniUredjaji.Text = StatistikaUredjaji.PoslaniUredjaji.ToString();
+            lblServisiraniUredjaji.Text = StatistikaUredjaji.ServisiraniUredjaji.ToString();
+            lblNeaktivniUredjaji.Text = StatistikaUredjaji.NeaktivniUredjaji.ToString();
+            lblSpremniUredjaji.Text = StatistikaUredjaji.SpremniUredjaji.ToString();
+            lblTaskUredjaji.Text = StatistikaUredjaji.RadniZadaciUredjaji.ToString();
+            
+            lblUkupnoKorisnika.Text = StatistikaUredjaji.KorisniciUkupno.ToString();
+
+            lblAktivniRadniZadaci.Text = StatistikaZadaci.AktivniRadniZadaci.ToString();
+        }
+
+        private async void LoadRadneZadatke()
         {
             var getZadaci = await zadatak.Get<List<RadniZadatakVM>>();
             var getZadatakUredjaj = await zadatakUredjaj.Get<List<RadniZadatakUredjajVM>>();
@@ -33,11 +73,12 @@ namespace eWorkshop.WinUI
             int y = 0;
 
             var RadniZadatakDistinctIdList = getZadatakUredjaj.Select(x => x.RadniZadatakId).Distinct().ToList();
-            
+
             for (int i = 0; i < getZadaci.Count; i++)
             {
                 if (getZadaci[i].StateMachine == "active")
                 {
+                    AktivniRadniZadaci++;
                     //filtriranje radnih zadataka na osnovu stanja (state machine pattern)
                     var control = new RadniZadaciUserControl(getZadatakUredjaj.Where(x => x.RadniZadatakId == getZadaci[i].RadniZadatakId).ToList());
                     control.Location = new Point(x, y);
@@ -47,7 +88,5 @@ namespace eWorkshop.WinUI
                 }
             }
         }
-
-
     }
 }

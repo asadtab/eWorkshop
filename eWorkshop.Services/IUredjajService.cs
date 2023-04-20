@@ -16,6 +16,8 @@ namespace eWorkshop.Services
         //ServisVM Servisiraj(ServisInsertRequest request);
         UredjajLokacijaVM Posalji(UredjajLokacijaVM uredjajLokacija);
         UredjajVM Parts(int id);
+        UredjajVM Deaktiviraj(int id);
+
         UredjajVM Insert(UredjajUpsertRequest uredjaj);
     }
 }

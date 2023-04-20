@@ -13,6 +13,7 @@ namespace eWorkshop.Model.SearchObject
         public int KorisnikId { get; set; }
 
         public string UredjajState { get; set; }
+        public string RadniZadatakState { get; set; }
 
         public string[] ZadatakState { get; set; } = { };
     }

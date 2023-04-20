@@ -44,6 +44,8 @@ namespace eWorkshop.WinUI
             PopulateListBoxUredjaji();
             PopulateListBoxZadaci();
             PopulateInfo();
+
+
         }
 
         private void PopulateInfo()
@@ -71,6 +73,15 @@ namespace eWorkshop.WinUI
             lbRadniZadatakUredjaj.ValueMember = "UredjajId";
 
             lblUkupno.Text = RadniZadatak.Count.ToString();
+            if (radniZadatakCmb.StateMachine != "active")
+            {
+                btnRadniZadatakDetalji.Enabled = false;
+            }
+            else
+            {
+                btnRadniZadatakDetalji.Enabled = true;
+            }
+
         }
 
         private async void PopulateListBoxUredjaji()
@@ -106,7 +117,7 @@ namespace eWorkshop.WinUI
             //search.UredjajId = uredjajId;
 
             var radniZadaci = await RadniZadatakUredjajService.Get<List<RadniZadatakUredjajVM>>(search);
-            //provjera da li uredjaj postoji u radnom zadatku i da li radni zadatak zavrsen
+            //provjera da li uredjaj postoji u radnom zadatku i da li je radni zadatak zavrsen
             foreach (var uredjaj in radniZadaci)
             {
                 if (uredjaj.UredjajId == uredjajId
@@ -193,6 +204,9 @@ namespace eWorkshop.WinUI
         private void cmbRadniZadaci_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateListBoxZadaci();
+            PopulateInfo();
+
+
         }
 
         private void btnNoviRadniZadatak_Click(object sender, EventArgs e)

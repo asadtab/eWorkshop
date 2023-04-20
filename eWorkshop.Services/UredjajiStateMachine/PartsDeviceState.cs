@@ -16,8 +16,9 @@ namespace eWorkshop.Services.UredjajiStateMachine
 
         public override void Aktiviraj()
         {
-            base.Aktiviraj();
-        }
+            CurrentEntity.Status = "active";
+            Context.SaveChanges();
+    }
 
     }
 }

@@ -1,5 +1,8 @@
-﻿using eWorkshop.Services;
+﻿using eWorkshop.Model;
+using eWorkshop.Model.SearchObject;
+using eWorkshop.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -53,5 +56,28 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
         var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
         return AuthenticateResult.Success(ticket);
+    }
+
+
+    public KorisniciVM GetLoggedUser()
+    {
+        if (!Request.Headers.ContainsKey("Authorization"))
+        {
+            return null;
+        }
+
+        var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+        var credentialsBytes = Convert.FromBase64String(authHeader.Parameter);
+        var credentials = Encoding.UTF8.GetString(credentialsBytes).Split(':');
+
+        var username = credentials[0];
+        var password = credentials[1];
+
+        KorisniciSearchObject search = new KorisniciSearchObject();
+        search.KorisnickoIme = username;
+
+        var loggedUser = KorisniciService.Get(search).FirstOrDefault();
+
+        return loggedUser;
     }
 }

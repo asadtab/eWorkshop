@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btnExit = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbStateMachine = new System.Windows.Forms.ComboBox();
             this.dgvLista = new System.Windows.Forms.DataGridView();
@@ -38,7 +37,6 @@
             this.serijskibroj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lokacija = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dgvUredjaji = new System.Windows.Forms.DataGridView();
@@ -47,7 +45,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUredjaji)).BeginInit();
@@ -65,14 +62,7 @@
             this.btnExit.TabIndex = 31;
             this.btnExit.Text = "X";
             this.btnExit.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(6, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(197, 29);
-            this.textBox1.TabIndex = 29;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // label1
             // 
@@ -92,6 +82,7 @@
             this.cmbStateMachine.Name = "cmbStateMachine";
             this.cmbStateMachine.Size = new System.Drawing.Size(197, 29);
             this.cmbStateMachine.TabIndex = 26;
+            this.cmbStateMachine.SelectedIndexChanged += new System.EventHandler(this.cmbStateMachine_SelectedIndexChanged);
             // 
             // dgvLista
             // 
@@ -148,16 +139,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Stanje radnog zadatka";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Location = new System.Drawing.Point(270, 83);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(212, 61);
-            this.groupBox2.TabIndex = 33;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Pretraga";
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dgvLista);
@@ -191,6 +172,7 @@
             this.dgvUredjaji.RowTemplate.Height = 25;
             this.dgvUredjaji.Size = new System.Drawing.Size(322, 381);
             this.dgvUredjaji.TabIndex = 25;
+            this.dgvUredjaji.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUredjaji_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -222,7 +204,6 @@
             this.ControlBox = false;
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label1);
@@ -232,8 +213,6 @@
             this.Load += new System.EventHandler(this.frmRadniZadaciLista_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUredjaji)).EndInit();
@@ -245,12 +224,10 @@
         #endregion
 
         private Button btnExit;
-        private TextBox textBox1;
         private Label label1;
         private ComboBox cmbStateMachine;
         private DataGridView dgvLista;
         private GroupBox groupBox1;
-        private GroupBox groupBox2;
         private GroupBox groupBox3;
         private GroupBox groupBox4;
         private DataGridView dgvUredjaji;

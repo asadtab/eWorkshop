@@ -28,402 +28,372 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pnlKorisnici = new System.Windows.Forms.Panel();
-            this.btnListaKorisnika = new System.Windows.Forms.Button();
-            this.btnDodajKorisnika = new System.Windows.Forms.Button();
-            this.btnKorisnici = new System.Windows.Forms.Button();
-            this.btnStatistika = new System.Windows.Forms.Button();
-            this.btnIzvjestaj = new System.Windows.Forms.Button();
-            this.pnlUredjaj = new System.Windows.Forms.Panel();
-            this.btnLista = new System.Windows.Forms.Button();
-            this.btnPrijemUredjaja = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btnMain = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.radniZadaciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dodajNoviToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detaljiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uređajiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.prijemUređajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detaljiToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.korisniciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dodajNovogKorisnikaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detaljiToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.magacinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.komponenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.vidiSveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uređajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listaRadnihZadatakaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1.SuspendLayout();
-            this.pnlKorisnici.SuspendLayout();
-            this.pnlUredjaj.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new Panel();
+            pnlKorisnici = new Panel();
+            btnListaKorisnika = new Button();
+            btnDodajKorisnika = new Button();
+            btnKorisnici = new Button();
+            btnStatistika = new Button();
+            btnIzvjestaj = new Button();
+            pnlUredjaj = new Panel();
+            btnLista = new Button();
+            btnPrijemUredjaja = new Button();
+            button1 = new Button();
+            panel4 = new Panel();
+            btnMain = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            menuStrip1 = new MenuStrip();
+            radniZadaciToolStripMenuItem = new ToolStripMenuItem();
+            detaljiToolStripMenuItem = new ToolStripMenuItem();
+            listaRadnihZadatakaToolStripMenuItem = new ToolStripMenuItem();
+            korisniciToolStripMenuItem = new ToolStripMenuItem();
+            dodajNovogKorisnikaToolStripMenuItem = new ToolStripMenuItem();
+            detaljiToolStripMenuItem2 = new ToolStripMenuItem();
+            mojRačunToolStripMenuItem = new ToolStripMenuItem();
+            odjaviSeToolStripMenuItem = new ToolStripMenuItem();
+            magacinToolStripMenuItem = new ToolStripMenuItem();
+            komponenteToolStripMenuItem = new ToolStripMenuItem();
+            dodajToolStripMenuItem = new ToolStripMenuItem();
+            vidiSveToolStripMenuItem = new ToolStripMenuItem();
+            uređajToolStripMenuItem = new ToolStripMenuItem();
+            panel1.SuspendLayout();
+            pnlKorisnici.SuspendLayout();
+            pnlUredjaj.SuspendLayout();
+            panel4.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(40)))), ((int)(((byte)(61)))));
-            this.panel1.Controls.Add(this.pnlKorisnici);
-            this.panel1.Controls.Add(this.btnKorisnici);
-            this.panel1.Controls.Add(this.btnStatistika);
-            this.panel1.Controls.Add(this.btnIzvjestaj);
-            this.panel1.Controls.Add(this.pnlUredjaj);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.panel4);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(228, 623);
-            this.panel1.TabIndex = 10;
+            panel1.AutoScroll = true;
+            panel1.BackColor = Color.FromArgb(6, 40, 61);
+            panel1.Controls.Add(pnlKorisnici);
+            panel1.Controls.Add(btnKorisnici);
+            panel1.Controls.Add(btnStatistika);
+            panel1.Controls.Add(btnIzvjestaj);
+            panel1.Controls.Add(pnlUredjaj);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(panel4);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(228, 623);
+            panel1.TabIndex = 10;
             // 
             // pnlKorisnici
             // 
-            this.pnlKorisnici.Controls.Add(this.btnListaKorisnika);
-            this.pnlKorisnici.Controls.Add(this.btnDodajKorisnika);
-            this.pnlKorisnici.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlKorisnici.Location = new System.Drawing.Point(0, 388);
-            this.pnlKorisnici.Name = "pnlKorisnici";
-            this.pnlKorisnici.Size = new System.Drawing.Size(228, 140);
-            this.pnlKorisnici.TabIndex = 14;
+            pnlKorisnici.Controls.Add(btnListaKorisnika);
+            pnlKorisnici.Controls.Add(btnDodajKorisnika);
+            pnlKorisnici.Dock = DockStyle.Top;
+            pnlKorisnici.Location = new Point(0, 388);
+            pnlKorisnici.Name = "pnlKorisnici";
+            pnlKorisnici.Size = new Size(228, 140);
+            pnlKorisnici.TabIndex = 14;
             // 
             // btnListaKorisnika
             // 
-            this.btnListaKorisnika.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnListaKorisnika.FlatAppearance.BorderSize = 0;
-            this.btnListaKorisnika.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnListaKorisnika.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnListaKorisnika.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnListaKorisnika.Location = new System.Drawing.Point(0, 44);
-            this.btnListaKorisnika.Name = "btnListaKorisnika";
-            this.btnListaKorisnika.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnListaKorisnika.Size = new System.Drawing.Size(228, 44);
-            this.btnListaKorisnika.TabIndex = 1;
-            this.btnListaKorisnika.Text = "Lista korisnika";
-            this.btnListaKorisnika.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListaKorisnika.UseVisualStyleBackColor = true;
+            btnListaKorisnika.Dock = DockStyle.Top;
+            btnListaKorisnika.FlatAppearance.BorderSize = 0;
+            btnListaKorisnika.FlatStyle = FlatStyle.Flat;
+            btnListaKorisnika.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnListaKorisnika.ForeColor = SystemColors.ButtonFace;
+            btnListaKorisnika.Location = new Point(0, 44);
+            btnListaKorisnika.Name = "btnListaKorisnika";
+            btnListaKorisnika.Padding = new Padding(30, 0, 0, 0);
+            btnListaKorisnika.Size = new Size(228, 44);
+            btnListaKorisnika.TabIndex = 1;
+            btnListaKorisnika.Text = "Lista korisnika";
+            btnListaKorisnika.TextAlign = ContentAlignment.MiddleLeft;
+            btnListaKorisnika.UseVisualStyleBackColor = true;
+            btnListaKorisnika.Click += btnListaKorisnika_Click;
             // 
             // btnDodajKorisnika
             // 
-            this.btnDodajKorisnika.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDodajKorisnika.FlatAppearance.BorderSize = 0;
-            this.btnDodajKorisnika.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDodajKorisnika.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnDodajKorisnika.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDodajKorisnika.Location = new System.Drawing.Point(0, 0);
-            this.btnDodajKorisnika.Name = "btnDodajKorisnika";
-            this.btnDodajKorisnika.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnDodajKorisnika.Size = new System.Drawing.Size(228, 44);
-            this.btnDodajKorisnika.TabIndex = 0;
-            this.btnDodajKorisnika.Text = "Dodaj korisnika";
-            this.btnDodajKorisnika.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDodajKorisnika.UseVisualStyleBackColor = true;
+            btnDodajKorisnika.Dock = DockStyle.Top;
+            btnDodajKorisnika.FlatAppearance.BorderSize = 0;
+            btnDodajKorisnika.FlatStyle = FlatStyle.Flat;
+            btnDodajKorisnika.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDodajKorisnika.ForeColor = SystemColors.ButtonFace;
+            btnDodajKorisnika.Location = new Point(0, 0);
+            btnDodajKorisnika.Name = "btnDodajKorisnika";
+            btnDodajKorisnika.Padding = new Padding(30, 0, 0, 0);
+            btnDodajKorisnika.Size = new Size(228, 44);
+            btnDodajKorisnika.TabIndex = 0;
+            btnDodajKorisnika.Text = "Dodaj korisnika";
+            btnDodajKorisnika.TextAlign = ContentAlignment.MiddleLeft;
+            btnDodajKorisnika.UseVisualStyleBackColor = true;
             // 
             // btnKorisnici
             // 
-            this.btnKorisnici.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnKorisnici.FlatAppearance.BorderSize = 0;
-            this.btnKorisnici.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKorisnici.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnKorisnici.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnKorisnici.Location = new System.Drawing.Point(0, 344);
-            this.btnKorisnici.Name = "btnKorisnici";
-            this.btnKorisnici.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnKorisnici.Size = new System.Drawing.Size(228, 44);
-            this.btnKorisnici.TabIndex = 8;
-            this.btnKorisnici.Text = "Korisnici";
-            this.btnKorisnici.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnKorisnici.UseVisualStyleBackColor = true;
-            this.btnKorisnici.Click += new System.EventHandler(this.btnKorisnici_Click);
+            btnKorisnici.Dock = DockStyle.Top;
+            btnKorisnici.FlatAppearance.BorderSize = 0;
+            btnKorisnici.FlatStyle = FlatStyle.Flat;
+            btnKorisnici.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnKorisnici.ForeColor = SystemColors.ButtonFace;
+            btnKorisnici.Location = new Point(0, 344);
+            btnKorisnici.Name = "btnKorisnici";
+            btnKorisnici.Padding = new Padding(10, 0, 0, 0);
+            btnKorisnici.Size = new Size(228, 44);
+            btnKorisnici.TabIndex = 8;
+            btnKorisnici.Text = "Korisnici";
+            btnKorisnici.TextAlign = ContentAlignment.MiddleLeft;
+            btnKorisnici.UseVisualStyleBackColor = true;
+            btnKorisnici.Click += btnKorisnici_Click;
             // 
             // btnStatistika
             // 
-            this.btnStatistika.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStatistika.FlatAppearance.BorderSize = 0;
-            this.btnStatistika.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStatistika.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnStatistika.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnStatistika.Location = new System.Drawing.Point(0, 300);
-            this.btnStatistika.Name = "btnStatistika";
-            this.btnStatistika.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnStatistika.Size = new System.Drawing.Size(228, 44);
-            this.btnStatistika.TabIndex = 7;
-            this.btnStatistika.Text = "Statistika";
-            this.btnStatistika.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStatistika.UseVisualStyleBackColor = true;
-            this.btnStatistika.Click += new System.EventHandler(this.btnStatistika_Click);
+            btnStatistika.Dock = DockStyle.Top;
+            btnStatistika.FlatAppearance.BorderSize = 0;
+            btnStatistika.FlatStyle = FlatStyle.Flat;
+            btnStatistika.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnStatistika.ForeColor = SystemColors.ButtonFace;
+            btnStatistika.Location = new Point(0, 300);
+            btnStatistika.Name = "btnStatistika";
+            btnStatistika.Padding = new Padding(10, 0, 0, 0);
+            btnStatistika.Size = new Size(228, 44);
+            btnStatistika.TabIndex = 7;
+            btnStatistika.Text = "Statistika";
+            btnStatistika.TextAlign = ContentAlignment.MiddleLeft;
+            btnStatistika.UseVisualStyleBackColor = true;
             // 
             // btnIzvjestaj
             // 
-            this.btnIzvjestaj.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnIzvjestaj.FlatAppearance.BorderSize = 0;
-            this.btnIzvjestaj.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIzvjestaj.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnIzvjestaj.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnIzvjestaj.Location = new System.Drawing.Point(0, 256);
-            this.btnIzvjestaj.Name = "btnIzvjestaj";
-            this.btnIzvjestaj.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnIzvjestaj.Size = new System.Drawing.Size(228, 44);
-            this.btnIzvjestaj.TabIndex = 6;
-            this.btnIzvjestaj.Text = "Izvještaj";
-            this.btnIzvjestaj.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnIzvjestaj.UseVisualStyleBackColor = true;
+            btnIzvjestaj.Dock = DockStyle.Top;
+            btnIzvjestaj.FlatAppearance.BorderSize = 0;
+            btnIzvjestaj.FlatStyle = FlatStyle.Flat;
+            btnIzvjestaj.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnIzvjestaj.ForeColor = SystemColors.ButtonFace;
+            btnIzvjestaj.Location = new Point(0, 256);
+            btnIzvjestaj.Name = "btnIzvjestaj";
+            btnIzvjestaj.Padding = new Padding(10, 0, 0, 0);
+            btnIzvjestaj.Size = new Size(228, 44);
+            btnIzvjestaj.TabIndex = 6;
+            btnIzvjestaj.Text = "Izvještaj";
+            btnIzvjestaj.TextAlign = ContentAlignment.MiddleLeft;
+            btnIzvjestaj.UseVisualStyleBackColor = true;
+            btnIzvjestaj.Click += btnIzvjestaj_Click;
             // 
             // pnlUredjaj
             // 
-            this.pnlUredjaj.Controls.Add(this.btnLista);
-            this.pnlUredjaj.Controls.Add(this.btnPrijemUredjaja);
-            this.pnlUredjaj.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlUredjaj.Location = new System.Drawing.Point(0, 165);
-            this.pnlUredjaj.Name = "pnlUredjaj";
-            this.pnlUredjaj.Size = new System.Drawing.Size(228, 91);
-            this.pnlUredjaj.TabIndex = 5;
+            pnlUredjaj.Controls.Add(btnLista);
+            pnlUredjaj.Controls.Add(btnPrijemUredjaja);
+            pnlUredjaj.Dock = DockStyle.Top;
+            pnlUredjaj.Location = new Point(0, 165);
+            pnlUredjaj.Name = "pnlUredjaj";
+            pnlUredjaj.Size = new Size(228, 91);
+            pnlUredjaj.TabIndex = 5;
             // 
             // btnLista
             // 
-            this.btnLista.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLista.FlatAppearance.BorderSize = 0;
-            this.btnLista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLista.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnLista.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLista.Location = new System.Drawing.Point(0, 44);
-            this.btnLista.Name = "btnLista";
-            this.btnLista.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnLista.Size = new System.Drawing.Size(228, 44);
-            this.btnLista.TabIndex = 3;
-            this.btnLista.Text = "Lista uređaja";
-            this.btnLista.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLista.UseVisualStyleBackColor = true;
-            this.btnLista.Click += new System.EventHandler(this.btnLista_Click);
+            btnLista.Dock = DockStyle.Top;
+            btnLista.FlatAppearance.BorderSize = 0;
+            btnLista.FlatStyle = FlatStyle.Flat;
+            btnLista.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnLista.ForeColor = SystemColors.ButtonFace;
+            btnLista.Location = new Point(0, 44);
+            btnLista.Name = "btnLista";
+            btnLista.Padding = new Padding(30, 0, 0, 0);
+            btnLista.Size = new Size(228, 44);
+            btnLista.TabIndex = 3;
+            btnLista.Text = "Lista uređaja";
+            btnLista.TextAlign = ContentAlignment.MiddleLeft;
+            btnLista.UseVisualStyleBackColor = true;
+            btnLista.Click += btnLista_Click;
             // 
             // btnPrijemUredjaja
             // 
-            this.btnPrijemUredjaja.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPrijemUredjaja.FlatAppearance.BorderSize = 0;
-            this.btnPrijemUredjaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrijemUredjaja.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnPrijemUredjaja.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnPrijemUredjaja.Location = new System.Drawing.Point(0, 0);
-            this.btnPrijemUredjaja.Name = "btnPrijemUredjaja";
-            this.btnPrijemUredjaja.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnPrijemUredjaja.Size = new System.Drawing.Size(228, 44);
-            this.btnPrijemUredjaja.TabIndex = 0;
-            this.btnPrijemUredjaja.Text = "Prijem uređaja";
-            this.btnPrijemUredjaja.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrijemUredjaja.UseVisualStyleBackColor = true;
-            this.btnPrijemUredjaja.Click += new System.EventHandler(this.btnPrijemUredjaja_Click);
+            btnPrijemUredjaja.Dock = DockStyle.Top;
+            btnPrijemUredjaja.FlatAppearance.BorderSize = 0;
+            btnPrijemUredjaja.FlatStyle = FlatStyle.Flat;
+            btnPrijemUredjaja.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPrijemUredjaja.ForeColor = SystemColors.ButtonFace;
+            btnPrijemUredjaja.Location = new Point(0, 0);
+            btnPrijemUredjaja.Name = "btnPrijemUredjaja";
+            btnPrijemUredjaja.Padding = new Padding(30, 0, 0, 0);
+            btnPrijemUredjaja.Size = new Size(228, 44);
+            btnPrijemUredjaja.TabIndex = 0;
+            btnPrijemUredjaja.Text = "Prijem uređaja";
+            btnPrijemUredjaja.TextAlign = ContentAlignment.MiddleLeft;
+            btnPrijemUredjaja.UseVisualStyleBackColor = true;
+            btnPrijemUredjaja.Click += btnPrijemUredjaja_Click;
             // 
             // button1
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(0, 121);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(228, 44);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Uređaji";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Dock = DockStyle.Top;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.ForeColor = SystemColors.ButtonFace;
+            button1.Location = new Point(0, 121);
+            button1.Name = "button1";
+            button1.Padding = new Padding(10, 0, 0, 0);
+            button1.Size = new Size(228, 44);
+            button1.TabIndex = 0;
+            button1.Text = "Uređaji";
+            button1.TextAlign = ContentAlignment.MiddleLeft;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // panel4
             // 
-            this.panel4.BackgroundImage = global::eWorkshop.WinUI.Properties.Resources.LogoTab;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Controls.Add(this.btnMain);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(228, 121);
-            this.panel4.TabIndex = 15;
+            panel4.BackgroundImage = Properties.Resources.LogoTab;
+            panel4.BackgroundImageLayout = ImageLayout.Stretch;
+            panel4.Controls.Add(btnMain);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(228, 121);
+            panel4.TabIndex = 15;
             // 
             // btnMain
             // 
-            this.btnMain.Location = new System.Drawing.Point(71, 59);
-            this.btnMain.Name = "btnMain";
-            this.btnMain.Size = new System.Drawing.Size(75, 23);
-            this.btnMain.TabIndex = 0;
-            this.btnMain.Text = "Main";
-            this.btnMain.UseVisualStyleBackColor = true;
-            this.btnMain.Click += new System.EventHandler(this.btnMain_Click);
+            btnMain.Location = new Point(71, 59);
+            btnMain.Name = "btnMain";
+            btnMain.Size = new Size(75, 23);
+            btnMain.TabIndex = 0;
+            btnMain.Text = "Main";
+            btnMain.UseVisualStyleBackColor = true;
+            btnMain.Click += btnMain_Click;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(228, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(727, 25);
-            this.tableLayoutPanel1.TabIndex = 12;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(menuStrip1, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.Location = new Point(228, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(727, 25);
+            tableLayoutPanel1.TabIndex = 12;
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.radniZadaciToolStripMenuItem,
-            this.uređajiToolStripMenuItem,
-            this.korisniciToolStripMenuItem,
-            this.magacinToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(363, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { radniZadaciToolStripMenuItem, korisniciToolStripMenuItem, magacinToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
+            menuStrip1.Size = new Size(363, 24);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
             // 
             // radniZadaciToolStripMenuItem
             // 
-            this.radniZadaciToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dodajNoviToolStripMenuItem,
-            this.detaljiToolStripMenuItem,
-            this.listaRadnihZadatakaToolStripMenuItem});
-            this.radniZadaciToolStripMenuItem.Name = "radniZadaciToolStripMenuItem";
-            this.radniZadaciToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.radniZadaciToolStripMenuItem.Text = "Radni zadaci";
-            // 
-            // dodajNoviToolStripMenuItem
-            // 
-            this.dodajNoviToolStripMenuItem.Name = "dodajNoviToolStripMenuItem";
-            this.dodajNoviToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.dodajNoviToolStripMenuItem.Text = "Dodaj novi";
-            this.dodajNoviToolStripMenuItem.Click += new System.EventHandler(this.dodajNoviToolStripMenuItem_Click);
+            radniZadaciToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { detaljiToolStripMenuItem, listaRadnihZadatakaToolStripMenuItem });
+            radniZadaciToolStripMenuItem.Name = "radniZadaciToolStripMenuItem";
+            radniZadaciToolStripMenuItem.Size = new Size(85, 20);
+            radniZadaciToolStripMenuItem.Text = "Radni zadaci";
             // 
             // detaljiToolStripMenuItem
             // 
-            this.detaljiToolStripMenuItem.Name = "detaljiToolStripMenuItem";
-            this.detaljiToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.detaljiToolStripMenuItem.Text = "Opcije";
-            this.detaljiToolStripMenuItem.Click += new System.EventHandler(this.detaljiToolStripMenuItem_Click);
-            // 
-            // uređajiToolStripMenuItem
-            // 
-            this.uređajiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.prijemUređajaToolStripMenuItem,
-            this.detaljiToolStripMenuItem1});
-            this.uređajiToolStripMenuItem.Name = "uređajiToolStripMenuItem";
-            this.uređajiToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.uređajiToolStripMenuItem.Text = "Uređaji";
-            // 
-            // prijemUređajaToolStripMenuItem
-            // 
-            this.prijemUređajaToolStripMenuItem.Name = "prijemUređajaToolStripMenuItem";
-            this.prijemUređajaToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.prijemUređajaToolStripMenuItem.Text = "Prijem uređaja";
-            this.prijemUređajaToolStripMenuItem.Click += new System.EventHandler(this.prijemUređajaToolStripMenuItem_Click);
-            // 
-            // detaljiToolStripMenuItem1
-            // 
-            this.detaljiToolStripMenuItem1.Name = "detaljiToolStripMenuItem1";
-            this.detaljiToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-            this.detaljiToolStripMenuItem1.Text = "Detalji";
-            // 
-            // korisniciToolStripMenuItem
-            // 
-            this.korisniciToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dodajNovogKorisnikaToolStripMenuItem,
-            this.detaljiToolStripMenuItem2});
-            this.korisniciToolStripMenuItem.Name = "korisniciToolStripMenuItem";
-            this.korisniciToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.korisniciToolStripMenuItem.Text = "Korisnici";
-            // 
-            // dodajNovogKorisnikaToolStripMenuItem
-            // 
-            this.dodajNovogKorisnikaToolStripMenuItem.Name = "dodajNovogKorisnikaToolStripMenuItem";
-            this.dodajNovogKorisnikaToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.dodajNovogKorisnikaToolStripMenuItem.Text = "Dodaj novog korisnika";
-            // 
-            // detaljiToolStripMenuItem2
-            // 
-            this.detaljiToolStripMenuItem2.Name = "detaljiToolStripMenuItem2";
-            this.detaljiToolStripMenuItem2.Size = new System.Drawing.Size(192, 22);
-            this.detaljiToolStripMenuItem2.Text = "Detalji";
-            // 
-            // magacinToolStripMenuItem
-            // 
-            this.magacinToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.komponenteToolStripMenuItem,
-            this.uređajToolStripMenuItem});
-            this.magacinToolStripMenuItem.Name = "magacinToolStripMenuItem";
-            this.magacinToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.magacinToolStripMenuItem.Text = "Magacin";
-            // 
-            // komponenteToolStripMenuItem
-            // 
-            this.komponenteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dodajToolStripMenuItem,
-            this.vidiSveToolStripMenuItem});
-            this.komponenteToolStripMenuItem.Name = "komponenteToolStripMenuItem";
-            this.komponenteToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.komponenteToolStripMenuItem.Text = "Komponente";
-            // 
-            // dodajToolStripMenuItem
-            // 
-            this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
-            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.dodajToolStripMenuItem.Text = "Dodaj";
-            this.dodajToolStripMenuItem.Click += new System.EventHandler(this.dodajToolStripMenuItem_Click);
-            // 
-            // vidiSveToolStripMenuItem
-            // 
-            this.vidiSveToolStripMenuItem.Name = "vidiSveToolStripMenuItem";
-            this.vidiSveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.vidiSveToolStripMenuItem.Text = "Vidi sve";
-            // 
-            // uređajToolStripMenuItem
-            // 
-            this.uređajToolStripMenuItem.Name = "uređajToolStripMenuItem";
-            this.uređajToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.uređajToolStripMenuItem.Text = "Uređaj";
+            detaljiToolStripMenuItem.Name = "detaljiToolStripMenuItem";
+            detaljiToolStripMenuItem.Size = new Size(184, 22);
+            detaljiToolStripMenuItem.Text = "Opcije";
+            detaljiToolStripMenuItem.Click += detaljiToolStripMenuItem_Click;
             // 
             // listaRadnihZadatakaToolStripMenuItem
             // 
-            this.listaRadnihZadatakaToolStripMenuItem.Name = "listaRadnihZadatakaToolStripMenuItem";
-            this.listaRadnihZadatakaToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.listaRadnihZadatakaToolStripMenuItem.Text = "Lista radnih zadataka";
-            this.listaRadnihZadatakaToolStripMenuItem.Click += new System.EventHandler(this.listaRadnihZadatakaToolStripMenuItem_Click);
+            listaRadnihZadatakaToolStripMenuItem.Name = "listaRadnihZadatakaToolStripMenuItem";
+            listaRadnihZadatakaToolStripMenuItem.Size = new Size(184, 22);
+            listaRadnihZadatakaToolStripMenuItem.Text = "Lista radnih zadataka";
+            listaRadnihZadatakaToolStripMenuItem.Click += listaRadnihZadatakaToolStripMenuItem_Click;
+            // 
+            // korisniciToolStripMenuItem
+            // 
+            korisniciToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajNovogKorisnikaToolStripMenuItem, detaljiToolStripMenuItem2, mojRačunToolStripMenuItem, odjaviSeToolStripMenuItem });
+            korisniciToolStripMenuItem.Name = "korisniciToolStripMenuItem";
+            korisniciToolStripMenuItem.Size = new Size(64, 20);
+            korisniciToolStripMenuItem.Text = "Korisnici";
+            // 
+            // dodajNovogKorisnikaToolStripMenuItem
+            // 
+            dodajNovogKorisnikaToolStripMenuItem.Name = "dodajNovogKorisnikaToolStripMenuItem";
+            dodajNovogKorisnikaToolStripMenuItem.Size = new Size(192, 22);
+            dodajNovogKorisnikaToolStripMenuItem.Text = "Dodaj novog korisnika";
+            // 
+            // detaljiToolStripMenuItem2
+            // 
+            detaljiToolStripMenuItem2.Name = "detaljiToolStripMenuItem2";
+            detaljiToolStripMenuItem2.Size = new Size(192, 22);
+            detaljiToolStripMenuItem2.Text = "Detalji";
+            // 
+            // mojRačunToolStripMenuItem
+            // 
+            mojRačunToolStripMenuItem.Name = "mojRačunToolStripMenuItem";
+            mojRačunToolStripMenuItem.Size = new Size(192, 22);
+            mojRačunToolStripMenuItem.Text = "Moj račun";
+            mojRačunToolStripMenuItem.Click += mojRačunToolStripMenuItem_Click;
+            // 
+            // odjaviSeToolStripMenuItem
+            // 
+            odjaviSeToolStripMenuItem.Name = "odjaviSeToolStripMenuItem";
+            odjaviSeToolStripMenuItem.Size = new Size(192, 22);
+            odjaviSeToolStripMenuItem.Text = "Odjavi se";
+            odjaviSeToolStripMenuItem.Click += odjaviSeToolStripMenuItem_Click;
+            // 
+            // magacinToolStripMenuItem
+            // 
+            magacinToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { komponenteToolStripMenuItem, uređajToolStripMenuItem });
+            magacinToolStripMenuItem.Name = "magacinToolStripMenuItem";
+            magacinToolStripMenuItem.Size = new Size(65, 20);
+            magacinToolStripMenuItem.Text = "Magacin";
+            // 
+            // komponenteToolStripMenuItem
+            // 
+            komponenteToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajToolStripMenuItem, vidiSveToolStripMenuItem });
+            komponenteToolStripMenuItem.Name = "komponenteToolStripMenuItem";
+            komponenteToolStripMenuItem.Size = new Size(143, 22);
+            komponenteToolStripMenuItem.Text = "Komponente";
+            // 
+            // dodajToolStripMenuItem
+            // 
+            dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
+            dodajToolStripMenuItem.Size = new Size(114, 22);
+            dodajToolStripMenuItem.Text = "Dodaj";
+            dodajToolStripMenuItem.Click += dodajToolStripMenuItem_Click;
+            // 
+            // vidiSveToolStripMenuItem
+            // 
+            vidiSveToolStripMenuItem.Name = "vidiSveToolStripMenuItem";
+            vidiSveToolStripMenuItem.Size = new Size(114, 22);
+            vidiSveToolStripMenuItem.Text = "Vidi sve";
+            // 
+            // uređajToolStripMenuItem
+            // 
+            uređajToolStripMenuItem.Name = "uređajToolStripMenuItem";
+            uređajToolStripMenuItem.Size = new Size(143, 22);
+            uređajToolStripMenuItem.Text = "Uređaj";
             // 
             // mdiPocetna
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(955, 623);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximizeBox = false;
-            this.Name = "mdiPocetna";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "mdiPocetna";
-            this.Load += new System.EventHandler(this.mdiPocetna_Load);
-            this.panel1.ResumeLayout(false);
-            this.pnlKorisnici.ResumeLayout(false);
-            this.pnlUredjaj.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(955, 623);
+            Controls.Add(tableLayoutPanel1);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            IsMdiContainer = true;
+            MainMenuStrip = menuStrip1;
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "mdiPocetna";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "mdiPocetna";
+            Load += mdiPocetna_Load;
+            panel1.ResumeLayout(false);
+            pnlKorisnici.ResumeLayout(false);
+            pnlUredjaj.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
         }
         #endregion
         private Panel panel1;
@@ -442,11 +412,7 @@
         private TableLayoutPanel tableLayoutPanel1;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem radniZadaciToolStripMenuItem;
-        private ToolStripMenuItem dodajNoviToolStripMenuItem;
         private ToolStripMenuItem detaljiToolStripMenuItem;
-        private ToolStripMenuItem uređajiToolStripMenuItem;
-        private ToolStripMenuItem prijemUređajaToolStripMenuItem;
-        private ToolStripMenuItem detaljiToolStripMenuItem1;
         private ToolStripMenuItem korisniciToolStripMenuItem;
         private ToolStripMenuItem dodajNovogKorisnikaToolStripMenuItem;
         private ToolStripMenuItem detaljiToolStripMenuItem2;
@@ -456,6 +422,8 @@
         private ToolStripMenuItem dodajToolStripMenuItem;
         private ToolStripMenuItem vidiSveToolStripMenuItem;
         private ToolStripMenuItem listaRadnihZadatakaToolStripMenuItem;
+        private ToolStripMenuItem mojRačunToolStripMenuItem;
+        private ToolStripMenuItem odjaviSeToolStripMenuItem;
     }
 }
 

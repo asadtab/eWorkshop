@@ -28,76 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlLista = new System.Windows.Forms.Panel();
-            this.lvKomponente = new System.Windows.Forms.ListView();
-            this.Naziv = new System.Windows.Forms.ColumnHeader();
-            this.Vrijednost = new System.Windows.Forms.ColumnHeader();
-            this.Koda = new System.Windows.Forms.ColumnHeader();
-            this.btnDatum = new System.Windows.Forms.Button();
-            this.pnlLista.SuspendLayout();
-            this.SuspendLayout();
+            pnlLista = new Panel();
+            lvKomponente = new ListView();
+            Naziv = new ColumnHeader();
+            Vrijednost = new ColumnHeader();
+            Koda = new ColumnHeader();
+            btnDatum = new Button();
+            lblServiser = new Label();
+            label1 = new Label();
+            pnlLista.SuspendLayout();
+            SuspendLayout();
             // 
             // pnlLista
             // 
-            this.pnlLista.Controls.Add(this.lvKomponente);
-            this.pnlLista.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlLista.Location = new System.Drawing.Point(0, 18);
-            this.pnlLista.Name = "pnlLista";
-            this.pnlLista.Size = new System.Drawing.Size(250, 201);
-            this.pnlLista.TabIndex = 0;
+            pnlLista.Controls.Add(lvKomponente);
+            pnlLista.Dock = DockStyle.Bottom;
+            pnlLista.Location = new Point(0, 64);
+            pnlLista.Name = "pnlLista";
+            pnlLista.Size = new Size(250, 201);
+            pnlLista.TabIndex = 0;
             // 
             // lvKomponente
             // 
-            this.lvKomponente.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Naziv,
-            this.Vrijednost,
-            this.Koda});
-            this.lvKomponente.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lvKomponente.Location = new System.Drawing.Point(0, 34);
-            this.lvKomponente.Name = "lvKomponente";
-            this.lvKomponente.Size = new System.Drawing.Size(250, 167);
-            this.lvKomponente.TabIndex = 0;
-            this.lvKomponente.UseCompatibleStateImageBehavior = false;
-            this.lvKomponente.View = System.Windows.Forms.View.Details;
+            lvKomponente.Columns.AddRange(new ColumnHeader[] { Naziv, Vrijednost, Koda });
+            lvKomponente.Dock = DockStyle.Top;
+            lvKomponente.Location = new Point(0, 0);
+            lvKomponente.Name = "lvKomponente";
+            lvKomponente.Size = new Size(250, 198);
+            lvKomponente.TabIndex = 0;
+            lvKomponente.UseCompatibleStateImageBehavior = false;
+            lvKomponente.View = View.Details;
             // 
             // Naziv
             // 
-            this.Naziv.Text = "Naziv";
+            Naziv.Text = "Naziv";
             // 
             // Vrijednost
             // 
-            this.Vrijednost.Text = "Vrijednost";
-            this.Vrijednost.Width = 70;
+            Vrijednost.Text = "Vrijednost";
+            Vrijednost.Width = 70;
             // 
             // Koda
             // 
-            this.Koda.Text = "Koda";
+            Koda.Text = "Koda";
             // 
             // btnDatum
             // 
-            this.btnDatum.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDatum.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.btnDatum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDatum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnDatum.Location = new System.Drawing.Point(0, 0);
-            this.btnDatum.Name = "btnDatum";
-            this.btnDatum.Size = new System.Drawing.Size(250, 37);
-            this.btnDatum.TabIndex = 1;
-            this.btnDatum.Text = "button1";
-            this.btnDatum.UseVisualStyleBackColor = true;
-            this.btnDatum.Click += new System.EventHandler(this.button1_Click);
+            btnDatum.Dock = DockStyle.Top;
+            btnDatum.FlatAppearance.BorderColor = Color.Gray;
+            btnDatum.FlatStyle = FlatStyle.Flat;
+            btnDatum.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDatum.Location = new Point(0, 0);
+            btnDatum.Name = "btnDatum";
+            btnDatum.Size = new Size(250, 37);
+            btnDatum.TabIndex = 1;
+            btnDatum.Text = "button1";
+            btnDatum.UseVisualStyleBackColor = true;
+            btnDatum.Click += button1_Click;
+            // 
+            // lblServiser
+            // 
+            lblServiser.AutoSize = true;
+            lblServiser.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblServiser.Location = new Point(91, 40);
+            lblServiser.Name = "lblServiser";
+            lblServiser.Size = new Size(52, 21);
+            lblServiser.TabIndex = 1;
+            lblServiser.Text = "label1";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(3, 40);
+            label1.Name = "label1";
+            label1.Size = new Size(82, 21);
+            label1.TabIndex = 2;
+            label1.Text = "Servisirao:";
             // 
             // HistorijaServisaUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnDatum);
-            this.Controls.Add(this.pnlLista);
-            this.Name = "HistorijaServisaUserControl";
-            this.Size = new System.Drawing.Size(250, 219);
-            this.pnlLista.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label1);
+            Controls.Add(lblServiser);
+            Controls.Add(btnDatum);
+            Controls.Add(pnlLista);
+            Name = "HistorijaServisaUserControl";
+            Size = new Size(250, 265);
+            pnlLista.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -108,5 +129,7 @@
         private ColumnHeader Vrijednost;
         private Button btnDatum;
         private ColumnHeader Koda;
+        private Label lblServiser;
+        private Label label1;
     }
 }

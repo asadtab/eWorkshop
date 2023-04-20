@@ -12,7 +12,7 @@ namespace eWorkshop.WinUI.Helper_classes
         public string[] nizOpis = { "Idle", "Aktivni uređaji", "Servisirani uređaji", "Spremni uređaji", "Poslani uređaji", "Rezervni uređaji", "Radni zadatak" };
 
         public string[] nizNazivZadatak = { "idle", "active", "done", "invoice"};
-        public string[] nizOpisZadatak = { "Idle", "Aktivan", "Završen", "Fakturisan"};
+        public string[] nizOpisZadatak = { "Neaktivan", "Aktivan", "Završen", "Fakturisan"};
 
         public string ProvjeraStatusa(string statusNaziv, string[] provjeraNaziv, string[] provjeraOpis)
         {

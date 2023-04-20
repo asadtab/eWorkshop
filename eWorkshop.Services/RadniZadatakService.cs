@@ -28,7 +28,33 @@ namespace eWorkshop.Services
         {
             var zadatak = Context.RadniZadataks.Find(id);
 
-            var state = BaseState.CreateState("done");
+            var zadatakUredjaj = Context.RadniZadatakUredjajs.Where(x => x.RadniZadatakId == zadatak.RadniZadatakId).ToList();
+
+            foreach (var item in zadatakUredjaj)
+            {
+                var uredjaj = Context.Uredjajs.Find(item.UredjajId);
+
+                if (item.Uredjaj.Status == "active" || item.Uredjaj.Status == "task")
+                {
+                    Context.RadniZadatakUredjajs.Remove(item);
+                    Context.SaveChanges();
+                }
+                
+                if(uredjaj.Status == "task")
+                {
+                    uredjaj.Status = "active";
+                    Context.SaveChanges();
+                }
+
+                if(uredjaj.Status != "out" && uredjaj.Status != "active")
+                {
+                    uredjaj.Status = "ready";
+                }
+
+                Context.SaveChanges();
+            }
+
+            var state = BaseState.CreateState("active");
             state.CurrentEntity = zadatak;
 
             state.Zavrsi();
@@ -40,10 +66,15 @@ namespace eWorkshop.Services
         {
             var filter = base.AddFilter(query, search);
 
-            if(search.StateMachineArray.Length > 0)
+            if(search != null && search.StateMachineArray.Length > 0)
             {
                 filter = filter.Where(x => x.StateMachine == search.StateMachineArray[0] 
                 || x.StateMachine == search.StateMachineArray[1]);
+            }
+
+            if(search != null && !string.IsNullOrEmpty(search.StateMachine))
+            {
+                filter = filter.Where(x => x.StateMachine == search.StateMachine);
             }
 
             return filter;

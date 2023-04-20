@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label5 = new System.Windows.Forms.Label();
-            this.txtKoda = new System.Windows.Forms.Label();
-            this.txtIzdanje = new System.Windows.Forms.TextBox();
+            this.lblKoda = new System.Windows.Forms.Label();
+            this.txtKoda = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtVrijednost = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtTip = new System.Windows.Forms.TextBox();
-            this.txtVrsta = new System.Windows.Forms.TextBox();
+            this.txtNaziv = new System.Windows.Forms.TextBox();
+            this.txtOznaka = new System.Windows.Forms.TextBox();
             this.btnRegistruj = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -45,27 +45,26 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(110, 123);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 15);
+            this.label5.Size = new System.Drawing.Size(46, 15);
             this.label5.TabIndex = 28;
-            this.label5.Text = "Vrsta";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+            this.label5.Text = "Oznaka";
+            // 
+            // lblKoda
+            // 
+            this.lblKoda.AutoSize = true;
+            this.lblKoda.Location = new System.Drawing.Point(357, 173);
+            this.lblKoda.Name = "lblKoda";
+            this.lblKoda.Size = new System.Drawing.Size(34, 15);
+            this.lblKoda.TabIndex = 26;
+            this.lblKoda.Text = "Koda";
             // 
             // txtKoda
             // 
-            this.txtKoda.AutoSize = true;
-            this.txtKoda.Location = new System.Drawing.Point(357, 173);
+            this.txtKoda.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtKoda.Location = new System.Drawing.Point(357, 191);
             this.txtKoda.Name = "txtKoda";
-            this.txtKoda.Size = new System.Drawing.Size(34, 15);
-            this.txtKoda.TabIndex = 26;
-            this.txtKoda.Text = "Koda";
-            // 
-            // txtIzdanje
-            // 
-            this.txtIzdanje.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtIzdanje.Location = new System.Drawing.Point(357, 191);
-            this.txtIzdanje.Name = "txtIzdanje";
-            this.txtIzdanje.Size = new System.Drawing.Size(235, 29);
-            this.txtIzdanje.TabIndex = 25;
+            this.txtKoda.Size = new System.Drawing.Size(235, 29);
+            this.txtKoda.TabIndex = 25;
             // 
             // label2
             // 
@@ -89,25 +88,25 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(357, 123);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 15);
+            this.label1.Size = new System.Drawing.Size(36, 15);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Tip";
+            this.label1.Text = "Naziv";
             // 
-            // txtTip
+            // txtNaziv
             // 
-            this.txtTip.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtTip.Location = new System.Drawing.Point(357, 141);
-            this.txtTip.Name = "txtTip";
-            this.txtTip.Size = new System.Drawing.Size(235, 29);
-            this.txtTip.TabIndex = 21;
+            this.txtNaziv.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtNaziv.Location = new System.Drawing.Point(357, 141);
+            this.txtNaziv.Name = "txtNaziv";
+            this.txtNaziv.Size = new System.Drawing.Size(235, 29);
+            this.txtNaziv.TabIndex = 21;
             // 
-            // txtVrsta
+            // txtOznaka
             // 
-            this.txtVrsta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtVrsta.Location = new System.Drawing.Point(110, 141);
-            this.txtVrsta.Name = "txtVrsta";
-            this.txtVrsta.Size = new System.Drawing.Size(235, 29);
-            this.txtVrsta.TabIndex = 29;
+            this.txtOznaka.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtOznaka.Location = new System.Drawing.Point(110, 141);
+            this.txtOznaka.Name = "txtOznaka";
+            this.txtOznaka.Size = new System.Drawing.Size(235, 29);
+            this.txtOznaka.TabIndex = 29;
             // 
             // btnRegistruj
             // 
@@ -117,6 +116,7 @@
             this.btnRegistruj.TabIndex = 30;
             this.btnRegistruj.Text = "Sačuvaj";
             this.btnRegistruj.UseVisualStyleBackColor = true;
+            this.btnRegistruj.Click += new System.EventHandler(this.btnRegistruj_Click);
             // 
             // label6
             // 
@@ -137,14 +137,14 @@
             this.ControlBox = false;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnRegistruj);
-            this.Controls.Add(this.txtVrsta);
+            this.Controls.Add(this.txtOznaka);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblKoda);
             this.Controls.Add(this.txtKoda);
-            this.Controls.Add(this.txtIzdanje);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtVrijednost);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtTip);
+            this.Controls.Add(this.txtNaziv);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmDodajKomponentu";
             this.Text = "frmDodajKomponentu";
@@ -155,13 +155,13 @@
 
         #endregion
         private Label label5;
-        private Label txtKoda;
-        private TextBox txtIzdanje;
+        private Label lblKoda;
+        private TextBox txtKoda;
         private Label label2;
         private TextBox txtVrijednost;
         private Label label1;
-        private TextBox txtTip;
-        private TextBox txtVrsta;
+        private TextBox txtNaziv;
+        private TextBox txtOznaka;
         private Button btnRegistruj;
         private Label label6;
     }

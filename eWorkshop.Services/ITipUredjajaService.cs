@@ -10,5 +10,9 @@ namespace eWorkshop.Services
 {
     public interface ITipUredjajaService : ICRUDService<TipUredjajaVM, object, TipUredjajaUpsertRequest, TipUredjajaUpsertRequest>
     {
+        //public List<KomponenteVM> Recommend(int id);
+
     }
+
+    
 }

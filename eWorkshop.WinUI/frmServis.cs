@@ -21,9 +21,14 @@ namespace eWorkshop.WinUI
         public StatusHelper StatusHelp { get; set; } = new StatusHelper();
         public APIService KomponenteService { get; set; } = new APIService("Komponente");
         public APIService ServisIzvrsen { get; set; } = new APIService("ServisIzvrsen");
+        public APIService ZadatakService { get; set; } = new APIService("RadniZadatakUredjaj");
+        public APIService KomponenteRecommended { get; set; } = new APIService("ServisIzvrsen/Komponente");
         public APIService UredjajService { get; set; } = new APIService("Uredjaj/Servisiraj");
+        public FormControl FormControl { get; set; } = new FormControl();
         public ServisIzvrsenVM Servis { get; set; }
         public List<int> KomponenteId { get; set; } = new List<int>();
+
+       // ServisHelperVM Opis { get; set; } = new ServisHelperVM();
         public int Brojac { get; set; } = 1;
 
         public frmServis(UredjajVM uredjaj)
@@ -33,7 +38,7 @@ namespace eWorkshop.WinUI
             Uredjaj = uredjaj;
         }
 
-        private void frmServis_Load(object sender, EventArgs e)
+        private async void frmServis_Load(object sender, EventArgs e)
         {
             lblEvBroj.Text = Uredjaj.UredjajId.ToString();
             lblKoda.Text = Uredjaj.Koda.ToString();
@@ -41,60 +46,134 @@ namespace eWorkshop.WinUI
             lblSerBroj.Text = Uredjaj.SerijskiBroj.ToString();
             lblStatus.Text = StatusHelp.ProvjeraStatusa(Uredjaj.Status, StatusHelp.nizNaziv, StatusHelp.nizOpis);
             lblTip.Text = Uredjaj.Tip.Naziv.ToString();
+            txtOpisServisiranja.Text = Uredjaj.TipNaziv == "VGS" ? ServisHelperVM.OpisServisiranjaUlosci : ServisHelperVM.OpisServisiranjaGrupe;
+
+            ServisIzvrsenSearchObject search = new ServisIzvrsenSearchObject();
+            search.TipUredjajaNaziv = Uredjaj.TipNaziv;
+
+            var komponenteRecommended = await KomponenteRecommended.Get<List<KomponenteVM>>(search);
+
+            cmbKomponente.DataSource = komponenteRecommended;
+            cmbKomponente.ValueMember = "KomponentaId";
+            cmbKomponente.DisplayMember = "Naziv";
         }
 
         private async void btnKomponenta_Click(object sender, EventArgs e)
         {
+            //dodaje se komponenta u tabelu iz textboxa
             ListViewItem item = new ListViewItem(Brojac++.ToString());
             item.SubItems.Add(txtKomponentaNaziv.Text);
             item.SubItems.Add(txtKomponentaVrijednost.Text);
             item.SubItems.Add(txtKomponentaKoda.Text);
             lvKomponente.Items.Add(item);
 
+            //objekat za insertovanje komponente iz textboxa
             KomponenteUpsertRequest komponenta = new KomponenteUpsertRequest();
             komponenta.Vrijednost = txtKomponentaVrijednost.Text;
             komponenta.Naziv = txtKomponentaNaziv.Text;
             komponenta.Tip = txtKomponentaKoda.Text;
 
+            //search objekat za pretrgu komponentu 
             var entity = new KomponenteSearchObject();
             entity.Vrijednost = txtKomponentaVrijednost.Text;
             entity.Naziv = txtKomponentaNaziv.Text;
             entity.Tip = txtKomponentaKoda.Text;
 
+            //pretraga komponenti
             var search = await KomponenteService.Get<List<KomponenteVM>>(entity);
 
             var request = new KomponenteVM();
 
+            //ako ne postoji dodana komponenta, sacuva se u bazu
             if (search.Count == 0)
             {
                 request = await KomponenteService.Post<KomponenteVM>(komponenta);
+
+                if (provjeriKomponentu(KomponenteId, request))
+                    return;
+
                 KomponenteId.Add(request.KomponentaId);
+                item.SubItems.Add(request.KomponentaId.ToString());
+            }
+            else
+            {
+
+                if (provjeriKomponentu(KomponenteId, search.FirstOrDefault()))
+                {
+                    lvKomponente.Items.Remove(item);
+                    OcistiTextBox();
+                    return;
+                }
+
+                KomponenteId.Add(search.FirstOrDefault().KomponentaId);
+                item.SubItems.Add(search.FirstOrDefault().KomponentaId.ToString());
+
+                //item.SubItems.Add(search.First().KomponentaId.ToString());
+
+                if (request.KomponentaId != 0)
+                {
+                    MessageBox.Show("Komponenta je uspjesno dodana.");
+                    OcistiTextBox();
+                }
             }
 
-            if(request != null)
+            OcistiTextBox();
+        }
+
+        private bool provjeriKomponentu(List<int> list, KomponenteVM komponenta)
+        {
+            bool flag = false;
+
+            foreach (var item in list)
             {
-                MessageBox.Show("Komponenta je uspjesno dodana.");
-                OcistiTextBox();
+                if (item == komponenta.KomponentaId)
+                {
+                    flag = true;
+                    break;
+                }
             }
+
+            if (flag)
+            {
+                MessageBox.Show("Komponenta postoji na listi");
+                return flag;
+            }
+
+            return flag;
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
             ServisInsertRequest servis = new ServisInsertRequest();
 
+            RadniZadatakUredjajSearchObject search = new RadniZadatakUredjajSearchObject();
+            search.UredjajId = Uredjaj.UredjajId;
+            search.RadniZadatakState = "active";
+
+
+            var radniZadatak = await ZadatakService.Get<List<RadniZadatakUredjajVM>>(search);
+
             servis.UredjajId = Uredjaj.UredjajId;
             servis.Datum = DateTime.Now;
-            servis.KorisnikId = 1;
+            servis.KorisnikId = APIService.Korisnik.KorisniciId;
             servis.KomponenteIdList = KomponenteId;
-            servis.RadniZadatakId = 1;
-            
-            var request = await UredjajService.Put<ServisVM>(servis);
+            servis.RadniZadatakId = Uredjaj.Status == "task" ? radniZadatak.FirstOrDefault().RadniZadatakId : 1;
+            servis.Napomena = txtOpisServisiranja.Text;
 
-            if (request != null)
+            try
             {
-                MessageBox.Show("Uredjaj je uspjesno servisiran");
-                OcistiTextBox();
-                this.Close();
+                var request = await UredjajService.Put<ServisVM>(servis);
+
+                if (request != null)
+                {
+                    MessageBox.Show("Uredjaj je uspjesno servisiran");
+                    OcistiTextBox();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -138,6 +217,69 @@ namespace eWorkshop.WinUI
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnDodajRecommended_Click(object sender, EventArgs e)
+        {
+            var komponenta = cmbKomponente.SelectedItem as KomponenteVM;
+            bool flag = false;
+
+            if (provjeriKomponentu(KomponenteId, komponenta))
+                return;
+
+            KomponenteId.Add(komponenta.KomponentaId);
+
+            loadKomponente(komponenta);
+        }
+
+        private async void urediToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KomponenteUpsertRequest request = new KomponenteUpsertRequest();
+            int komponentaId = 0;
+
+            foreach (ListViewItem item in lvKomponente.Items)
+            {
+                if (item.Selected)
+                {
+                    request.Naziv = item.SubItems[1].Text;
+                    request.Vrijednost = item.SubItems[2].Text;
+                    request.Tip = item.SubItems[3].Text;
+                    komponentaId = int.Parse(item.SubItems[4].Text);
+                }
+            }
+
+            frmKomponenteEdit form = new frmKomponenteEdit(request, komponentaId);
+            //form.FormClosing += new FormClosingEventHandler(this.frmServis_FormClosed);
+            form.ShowDialog();
+
+            frmServis_Load(sender, e);
+
+            lvKomponente.SelectedItems[0].Remove();
+
+            var komponenta = await KomponenteService.GetById<KomponenteVM>(komponentaId);
+            loadKomponente(komponenta);
+
+        }
+
+        private void loadKomponente(KomponenteVM komponenta)
+        {
+            ListViewItem item = new ListViewItem(Brojac++.ToString());
+            item.SubItems.Add(komponenta.Naziv);
+            item.SubItems.Add(komponenta.Vrijednost);
+            item.SubItems.Add(komponenta.Tip);
+            item.SubItems.Add(komponenta.KomponentaId.ToString());
+            lvKomponente.Items.Add(item);
+        }
+
+        private void izbrišiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lvKomponente.SelectedItems[0].Remove();
+        }
+
+        private void frmServis_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+            FormControl.NovaFormaOpcije(childForm);
         }
     }
 }
