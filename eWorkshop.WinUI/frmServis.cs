@@ -3,6 +3,7 @@ using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Helper_classes;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,23 +20,40 @@ namespace eWorkshop.WinUI
     {
         public UredjajVM Uredjaj { get; set; }
         public StatusHelper StatusHelp { get; set; } = new StatusHelper();
-        public APIService KomponenteService { get; set; } = new APIService("Komponente");
-        public APIService ServisIzvrsen { get; set; } = new APIService("ServisIzvrsen");
-        public APIService ZadatakService { get; set; } = new APIService("RadniZadatakUredjaj");
-        public APIService KomponenteRecommended { get; set; } = new APIService("ServisIzvrsen/Komponente");
-        public APIService UredjajService { get; set; } = new APIService("Uredjaj/Servisiraj");
+        public APIService KomponenteService { get; set; }
+        public APIService ServisIzvrsen { get; set; }
+        public APIService ZadatakService { get; set; }
+        public APIService KomponenteRecommended { get; set; }
+        public APIService UredjajService { get; set; }
         public FormControl FormControl { get; set; } = new FormControl();
         public ServisIzvrsenVM Servis { get; set; }
         public List<int> KomponenteId { get; set; } = new List<int>();
 
-       // ServisHelperVM Opis { get; set; } = new ServisHelperVM();
+
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
         public int Brojac { get; set; } = 1;
 
-        public frmServis(UredjajVM uredjaj)
+        public frmServis(UredjajVM uredjaj, IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
 
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
             Uredjaj = uredjaj;
+
+            apiCalls();
+        }
+
+        private void apiCalls()
+        {
+            KomponenteService = new APIService("Komponente", TokenService);
+            ServisIzvrsen = new APIService("ServisIzvrsen", TokenService);
+            ZadatakService = new APIService("RadniZadatakUredjaj", TokenService);
+            KomponenteRecommended = new APIService("ServisIzvrsen/Komponente", TokenService);
+            UredjajService = new APIService("Uredjaj/Servisiraj", TokenService);
         }
 
         private async void frmServis_Load(object sender, EventArgs e)
@@ -58,66 +76,79 @@ namespace eWorkshop.WinUI
             cmbKomponente.DisplayMember = "Naziv";
         }
 
+        public bool ValidirajUnos()
+        {
+            return
+                FormControl.CheckInput(errProvider, txtKomponentaNaziv, FormControl.ObaveznaVrijednost);
+        }
+
         private async void btnKomponenta_Click(object sender, EventArgs e)
         {
-            //dodaje se komponenta u tabelu iz textboxa
-            ListViewItem item = new ListViewItem(Brojac++.ToString());
-            item.SubItems.Add(txtKomponentaNaziv.Text);
-            item.SubItems.Add(txtKomponentaVrijednost.Text);
-            item.SubItems.Add(txtKomponentaKoda.Text);
-            lvKomponente.Items.Add(item);
-
-            //objekat za insertovanje komponente iz textboxa
-            KomponenteUpsertRequest komponenta = new KomponenteUpsertRequest();
-            komponenta.Vrijednost = txtKomponentaVrijednost.Text;
-            komponenta.Naziv = txtKomponentaNaziv.Text;
-            komponenta.Tip = txtKomponentaKoda.Text;
-
-            //search objekat za pretrgu komponentu 
-            var entity = new KomponenteSearchObject();
-            entity.Vrijednost = txtKomponentaVrijednost.Text;
-            entity.Naziv = txtKomponentaNaziv.Text;
-            entity.Tip = txtKomponentaKoda.Text;
-
-            //pretraga komponenti
-            var search = await KomponenteService.Get<List<KomponenteVM>>(entity);
-
-            var request = new KomponenteVM();
-
-            //ako ne postoji dodana komponenta, sacuva se u bazu
-            if (search.Count == 0)
+            if (ValidirajUnos())
             {
-                request = await KomponenteService.Post<KomponenteVM>(komponenta);
+                //dodaje se komponenta u tabelu iz textboxa
+                ListViewItem item = new ListViewItem(Brojac++.ToString());
+                item.SubItems.Add(txtKomponentaNaziv.Text);
+                item.SubItems.Add(txtKomponentaVrijednost.Text);
+                item.SubItems.Add(txtKomponentaKoda.Text);
+                lvKomponente.Items.Add(item);
 
-                if (provjeriKomponentu(KomponenteId, request))
-                    return;
+                //objekat za insertovanje komponente iz textboxa
+                KomponenteUpsertRequest komponenta = new KomponenteUpsertRequest();
+                komponenta.Vrijednost = txtKomponentaVrijednost.Text;
+                komponenta.Naziv = txtKomponentaNaziv.Text;
+                komponenta.Tip = txtKomponentaKoda.Text;
 
-                KomponenteId.Add(request.KomponentaId);
-                item.SubItems.Add(request.KomponentaId.ToString());
+                //search objekat za pretrgu komponentu 
+                var entity = new KomponenteSearchObject();
+                entity.Vrijednost = txtKomponentaVrijednost.Text;
+                entity.Naziv = txtKomponentaNaziv.Text;
+                entity.Tip = txtKomponentaKoda.Text;
+
+                //pretraga komponenti
+                var search = await KomponenteService.Get<List<KomponenteVM>>(entity);
+
+                var request = new KomponenteVM();
+
+                //ako ne postoji dodana komponenta, sacuva se u bazu
+                if (search.Count == 0)
+                {
+                    request = await KomponenteService.Post<KomponenteVM>(komponenta);
+
+                    if (provjeriKomponentu(KomponenteId, request))
+                        return;
+
+                    KomponenteId.Add(request.KomponentaId);
+                    item.SubItems.Add(request.KomponentaId.ToString());
+                }
+                else
+                {
+
+                    if (provjeriKomponentu(KomponenteId, search.FirstOrDefault()))
+                    {
+                        lvKomponente.Items.Remove(item);
+                        OcistiTextBox();
+                        return;
+                    }
+
+                    KomponenteId.Add(search.FirstOrDefault().KomponentaId);
+                    item.SubItems.Add(search.FirstOrDefault().KomponentaId.ToString());
+
+                    //item.SubItems.Add(search.First().KomponentaId.ToString());
+
+                    if (request.KomponentaId != 0)
+                    {
+                        MessageBox.Show("Komponenta je uspjesno dodana.");
+                        OcistiTextBox();
+                    }
+                }
+
+                OcistiTextBox();
             }
             else
             {
-
-                if (provjeriKomponentu(KomponenteId, search.FirstOrDefault()))
-                {
-                    lvKomponente.Items.Remove(item);
-                    OcistiTextBox();
-                    return;
-                }
-
-                KomponenteId.Add(search.FirstOrDefault().KomponentaId);
-                item.SubItems.Add(search.FirstOrDefault().KomponentaId.ToString());
-
-                //item.SubItems.Add(search.First().KomponentaId.ToString());
-
-                if (request.KomponentaId != 0)
-                {
-                    MessageBox.Show("Komponenta je uspjesno dodana.");
-                    OcistiTextBox();
-                }
+                MessageBox.Show("Netačan unos!");
             }
-
-            OcistiTextBox();
         }
 
         private bool provjeriKomponentu(List<int> list, KomponenteVM komponenta)
@@ -248,7 +279,7 @@ namespace eWorkshop.WinUI
                 }
             }
 
-            frmKomponenteEdit form = new frmKomponenteEdit(request, komponentaId);
+            frmKomponenteEdit form = new frmKomponenteEdit(request, komponentaId, ServiceProvider, TokenService);
             //form.FormClosing += new FormClosingEventHandler(this.frmServis_FormClosed);
             form.ShowDialog();
 
@@ -278,7 +309,7 @@ namespace eWorkshop.WinUI
 
         private void frmServis_FormClosing(object sender, FormClosingEventArgs e)
         {
-            frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+            frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId, ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(childForm);
         }
     }

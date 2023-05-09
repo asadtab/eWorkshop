@@ -6,6 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using eWorkshop.Model;
 using System.Net;
+using Microsoft.Extensions.Logging;
+using IdentityModel.Client;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 
 namespace eWorkshop.WinUI.Service
 {
@@ -14,50 +18,67 @@ namespace eWorkshop.WinUI.Service
         private string Resource = null;
         public string EndPoint = "https://localhost:7189/";
 
+        public ITokenService TokenService { get; set; }
+
         public static KorisniciVM Korisnik;
 
         public static string username { get; set; } = null;
         public static string password { get; set; } = null;
-        public APIService(string resource)
+
+
+
+        public APIService(string resource, ITokenService tokenService = null)
         {
             Resource = resource;
+            TokenService = tokenService;
         }
 
         public virtual async Task<T> Get<T>(object search = null)
         {
+            var token = await TokenService.GetToken("weatherapi.read");
+
             var query = "";
             if (search != null)
                 query = await search.ToQueryString();
 
-            var list = await $"{EndPoint}{Resource}?{query}".WithBasicAuth(username, password).GetJsonAsync<T>();
+            //var list = await $"{EndPoint}{Resource}?{query}".WithBasicAuth(username, password).GetJsonAsync<T>();
+            var list2 = await $"{EndPoint}{Resource}?{query}".WithOAuthBearerToken(token.AccessToken).GetJsonAsync<T>();
 
-            return list;
+            return list2;
         }
 
         public async Task<T> GetById<T>(object id)
         {
-            var result = await $"{EndPoint}{Resource}/{id}".WithBasicAuth(username, password).GetJsonAsync<T>();
+            var token = await TokenService.GetToken("weatherapi.read");
+
+
+            var result = await $"{EndPoint}{Resource}/{id}".WithOAuthBearerToken(token.AccessToken).GetJsonAsync<T>();
 
             return result;
         }
 
         public async Task<T> Post<T>(object request)
         {
-            var result = await $"{EndPoint}{Resource}".WithBasicAuth(username, password).PostJsonAsync(request).ReceiveJson<T>();
+            var token = await TokenService.GetToken("weatherapi.read");
+
+            var result = await $"{EndPoint}{Resource}".WithOAuthBearerToken(token.AccessToken).PostJsonAsync(request).ReceiveJson<T>();
 
             return result;
         }
 
         public async Task<T> Put<T>(object request)
         {
-            var result = await $"{EndPoint}{Resource}".WithBasicAuth(username, password).PutJsonAsync(request).ReceiveJson<T>();
+            var token = await TokenService.GetToken("weatherapi.read");
+
+            var result = await $"{EndPoint}{Resource}".WithOAuthBearerToken(token.AccessToken).PutJsonAsync(request).ReceiveJson<T>();
 
             return result;
         }
         public async Task Delete (int id)
         {
-            await $"{EndPoint}{Resource}/{id}".WithBasicAuth(username, password).DeleteAsync();
+            var token = await TokenService.GetToken("weatherapi.read");
 
+            await $"{EndPoint}{Resource}/{id}".WithOAuthBearerToken(token.AccessToken).DeleteAsync();
         }
 
     }

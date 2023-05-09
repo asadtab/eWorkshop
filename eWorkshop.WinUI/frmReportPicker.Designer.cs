@@ -29,8 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvListaUredjaja = new DataGridView();
-            cmbStatus = new ComboBox();
             btnPotvrdi = new Button();
             cbDeleted = new CheckBox();
             label3 = new Label();
@@ -44,33 +42,14 @@
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             serijskibroj = new DataGridViewTextBoxColumn();
             lokacija = new DataGridViewTextBoxColumn();
-            isDeleted = new DataGridViewTextBoxColumn();
             label1 = new Label();
             label4 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgvListaUredjaja).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
             SuspendLayout();
             // 
-            // dgvListaUredjaja
-            // 
-            dgvListaUredjaja.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListaUredjaja.Location = new Point(12, 234);
-            dgvListaUredjaja.Name = "dgvListaUredjaja";
-            dgvListaUredjaja.RowTemplate.Height = 25;
-            dgvListaUredjaja.Size = new Size(696, 259);
-            dgvListaUredjaja.TabIndex = 0;
-            // 
-            // cmbStatus
-            // 
-            cmbStatus.FormattingEnabled = true;
-            cmbStatus.Location = new Point(12, 272);
-            cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(154, 23);
-            cmbStatus.TabIndex = 1;
-            // 
             // btnPotvrdi
             // 
-            btnPotvrdi.Location = new Point(643, 123);
+            btnPotvrdi.Location = new Point(608, 123);
             btnPotvrdi.Name = "btnPotvrdi";
             btnPotvrdi.Size = new Size(75, 29);
             btnPotvrdi.TabIndex = 2;
@@ -99,8 +78,9 @@
             // 
             // txtSearch
             // 
+            txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtSearch.Location = new Point(215, 123);
+            txtSearch.Location = new Point(248, 122);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(197, 29);
             txtSearch.TabIndex = 29;
@@ -118,7 +98,7 @@
             // 
             cmbStateMachine.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbStateMachine.FormattingEnabled = true;
-            cmbStateMachine.Location = new Point(12, 123);
+            cmbStateMachine.Location = new Point(45, 122);
             cmbStateMachine.Name = "cmbStateMachine";
             cmbStateMachine.Size = new Size(197, 29);
             cmbStateMachine.TabIndex = 27;
@@ -131,13 +111,13 @@
             dgvLista.AllowUserToResizeColumns = false;
             dgvLista.AllowUserToResizeRows = false;
             dgvLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLista.Columns.AddRange(new DataGridViewColumn[] { pick, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, serijskibroj, lokacija, isDeleted });
-            dgvLista.Location = new Point(12, 158);
+            dgvLista.Columns.AddRange(new DataGridViewColumn[] { pick, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, serijskibroj, lokacija });
+            dgvLista.Location = new Point(45, 170);
             dgvLista.Name = "dgvLista";
             dgvLista.ReadOnly = true;
             dgvLista.RowTemplate.Height = 25;
             dgvLista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLista.Size = new Size(706, 452);
+            dgvLista.Size = new Size(638, 428);
             dgvLista.TabIndex = 26;
             dgvLista.CellContentClick += dgvLista_CellContentClick;
             // 
@@ -184,19 +164,10 @@
             lokacija.Name = "lokacija";
             lokacija.ReadOnly = true;
             // 
-            // isDeleted
-            // 
-            isDeleted.DataPropertyName = "isDeleted";
-            isDeleted.HeaderText = "Izbrisan";
-            isDeleted.Name = "isDeleted";
-            isDeleted.ReadOnly = true;
-            isDeleted.Resizable = DataGridViewTriState.True;
-            isDeleted.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(215, 105);
+            label1.Location = new Point(248, 99);
             label1.Name = "label1";
             label1.Size = new Size(181, 15);
             label1.TabIndex = 33;
@@ -205,7 +176,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 105);
+            label4.Location = new Point(45, 99);
             label4.Name = "label4";
             label4.Size = new Size(84, 15);
             label4.TabIndex = 32;
@@ -226,22 +197,16 @@
             Controls.Add(cmbStateMachine);
             Controls.Add(dgvLista);
             Controls.Add(btnPotvrdi);
-            Controls.Add(cmbStatus);
-            Controls.Add(dgvListaUredjaja);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmReportPicker";
             Text = "frmReportPicker";
             Load += frmReportPicker_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvListaUredjaja).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvLista).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dgvListaUredjaja;
-        private ComboBox cmbStatus;
         private Button btnPotvrdi;
         private CheckBox cbDeleted;
         private Label label3;
@@ -257,6 +222,5 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn serijskibroj;
         private DataGridViewTextBoxColumn lokacija;
-        private DataGridViewTextBoxColumn isDeleted;
     }
 }

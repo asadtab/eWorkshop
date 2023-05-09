@@ -3,6 +3,8 @@ using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Helper_classes;
 using eWorkshop.WinUI.Report;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +20,7 @@ namespace eWorkshop.WinUI
     public partial class frmRadniZadatakDetalji : Form
     {
         public List<RadniZadatakUredjajVM> RadniZadatakUredjaj { get; }
-        public APIService RadniZadatakUredjajService { get; set; } = new APIService("RadniZadatakUredjaj");
+        public APIService RadniZadatakUredjajService { get; set; }
         public APIService UredjajService { get; set; }
         public APIService RadniZadatakService { get; set; }
         public RadniZadatakUredjajVM RadniZadatak { get; }
@@ -28,12 +30,20 @@ namespace eWorkshop.WinUI
         public double Progres { get; set; }
         public FormControl FormControl { get; set; } = new FormControl();
 
-        public frmRadniZadatakDetalji()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmRadniZadatakDetalji(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            RadniZadatakUredjajService = new APIService("RadniZadatakUredjaj", TokenService);
         }
 
-        public frmRadniZadatakDetalji(List<RadniZadatakUredjajVM> radniZadaci) : this()
+        public frmRadniZadatakDetalji(List<RadniZadatakUredjajVM> radniZadaci, IServiceProvider serviceProvider, ITokenService tokenService) : this(serviceProvider, tokenService)
         {
             RadniZadatak = radniZadaci[0];
             RadniZadatakAll = radniZadaci;
@@ -123,7 +133,7 @@ namespace eWorkshop.WinUI
         {
             int evBroj = FormControl.SelektujRedIVratiId(dgvUredjaji, e);
 
-            frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj);
+            frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj, ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -134,7 +144,9 @@ namespace eWorkshop.WinUI
 
         private void btnDodajUredjaj_Click(object sender, EventArgs e)
         {
-            frmRadniZadaci childForm = new frmRadniZadaci();
+            var childForm = ServiceProvider.GetRequiredService<frmRadniZadaci>();
+
+            //frmRadniZadaci childForm = new frmRadniZadaci();
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -144,7 +156,7 @@ namespace eWorkshop.WinUI
 
             if (result == DialogResult.Yes)
             {
-                RadniZadatakService = new APIService("RadniZadatak/Zavrsi/" + RadniZadatak.RadniZadatak.RadniZadatakId);
+                RadniZadatakService = new APIService("RadniZadatak/Zavrsi/" + RadniZadatak.RadniZadatak.RadniZadatakId, TokenService);
 
                 UredjajSearchObject search = new UredjajSearchObject();
 
@@ -165,8 +177,10 @@ namespace eWorkshop.WinUI
 
         private void frmRadniZadatakDetalji_FormClosing(object sender, FormClosingEventArgs e)
         {
-            frmMain childForm = new frmMain();
-            FormControl.NovaFormaOpcije(childForm);
+            var form = ServiceProvider.GetRequiredService<frmMain>();
+
+            //frmMain childForm = new frmMain();
+            FormControl.NovaFormaOpcije(form);
         }
 
         private void btnIzvjestaj_Click(object sender, EventArgs e)
@@ -193,7 +207,7 @@ namespace eWorkshop.WinUI
                 return;
             }
 
-            frmRadniZadatakIzvjestaj childForm = new frmRadniZadatakIzvjestaj(radniZadatakUredjaj);
+            frmRadniZadatakIzvjestaj childForm = new frmRadniZadatakIzvjestaj(radniZadatakUredjaj, ServiceProvider, TokenService);
             childForm.Show();
         }
     }

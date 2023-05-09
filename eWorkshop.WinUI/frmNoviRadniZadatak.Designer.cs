@@ -36,6 +36,7 @@
             // 
             // lblNaziv
             // 
+            lblNaziv.BorderStyle = BorderStyle.FixedSingle;
             lblNaziv.Location = new Point(32, 104);
             lblNaziv.Name = "lblNaziv";
             lblNaziv.Size = new Size(155, 23);

@@ -17,15 +17,29 @@ namespace eWorkshop.WinUI
 {
     public partial class frmRadniZadaciLista : Form
     {
-        public APIService RadniZadaciService { get; set; } = new APIService("RadniZadatak");
-        public APIService RadniZadatakUredjajService { get; set; } = new APIService("RadniZadatakUredjaj");
+        public APIService RadniZadaciService { get; set; } 
+        public APIService RadniZadatakUredjajService { get; set; }
         public FormControl FormControl { get; set; } = new FormControl();
         public StatusHelper Status { get; set; } = new StatusHelper();
         public List<RadniZadatakUredjajVM> ZadatakUredjaji { get; set; } = new List<RadniZadatakUredjajVM>();
 
-        public frmRadniZadaciLista()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmRadniZadaciLista(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            apiCalls();
+        }
+
+        private void apiCalls()
+        {
+            RadniZadaciService = new APIService("RadniZadatak", TokenService);
+            RadniZadatakUredjajService = new APIService("RadniZadatakUredjaj", TokenService);
         }
 
         private void frmRadniZadaciLista_Load(object sender, EventArgs e)
@@ -92,7 +106,7 @@ namespace eWorkshop.WinUI
         {
             int UredjajId = FormControl.SelektujRedIVratiId(dgvUredjaji, e);
 
-            frmUredjajDetalji forma = new frmUredjajDetalji(UredjajId);
+            frmUredjajDetalji forma = new frmUredjajDetalji(UredjajId, ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(forma);
         }
 

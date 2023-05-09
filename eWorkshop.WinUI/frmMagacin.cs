@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eWorkshop.WinUI.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,15 @@ namespace eWorkshop.WinUI
 {
     public partial class frmMagacin : Form
     {
-        public frmMagacin()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmMagacin(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
     }
 }

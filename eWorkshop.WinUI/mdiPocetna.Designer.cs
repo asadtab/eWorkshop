@@ -259,15 +259,15 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.62586F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64.37414F));
             tableLayoutPanel1.Controls.Add(menuStrip1, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Top;
             tableLayoutPanel1.Location = new Point(228, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(727, 25);
+            tableLayoutPanel1.Size = new Size(727, 61);
             tableLayoutPanel1.TabIndex = 12;
             // 
             // menuStrip1
@@ -277,7 +277,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.RenderMode = ToolStripRenderMode.System;
-            menuStrip1.Size = new Size(363, 24);
+            menuStrip1.Size = new Size(258, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -375,13 +375,11 @@
             ClientSize = new Size(955, 623);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "mdiPocetna";
-            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "mdiPocetna";
             Load += mdiPocetna_Load;

@@ -49,6 +49,7 @@
             // 
             // txtUsername
             // 
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
             txtUsername.Location = new Point(80, 74);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(202, 23);
@@ -75,6 +76,7 @@
             // 
             // txtPassword
             // 
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
             txtPassword.Location = new Point(80, 140);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(202, 23);

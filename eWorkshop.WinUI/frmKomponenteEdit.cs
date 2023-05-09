@@ -19,11 +19,17 @@ namespace eWorkshop.WinUI
         public APIService KomponenteService { get; set; }
         public int Id { get; set; }
 
-        public frmKomponenteEdit(KomponenteUpsertRequest request, int id)
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmKomponenteEdit(KomponenteUpsertRequest request, int id, IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
             Request = request;
             Id = id;
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
         private void frmKomponenteEdit_Load(object sender, EventArgs e)
@@ -35,7 +41,7 @@ namespace eWorkshop.WinUI
 
         private async void btnPotvrdi_Click(object sender, EventArgs e)
         {
-            KomponenteService = new APIService("Komponente/" + Id);
+            KomponenteService = new APIService("Komponente/" + Id, TokenService);
 
             Request.Tip = txtKoda.Text;
             Request.Naziv = txtNaziv.Text;
@@ -50,9 +56,5 @@ namespace eWorkshop.WinUI
             }
         }
 
-        private void frmKomponenteEdit_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
-        }
     }
 }

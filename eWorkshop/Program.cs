@@ -5,7 +5,10 @@ using eWorkshop.Services.Database;
 using eWorkshop.Services.UredjajiStateMachine;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.OpenApi.Models;
-
+using Duende.IdentityServer.Test;
+using Duende.IdentityServer.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using eWorkshop;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Protected API", Version = "v1" });
+
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.OAuth2,
+        Flows = new OpenApiOAuthFlows
+        {
+            AuthorizationCode = new OpenApiOAuthFlow
+            {
+                AuthorizationUrl = new Uri("https://localhost:5443/connect/authorize"),
+                TokenUrl = new Uri("https://localhost:5443/connect/token"),
+                Scopes = new Dictionary<string, string>
+            {
+                {"weatherapi.read", "Demo API - full access"},
+                {"weatherapi.post", "Demo API - full access"},
+            }
+            }
+        }
+    });
+
+    options.OperationFilter<AuthorizeCheckOperationFilter>();
+});
+/*c =>
 {
     c.AddSecurityDefinition("basicAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
@@ -32,7 +59,7 @@ builder.Services.AddSwaggerGen(c =>
         new string[]{}
         }
     });
-});
+});*/
 
 builder.Services.AddTransient<IUredjajService, UredjajService>();
 builder.Services.AddTransient<IReparacijaService, ReparacijaService>();
@@ -49,8 +76,19 @@ builder.Services.AddTransient<IServisAdapter, ServisAdapter>();
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
 
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://localhost:5443";
+        options.Audience = "weatherapi";
+
+        options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+    });
+
+/*builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);*/
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<_190128Context>(options =>
@@ -75,11 +113,20 @@ builder.Services.AddTransient<eWorkshop.Services.RadniZadatakStateMachine.Invoic
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+        options.OAuthClientId("demo_api_swagger");
+        options.OAuthAppName("Demo API - Swagger");
+        options.OAuthUsePkce();
+    });
 }
 
 app.UseHttpsRedirection();

@@ -1,4 +1,6 @@
 ﻿using eWorkshop.Model;
+using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
@@ -17,12 +19,18 @@ namespace eWorkshop.WinUI.Report
         private List<RadniZadatakUredjajVM> RadniZadatakAll { get; set; } = new List<RadniZadatakUredjajVM>();
         public List<UredjajVM> Uredjaji { get; set; } = new List<UredjajVM>();
 
-        public frmRadniZadatakIzvjestaj()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmRadniZadatakIzvjestaj(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
-        public frmRadniZadatakIzvjestaj(List<RadniZadatakUredjajVM> radniZadatakAll) : this()
+        public frmRadniZadatakIzvjestaj(List<RadniZadatakUredjajVM> radniZadatakAll, IServiceProvider serviceProvider, ITokenService tokenService) : this(serviceProvider, tokenService)
         {
             RadniZadatakAll = radniZadatakAll;
             Uredjaji = RadniZadatakAll.Select(x => new UredjajVM()
@@ -35,7 +43,7 @@ namespace eWorkshop.WinUI.Report
             }).ToList();
         }
 
-        public frmRadniZadatakIzvjestaj(List<UredjajVM> uredjaji) : this()
+        public frmRadniZadatakIzvjestaj(List<UredjajVM> uredjaji, IServiceProvider serviceProvider, ITokenService tokenService) : this(serviceProvider, tokenService)
         {
             Uredjaji = uredjaji;
         }

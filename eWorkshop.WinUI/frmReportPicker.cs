@@ -22,11 +22,19 @@ namespace eWorkshop.WinUI
         public StatusHelper Status { get; set; } = new StatusHelper();
         List<UredjajiStateMachine> states = new List<UredjajiStateMachine>();
         public List<UredjajVM> Uredjaji { get; set; } = new List<UredjajVM>();
-        public APIService UredjajiService { get; set; } = new APIService("Uredjaj");
+        public APIService UredjajiService { get; set; }
 
-        public frmReportPicker()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmReportPicker(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            UredjajiService = new APIService("Uredjaj", TokenService);
         }
 
         private void frmReportPicker_Load(object sender, EventArgs e)
@@ -104,7 +112,7 @@ namespace eWorkshop.WinUI
 
         private void btnPotvrdi_Click(object sender, EventArgs e)
         {
-            frmRadniZadatakIzvjestaj childForm = new frmRadniZadatakIzvjestaj(Uredjaji);
+            frmRadniZadatakIzvjestaj childForm = new frmRadniZadatakIzvjestaj(Uredjaji, ServiceProvider, TokenService);
             childForm.Show();
         }
     }

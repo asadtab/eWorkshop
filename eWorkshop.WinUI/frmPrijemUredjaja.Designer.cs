@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             txtKoda = new TextBox();
             label1 = new Label();
             label2 = new Label();
@@ -47,20 +48,29 @@
             label9 = new Label();
             btnExit = new Button();
             cmbLokacija = new ComboBox();
+            errProvider = new ErrorProvider(components);
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            groupBox3 = new GroupBox();
+            ((System.ComponentModel.ISupportInitialize)errProvider).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // txtKoda
             // 
+            txtKoda.BorderStyle = BorderStyle.FixedSingle;
             txtKoda.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtKoda.Location = new Point(259, 142);
+            txtKoda.Location = new Point(247, 46);
             txtKoda.Name = "txtKoda";
-            txtKoda.Size = new Size(235, 29);
+            txtKoda.Size = new Size(216, 29);
             txtKoda.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(259, 124);
+            label1.Location = new Point(247, 24);
             label1.Name = "label1";
             label1.Size = new Size(34, 15);
             label1.TabIndex = 1;
@@ -69,7 +79,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 174);
+            label2.Location = new Point(6, 78);
             label2.Name = "label2";
             label2.Size = new Size(67, 15);
             label2.TabIndex = 3;
@@ -77,16 +87,17 @@
             // 
             // txtSerijskiBroj
             // 
+            txtSerijskiBroj.BorderStyle = BorderStyle.FixedSingle;
             txtSerijskiBroj.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtSerijskiBroj.Location = new Point(12, 192);
+            txtSerijskiBroj.Location = new Point(6, 99);
             txtSerijskiBroj.Name = "txtSerijskiBroj";
-            txtSerijskiBroj.Size = new Size(235, 29);
+            txtSerijskiBroj.Size = new Size(216, 29);
             txtSerijskiBroj.TabIndex = 2;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(259, 174);
+            label3.Location = new Point(247, 78);
             label3.Name = "label3";
             label3.Size = new Size(44, 15);
             label3.TabIndex = 5;
@@ -94,26 +105,27 @@
             // 
             // txtIzdanje
             // 
+            txtIzdanje.BorderStyle = BorderStyle.FixedSingle;
             txtIzdanje.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtIzdanje.Location = new Point(259, 192);
+            txtIzdanje.Location = new Point(247, 99);
             txtIzdanje.Name = "txtIzdanje";
-            txtIzdanje.Size = new Size(235, 29);
+            txtIzdanje.Size = new Size(216, 29);
             txtIzdanje.TabIndex = 4;
             // 
             // txtOpisKodPrijema
             // 
             txtOpisKodPrijema.BorderStyle = BorderStyle.FixedSingle;
             txtOpisKodPrijema.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtOpisKodPrijema.Location = new Point(12, 292);
+            txtOpisKodPrijema.Location = new Point(6, 212);
             txtOpisKodPrijema.Name = "txtOpisKodPrijema";
-            txtOpisKodPrijema.Size = new Size(482, 96);
+            txtOpisKodPrijema.Size = new Size(457, 96);
             txtOpisKodPrijema.TabIndex = 6;
             txtOpisKodPrijema.Text = "";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 274);
+            label4.Location = new Point(6, 189);
             label4.Name = "label4";
             label4.Size = new Size(139, 15);
             label4.TabIndex = 7;
@@ -122,7 +134,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 124);
+            label5.Location = new Point(6, 24);
             label5.Name = "label5";
             label5.Size = new Size(23, 15);
             label5.TabIndex = 9;
@@ -132,7 +144,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(176, 34);
+            label6.Location = new Point(203, 31);
             label6.Name = "label6";
             label6.Size = new Size(202, 37);
             label6.TabIndex = 10;
@@ -141,7 +153,7 @@
             // 
             // btnGenerisiSerijskiBroj
             // 
-            btnGenerisiSerijskiBroj.Location = new Point(555, 192);
+            btnGenerisiSerijskiBroj.Location = new Point(29, 94);
             btnGenerisiSerijskiBroj.Name = "btnGenerisiSerijskiBroj";
             btnGenerisiSerijskiBroj.Size = new Size(132, 29);
             btnGenerisiSerijskiBroj.TabIndex = 11;
@@ -151,7 +163,7 @@
             // 
             // btnNoviTipUredjaja
             // 
-            btnNoviTipUredjaja.Location = new Point(555, 142);
+            btnNoviTipUredjaja.Location = new Point(29, 44);
             btnNoviTipUredjaja.Name = "btnNoviTipUredjaja";
             btnNoviTipUredjaja.Size = new Size(132, 29);
             btnNoviTipUredjaja.TabIndex = 12;
@@ -161,8 +173,9 @@
             // 
             // txtEvBroj
             // 
+            txtEvBroj.BorderStyle = BorderStyle.FixedSingle;
             txtEvBroj.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtEvBroj.Location = new Point(555, 242);
+            txtEvBroj.Location = new Point(29, 152);
             txtEvBroj.Name = "txtEvBroj";
             txtEvBroj.ReadOnly = true;
             txtEvBroj.Size = new Size(132, 29);
@@ -173,7 +186,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(555, 224);
+            label7.Location = new Point(29, 130);
             label7.Name = "label7";
             label7.Size = new Size(145, 15);
             label7.TabIndex = 14;
@@ -181,9 +194,9 @@
             // 
             // btnRegistruj
             // 
-            btnRegistruj.Location = new Point(555, 292);
+            btnRegistruj.Location = new Point(6, 285);
             btnRegistruj.Name = "btnRegistruj";
-            btnRegistruj.Size = new Size(132, 29);
+            btnRegistruj.Size = new Size(188, 29);
             btnRegistruj.TabIndex = 15;
             btnRegistruj.Text = "Sačuvaj";
             btnRegistruj.UseVisualStyleBackColor = true;
@@ -193,16 +206,16 @@
             // 
             cmbTipUredjaja.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbTipUredjaja.FormattingEnabled = true;
-            cmbTipUredjaja.Location = new Point(12, 142);
+            cmbTipUredjaja.Location = new Point(6, 46);
             cmbTipUredjaja.Name = "cmbTipUredjaja";
-            cmbTipUredjaja.Size = new Size(235, 29);
+            cmbTipUredjaja.Size = new Size(216, 29);
             cmbTipUredjaja.TabIndex = 16;
             cmbTipUredjaja.Text = "Odaberi tip uređaja";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(12, 224);
+            label9.Location = new Point(6, 131);
             label9.Name = "label9";
             label9.Size = new Size(50, 15);
             label9.TabIndex = 20;
@@ -227,11 +240,59 @@
             cmbLokacija.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbLokacija.FormattingEnabled = true;
             cmbLokacija.Items.AddRange(new object[] { "Odaberi lokaciju" });
-            cmbLokacija.Location = new Point(12, 242);
+            cmbLokacija.Location = new Point(6, 151);
             cmbLokacija.Name = "cmbLokacija";
-            cmbLokacija.Size = new Size(235, 29);
+            cmbLokacija.Size = new Size(216, 29);
             cmbLokacija.TabIndex = 23;
             cmbLokacija.Text = "Odaberi lokaciju";
+            // 
+            // errProvider
+            // 
+            errProvider.ContainerControl = this;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label6);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(641, 100);
+            groupBox1.TabIndex = 24;
+            groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(txtKoda);
+            groupBox2.Controls.Add(cmbLokacija);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(txtSerijskiBroj);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(cmbTipUredjaja);
+            groupBox2.Controls.Add(txtIzdanje);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(txtOpisKodPrijema);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Location = new Point(12, 118);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(488, 320);
+            groupBox2.TabIndex = 25;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Info";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(btnNoviTipUredjaja);
+            groupBox3.Controls.Add(btnGenerisiSerijskiBroj);
+            groupBox3.Controls.Add(txtEvBroj);
+            groupBox3.Controls.Add(btnRegistruj);
+            groupBox3.Controls.Add(label7);
+            groupBox3.Location = new Point(508, 118);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(200, 320);
+            groupBox3.TabIndex = 26;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Opcije";
             // 
             // frmPrijemUredjaja
             // 
@@ -241,25 +302,10 @@
             BackColor = SystemColors.Control;
             ClientSize = new Size(720, 450);
             ControlBox = false;
-            Controls.Add(cmbLokacija);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(btnExit);
-            Controls.Add(label9);
-            Controls.Add(cmbTipUredjaja);
-            Controls.Add(btnRegistruj);
-            Controls.Add(label7);
-            Controls.Add(txtEvBroj);
-            Controls.Add(btnNoviTipUredjaja);
-            Controls.Add(btnGenerisiSerijskiBroj);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(txtOpisKodPrijema);
-            Controls.Add(label3);
-            Controls.Add(txtIzdanje);
-            Controls.Add(label2);
-            Controls.Add(txtSerijskiBroj);
-            Controls.Add(label1);
-            Controls.Add(txtKoda);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MdiChildrenMinimizedAnchorBottom = false;
@@ -273,8 +319,14 @@
             TransparencyKey = Color.Transparent;
             FormClosing += frmPrijemUredjaja_FormClosing;
             Load += frmPrijemUredjaja_Load;
+            ((System.ComponentModel.ISupportInitialize)errProvider).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -298,5 +350,9 @@
         private Label label9;
         private Button btnExit;
         private ComboBox cmbLokacija;
+        private ErrorProvider errProvider;
+        private GroupBox groupBox1;
+        private GroupBox groupBox3;
+        private GroupBox groupBox2;
     }
 }

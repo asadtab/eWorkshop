@@ -54,7 +54,7 @@ namespace eWorkshop.Services
 
         public KorisniciVM Login(string username, string password)
         {
-            var entity = Context.Korisnicis.Include("KorisniciUloges.Uloga").FirstOrDefault(x => x.KorisnickoIme == username);
+            var entity = Context.Korisnicis.FirstOrDefault(x => x.KorisnickoIme == username);
 
             if(entity == null)
             {

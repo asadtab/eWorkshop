@@ -14,7 +14,8 @@ namespace eWorkshop.Model.Requests
 
         public string DatumIzvedbe { get; set; }
 
-
         public int LokacijaId { get; set; }
+
+        public bool isDeleted { get; set; } = false;
     }
 }

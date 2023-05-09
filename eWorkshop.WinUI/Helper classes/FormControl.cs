@@ -9,6 +9,7 @@ namespace eWorkshop.WinUI
 {
     public class FormControl
     {
+       public string ObaveznaVrijednost = "Obavezna vrijednost!"; 
 
         public void OpcijeTabele(DataGridView dgv)
         {
@@ -34,6 +35,34 @@ namespace eWorkshop.WinUI
             forma.Text = string.Empty;
             forma.Dock = DockStyle.Fill;
             forma.Show();
+        }
+
+        public bool CheckInput(ErrorProvider err, Control control, string msg)
+        {
+            bool flag = true;
+
+            if(control is TextBox && string.IsNullOrEmpty((control as TextBox).Text))
+            {
+                flag = false;
+            }
+
+            if (control is ComboBox && (control as ComboBox).SelectedItem == null)
+            {
+                flag = false;
+            }
+
+            if (control is RichTextBox && string.IsNullOrEmpty((control as RichTextBox).Text))
+            {
+                flag = false;
+            }
+
+            if (!flag) {
+                err.SetError(control, msg);
+                return false;
+            }
+
+            err.Clear();
+            return true;
         }
     }
 }

@@ -34,7 +34,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
 
         var user = KorisniciService.Login(username, password);
 
-        if(user == null)
+        if (user == null)
         {
             return AuthenticateResult.Fail("Netacno korisnicko ime ili lozinka => BasicAuthenticationHandler");
         }
@@ -45,7 +45,7 @@ public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSc
             new Claim(ClaimTypes.Name, user.Ime)
         };
 
-        foreach(var role in user.KorisniciUloges)
+        foreach (var role in user.KorisniciUloges)
         {
             claims.Add(new Claim(ClaimTypes.Role, role.Uloga.Naziv));
         }

@@ -1,5 +1,7 @@
 ﻿using eWorkshop.WinUI.Report;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,9 +20,16 @@ namespace eWorkshop.WinUI
         private int childFormNumber = 0;
         public FormControl FormControl { get; set; } = new FormControl();
 
-        public mdiPocetna()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public mdiPocetna(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
             HidePanels();
         }
 
@@ -59,9 +68,8 @@ namespace eWorkshop.WinUI
 
         private void btnPrijemUredjaja_Click(object sender, EventArgs e)
         {
-            frmPrijemUredjaja childForm = new frmPrijemUredjaja();
+            frmPrijemUredjaja childForm = ServiceProvider.GetRequiredService<frmPrijemUredjaja>();
             FormControl.NovaFormaOpcije(childForm);
-
         }
 
         private void btnKorisnici_Click(object sender, EventArgs e)
@@ -71,54 +79,49 @@ namespace eWorkshop.WinUI
 
         private void btnLista_Click(object sender, EventArgs e)
         {
-            frmListaUredjaja childForm = new frmListaUredjaja();
+            frmListaUredjaja childForm = ServiceProvider.GetRequiredService<frmListaUredjaja>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
         private void mdiPocetna_Load(object sender, EventArgs e)
         {
-            frmMain childForm = new frmMain();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            frmMain childForm = ServiceProvider.GetRequiredService<frmMain>();
+            FormControl.NovaFormaOpcije(childForm);
         }
-
-
 
         private void btnMain_Click(object sender, EventArgs e)
         {
-            frmMain childForm = new frmMain();
+            frmMain childForm = ServiceProvider.GetRequiredService<frmMain>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
         private void detaljiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRadniZadaci childForm = new frmRadniZadaci();
+            frmRadniZadaci childForm = ServiceProvider.GetRequiredService<frmRadniZadaci>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
         private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDodajKomponentu childForm = new frmDodajKomponentu();
+            frmDodajKomponentu childForm = new frmDodajKomponentu(ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(childForm);
         }
 
         private void prijemUređajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPrijemUredjaja childForm = new frmPrijemUredjaja();
+            frmPrijemUredjaja childForm = ServiceProvider.GetRequiredService<frmPrijemUredjaja>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
         private void dodajNoviToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmNoviRadniZadatak childForm = new frmNoviRadniZadatak();
+            frmNoviRadniZadatak childForm = ServiceProvider.GetRequiredService<frmNoviRadniZadatak>();
             childForm.ShowDialog();
         }
 
         private void listaRadnihZadatakaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRadniZadaciLista childForm = new frmRadniZadaciLista();
+            frmRadniZadaciLista childForm = ServiceProvider.GetRequiredService<frmRadniZadaciLista>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -129,7 +132,7 @@ namespace eWorkshop.WinUI
 
         private void mojRačunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRacun childForm = new frmRacun();
+            frmRacun childForm = ServiceProvider.GetRequiredService<frmRacun>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -146,7 +149,7 @@ namespace eWorkshop.WinUI
 
         private void btnIzvjestaj_Click(object sender, EventArgs e)
         {
-            frmReportPicker childForm = new frmReportPicker();
+            frmReportPicker childForm = ServiceProvider.GetRequiredService<frmReportPicker>();
             FormControl.NovaFormaOpcije(childForm);
         }
     }

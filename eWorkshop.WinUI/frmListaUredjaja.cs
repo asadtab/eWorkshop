@@ -2,6 +2,7 @@
 using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Helper_classes;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,16 +17,25 @@ namespace eWorkshop.WinUI
 {
     public partial class frmListaUredjaja : Form
     {
-        public APIService UredjajiService { get; set; } = new APIService("Uredjaj");
+        public APIService UredjajiService { get; set; }
         List<UredjajiStateMachine> states = new List<UredjajiStateMachine>();
         public StatusHelper Status { get; set; } = new StatusHelper();
         public FormControl FormControl { get; set; } = new FormControl();
         public int SelectedId { get; set; }
-        public frmListaUredjaja()
+
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmListaUredjaja(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
 
             FormControl.OpcijeTabele(dgvLista);
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            UredjajiService = new APIService("Uredjaj", TokenService);
         }
 
         private void populateCmb()
@@ -70,7 +80,7 @@ namespace eWorkshop.WinUI
         {
             int evBroj = FormControl.SelektujRedIVratiId(dgvLista, e);
 
-            frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj);
+            frmUredjajDetalji childForm = new frmUredjajDetalji(evBroj, ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -123,5 +133,6 @@ namespace eWorkshop.WinUI
             if (evBroj != 0 && !string.IsNullOrEmpty(txtSearch.Text))
                 dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
         }
+
     }
 }

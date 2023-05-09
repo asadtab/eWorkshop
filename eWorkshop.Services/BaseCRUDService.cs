@@ -56,7 +56,7 @@ namespace eWorkshop.Services
 
         }
 
-        public TModel Delete(int id)
+        public virtual TModel Delete(int id)
         {
             var set = Context.Set<TDb>();
 

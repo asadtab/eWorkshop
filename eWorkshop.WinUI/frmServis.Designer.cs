@@ -75,6 +75,7 @@
             button2 = new Button();
             btnDodajRecommended = new Button();
             groupBox6 = new GroupBox();
+            errProvider = new ErrorProvider(components);
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -82,6 +83,7 @@
             groupBox4.SuspendLayout();
             cmsKomponenteEdit.SuspendLayout();
             groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errProvider).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -247,6 +249,7 @@
             // 
             // txtOpisServisiranja
             // 
+            txtOpisServisiranja.BorderStyle = BorderStyle.FixedSingle;
             txtOpisServisiranja.Location = new Point(6, 22);
             txtOpisServisiranja.Name = "txtOpisServisiranja";
             txtOpisServisiranja.Size = new Size(348, 181);
@@ -270,7 +273,7 @@
             groupBox2.Controls.Add(txtKomponentaNaziv);
             groupBox2.Location = new Point(12, 180);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(466, 142);
+            groupBox2.Size = new Size(466, 160);
             groupBox2.TabIndex = 16;
             groupBox2.TabStop = false;
             groupBox2.Text = "Dodaj komponentu";
@@ -278,7 +281,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(245, 19);
+            label11.Location = new Point(245, 30);
             label11.Name = "label11";
             label11.Size = new Size(37, 15);
             label11.TabIndex = 31;
@@ -286,14 +289,15 @@
             // 
             // txtKomponentaKoda
             // 
-            txtKomponentaKoda.Location = new Point(245, 37);
+            txtKomponentaKoda.BorderStyle = BorderStyle.FixedSingle;
+            txtKomponentaKoda.Location = new Point(245, 53);
             txtKomponentaKoda.Name = "txtKomponentaKoda";
             txtKomponentaKoda.Size = new Size(210, 23);
             txtKomponentaKoda.TabIndex = 30;
             // 
             // btn_o
             // 
-            btn_o.Location = new Point(186, 110);
+            btn_o.Location = new Point(186, 131);
             btn_o.Name = "btn_o";
             btn_o.Size = new Size(30, 23);
             btn_o.TabIndex = 29;
@@ -303,7 +307,7 @@
             // 
             // btnO
             // 
-            btnO.Location = new Point(150, 110);
+            btnO.Location = new Point(150, 131);
             btnO.Name = "btnO";
             btnO.Size = new Size(30, 23);
             btnO.TabIndex = 28;
@@ -313,7 +317,7 @@
             // 
             // btn_u
             // 
-            btn_u.Location = new Point(114, 110);
+            btn_u.Location = new Point(114, 131);
             btn_u.Name = "btn_u";
             btn_u.Size = new Size(30, 23);
             btn_u.TabIndex = 27;
@@ -323,7 +327,7 @@
             // 
             // btnU
             // 
-            btnU.Location = new Point(78, 110);
+            btnU.Location = new Point(78, 131);
             btnU.Name = "btnU";
             btnU.Size = new Size(30, 23);
             btnU.TabIndex = 26;
@@ -333,7 +337,7 @@
             // 
             // btnMikro
             // 
-            btnMikro.Location = new Point(42, 110);
+            btnMikro.Location = new Point(42, 131);
             btnMikro.Name = "btnMikro";
             btnMikro.Size = new Size(30, 23);
             btnMikro.TabIndex = 25;
@@ -343,7 +347,7 @@
             // 
             // btnOhm
             // 
-            btnOhm.Location = new Point(6, 110);
+            btnOhm.Location = new Point(6, 131);
             btnOhm.Name = "btnOhm";
             btnOhm.Size = new Size(30, 23);
             btnOhm.TabIndex = 24;
@@ -364,7 +368,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(6, 63);
+            label9.Location = new Point(6, 79);
             label9.Name = "label9";
             label9.Size = new Size(110, 15);
             label9.TabIndex = 21;
@@ -372,7 +376,8 @@
             // 
             // txtKomponentaVrijednost
             // 
-            txtKomponentaVrijednost.Location = new Point(6, 81);
+            txtKomponentaVrijednost.BorderStyle = BorderStyle.FixedSingle;
+            txtKomponentaVrijednost.Location = new Point(3, 102);
             txtKomponentaVrijednost.Name = "txtKomponentaVrijednost";
             txtKomponentaVrijednost.Size = new Size(210, 23);
             txtKomponentaVrijednost.TabIndex = 20;
@@ -380,7 +385,7 @@
             // Naziv
             // 
             Naziv.AutoSize = true;
-            Naziv.Location = new Point(6, 19);
+            Naziv.Location = new Point(3, 30);
             Naziv.Name = "Naziv";
             Naziv.Size = new Size(39, 15);
             Naziv.TabIndex = 19;
@@ -388,7 +393,8 @@
             // 
             // txtKomponentaNaziv
             // 
-            txtKomponentaNaziv.Location = new Point(6, 37);
+            txtKomponentaNaziv.BorderStyle = BorderStyle.FixedSingle;
+            txtKomponentaNaziv.Location = new Point(3, 53);
             txtKomponentaNaziv.Name = "txtKomponentaNaziv";
             txtKomponentaNaziv.Size = new Size(210, 23);
             txtKomponentaNaziv.TabIndex = 0;
@@ -396,7 +402,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(6, 19);
+            label8.Location = new Point(6, 30);
             label8.Name = "label8";
             label8.Size = new Size(116, 15);
             label8.TabIndex = 23;
@@ -405,7 +411,7 @@
             // cmbKomponente
             // 
             cmbKomponente.FormattingEnabled = true;
-            cmbKomponente.Location = new Point(6, 37);
+            cmbKomponente.Location = new Point(6, 53);
             cmbKomponente.Name = "cmbKomponente";
             cmbKomponente.Size = new Size(210, 23);
             cmbKomponente.TabIndex = 19;
@@ -413,7 +419,7 @@
             // groupBox3
             // 
             groupBox3.Controls.Add(txtOpisServisiranja);
-            groupBox3.Location = new Point(12, 328);
+            groupBox3.Location = new Point(12, 346);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(360, 209);
             groupBox3.TabIndex = 17;
@@ -423,7 +429,7 @@
             // groupBox4
             // 
             groupBox4.Controls.Add(lvKomponente);
-            groupBox4.Location = new Point(378, 328);
+            groupBox4.Location = new Point(378, 346);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(330, 238);
             groupBox4.TabIndex = 18;
@@ -490,7 +496,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(297, 543);
+            button1.Location = new Point(297, 561);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 20;
@@ -534,6 +540,10 @@
             groupBox6.TabStop = false;
             groupBox6.Text = "Prijedlog komponente";
             // 
+            // errProvider
+            // 
+            errProvider.ContainerControl = this;
+            // 
             // frmServis
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -563,6 +573,7 @@
             cmsKomponenteEdit.ResumeLayout(false);
             groupBox6.ResumeLayout(false);
             groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errProvider).EndInit();
             ResumeLayout(false);
         }
 
@@ -614,5 +625,6 @@
         private ToolStripMenuItem urediToolStripMenuItem;
         private ToolStripMenuItem izbrišiToolStripMenuItem;
         private ColumnHeader KomponentaId;
+        private ErrorProvider errProvider;
     }
 }

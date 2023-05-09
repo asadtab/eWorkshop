@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WinForms;
+﻿using eWorkshop.WinUI.Service;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,15 @@ namespace eWorkshop.WinUI.Report
 {
     public partial class frmReportViewer : Form
     {
-        public frmReportViewer()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmReportViewer(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
         private void frmReportViewer_Load(object sender, EventArgs e)

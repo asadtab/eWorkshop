@@ -52,11 +52,11 @@
             groupBox3 = new GroupBox();
             btnVrati = new Button();
             groupBox4 = new GroupBox();
+            btnRecikliraj = new Button();
             btnDeaktiviraj = new Button();
             btnIzbrisi = new Button();
             btnUredi = new Button();
             btnExit = new Button();
-            btnRecikliraj = new Button();
             tableLayoutPanel1.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -327,6 +327,16 @@
             groupBox4.TabIndex = 17;
             groupBox4.TabStop = false;
             // 
+            // btnRecikliraj
+            // 
+            btnRecikliraj.Location = new Point(6, 138);
+            btnRecikliraj.Name = "btnRecikliraj";
+            btnRecikliraj.Size = new Size(104, 23);
+            btnRecikliraj.TabIndex = 14;
+            btnRecikliraj.Text = "Recikliraj";
+            btnRecikliraj.UseVisualStyleBackColor = true;
+            btnRecikliraj.Click += btnRecikliraj_Click;
+            // 
             // btnDeaktiviraj
             // 
             btnDeaktiviraj.Location = new Point(6, 51);
@@ -370,15 +380,6 @@
             btnExit.Text = "X";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
-            // 
-            // btnRecikliraj
-            // 
-            btnRecikliraj.Location = new Point(6, 138);
-            btnRecikliraj.Name = "btnRecikliraj";
-            btnRecikliraj.Size = new Size(104, 23);
-            btnRecikliraj.TabIndex = 14;
-            btnRecikliraj.Text = "Recikliraj";
-            btnRecikliraj.UseVisualStyleBackColor = true;
             // 
             // frmUredjajDetalji
             // 

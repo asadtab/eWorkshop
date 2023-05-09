@@ -11,12 +11,19 @@ namespace eWorkshop.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
     public class KorisniciController : BaseCRUDController<KorisniciVM, KorisniciSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
     {
+        private IKorisniciService KorisniciService { get; set; }
+
         public KorisniciController(IKorisniciService service) : base(service)
         {
+            KorisniciService = service;
+        }
 
+        [HttpGet("Login")]
+        public KorisniciVM Login([FromQuery] LoginSearchObject loginSearchObject)
+        {
+            return KorisniciService.Login(loginSearchObject.username, loginSearchObject.password);
         }
     }
 }

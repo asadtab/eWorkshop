@@ -49,8 +49,12 @@
             urediToolStripMenuItem = new ToolStripMenuItem();
             izbrišiToolStripMenuItem = new ToolStripMenuItem();
             cbDeleted = new CheckBox();
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
             cmsUredi.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // dgvLista
@@ -60,14 +64,14 @@
             dgvLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvLista.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, serijskibroj, lokacija, isDeleted });
             dgvLista.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dgvLista.Location = new Point(12, 129);
+            dgvLista.Location = new Point(12, 185);
             dgvLista.MultiSelect = false;
             dgvLista.Name = "dgvLista";
             dgvLista.ReadOnly = true;
             dgvLista.RowTemplate.Height = 25;
             dgvLista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvLista.ShowEditingIcon = false;
-            dgvLista.Size = new Size(696, 452);
+            dgvLista.Size = new Size(696, 396);
             dgvLista.TabIndex = 0;
             dgvLista.CellDoubleClick += dgvLista_CellContentClick;
             // 
@@ -119,7 +123,7 @@
             // 
             cmbStateMachine.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cmbStateMachine.FormattingEnabled = true;
-            cmbStateMachine.Location = new Point(12, 94);
+            cmbStateMachine.Location = new Point(6, 41);
             cmbStateMachine.Name = "cmbStateMachine";
             cmbStateMachine.Size = new Size(197, 29);
             cmbStateMachine.TabIndex = 1;
@@ -147,7 +151,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(276, 9);
+            label1.Location = new Point(217, 19);
             label1.Name = "label1";
             label1.Size = new Size(167, 37);
             label1.TabIndex = 2;
@@ -156,7 +160,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 76);
+            label2.Location = new Point(6, 19);
             label2.Name = "label2";
             label2.Size = new Size(84, 15);
             label2.TabIndex = 3;
@@ -164,8 +168,9 @@
             // 
             // txtSearch
             // 
+            txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtSearch.Location = new Point(215, 94);
+            txtSearch.Location = new Point(209, 41);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(197, 29);
             txtSearch.TabIndex = 4;
@@ -174,7 +179,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(215, 76);
+            label3.Location = new Point(209, 19);
             label3.Name = "label3";
             label3.Size = new Size(181, 15);
             label3.TabIndex = 5;
@@ -215,7 +220,7 @@
             // cbDeleted
             // 
             cbDeleted.AutoSize = true;
-            cbDeleted.Location = new Point(600, 94);
+            cbDeleted.Location = new Point(428, 51);
             cbDeleted.Name = "cbDeleted";
             cbDeleted.Size = new Size(108, 19);
             cbDeleted.TabIndex = 25;
@@ -223,18 +228,37 @@
             cbDeleted.UseVisualStyleBackColor = true;
             cbDeleted.CheckedChanged += cbDeleted_CheckedChanged;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(cmbStateMachine);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(cbDeleted);
+            groupBox1.Controls.Add(txtSearch);
+            groupBox1.Location = new Point(12, 87);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(696, 92);
+            groupBox1.TabIndex = 26;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Pretraga";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label1);
+            groupBox2.Location = new Point(18, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(635, 69);
+            groupBox2.TabIndex = 27;
+            groupBox2.TabStop = false;
+            // 
             // frmListaUredjaja
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(720, 634);
-            Controls.Add(cbDeleted);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(btnExit);
-            Controls.Add(label3);
-            Controls.Add(txtSearch);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(cmbStateMachine);
             Controls.Add(dgvLista);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmListaUredjaja";
@@ -242,8 +266,11 @@
             Load += frmListaUredjaja_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLista).EndInit();
             cmsUredi.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -268,5 +295,7 @@
         private DataGridViewTextBoxColumn serijskibroj;
         private DataGridViewTextBoxColumn lokacija;
         private DataGridViewTextBoxColumn isDeleted;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
     }
 }

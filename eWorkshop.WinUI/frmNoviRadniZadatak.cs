@@ -15,15 +15,23 @@ namespace eWorkshop.WinUI
 {
     public partial class frmNoviRadniZadatak : Form
     {
-        public APIService RadniZadatakService { get; set; } = new APIService("RadniZadatak");
         public FormControl FormControl { get; set; } = new FormControl();
-        public frmNoviRadniZadatak()
+
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmNoviRadniZadatak(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
         private async void btnPotvrdi_Click(object sender, EventArgs e)
         {
+            APIService RadniZadatakService = new APIService("RadniZadatak", TokenService);
+
             RadniZadatakUpsertRequest request = new RadniZadatakUpsertRequest();
             request.Naziv = lblNaziv.Text;
             request.Datum = DateTime.Now;

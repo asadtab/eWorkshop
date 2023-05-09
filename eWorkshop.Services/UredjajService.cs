@@ -5,6 +5,7 @@ using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
 using eWorkshop.Services.UredjajiStateMachine;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -185,6 +186,19 @@ namespace eWorkshop.Services
             state.Deaktiviraj();
 
             return GetById(id);
+        }
+
+        public override UredjajVM Delete(int id)
+        {
+            var uredjaj = Context.Uredjajs.Find(id);
+
+            if (uredjaj == null)
+                return null;
+
+            uredjaj.isDeleted = true;
+            Context.SaveChanges();
+
+            return Mapper.Map<UredjajVM>(uredjaj);
         }
     }
 }

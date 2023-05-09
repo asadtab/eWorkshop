@@ -2,6 +2,7 @@
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,27 +17,43 @@ namespace eWorkshop.WinUI
 {
     public partial class frmPrijemUredjaja : Form
     {
-        APIService UredjajiService = new APIService("Uredjaj");
-        APIService TipUredjajaService = new APIService("TipUredjaja");
-        APIService LokacijaService = new APIService("Lokacija");
-        APIService RadniZadatakService = new APIService("RadniZadatak");
-        APIService RadniZadatakUredjajService = new APIService("Uredjaj/RadniZadatak");
+        APIService UredjajiService;
+        APIService TipUredjajaService;
+        APIService LokacijaService;
+        APIService RadniZadatakService;
+        APIService RadniZadatakUredjajService;
+
         public FormControl FormControl { get; set; } = new FormControl();
         public bool EditActivated { get; set; } = false;
         int UredjajId;
         APIService UredjajiServiceEdit;
         int TipId;
         public UredjajVM Uredjaj { get; set; } = new UredjajVM();
-        public frmPrijemUredjaja()
+
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmPrijemUredjaja(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            apiCalls();
         }
 
-        public frmPrijemUredjaja(UredjajVM uredjaj)
+        private void apiCalls()
         {
-            InitializeComponent();
+            UredjajiService = new APIService("Uredjaj", TokenService);
+            TipUredjajaService = new APIService("TipUredjaja", TokenService);
+            LokacijaService = new APIService("Lokacija", TokenService);
+            RadniZadatakService = new APIService("RadniZadatak", TokenService);
+            RadniZadatakUredjajService = new APIService("Uredjaj/RadniZadatak", TokenService);
+        }
 
-
+        public frmPrijemUredjaja(UredjajVM uredjaj, IServiceProvider serviceProvider, ITokenService tokenService) : this(serviceProvider, tokenService)
+        {
             Uredjaj = uredjaj;
             EditActivated = true;
 
@@ -77,7 +94,7 @@ namespace eWorkshop.WinUI
             await getRadneZadatke();
             await getZadnjiEvBroj();
 
-            //SelectDefault();
+            SelectDefault();
         }
 
         private async Task getZadnjiEvBroj()
@@ -129,76 +146,98 @@ namespace eWorkshop.WinUI
             }
         }
 
+        private bool ValidirajUnos()
+        {
+            return FormControl.CheckInput(errProvider, txtKoda, FormControl.ObaveznaVrijednost) &&
+            FormControl.CheckInput(errProvider, txtIzdanje, FormControl.ObaveznaVrijednost) &&
+            FormControl.CheckInput(errProvider, txtOpisKodPrijema, FormControl.ObaveznaVrijednost) &&
+            FormControl.CheckInput(errProvider, txtSerijskiBroj, FormControl.ObaveznaVrijednost) &&
+            FormControl.CheckInput(errProvider, cmbTipUredjaja, FormControl.ObaveznaVrijednost) &&
+            FormControl.CheckInput(errProvider, cmbLokacija, FormControl.ObaveznaVrijednost);
+        }
+
         private async void btnRegistruj_Click(object sender, EventArgs e)
         {
-            UredjajUpsertRequest request = new UredjajUpsertRequest()
+            if (ValidirajUnos())
             {
-                Koda = txtKoda.Text,
-                TipId = (cmbTipUredjaja.SelectedItem as TipUredjajaVM).TipUredjajaId,
-                SerijskiBroj = txtSerijskiBroj.Text,
-                DatumIzvedbe = txtIzdanje?.Text,
-                LokacijaId = (cmbLokacija.SelectedItem as LokacijaVM).LokacijaId
-            };
-
-            var uredjaj = new UredjajVM();
-
-            if (EditActivated == true)
-            {
-                DialogResult result = frmPotvrda.Show("Da li želite sačuvati promjene?", "Potvrdi", "Poništi");
-
-                if (result == DialogResult.Yes)
+                UredjajUpsertRequest request = new UredjajUpsertRequest()
                 {
-                    UredjajiServiceEdit = new APIService("Uredjaj/" + Uredjaj.UredjajId);
+                    Koda = txtKoda.Text,
+                    TipId = (cmbTipUredjaja.SelectedItem as TipUredjajaVM).TipUredjajaId,
+                    SerijskiBroj = txtSerijskiBroj.Text,
+                    DatumIzvedbe = txtIzdanje?.Text,
+                    LokacijaId = (cmbLokacija.SelectedItem as LokacijaVM).LokacijaId
+                };
 
-                    
+                var uredjaj = new UredjajVM();
+
+                if (EditActivated == true)
+                {
+                    DialogResult result = frmPotvrda.Show("Da li želite sačuvati promjene?", "Potvrdi", "Poništi");
+
+                    if (result == DialogResult.Yes)
+                    {
+                        UredjajiServiceEdit = new APIService("Uredjaj/" + Uredjaj.UredjajId, TokenService);
+
+                        try
+                        {
+                            uredjaj = await UredjajiServiceEdit.Put<UredjajVM>(request);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+
+                        MessageBox.Show("Uspjesno su sačuvane promjene za uređaj sa evidencijskim brojem : " + Uredjaj.UredjajId);
+                        txtIzdanje.Text = "";
+                        txtKoda.Text = "";
+                        txtSerijskiBroj.Text = "";
+                        txtOpisKodPrijema.Text = "";
+                        SelectDefault();
+
+                        this.Close();
+                    }
+                }
+                else
+                {
                     try
                     {
-                        uredjaj = await UredjajiServiceEdit.Put<UredjajVM>(request);
+                        uredjaj = await UredjajiService.Post<UredjajVM>(request);
                     }
                     catch (Exception ex)
                     {
+
                         MessageBox.Show(ex.ToString());
                     }
+                }
 
-                    MessageBox.Show("Uspjesno su sačuvane promjene za uređaj sa evidencijskim brojem : " + Uredjaj.UredjajId);
+
+                if (uredjaj != null && !EditActivated)
+                {
+                    MessageBox.Show("Uspjesno je dodan uređaj sa evidencijskim brojem : " + uredjaj.UredjajId);
                     txtIzdanje.Text = "";
                     txtKoda.Text = "";
                     txtSerijskiBroj.Text = "";
                     txtOpisKodPrijema.Text = "";
                     SelectDefault();
 
+                    errProvider.Clear();
+
                     this.Close();
+
+                    var form = ServiceProvider.GetRequiredService<frmPrijemUredjaja>();
+                    FormControl.NovaFormaOpcije(form);
                 }
             }
             else
             {
-                try
-                {
-                    uredjaj = await UredjajiService.Post<UredjajVM>(request);
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show(ex.ToString());
-                }
+                MessageBox.Show("Netačan unos!");
             }
-
-
-            if (uredjaj != null && !EditActivated)
-            {
-                MessageBox.Show("Uspjesno je dodan uređaj sa evidencijskim brojem : " + uredjaj.UredjajId);
-                txtIzdanje.Text = "";
-                txtKoda.Text = "";
-                txtSerijskiBroj.Text = "";
-                txtOpisKodPrijema.Text = "";
-                SelectDefault();
-            }
-
         }
 
         private async void btnNoviTipUredjaja_Click(object sender, EventArgs e)
         {
-            frmDodajTipUredjaja frmTip = new frmDodajTipUredjaja();
+            frmDodajTipUredjaja frmTip = ServiceProvider.GetRequiredService<frmDodajTipUredjaja>();
             frmTip.ShowDialog();
         }
 
@@ -211,12 +250,12 @@ namespace eWorkshop.WinUI
         {
             this.Close();
         }
-        
+
         private void frmPrijemUredjaja_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(EditActivated == true)
+            if (EditActivated == true)
             {
-                frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId);
+                frmUredjajDetalji childForm = new frmUredjajDetalji(Uredjaj.UredjajId, ServiceProvider, TokenService);
                 FormControl.NovaFormaOpcije(childForm);
             }
         }

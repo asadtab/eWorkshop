@@ -1,6 +1,7 @@
 ﻿using eWorkshop.Model;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +17,19 @@ namespace eWorkshop.WinUI
 {
     public partial class frmKorisnici : Form
     {
-        public APIService KorisniciService { get; set; } = new APIService("Korisnici");
+        public APIService KorisniciService { get; set; }
 
-        public frmKorisnici()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmKorisnici(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
             dgvLista.AutoGenerateColumns = false;
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            KorisniciService = new APIService("Korisnici", TokenService);
         }
 
         private void label1_Click(object sender, EventArgs e)

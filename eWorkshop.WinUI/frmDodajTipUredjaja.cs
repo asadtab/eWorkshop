@@ -15,10 +15,14 @@ namespace eWorkshop.WinUI
 {
     public partial class frmDodajTipUredjaja : Form
     {
-        public APIService TipService { get; set; } = new APIService("TipUredjaja");
-        public frmDodajTipUredjaja()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmDodajTipUredjaja(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
         private void btnSpremi_Click(object sender, EventArgs e)
@@ -28,6 +32,8 @@ namespace eWorkshop.WinUI
                 Naziv = txtNaziv.Text,
                 Opis = txtOpis.Text
             };
+
+            APIService TipService = new APIService("TipUredjaja", TokenService);
 
             var noviTipAdd = TipService.Post<TipUredjajaVM>(noviTip);
 

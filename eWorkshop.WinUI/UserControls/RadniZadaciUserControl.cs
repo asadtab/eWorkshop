@@ -1,4 +1,6 @@
 ﻿using eWorkshop.Model;
+using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,15 +15,22 @@ namespace eWorkshop.WinUI.UserControls
 {
     public partial class RadniZadaciUserControl : UserControl
     {
+        private readonly IServiceProvider ServiceProvider;
+        private readonly ITokenService TokenService;
+
         public List<RadniZadatakUredjajVM> RadniZadatak { get; set; } = new List<RadniZadatakUredjajVM>();
         public double Ukupno { get; set; }
         public double Progres { get; set; }
-        public RadniZadaciUserControl()
+        public FormControl FormControl { get; set; } = new FormControl();
+        public RadniZadaciUserControl(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
-        public RadniZadaciUserControl(List<RadniZadatakUredjajVM> radniZadatak = null) : this()
+        public RadniZadaciUserControl(IServiceProvider serviceProvider, ITokenService tokenService, List<RadniZadatakUredjajVM> radniZadatak = null) : this(serviceProvider, tokenService)
         {
             RadniZadatak = radniZadatak;
 
@@ -61,20 +70,14 @@ namespace eWorkshop.WinUI.UserControls
 
             int uredjaj = Int32.Parse(selectedItem.Substring(0, selectedItem.IndexOf(" ")));
 
-            frmUredjajDetalji childForm = new frmUredjajDetalji(uredjaj);
-            childForm.MdiParent = mdiPocetna.ActiveForm;
-            childForm.Text = "Detalji uređaja";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            frmUredjajDetalji childForm = new frmUredjajDetalji(uredjaj, ServiceProvider, TokenService);
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void btnDetalji_Click(object sender, EventArgs e)
         {
-            frmRadniZadatakDetalji childForm = new frmRadniZadatakDetalji(RadniZadatak);
-            childForm.MdiParent = mdiPocetna.ActiveForm;
-            childForm.Text = "Radni zadatak";
-            childForm.Dock = DockStyle.Fill;
-            childForm.Show();
+            frmRadniZadatakDetalji childForm = new frmRadniZadatakDetalji(RadniZadatak, ServiceProvider, TokenService);
+            FormControl.NovaFormaOpcije(childForm);
         }
     }
 }

@@ -15,14 +15,19 @@ namespace eWorkshop.WinUI
 {
     public partial class frmDodajKomponentu : Form
     {
-        public APIService KomponenteService { get; set; } = new APIService("Komponente");
-        public frmDodajKomponentu()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmDodajKomponentu(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
         }
 
         private async void btnRegistruj_Click(object sender, EventArgs e)
         {
+            APIService KomponenteService = new APIService("Komponente", TokenService);
             /*
              Naziv      -> Oznaka
              Opis       -> Naziv
@@ -39,7 +44,7 @@ namespace eWorkshop.WinUI
 
             var result = await KomponenteService.Post<KomponenteVM>(request);
 
-            if(result != null)
+            if (result != null)
             {
                 MessageBox.Show("Dodana je komponenta sa nazivom: " + result.Opis);
                 OcistiTextBox();

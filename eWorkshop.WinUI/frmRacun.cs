@@ -16,12 +16,21 @@ namespace eWorkshop.WinUI
 {
     public partial class frmRacun : Form
     {
-        public APIService ReparacijaService { get; set; } = new APIService("Reparacija");
-        public APIService Komponente { get; set; } = new APIService("ServisIzvrsen");
+        public APIService ReparacijaService { get; set; } 
+        public APIService Komponente { get; set; } 
 
-        public frmRacun()
+        public readonly IServiceProvider ServiceProvider;
+        public readonly ITokenService TokenService;
+
+        public frmRacun(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
+
+            ServiceProvider = serviceProvider;
+            TokenService = tokenService;
+
+            ReparacijaService = new APIService("Reparacija", TokenService);
+            Komponente = new APIService("ServisIzvrsen", TokenService);
 
             loadServise();
         }

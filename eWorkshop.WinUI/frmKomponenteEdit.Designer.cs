@@ -41,6 +41,7 @@
             // 
             // txtNaziv
             // 
+            txtNaziv.BorderStyle = BorderStyle.FixedSingle;
             txtNaziv.Location = new Point(22, 50);
             txtNaziv.Name = "txtNaziv";
             txtNaziv.Size = new Size(162, 23);
@@ -48,6 +49,7 @@
             // 
             // txtVrijednost
             // 
+            txtVrijednost.BorderStyle = BorderStyle.FixedSingle;
             txtVrijednost.Location = new Point(22, 94);
             txtVrijednost.Name = "txtVrijednost";
             txtVrijednost.Size = new Size(162, 23);
@@ -55,6 +57,7 @@
             // 
             // txtKoda
             // 
+            txtKoda.BorderStyle = BorderStyle.FixedSingle;
             txtKoda.Location = new Point(22, 138);
             txtKoda.Name = "txtKoda";
             txtKoda.Size = new Size(162, 23);
