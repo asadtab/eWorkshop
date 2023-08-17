@@ -169,7 +169,7 @@ namespace eWorkshop.Services
                 filter = filter.Where(x => x.Status == search.Status);
 
             if(search != null)
-                filter = filter.Where(x => x.isDeleted ==  search.isDeleted);
+                filter = filter.Where(x => x.IsDeleted ==  search.isDeleted);
            
 
             return filter;
@@ -195,7 +195,7 @@ namespace eWorkshop.Services
             if (uredjaj == null)
                 return null;
 
-            uredjaj.isDeleted = true;
+            uredjaj.IsDeleted = true;
             Context.SaveChanges();
 
             return Mapper.Map<UredjajVM>(uredjaj);

@@ -49,8 +49,6 @@ namespace eWorkshop.Services
             return Mapper.Map<TModel>(entity);
         }
 
-        
-
         public virtual void BeforeInsert(TInsert insert, TDb entity)
         {
 

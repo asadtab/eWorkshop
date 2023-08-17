@@ -6,6 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:workshop_app/screens/radni_zadaci/radni_zadatak_detalji.dart';
 
+import '../common_widget/radni_zadaci.dart';
 import '../helpers/bottom_bar.dart';
 import '../helpers/common_widget.dart';
 import '../helpers/master_screen.dart';
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   RadniZadaciProvider? radniZadaciProvider = null;
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
   List<RadniZadatakUredjaj> radniZadatakUredjajData = [];
-  List<RadniZadatak> data = [];
+  List<RadniZadatak> radniZadatak = [];
   bool _isLoading = true;
   double progres = 0;
 
@@ -45,10 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
       _isLoading = true;
     });
 
-    //var response = await radniZadaciProvider?.get({'UredjajState': 'active'});
-    var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
+    var responseZadaci = await radniZadaciProvider?.get({'StateMachine': 'active'}, "RadniZadatak");
+    var items = await radniZadaciUredjajProvider?.get({'StateMachine': 'active'}, "RadniZadatakUredjaj/Flutter");
 
     setState(() {
+      radniZadatak = responseZadaci!;
       radniZadatakUredjajData = items!;
       _isLoading = false;
     });
@@ -96,110 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GridView(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, childAspectRatio: 3.5, mainAxisSpacing: 10),
                             scrollDirection: Axis.horizontal,
-                            children: zadatak(context, radniZadatakUredjajData.distinct((x) => [x.radniZadatakId]).toList())))),
+                            children: RadniZadatakCommon.zadatak(context, radniZadatakUredjajData, radniZadatak)))),
                 SizedBox(
                   height: 150,
                   child: Text("Asad"),
                 )
               ])));
-  }
-
-  List<RadniZadatakUredjaj> getUredjaj(int id) {
-    return radniZadatakUredjajData.where((x) => x.radniZadatakId == id).toList();
-  }
-
-  List<Widget> items(int id) {
-    if (radniZadatakUredjajData.length == 0) {
-      return [CircularProgressIndicator()];
-    }
-    postotak(id);
-
-    List<Widget> list = getUredjaj(id)
-        .map((x) => Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-            width: 150,
-            height: 30,
-            child: Text(x.uredjajId.toString() + " - " + x.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold))))
-        .cast<Widget>()
-        .toList();
-
-    return list;
-  }
-
-  void postotak(int id) {
-    var uredjaji = getUredjaj(id);
-    int brojac = 0;
-
-    for (var i = 0; i < uredjaji.length; i++) {
-      if (uredjaji[i].uredjajStatus == "fix" || uredjaji[i].uredjajStatus == "ready" || uredjaji[i].uredjajStatus == "out") {
-        brojac++;
-      }
-
-      progres = brojac / uredjaji.length;
-    }
-  }
-
-  List<Widget> zadatak(BuildContext context, List<RadniZadatakUredjaj> data) {
-    if (radniZadatakUredjajData.length == 0) {
-      return [CircularProgressIndicator()];
-    }
-
-    var listDistinct = Set();
-
-    List<RadniZadatakUredjaj> unique = data.where((x) => listDistinct.add(x.radniZadatakId)).toList();
-
-    List<Widget> list = unique
-        .map((x) => Column(children: [
-              Card(
-                  child: Container(
-                width: 150,
-                height: 250,
-                child: SingleChildScrollView(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    InkWell(
-                      onTap: () {
-                        var uredjaji = getUredjaj(x.radniZadatakId);
-
-                        MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji));
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji)));
-                      },
-                      child: Container(
-                          width: 150,
-                          height: 30,
-                          child: Card(
-                              color: Color(0xFFCBE4DE),
-                              shadowColor: Color(0xFFCBE4DE),
-                              child: Center(
-                                  child: Text(
-                                x.radniZadatakNaziv ?? "",
-                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                              )))),
-                    ),
-
-                    Column(
-                      children: items(x.radniZadatakId),
-                    ),
-                    //CommonWidget.dividerLista(),
-                  ]),
-                ),
-              )),
-              new CircularPercentIndicator(
-                radius: 40,
-                lineWidth: 13.0,
-                animation: true,
-                percent: progres,
-                center: new Text(
-                  (progres * 100).round().toString() + "%",
-                  style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-                ),
-                circularStrokeCap: CircularStrokeCap.round,
-                progressColor: Color(0xFF0E8388),
-              ),
-            ]))
-        .cast<Widget>()
-        .toList();
-
-    return list;
   }
 }

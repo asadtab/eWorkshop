@@ -1,9 +1,25 @@
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Test;
 using eWorkshop.IdentityServer;
+using eWorkshop.IdentityServer.Database;
+using eWorkshop.Services.IDS;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.SystemConsole.Themes;
+using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+var config = builder.Configuration;
+
+var connectionString = config.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
 
@@ -12,6 +28,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityServer(options =>
 {
@@ -21,21 +41,30 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseSuccessEvents = true;
 
     options.EmitStaticAudienceClaim = true;
-}).AddTestUsers(Config.Users)
-  .AddInMemoryClients(Config.Clients)
-  .AddInMemoryApiResources(Config.ApiResources)
+})
+.AddAspNetIdentity<IdentityUser>()
+.AddInMemoryClients(Config.Clients)
+.AddInMemoryApiResources(Config.ApiResources)
   .AddInMemoryApiScopes(Config.ApiScopes)
   .AddInMemoryIdentityResources(Config.IdentityResources);
 
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+});
+
+
+
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseIdentityServer();
 
@@ -45,5 +74,6 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
 
 app.Run();

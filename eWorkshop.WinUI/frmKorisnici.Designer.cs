@@ -34,19 +34,20 @@
             label1 = new Label();
             label2 = new Label();
             dgvLista = new DataGridView();
+            KorisniciID = new DataGridViewTextBoxColumn();
             Ime = new DataGridViewTextBoxColumn();
             Prezime = new DataGridViewTextBoxColumn();
             KorisnickoIme = new DataGridViewTextBoxColumn();
             Telefon = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
-            NaziviUloga = new DataGridViewTextBoxColumn();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
             SuspendLayout();
             // 
             // txtUserName
             // 
             txtUserName.BorderStyle = BorderStyle.FixedSingle;
-            txtUserName.Location = new Point(12, 63);
+            txtUserName.Location = new Point(72, 147);
             txtUserName.Name = "txtUserName";
             txtUserName.Size = new Size(229, 23);
             txtUserName.TabIndex = 0;
@@ -54,14 +55,14 @@
             // txtImePrezime
             // 
             txtImePrezime.BorderStyle = BorderStyle.FixedSingle;
-            txtImePrezime.Location = new Point(247, 63);
+            txtImePrezime.Location = new Point(307, 147);
             txtImePrezime.Name = "txtImePrezime";
             txtImePrezime.Size = new Size(229, 23);
             txtImePrezime.TabIndex = 1;
             // 
             // btnPrikazi
             // 
-            btnPrikazi.Location = new Point(482, 63);
+            btnPrikazi.Location = new Point(542, 147);
             btnPrikazi.Name = "btnPrikazi";
             btnPrikazi.Size = new Size(75, 23);
             btnPrikazi.TabIndex = 2;
@@ -72,7 +73,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 45);
+            label1.Location = new Point(72, 124);
             label1.Name = "label1";
             label1.Size = new Size(85, 15);
             label1.TabIndex = 3;
@@ -82,7 +83,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(247, 45);
+            label2.Location = new Point(307, 124);
             label2.Name = "label2";
             label2.Size = new Size(78, 15);
             label2.TabIndex = 4;
@@ -91,12 +92,20 @@
             // dgvLista
             // 
             dgvLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLista.Columns.AddRange(new DataGridViewColumn[] { Ime, Prezime, KorisnickoIme, Telefon, Email, NaziviUloga });
-            dgvLista.Location = new Point(12, 122);
+            dgvLista.Columns.AddRange(new DataGridViewColumn[] { KorisniciID, Ime, Prezime, KorisnickoIme, Telefon, Email });
+            dgvLista.Location = new Point(72, 206);
             dgvLista.Name = "dgvLista";
             dgvLista.RowTemplate.Height = 25;
-            dgvLista.Size = new Size(776, 316);
+            dgvLista.Size = new Size(545, 319);
             dgvLista.TabIndex = 5;
+            dgvLista.CellDoubleClick += dgvLista_CellContentClick;
+            // 
+            // KorisniciID
+            // 
+            KorisniciID.DataPropertyName = "KorisniciID";
+            KorisniciID.HeaderText = "KorisnikID";
+            KorisniciID.Name = "KorisniciID";
+            KorisniciID.ReadOnly = true;
             // 
             // Ime
             // 
@@ -128,25 +137,32 @@
             Email.HeaderText = "Email";
             Email.Name = "Email";
             // 
-            // NaziviUloga
+            // label3
             // 
-            NaziviUloga.DataPropertyName = "NaziviUloga";
-            NaziviUloga.HeaderText = "Nazivi uloga";
-            NaziviUloga.Name = "NaziviUloga";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(229, 28);
+            label3.Name = "label3";
+            label3.Size = new Size(183, 37);
+            label3.TabIndex = 6;
+            label3.Text = "Lista korisnika";
             // 
             // frmKorisnici
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(720, 634);
+            Controls.Add(label3);
             Controls.Add(dgvLista);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnPrikazi);
             Controls.Add(txtImePrezime);
             Controls.Add(txtUserName);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmKorisnici";
             Text = "frmKorisnici";
+            Load += frmKorisnici_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLista).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -160,11 +176,12 @@
         private Label label1;
         private Label label2;
         private DataGridView dgvLista;
+        private Label label3;
+        private DataGridViewTextBoxColumn KorisniciID;
         private DataGridViewTextBoxColumn Ime;
         private DataGridViewTextBoxColumn Prezime;
         private DataGridViewTextBoxColumn KorisnickoIme;
         private DataGridViewTextBoxColumn Telefon;
         private DataGridViewTextBoxColumn Email;
-        private DataGridViewTextBoxColumn NaziviUloga;
     }
 }

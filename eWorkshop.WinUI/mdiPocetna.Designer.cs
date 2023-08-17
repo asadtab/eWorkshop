@@ -41,7 +41,7 @@
             button1 = new Button();
             panel4 = new Panel();
             btnMain = new Button();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            tblLayoutPanel = new TableLayoutPanel();
             menuStrip1 = new MenuStrip();
             radniZadaciToolStripMenuItem = new ToolStripMenuItem();
             detaljiToolStripMenuItem = new ToolStripMenuItem();
@@ -56,11 +56,18 @@
             dodajToolStripMenuItem = new ToolStripMenuItem();
             vidiSveToolStripMenuItem = new ToolStripMenuItem();
             uređajToolStripMenuItem = new ToolStripMenuItem();
+            administratorToolStripMenuItem = new ToolStripMenuItem();
+            dodajKlijentaToolStripMenuItem = new ToolStripMenuItem();
+            klijentiToolStripMenuItem = new ToolStripMenuItem();
+            claimTypesToolStripMenuItem = new ToolStripMenuItem();
+            korisniciToolStripMenuItem1 = new ToolStripMenuItem();
+            ulogeToolStripMenuItem = new ToolStripMenuItem();
+            resursiToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             pnlKorisnici.SuspendLayout();
             pnlUredjaj.SuspendLayout();
             panel4.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            tblLayoutPanel.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -123,6 +130,7 @@
             btnDodajKorisnika.Text = "Dodaj korisnika";
             btnDodajKorisnika.TextAlign = ContentAlignment.MiddleLeft;
             btnDodajKorisnika.UseVisualStyleBackColor = true;
+            btnDodajKorisnika.Click += btnDodajKorisnika_Click;
             // 
             // btnKorisnici
             // 
@@ -256,28 +264,28 @@
             btnMain.UseVisualStyleBackColor = true;
             btnMain.Click += btnMain_Click;
             // 
-            // tableLayoutPanel1
+            // tblLayoutPanel
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.62586F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64.37414F));
-            tableLayoutPanel1.Controls.Add(menuStrip1, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Top;
-            tableLayoutPanel1.Location = new Point(228, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(727, 61);
-            tableLayoutPanel1.TabIndex = 12;
+            tblLayoutPanel.ColumnCount = 2;
+            tblLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44.56671F));
+            tblLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.43329F));
+            tblLayoutPanel.Controls.Add(menuStrip1, 0, 0);
+            tblLayoutPanel.Dock = DockStyle.Top;
+            tblLayoutPanel.Location = new Point(228, 0);
+            tblLayoutPanel.Name = "tblLayoutPanel";
+            tblLayoutPanel.RowCount = 1;
+            tblLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblLayoutPanel.Size = new Size(727, 27);
+            tblLayoutPanel.TabIndex = 12;
             // 
             // menuStrip1
             // 
             menuStrip1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { radniZadaciToolStripMenuItem, korisniciToolStripMenuItem, magacinToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { radniZadaciToolStripMenuItem, korisniciToolStripMenuItem, magacinToolStripMenuItem, administratorToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.RenderMode = ToolStripRenderMode.System;
-            menuStrip1.Size = new Size(258, 24);
+            menuStrip1.Size = new Size(324, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -314,6 +322,7 @@
             dodajNovogKorisnikaToolStripMenuItem.Name = "dodajNovogKorisnikaToolStripMenuItem";
             dodajNovogKorisnikaToolStripMenuItem.Size = new Size(192, 22);
             dodajNovogKorisnikaToolStripMenuItem.Text = "Dodaj novog korisnika";
+            dodajNovogKorisnikaToolStripMenuItem.Click += dodajNovogKorisnikaToolStripMenuItem_Click;
             // 
             // detaljiToolStripMenuItem2
             // 
@@ -368,13 +377,61 @@
             uređajToolStripMenuItem.Size = new Size(143, 22);
             uređajToolStripMenuItem.Text = "Uređaj";
             // 
+            // administratorToolStripMenuItem
+            // 
+            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajKlijentaToolStripMenuItem, klijentiToolStripMenuItem, claimTypesToolStripMenuItem, korisniciToolStripMenuItem1, ulogeToolStripMenuItem, resursiToolStripMenuItem });
+            administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
+            administratorToolStripMenuItem.Size = new Size(92, 20);
+            administratorToolStripMenuItem.Text = "Administrator";
+            // 
+            // dodajKlijentaToolStripMenuItem
+            // 
+            dodajKlijentaToolStripMenuItem.Name = "dodajKlijentaToolStripMenuItem";
+            dodajKlijentaToolStripMenuItem.Size = new Size(180, 22);
+            dodajKlijentaToolStripMenuItem.Text = "Dodaj klijenta";
+            dodajKlijentaToolStripMenuItem.Click += dodajKlijentaToolStripMenuItem_Click;
+            // 
+            // klijentiToolStripMenuItem
+            // 
+            klijentiToolStripMenuItem.Name = "klijentiToolStripMenuItem";
+            klijentiToolStripMenuItem.Size = new Size(180, 22);
+            klijentiToolStripMenuItem.Text = "Klijenti";
+            klijentiToolStripMenuItem.Click += klijentiToolStripMenuItem_Click;
+            // 
+            // claimTypesToolStripMenuItem
+            // 
+            claimTypesToolStripMenuItem.Name = "claimTypesToolStripMenuItem";
+            claimTypesToolStripMenuItem.Size = new Size(180, 22);
+            claimTypesToolStripMenuItem.Text = "ClaimTypes";
+            claimTypesToolStripMenuItem.Click += claimTypesToolStripMenuItem_Click;
+            // 
+            // korisniciToolStripMenuItem1
+            // 
+            korisniciToolStripMenuItem1.Name = "korisniciToolStripMenuItem1";
+            korisniciToolStripMenuItem1.Size = new Size(180, 22);
+            korisniciToolStripMenuItem1.Text = "Korisnici";
+            // 
+            // ulogeToolStripMenuItem
+            // 
+            ulogeToolStripMenuItem.Name = "ulogeToolStripMenuItem";
+            ulogeToolStripMenuItem.Size = new Size(180, 22);
+            ulogeToolStripMenuItem.Text = "Uloge";
+            // 
+            // resursiToolStripMenuItem
+            // 
+            resursiToolStripMenuItem.Name = "resursiToolStripMenuItem";
+            resursiToolStripMenuItem.Size = new Size(180, 22);
+            resursiToolStripMenuItem.Text = "Resursi";
+            resursiToolStripMenuItem.Click += resursiToolStripMenuItem_Click;
+            // 
             // mdiPocetna
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(955, 623);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tblLayoutPanel);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 3, 4, 3);
@@ -387,8 +444,8 @@
             pnlKorisnici.ResumeLayout(false);
             pnlUredjaj.ResumeLayout(false);
             panel4.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            tblLayoutPanel.ResumeLayout(false);
+            tblLayoutPanel.PerformLayout();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -407,7 +464,7 @@
         private Button btnKorisnici;
         private Panel panel4;
         private Button btnMain;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tblLayoutPanel;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem radniZadaciToolStripMenuItem;
         private ToolStripMenuItem detaljiToolStripMenuItem;
@@ -422,6 +479,13 @@
         private ToolStripMenuItem listaRadnihZadatakaToolStripMenuItem;
         private ToolStripMenuItem mojRačunToolStripMenuItem;
         private ToolStripMenuItem odjaviSeToolStripMenuItem;
+        private ToolStripMenuItem administratorToolStripMenuItem;
+        private ToolStripMenuItem dodajKlijentaToolStripMenuItem;
+        private ToolStripMenuItem klijentiToolStripMenuItem;
+        private ToolStripMenuItem claimTypesToolStripMenuItem;
+        private ToolStripMenuItem korisniciToolStripMenuItem1;
+        private ToolStripMenuItem ulogeToolStripMenuItem;
+        private ToolStripMenuItem resursiToolStripMenuItem;
     }
 }
 

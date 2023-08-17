@@ -16,6 +16,8 @@ namespace eWorkshop.WinUI
             dgv.AutoGenerateColumns = false;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.MultiSelect = false;
+            dgv.ReadOnly = true;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public int SelektujRedIVratiId(DataGridView dgv, DataGridViewCellEventArgs e)

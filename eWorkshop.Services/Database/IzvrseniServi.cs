@@ -11,11 +11,13 @@ public partial class IzvrseniServi
 
     public int? ServisId { get; set; }
 
-    public string? KomponentaNaziv { get; set; }
-    public string? KomponentaVrijednost { get; set; }
-    public string? KomponentaTip { get; set; }
-
     public DateTime? Datum { get; set; }
+
+    public string? KomponentaNaziv { get; set; }
+
+    public string? KomponentaVrijednost { get; set; }
+
+    public string? KomponentaTip { get; set; }
 
     public virtual Komponente? Komponenta { get; set; }
 

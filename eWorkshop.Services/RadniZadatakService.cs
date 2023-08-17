@@ -24,6 +24,18 @@ namespace eWorkshop.Services
             return state.Insert(insert);
         }
 
+        public RadniZadatakVM Fakturisi(int id)
+        {
+            var zadatak = Context.RadniZadataks.Find(id);
+
+            var state = BaseState.CreateState(zadatak.StateMachine);
+            state.CurrentEntity = zadatak;  
+
+            state.Fakturisi();
+
+            return Mapper.Map<RadniZadatakVM>(zadatak);
+        }
+
         public RadniZadatakVM Zavrsi(int id)
         {
             var zadatak = Context.RadniZadataks.Find(id);
@@ -72,7 +84,12 @@ namespace eWorkshop.Services
                 || x.StateMachine == search.StateMachineArray[1]);
             }
 
-            if(search != null && !string.IsNullOrEmpty(search.StateMachine))
+            if (search != null && search.RadniZadatakId != 0)
+            {
+                filter = filter.Where(x => x.RadniZadatakId == search.RadniZadatakId);
+            }
+
+            if (search != null && !string.IsNullOrEmpty(search.StateMachine))
             {
                 filter = filter.Where(x => x.StateMachine == search.StateMachine);
             }

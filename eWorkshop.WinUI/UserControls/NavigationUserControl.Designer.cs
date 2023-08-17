@@ -28,43 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button2 = new Button();
+            btnBack = new Button();
+            btnForward = new Button();
             SuspendLayout();
             // 
-            // button1
+            // btnBack
             // 
-            button1.BackColor = Color.Transparent;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.System;
-            button1.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Location = new Point(3, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 49);
-            button1.TabIndex = 0;
-            button1.Text = "<-";
-            button1.UseVisualStyleBackColor = false;
+            btnBack.BackColor = Color.Transparent;
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatStyle = FlatStyle.System;
+            btnBack.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            btnBack.Location = new Point(3, 3);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(75, 49);
+            btnBack.TabIndex = 0;
+            btnBack.Text = "<-";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
             // 
-            // button2
+            // btnForward
             // 
-            button2.BackColor = Color.Transparent;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.System;
-            button2.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.Location = new Point(84, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 49);
-            button2.TabIndex = 1;
-            button2.Text = "->";
-            button2.UseVisualStyleBackColor = false;
+            btnForward.BackColor = Color.Transparent;
+            btnForward.FlatAppearance.BorderSize = 0;
+            btnForward.FlatStyle = FlatStyle.System;
+            btnForward.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            btnForward.Location = new Point(84, 3);
+            btnForward.Name = "btnForward";
+            btnForward.Size = new Size(75, 49);
+            btnForward.TabIndex = 1;
+            btnForward.Text = "->";
+            btnForward.UseVisualStyleBackColor = false;
+            btnForward.Click += btnForward_Click;
             // 
             // NavigationUserControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnForward);
+            Controls.Add(btnBack);
             Name = "NavigationUserControl";
             Size = new Size(163, 55);
             ResumeLayout(false);
@@ -72,7 +74,7 @@
 
         #endregion
 
-        private Button button1;
-        private Button button2;
+        private Button btnBack;
+        private Button btnForward;
     }
 }

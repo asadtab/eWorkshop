@@ -17,6 +17,7 @@ namespace eWorkshop.WinUI
 {
     public partial class frmKorisnici : Form
     {
+        public FormControl FormControl { get; set; } = new FormControl();
         public APIService KorisniciService { get; set; }
 
         public readonly IServiceProvider ServiceProvider;
@@ -25,9 +26,10 @@ namespace eWorkshop.WinUI
         public frmKorisnici(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
-            dgvLista.AutoGenerateColumns = false;
             ServiceProvider = serviceProvider;
             TokenService = tokenService;
+
+            FormControl.OpcijeTabele(dgvLista);
 
             KorisniciService = new APIService("Korisnici", TokenService);
         }
@@ -52,5 +54,23 @@ namespace eWorkshop.WinUI
             dgvLista.DataSource = lista;
 
         }
+
+        private async void frmKorisnici_Load(object sender, EventArgs e)
+        {
+            FormControl.OpcijeTabele(dgvLista);
+
+            var lista = await KorisniciService.Get<List<KorisniciVM>>();
+
+            dgvLista.DataSource = lista;
+        }
+
+        private void dgvLista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int korisnikID = FormControl.SelektujRedIVratiId(dgvLista, e);
+
+            frmRacun form = new frmRacun(korisnikID, ServiceProvider, TokenService);
+            FormControl.NovaFormaOpcije(form);
+        }
+
     }
 }

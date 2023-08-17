@@ -5,7 +5,6 @@ namespace eWorkshop.Services.Database;
 
 public partial class Korisnici
 {
-
     public int KorisniciId { get; set; }
 
     public string Ime { get; set; } = null!;

@@ -1,5 +1,6 @@
 ﻿using eWorkshop.WinUI.Report;
 using eWorkshop.WinUI.Service;
+using eWorkshop.WinUI.UserControls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -22,6 +23,8 @@ namespace eWorkshop.WinUI
 
         public readonly IServiceProvider ServiceProvider;
         public readonly ITokenService TokenService;
+
+        public NavigationUserControl Navigation { get; set; }
 
         public mdiPocetna(IServiceProvider serviceProvider, ITokenService tokenService)
         {
@@ -86,7 +89,11 @@ namespace eWorkshop.WinUI
         private void mdiPocetna_Load(object sender, EventArgs e)
         {
             frmMain childForm = ServiceProvider.GetRequiredService<frmMain>();
-            FormControl.NovaFormaOpcije(childForm);
+
+            childForm.MdiParent = this;
+            childForm.Text = string.Empty;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Show();
         }
 
         private void btnMain_Click(object sender, EventArgs e)
@@ -127,12 +134,13 @@ namespace eWorkshop.WinUI
 
         private void btnListaKorisnika_Click(object sender, EventArgs e)
         {
-
+            frmKorisnici childForm = ServiceProvider.GetRequiredService<frmKorisnici>();
+            FormControl.NovaFormaOpcije(childForm);
         }
 
         private void mojRačunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRacun childForm = ServiceProvider.GetRequiredService<frmRacun>();
+            frmRacun childForm = new frmRacun(APIService.Korisnik.KorisniciId, ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -143,7 +151,17 @@ namespace eWorkshop.WinUI
             if (result == DialogResult.Yes)
             {
                 APIService.Korisnik = null;
-                this.Close();
+
+                var login = ServiceProvider.GetRequiredService<frmLogin>();
+
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Restart();
+                }
+                else
+                {
+
+                }
             }
         }
 
@@ -151,6 +169,41 @@ namespace eWorkshop.WinUI
         {
             frmReportPicker childForm = ServiceProvider.GetRequiredService<frmReportPicker>();
             FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void btnDodajKorisnika_Click(object sender, EventArgs e)
+        {
+            frmDodajKlijenta childForm = ServiceProvider.GetRequiredService<frmDodajKlijenta>();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void dodajNovogKorisnikaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDodajKlijenta childForm = ServiceProvider.GetRequiredService<frmDodajKlijenta>();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void dodajKlijentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDodajKlijent childForm = ServiceProvider.GetRequiredService<frmDodajKlijent>();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void klijentiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmKlijenti childForm = ServiceProvider.GetRequiredService<frmKlijenti>();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void resursiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmResursi childForm = ServiceProvider.GetRequiredService<frmResursi>();
+            FormControl.NovaFormaOpcije(childForm);
+        }
+
+        private void claimTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

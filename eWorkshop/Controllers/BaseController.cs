@@ -6,7 +6,7 @@ namespace eWorkshop.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class BaseController<TModel, TSearch> : ControllerBase where TModel : class where TSearch : class
     {
         public IService<TModel, TSearch> Service { get; set; }

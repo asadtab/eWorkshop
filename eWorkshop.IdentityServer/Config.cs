@@ -122,6 +122,31 @@ namespace eWorkshop.IdentityServer
           AllowedScopes = { "weatherapi.read", "weatherapi.write"}
         },
 
+        new Client
+        {
+          ClientId = "flutter",
+          ClientName = "Mobile app",
+
+          AllowedGrantTypes = GrantTypes.Code,
+          RequirePkce = true,
+          RequireClientSecret = false,
+          AllowOfflineAccess = true,
+          //ClientSecrets = {new Secret("SuperSecretPassword".Sha256())},
+
+          RedirectUris = {"https://localhost:7189/swagger/oauth2-redirect.html"},
+          AllowedCorsOrigins = {"https://localhost:7189"},
+
+          //AllowedScopes = { "weatherapi.read", "weatherapi.write"}
+          AllowedScopes = 
+            {
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.OfflineAccess,
+                IdentityServerConstants.StandardScopes.Profile,
+                "weatherapi.read",
+                "weatherapi.write"
+            }
+        },
+
         // interactive client using code flow + pkce
         new Client
         {

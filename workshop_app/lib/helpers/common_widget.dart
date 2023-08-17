@@ -20,6 +20,55 @@ class CommonWidget {
         ));
   }
 
+  static List<Widget> zadatak(BuildContext context, List<RadniZadatakUredjaj> data) {
+    if (data.length == 0) {
+      return [Text("Radni zadaci ne postoje")];
+    }
+
+    var listDistinct = Set();
+
+    List<RadniZadatakUredjaj> unique = data.where((x) => listDistinct.add(x.radniZadatakId)).toList();
+
+    List<Widget> list = unique
+        .map((x) => Column(children: [
+              Card(
+                  child: Container(
+                width: 150,
+                height: 250,
+                child: SingleChildScrollView(
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    InkWell(
+                      onTap: () {
+                        var uredjaji = data.where((y) => y.radniZadatakId == x.radniZadatakId).toList();
+
+                        MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji));
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji)));
+                      },
+                      child: Container(
+                          width: 150,
+                          height: 30,
+                          child: Card(
+                              color: Color(0xFFCBE4DE),
+                              shadowColor: Color(0xFFCBE4DE),
+                              child: Center(
+                                  child: Text(
+                                x.radniZadatakNaziv ?? "",
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                              )))),
+                    ),
+
+                    //CommonWidget.dividerLista(),
+                  ]),
+                ),
+              )),
+            ]))
+        .cast<Widget>()
+        .toList();
+
+    return list;
+  }
+
   static Container tekstUnos(String nazivPolja, TextEditingController controller, bool? validate) {
     return Container(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -126,9 +175,7 @@ class CommonWidget {
                   }),
               ElevatedButton(
                   child: Text("Poništi"),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 2,
-                  ),
+                  style: ElevatedButton.styleFrom(elevation: 2, backgroundColor: Colors.redAccent),
                   onPressed: () {
                     Navigator.pop(context);
                   })

@@ -37,7 +37,7 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
   List<Uredjaj> data = [];
   String selected = "";
   List<Uredjaj> uredjajRadniZadatak = [];
-  String dropdownvalue = "";
+  String dropdownvalue = "Aktivni";
   int radniZadatakId = 0;
 
   late List<dynamic> _dataList;
@@ -57,7 +57,10 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
 
     _uredjajiProvider = context.read<UredjajiProvider>();
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
-    _fetchData(null);
+
+    var map = {'Status': 'active'};
+
+    _fetchData(map);
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -162,17 +165,17 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
                                 crossAxisCount: 2, childAspectRatio: 1.5, mainAxisSpacing: 10, crossAxisSpacing: 10),
                             children: data
                                 .map((x) => Card(
-                                    color: x.isChecked ? Color(0xFF579BB1) : Color(0xFFCBE4DE),
+                                    color: x.isSelected ? Color(0xFF579BB1) : Color(0xFFCBE4DE),
                                     child: InkWell(
                                         onTap: () {
                                           if (addZadatakActive) {
                                             HapticFeedback.vibrate();
                                             setState(() {
-                                              if (!x.isChecked) {
-                                                x.isChecked = true;
+                                              if (!x.isSelected) {
+                                                x.isSelected = true;
                                                 uredjajRadniZadatak.add(x);
                                               } else {
-                                                x.isChecked = false;
+                                                x.isSelected = false;
                                                 uredjajRadniZadatak.remove(x);
                                               }
                                             });
@@ -184,13 +187,13 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
                                           children: [
                                             Row(
                                               mainAxisAlignment:
-                                                  addZadatakActive && x.isChecked ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                                                  addZadatakActive && x.isSelected ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Container(
                                                   padding: const EdgeInsets.all(10),
                                                   child: Text(x.uredjajId.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                                                 ),
-                                                if (addZadatakActive && x.isChecked) Container(child: Icon(Icons.done)),
+                                                if (addZadatakActive && x.isSelected) Container(child: Icon(Icons.done)),
                                                 if (!addZadatakActive)
                                                   Container(
                                                     padding: const EdgeInsets.all(0),

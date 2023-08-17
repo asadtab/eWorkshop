@@ -17,12 +17,10 @@ class RadniZadatakUredjaj {
   String? tipNaziv;
   String? tipOpis;
   String? lokacija;
-  double progress = 0;
 
   RadniZadatakUredjaj();
 
-  factory RadniZadatakUredjaj.fromJson(Map<String, dynamic> json) =>
-      _$RadniZadatakUredjajFromJson(json);
+  factory RadniZadatakUredjaj.fromJson(Map<String, dynamic> json) => _$RadniZadatakUredjajFromJson(json);
 
   Map<String, dynamic> toJson() => _$RadniZadatakUredjajToJson(this);
 }

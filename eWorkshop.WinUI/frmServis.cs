@@ -304,7 +304,18 @@ namespace eWorkshop.WinUI
 
         private void izbrišiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lvKomponente.SelectedItems[0].Remove();
+            int kolona = 4;
+
+            if(kolona < lvKomponente.SelectedItems[0].SubItems.Count)
+            {
+                var selected = int.Parse(lvKomponente.SelectedItems[0].SubItems[4].Text);
+
+                KomponenteId.Remove(selected);
+                lvKomponente.SelectedItems[0].Remove();
+            } else
+            {
+                MessageBox.Show("Komponenta ne postoji!");
+            }
         }
 
         private void frmServis_FormClosing(object sender, FormClosingEventArgs e)

@@ -71,8 +71,6 @@ namespace eWorkshop.WinUI
             {
                 MessageBox.Show(ex.InnerException.Message);
             }
-
-
         }
     }
 }

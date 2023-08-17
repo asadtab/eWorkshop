@@ -13,12 +13,11 @@ class Uredjaj {
   String? tipNaziv;
   String? tipOpis;
   String? lokacijaNaziv;
-  bool isChecked = false;
+  bool isSelected = false;
 
   Uredjaj() {}
 
-  factory Uredjaj.fromJson(Map<String, dynamic> json) =>
-      _$UredjajFromJson(json);
+  factory Uredjaj.fromJson(Map<String, dynamic> json) => _$UredjajFromJson(json);
 
   Map<String, dynamic> toJson() => _$UredjajToJson(this);
 }

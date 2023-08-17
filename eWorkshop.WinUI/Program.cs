@@ -1,4 +1,5 @@
 using eWorkshop.WinUI.Service;
+using eWorkshop.WinUI.UserControls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,7 +47,6 @@ namespace eWorkshop.WinUI
             {
                 Application.Exit();
             }
-            
         }
 
         private static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
@@ -77,6 +77,10 @@ namespace eWorkshop.WinUI
             services.AddTransient<frmUredjajDetalji>();
             services.AddTransient<frmRacun>();
             services.AddTransient<frmRadniZadaciLista>();
+            services.AddTransient<frmDodajKlijent>();
+            services.AddTransient<frmKlijenti>();
+            services.AddTransient<frmResursi>();
+            services.AddTransient<frmDodajResurs>();
         }
     }
 }

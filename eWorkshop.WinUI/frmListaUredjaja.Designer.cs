@@ -247,7 +247,7 @@
             groupBox2.Controls.Add(label1);
             groupBox2.Location = new Point(18, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(635, 69);
+            groupBox2.Size = new Size(432, 69);
             groupBox2.TabIndex = 27;
             groupBox2.TabStop = false;
             // 

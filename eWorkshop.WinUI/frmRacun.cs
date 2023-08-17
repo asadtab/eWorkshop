@@ -18,9 +18,12 @@ namespace eWorkshop.WinUI
     {
         public APIService ReparacijaService { get; set; } 
         public APIService Komponente { get; set; } 
+        public APIService KorisniciService { get; set; } 
 
         public readonly IServiceProvider ServiceProvider;
         public readonly ITokenService TokenService;
+        public KorisniciVM Korisnik { get; set; } = new KorisniciVM();
+        public int KorisnikID { get; set; }
 
         public frmRacun(IServiceProvider serviceProvider, ITokenService tokenService)
         {
@@ -31,20 +34,24 @@ namespace eWorkshop.WinUI
 
             ReparacijaService = new APIService("Reparacija", TokenService);
             Komponente = new APIService("ServisIzvrsen", TokenService);
+            KorisniciService = new APIService("Korisnici", TokenService);
+        }
 
-            loadServise();
+        public frmRacun(int korisnikID, IServiceProvider serviceProvider, ITokenService tokenService) : this(serviceProvider, tokenService)
+        {
+            KorisnikID = korisnikID;
         }
 
         private async void loadServise()
         {
             ReparacijaSearchObject search = new ReparacijaSearchObject();
-            search.KorisnikId = APIService.Korisnik.KorisniciId;
+            search.KorisnikId = Korisnik.KorisniciId;
 
 
             var servisi = await ReparacijaService.Get<List<ServisVM>>(search);
 
             ServisIzvrsenSearchObject servisIzvrsenSearch = new ServisIzvrsenSearchObject();
-            servisIzvrsenSearch.KorisnikId = APIService.Korisnik.KorisniciId;
+            servisIzvrsenSearch.KorisnikId = Korisnik.KorisniciId;
 
 
             var komponente = await Komponente.Get<List<ServisIzvrsenVM>>(servisIzvrsenSearch);
@@ -71,7 +78,7 @@ namespace eWorkshop.WinUI
 
                 var control =
                     new HistorijaServisaUserControl(komponente
-                    .Where(x => x.Servis.ServisId == servisi[i].ServisId && x.Servis.KorisnikId == APIService.Korisnik.KorisniciId).Distinct().ToList(), datum, servisi[i]);
+                    .Where(x => x.Servis.ServisId == servisi[i].ServisId && x.Servis.KorisnikId == Korisnik.KorisniciId).Distinct().ToList(), datum, servisi[i]);
 
                 control.Location = new Point(x, y);
 
@@ -80,13 +87,22 @@ namespace eWorkshop.WinUI
             }
         }
 
-        private void frmRacun_Load(object sender, EventArgs e)
+        private async void frmRacun_Load(object sender, EventArgs e)
         {
-            lblIme.Text = APIService.Korisnik.Ime;
-            lblPrezime.Text = APIService.Korisnik.Prezime;
-            lblKorisnickoIme.Text = APIService.Korisnik.KorisnickoIme;
+            KorisniciSearchObject search = new KorisniciSearchObject();
+            search.KorisnikID = KorisnikID;
+
+            var result = await KorisniciService.Get<List<KorisniciVM>>(search);
+
+            Korisnik = result.FirstOrDefault();
+
+            lblIme.Text = Korisnik.Ime;
+            lblPrezime.Text = Korisnik.Prezime;
+            lblKorisnickoIme.Text = Korisnik.KorisnickoIme;
             lblAktivan.Text = "Da";
-            lblUloga.Text = APIService.Korisnik.NaziviUloga;
+            lblUloga.Text = Korisnik.NaziviUloga;
+
+            loadServise();
         }
     }
 }

@@ -12,8 +12,8 @@ using eWorkshop.Services.Database;
 namespace eWorkshop.Services.Migrations
 {
     [DbContext(typeof(_190128Context))]
-    [Migration("20221122202457_promjena imena kolone StateMachine tabele Uredjaju u Status")]
-    partial class promjenaimenakoloneStateMachinetabeleUredjajuuStatus
+    [Migration("20230516204207_stanice-uredjaj")]
+    partial class staniceuredjaj
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,18 @@ namespace eWorkshop.Services.Migrations
                         .HasColumnType("int")
                         .HasColumnName("KomponentaID");
 
+                    b.Property<string>("KomponentaNaziv")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("KomponentaNaziv");
+
+                    b.Property<string>("KomponentaTip")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("KomponentaTip");
+
+                    b.Property<string>("KomponentaVrijednost")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("KomponentaVrijednost");
+
                     b.Property<int?>("ServisId")
                         .HasColumnType("int")
                         .HasColumnName("ServisID");
@@ -52,46 +64,6 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex("ServisId");
 
                     b.ToTable("IzvrseniServis");
-                });
-
-            modelBuilder.Entity("eWorkshop.Services.Database.Klijenti", b =>
-                {
-                    b.Property<int>("KlijentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("KlijentID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KlijentId"));
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Ime")
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("KorisnickoIme")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("LozinkaHash")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("LozinkaSalt")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Prezime")
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("KlijentId");
-
-                    b.ToTable("Klijenti", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Komponente", b =>
@@ -283,6 +255,39 @@ namespace eWorkshop.Services.Migrations
                     b.ToTable("RadniZadatak", (string)null);
                 });
 
+            modelBuilder.Entity("eWorkshop.Services.Database.RadniZadatakUredjaj", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("KorisnikId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Napomena")
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("RadniZadatakId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UredjajId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KorisnikId");
+
+                    b.HasIndex("RadniZadatakId");
+
+                    b.HasIndex("UredjajId");
+
+                    b.ToTable("RadniZadatakUredjaj", (string)null);
+                });
+
             modelBuilder.Entity("eWorkshop.Services.Database.Servi", b =>
                 {
                     b.Property<int>("ServisId")
@@ -323,6 +328,46 @@ namespace eWorkshop.Services.Migrations
                     b.ToTable("Servis");
                 });
 
+            modelBuilder.Entity("eWorkshop.Services.Database.Stanice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stanice");
+                });
+
+            modelBuilder.Entity("eWorkshop.Services.Database.StaniceUredjaj", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("StanicaID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UredjajID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StanicaID");
+
+                    b.HasIndex("UredjajID");
+
+                    b.ToTable("StaniceUredjaj");
+                });
+
             modelBuilder.Entity("eWorkshop.Services.Database.TipUredjaja", b =>
                 {
                     b.Property<int>("TipUredjajaId")
@@ -347,33 +392,6 @@ namespace eWorkshop.Services.Migrations
                     b.ToTable("TipUredjaja", (string)null);
                 });
 
-            modelBuilder.Entity("eWorkshop.Services.Database.Ugovor", b =>
-                {
-                    b.Property<int>("UgovorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UgovorID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UgovorId"));
-
-                    b.Property<int?>("Cijena")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Datum")
-                        .HasColumnType("date");
-
-                    b.Property<int>("RadniZadatakId")
-                        .HasColumnType("int")
-                        .HasColumnName("RadniZadatakID");
-
-                    b.HasKey("UgovorId")
-                        .HasName("PK_Uogovor");
-
-                    b.HasIndex("RadniZadatakId");
-
-                    b.ToTable("Ugovor", (string)null);
-                });
-
             modelBuilder.Entity("eWorkshop.Services.Database.Uloge", b =>
                 {
                     b.Property<int>("UlogaId")
@@ -395,38 +413,6 @@ namespace eWorkshop.Services.Migrations
                         .HasName("PK_Uloga");
 
                     b.ToTable("Uloge", (string)null);
-                });
-
-            modelBuilder.Entity("eWorkshop.Services.Database.Upit", b =>
-                {
-                    b.Property<int>("UpitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UpitID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UpitId"));
-
-                    b.Property<DateTime?>("Datum")
-                        .HasColumnType("date");
-
-                    b.Property<int?>("KlijentId")
-                        .HasColumnType("int")
-                        .HasColumnName("KlijentID");
-
-                    b.Property<string>("Naslov")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Opis")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("UpitId")
-                        .HasName("PK_Upis");
-
-                    b.HasIndex("KlijentId");
-
-                    b.ToTable("Upit", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Uredjaj", b =>
@@ -463,6 +449,10 @@ namespace eWorkshop.Services.Migrations
                     b.Property<int>("TipId")
                         .HasColumnType("int")
                         .HasColumnName("TipID");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("isDeleted");
 
                     b.HasKey("UredjajId");
 
@@ -519,6 +509,32 @@ namespace eWorkshop.Services.Migrations
                     b.Navigation("Komponenta");
                 });
 
+            modelBuilder.Entity("eWorkshop.Services.Database.RadniZadatakUredjaj", b =>
+                {
+                    b.HasOne("eWorkshop.Services.Database.Korisnici", "Korisnik")
+                        .WithMany("RadniZadatakUredjajs")
+                        .HasForeignKey("KorisnikId")
+                        .HasConstraintName("FK_Korisnik");
+
+                    b.HasOne("eWorkshop.Services.Database.RadniZadatak", "RadniZadatak")
+                        .WithMany("RadniZadatakUredjajs")
+                        .HasForeignKey("RadniZadatakId")
+                        .IsRequired()
+                        .HasConstraintName("FK_RadniZadatak");
+
+                    b.HasOne("eWorkshop.Services.Database.Uredjaj", "Uredjaj")
+                        .WithMany("RadniZadatakUredjajs")
+                        .HasForeignKey("UredjajId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Uredjaj");
+
+                    b.Navigation("Korisnik");
+
+                    b.Navigation("RadniZadatak");
+
+                    b.Navigation("Uredjaj");
+                });
+
             modelBuilder.Entity("eWorkshop.Services.Database.Servi", b =>
                 {
                     b.HasOne("eWorkshop.Services.Database.Korisnici", "Korisnik")
@@ -546,25 +562,23 @@ namespace eWorkshop.Services.Migrations
                     b.Navigation("Uredjaj");
                 });
 
-            modelBuilder.Entity("eWorkshop.Services.Database.Ugovor", b =>
+            modelBuilder.Entity("eWorkshop.Services.Database.StaniceUredjaj", b =>
                 {
-                    b.HasOne("eWorkshop.Services.Database.RadniZadatak", "RadniZadatak")
-                        .WithMany("Ugovors")
-                        .HasForeignKey("RadniZadatakId")
-                        .IsRequired()
-                        .HasConstraintName("FK_RadniZadatakUgovor");
+                    b.HasOne("eWorkshop.Services.Database.Stanice", "Stanica")
+                        .WithMany()
+                        .HasForeignKey("StanicaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("RadniZadatak");
-                });
+                    b.HasOne("eWorkshop.Services.Database.Uredjaj", "Uredjaj")
+                        .WithMany()
+                        .HasForeignKey("UredjajID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("eWorkshop.Services.Database.Upit", b =>
-                {
-                    b.HasOne("eWorkshop.Services.Database.Klijenti", "Klijent")
-                        .WithMany("Upits")
-                        .HasForeignKey("KlijentId")
-                        .HasConstraintName("FK_KlijentUpis");
+                    b.Navigation("Stanica");
 
-                    b.Navigation("Klijent");
+                    b.Navigation("Uredjaj");
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Uredjaj", b =>
@@ -585,11 +599,6 @@ namespace eWorkshop.Services.Migrations
                     b.Navigation("Tip");
                 });
 
-            modelBuilder.Entity("eWorkshop.Services.Database.Klijenti", b =>
-                {
-                    b.Navigation("Upits");
-                });
-
             modelBuilder.Entity("eWorkshop.Services.Database.Komponente", b =>
                 {
                     b.Navigation("IzvrseniServis");
@@ -601,6 +610,8 @@ namespace eWorkshop.Services.Migrations
                 {
                     b.Navigation("KorisniciUloges");
 
+                    b.Navigation("RadniZadatakUredjajs");
+
                     b.Navigation("Servis");
                 });
 
@@ -611,9 +622,9 @@ namespace eWorkshop.Services.Migrations
 
             modelBuilder.Entity("eWorkshop.Services.Database.RadniZadatak", b =>
                 {
-                    b.Navigation("Servis");
+                    b.Navigation("RadniZadatakUredjajs");
 
-                    b.Navigation("Ugovors");
+                    b.Navigation("Servis");
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Servi", b =>
@@ -633,6 +644,8 @@ namespace eWorkshop.Services.Migrations
 
             modelBuilder.Entity("eWorkshop.Services.Database.Uredjaj", b =>
                 {
+                    b.Navigation("RadniZadatakUredjajs");
+
                     b.Navigation("Servis");
                 });
 #pragma warning restore 612, 618

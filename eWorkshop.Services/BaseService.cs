@@ -20,7 +20,7 @@ namespace eWorkshop.Services
             Mapper = mapper;
         }
 
-        public IEnumerable<TModel> Get(TSearch search = null)
+        public virtual IEnumerable<TModel> Get(TSearch search = null)
         {
             var entity = Context.Set<TDb>().AsQueryable();
 

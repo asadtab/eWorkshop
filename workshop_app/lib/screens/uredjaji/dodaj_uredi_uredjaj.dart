@@ -226,7 +226,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                                     //initialValue: _koda,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Unesi kodu uređaja';
+                                        return 'Unesite kodu uređaja';
                                       }
                                       return null;
                                     },
@@ -240,7 +240,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                                     //initialValue: _izdanje,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Unesi izdanje uređaja';
+                                        return 'Unesite izdanje uređaja';
                                       }
                                       return null;
                                     },
@@ -254,7 +254,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                                     //initialValue: _serijskiBroj,
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Unesi serijski broj uređaja';
+                                        return 'Unesite serijski broj uređaja';
                                       }
                                       return null;
                                     },

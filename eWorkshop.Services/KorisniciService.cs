@@ -39,6 +39,11 @@ namespace eWorkshop.Services
                      (x.Ime + " " + x.Prezime).Contains(search.ImePrezime) 
                     || (x.Prezime + " " + x.Ime).Contains(search.ImePrezime));
 
+            if (search != null && search.KorisnikID != 0)
+            {
+                return filteredQuery = filteredQuery.Where(x => x.KorisniciId == search.KorisnikID);
+            }
+
             return filteredQuery;
         }
 

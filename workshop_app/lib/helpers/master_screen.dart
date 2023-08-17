@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../screens/end-user/raspored.dart';
 import '../screens/home_screen.dart';
+import '../screens/radni_zadaci/lista_zadataka.dart';
 import '../screens/uredjaji/lista_uredjaja.dart';
 import 'common_widget.dart';
 
@@ -35,7 +37,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         ListTile(
           title: const Text("Radni zadaci", style: TextStyle(fontSize: 20)),
           onTap: () {
-            Navigator.pushNamed(context, UredjajiListScreen.routeName);
+            Navigator.pushNamed(context, ListaZadataka.routeName);
           },
         ),
         CommonWidget.divider(),
@@ -57,6 +59,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           title: const Text("Home", style: TextStyle(fontSize: 20)),
           onTap: () {
             Navigator.pushNamed(context, HomeScreen.routeName);
+          },
+        ),
+        CommonWidget.divider(),
+        ListTile(
+          title: const Text("Raspored", style: TextStyle(fontSize: 20)),
+          onTap: () {
+            Navigator.pushNamed(context, Raspored.routeName);
           },
         )
       ],

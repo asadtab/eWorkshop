@@ -291,7 +291,7 @@
             dgvUredjaji.RowTemplate.Height = 25;
             dgvUredjaji.Size = new Size(665, 312);
             dgvUredjaji.TabIndex = 21;
-            dgvUredjaji.CellContentDoubleClick += dgvUredjaji_CellContentClick;
+            dgvUredjaji.CellDoubleClick += dgvUredjaji_CellContentClick;
             // 
             // UredjajId
             // 

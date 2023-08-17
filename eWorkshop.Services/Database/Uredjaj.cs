@@ -19,13 +19,15 @@ public partial class Uredjaj
 
     public int? LokacijaId { get; set; }
 
-    public bool isDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public virtual Lokacija? Lokacija { get; set; }
 
+    public virtual ICollection<RadniZadatakUredjaj> RadniZadatakUredjajs { get; } = new List<RadniZadatakUredjaj>();
+
     public virtual ICollection<Servi> Servis { get; } = new List<Servi>();
 
-    public virtual TipUredjaja Tip { get; set; } 
+    public virtual ICollection<StaniceUredjaj> StaniceUredjajs { get; } = new List<StaniceUredjaj>();
 
-    public virtual ICollection<RadniZadatakUredjaj> RadniZadatakUredjajs { get; } = new List<RadniZadatakUredjaj>();
+    public virtual TipUredjaja Tip { get; set; } = null!;
 }

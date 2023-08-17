@@ -106,10 +106,6 @@ namespace eWorkshop.WinUI
             dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
         }
 
-
-
-
-
         private async void txtSearch_TextChanged(object sender, EventArgs e)
         {
             int evBroj = 0;
@@ -133,6 +129,7 @@ namespace eWorkshop.WinUI
             if (evBroj != 0 && !string.IsNullOrEmpty(txtSearch.Text))
                 dgvLista.DataSource = await UredjajiService.Get<List<UredjajVM>>(search);
         }
+
 
     }
 }

@@ -10,9 +10,16 @@ import 'package:workshop_app/providers/komponente_recommended_provider.dart';
 import 'package:workshop_app/providers/lokacija_provider.dart';
 import 'package:workshop_app/providers/radniZadaci_provider.dart';
 import 'package:workshop_app/providers/radniZadaci_uredjaj_provider.dart';
+import 'package:workshop_app/providers/stanice_provider.dart';
+import 'package:workshop_app/providers/stanice_uredjaj_provider.dart';
 import 'package:workshop_app/providers/tip_uredjaja_provider.dart';
 import 'package:workshop_app/providers/uredjaji_provider.dart';
+import 'package:workshop_app/screens/end-user/premjesti.dart';
+import 'package:workshop_app/screens/end-user/raspored.dart';
 import 'package:workshop_app/screens/home_screen.dart';
+import 'package:workshop_app/screens/login_screen.dart';
+import 'package:workshop_app/screens/radni_zadaci/dodaj_uredi_zadatak.dart';
+import 'package:workshop_app/screens/radni_zadaci/lista_zadataka.dart';
 import 'package:workshop_app/screens/servis/servisiraj.dart';
 import 'package:workshop_app/screens/uredjaji/dodaj_uredi_uredjaj.dart';
 import 'package:workshop_app/screens/uredjaji/lista_uredjaja.dart';
@@ -38,7 +45,9 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(create: (_) => KomponenteRecommendedProvider()),
         ChangeNotifierProvider(create: (_) => KomponenteProvider()),
         ChangeNotifierProvider(create: (_) => TipUredjajaProvider()),
-        ChangeNotifierProvider(create: (_) => LokacijaProvider())
+        ChangeNotifierProvider(create: (_) => LokacijaProvider()),
+        ChangeNotifierProvider(create: (_) => StaniceUredjajProvider()),
+        ChangeNotifierProvider(create: (_) => StaniceProvider())
       ],
       child: const MyApp(),
     ));
@@ -59,34 +68,41 @@ class MyApp extends StatelessWidget {
               style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll<Color>(Color(0xFF4592AF)),
           )),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-              backgroundColor: Color(0xFF0E8388))),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: Color(0xFF0E8388))),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       onGenerateRoute: (settings) {
         if (settings.name == UredjajiListScreen.routeName) {
-          return MaterialPageRoute(
-              builder: ((context) => UredjajiListScreen()));
+          return MaterialPageRoute(builder: ((context) => UredjajiListScreen()));
         }
         if (settings.name == RadniZadatakDetaljiScreen.routeName) {
-          return MaterialPageRoute(
-              builder: ((context) => RadniZadatakDetaljiScreen()));
+          return MaterialPageRoute(builder: ((context) => RadniZadatakDetaljiScreen()));
         }
         if (settings.name == UredjajDetaljiScreen.routeName) {
-          return MaterialPageRoute(
-              builder: ((context) => UredjajDetaljiScreen()));
+          return MaterialPageRoute(builder: ((context) => UredjajDetaljiScreen()));
         }
         if (settings.name == ServisirajScreen.routeName) {
           return MaterialPageRoute(builder: ((context) => ServisirajScreen()));
         }
         if (settings.name == DodajUrediUredjajScreen.routeName) {
-          return MaterialPageRoute(
-              builder: ((context) => DodajUrediUredjajScreen()));
+          return MaterialPageRoute(builder: ((context) => DodajUrediUredjajScreen()));
         }
         if (settings.name == MyApp.routeName) {
           return MaterialPageRoute(builder: ((context) => MyApp()));
         }
         if (settings.name == HomeScreen.routeName) {
           return MaterialPageRoute(builder: ((context) => HomeScreen()));
+        }
+        if (settings.name == ListaZadataka.routeName) {
+          return MaterialPageRoute(builder: ((context) => ListaZadataka()));
+        }
+        if (settings.name == RadniZadatakDodajUredi.routeName) {
+          return MaterialPageRoute(builder: ((context) => RadniZadatakDodajUredi()));
+        }
+        if (settings.name == Raspored.routeName) {
+          return MaterialPageRoute(builder: ((context) => Raspored()));
+        }
+        if (settings.name == Premjesti.routeName) {
+          return MaterialPageRoute(builder: ((context) => Premjesti()));
         }
       },
     );
@@ -114,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     radniZadaciProvider = context.read<RadniZadaciProvider>();
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
+
     print("called initState");
     _fetchData(null);
   }
@@ -124,8 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     //var response = await radniZadaciProvider?.get({'UredjajState': 'active'});
-    var items = await radniZadaciUredjajProvider
-        ?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
+    var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
 
     setState(() {
       radniZadatakUredjajData = items!;
@@ -143,21 +159,13 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        body: _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    childAspectRatio: 5,
-                    mainAxisSpacing: 10),
-                scrollDirection: Axis.horizontal,
-                children: zadatak(context, radniZadatakUredjajData)));
+        body: Center(
+            child: FractionallySizedBox(
+                widthFactor: 0.8, child: Align(alignment: Alignment.center, child: Padding(padding: EdgeInsets.all(16.0), child: LoginForm())))));
   }
 
   List<RadniZadatakUredjaj> getUredjaj(int id) {
-    return radniZadatakUredjajData
-        .where((x) => x.radniZadatakId == id)
-        .toList();
+    return radniZadatakUredjajData.where((x) => x.radniZadatakId == id).toList();
   }
 
   List<Widget> items(int id) {
@@ -170,8 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
             width: 150,
             height: 30,
-            child: Text(x.uredjajId.toString() + " - " + x.tipNaziv.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold))))
+            child: Text(x.uredjajId.toString() + " - " + x.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold))))
         .cast<Widget>()
         .toList();
 
@@ -183,8 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return [CircularProgressIndicator()];
     }
 
-    var distinct =
-        radniZadatakUredjajData.distinct((x) => [x.radniZadatakNaziv]);
+    var distinct = radniZadatakUredjajData.distinct((x) => [x.radniZadatakNaziv]);
 
     List<Widget> list = distinct
         .map((x) => Column(children: [
@@ -192,43 +198,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   width: 150,
                   height: 250,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            var uredjaji = getUredjaj(x.radniZadatakId);
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    InkWell(
+                      onTap: () {
+                        var uredjaji = getUredjaj(x.radniZadatakId);
 
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    RadniZadatakDetaljiScreen.zadaci(uredjaji));
+                        MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji));
 
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RadniZadatakDetaljiScreen.zadaci(
-                                            uredjaji)));
-                          },
-                          child: Container(
-                              width: 150,
-                              height: 30,
-                              child: Card(
-                                  color: Color(0xFFCBE4DE),
-                                  shadowColor: Color(0xFFCBE4DE),
-                                  child: Center(
-                                      child: Text(
-                                    x.radniZadatakNaziv ?? "",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  )))),
-                        ),
-                        Column(
-                          children: items(x.radniZadatakId),
-                        ),
-                        CommonWidget.dividerLista(),
-                      ]),
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji)));
+                      },
+                      child: Container(
+                          width: 150,
+                          height: 30,
+                          child: Card(
+                              color: Color(0xFFCBE4DE),
+                              shadowColor: Color(0xFFCBE4DE),
+                              child: Center(
+                                  child: Text(
+                                x.radniZadatakNaziv ?? "",
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                              )))),
+                    ),
+                    Column(
+                      children: items(x.radniZadatakId),
+                    ),
+                    CommonWidget.dividerLista(),
+                  ]),
                 ),
               ),
               new CircularPercentIndicator(
@@ -238,8 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 percent: 0.7,
                 center: new Text(
                   "70.0%",
-                  style: new TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15.0),
+                  style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
                 ),
                 circularStrokeCap: CircularStrokeCap.round,
                 progressColor: Color(0xFF0E8388),

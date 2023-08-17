@@ -29,12 +29,6 @@ namespace eWorkshop.WinUI.UserControls
             Komponente = komponente;
             HidePanel();
             UcitajKomponente(komponente);
-            LoadInfo();
-        }
-
-        private void LoadInfo()
-        {
-
         }
 
         private async void UcitajKomponente(List<ServisIzvrsenVM> komponente)

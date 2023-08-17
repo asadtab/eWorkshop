@@ -24,9 +24,29 @@ namespace eWorkshop.Services
             CreateMap<RadniZadatakUredjaj, RadniZadatakUredjajVM>();
             CreateMap<RadniZadatakUredjaj, RadniZadatakUredjajBasicVM>();
             CreateMap<Lokacija, LokacijaVM>();
+            CreateMap<Stanice, StaniceVM>();
+            CreateMap<StaniceUredjaj, StaniceUredjajVM>()
+                .ForMember(
+                dest => dest.UredjajId,
+                opt => opt.MapFrom(src => src.UredjajId))
+                .ForMember(
+                dest => dest.Naziv,
+                opt => opt.MapFrom(src => src.Stanica.Naziv)
+                )
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.StanicaId))
+                .ForMember(dest => dest.UredjajNaziv, opt => opt.MapFrom(src => src.Uredjaj.Tip.Opis))
+                .ForMember(dest => dest.UredjajTip, opt => opt.MapFrom(src => src.Uredjaj.Tip.Naziv))
+                .ForMember(dest => dest.Koda, opt => opt.MapFrom(src => src.Uredjaj.Koda))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
 
             CreateMap<KorisniciUloge, KorisniciUlogeVM>();
             CreateMap<Uloge, UlogeVM>();
+            CreateMap<Client, ClientVM>();
+            CreateMap<ClientScope, ClientScopeVM>();
+            CreateMap<ApiResource, ApiResourceVM>();
+            CreateMap<ApiScope, ScopesVM>();
+            
 
             CreateMap<UredjajUpsertRequest, Uredjaj>();
             CreateMap<ServisInsertRequest, Servi>();
@@ -39,6 +59,12 @@ namespace eWorkshop.Services
             CreateMap<TipUredjajaUpsertRequest, TipUredjaja>(); 
             CreateMap<RadniZadatakUredjajUpsertRequest, RadniZadatakUredjaj>(); 
             CreateMap<LokacijaUpsertRequest, Lokacija>(); 
+            CreateMap<StaniceUpsertRequest, Stanice>(); 
+            CreateMap<StaniceUredjajUpsertRequest, StaniceUredjaj>(); 
+            CreateMap<UlogeUpsertRequest, Uloge>(); 
+            CreateMap<ClientInsertRequest, Client>(); 
+            CreateMap<ApiResourceUpsertRequest, ApiResource>(); 
+            CreateMap<ScopesUpsertRequest, ApiScope>(); 
         }
     }
 }

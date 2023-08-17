@@ -12,5 +12,6 @@ namespace eWorkshop.Services
     public interface IRadniZadatakService : ICRUDService<RadniZadatakVM, RadniZadatakSearchObject, RadniZadatakUpsertRequest, RadniZadatakUpsertRequest>
     {
         RadniZadatakVM Zavrsi(int id);
+        RadniZadatakVM Fakturisi(int id);
     }
 }

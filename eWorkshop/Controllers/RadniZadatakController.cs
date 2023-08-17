@@ -27,5 +27,11 @@ namespace eWorkshop.Controllers
         {
             return RadniZadatakService.Zavrsi(id);
         }
+
+        [HttpPut("Fakturisi/{id}")]
+        public RadniZadatakVM Fakturisi(int id)
+        {
+            return RadniZadatakService.Fakturisi(id);
+        }
     }
 }

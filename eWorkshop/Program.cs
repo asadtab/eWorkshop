@@ -9,6 +9,12 @@ using Duende.IdentityServer.Test;
 using Duende.IdentityServer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using eWorkshop;
+using Microsoft.Extensions.Configuration;
+using eWorkshop.WinUI.Service;
+using Microsoft.AspNetCore.Builder;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using eWorkshop.Services.IDS;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +23,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddSwaggerGen(
+options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Protected API", Version = "v1" });
 
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Type = SecuritySchemeType.OAuth2,
+        Type = SecuritySchemeType.Http,
         Flows = new OpenApiOAuthFlows
         {
             AuthorizationCode = new OpenApiOAuthFlow
@@ -31,15 +38,30 @@ builder.Services.AddSwaggerGen(options =>
                 AuthorizationUrl = new Uri("https://localhost:5443/connect/authorize"),
                 TokenUrl = new Uri("https://localhost:5443/connect/token"),
                 Scopes = new Dictionary<string, string>
-            {
+        {
                 {"weatherapi.read", "Demo API - full access"},
                 {"weatherapi.post", "Demo API - full access"},
-            }
+        }
             }
         }
     });
 
+
     options.OperationFilter<AuthorizeCheckOperationFilter>();
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 /*c =>
 {
@@ -61,6 +83,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });*/
 
+builder.Services.AddTransient<ISwaggerProvider, SwaggerGenerator>();
+
 builder.Services.AddTransient<IUredjajService, UredjajService>();
 builder.Services.AddTransient<IReparacijaService, ReparacijaService>();
 builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
@@ -72,6 +96,12 @@ builder.Services.AddTransient<ITipUredjajaService, TipUredjajaService>();
 builder.Services.AddTransient<IRadniZadatakUredjajService, RadniZadatakUredjajService>();
 builder.Services.AddTransient<ILokacijaService, LokacijaService>();
 builder.Services.AddTransient<IServisAdapter, ServisAdapter>();
+builder.Services.AddTransient<IStaniceService, StaniceService>();
+builder.Services.AddTransient<IStaniceUredjajService, StaniceUredjajService>();
+builder.Services.AddTransient<IUlogeService, UlogeService>();
+builder.Services.AddTransient<IClientService, ClientService>();
+builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
+builder.Services.AddTransient<IScopesService, ScopesService>();
 
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
@@ -87,8 +117,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
     });
 
+
+
+
 /*builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);*/
+
+builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("IdentityServerSettings"));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<_190128Context>(options =>
@@ -116,23 +151,26 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 
-        options.OAuthClientId("demo_api_swagger");
-        options.OAuthAppName("Demo API - Swagger");
-        options.OAuthUsePkce();
-    });
-}
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+
+    // Configure Swagger to use Identity Server authorization endpoint
+    options.OAuthClientId("swagger"); // Client ID registered in Identity Server
+    options.OAuthAppName("Swagger UI");
+    options.OAuthUsePkce();
+    });
+}
 
 app.MapControllers();
 

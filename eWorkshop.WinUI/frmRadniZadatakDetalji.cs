@@ -195,7 +195,7 @@ namespace eWorkshop.WinUI
 
             foreach (var item in RadniZadatakAll)
             {
-                if(item.Uredjaj.Status == "ready" || item.Uredjaj.Status == "out")
+                if (item.Uredjaj.Status == "ready" || item.Uredjaj.Status == "out")
                 {
                     radniZadatakUredjaj.Add(item);
                 }

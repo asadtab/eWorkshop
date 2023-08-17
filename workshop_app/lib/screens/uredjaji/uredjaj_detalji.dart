@@ -9,6 +9,9 @@ import 'package:workshop_app/model/izvrseni_servis.dart';
 import 'package:workshop_app/providers/reparacija_provider.dart';
 import 'package:workshop_app/providers/uredjaji_provider.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:timeline_list/timeline.dart';
+import 'package:timeline_list/timeline_model.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
@@ -258,7 +261,6 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                     )),
               ),
               CommonWidget.dividerDetalji(),
-              Row(children: []),
               Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
@@ -357,39 +359,3 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
         //child: Icon(Icons.menu, color: Colors.white), <-- You can give your icon here
       ));
 }
-
-/*
-
- Card(
-              child: Container(
-                child: DataTable(
-                  columns: [
-                    DataColumn(label: Text("Naziv")),
-                    DataColumn(label: Text("Vrijednost"))
-                  ],
-                  rows: [
-                    DataRow(
-                        cells: [DataCell(Text("Asad")), DataCell(Text("Asad"))])
-                  ],
-                ),
-              ),
-            )
-
-ExpandableNotifier(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expandable(
-                        collapsed: ExpandableButton(child: Text("Asad")),
-                        expanded: Column(
-                          children: [
-                            Card(child: Text("Tabak")),
-                            ExpandableButton(
-                              child: Text("Asad"),
-                            )
-                          ],
-                        ),
-                      )
-                    ]),
-              )
- */
