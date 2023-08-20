@@ -34,6 +34,7 @@ namespace eWorkshop.WinUI
             KorisniciService = new APIService("Korisnici", TokenService);
         }
 
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -72,5 +73,11 @@ namespace eWorkshop.WinUI
             FormControl.NovaFormaOpcije(form);
         }
 
+        private void btnDodajNovogKorisnika_Click(object sender, EventArgs e)
+        {
+            frmDodajKorisnika childForm = ServiceProvider.GetRequiredService<frmDodajKorisnika>();
+            childForm.ShowDialog();
+            //FormControl.NovaFormaOpcije(childForm);
+        }
     }
 }

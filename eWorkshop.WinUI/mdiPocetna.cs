@@ -36,10 +36,30 @@ namespace eWorkshop.WinUI
             HidePanels();
         }
 
+        private void odjaviSeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = frmPotvrda.Show("Da li se želite odjaviti?", "Da", "Ne");
+
+            if (result == DialogResult.Yes)
+            {
+                APIService.Korisnik = null;
+
+                var login = ServiceProvider.GetRequiredService<frmLogin>();
+
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Restart();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
         private void HidePanels()
         {
             pnlUredjaj.Visible = false;
-            pnlKorisnici.Visible = false;
         }
 
         private void ShowHidePanel()
@@ -47,8 +67,7 @@ namespace eWorkshop.WinUI
             if (pnlUredjaj.Visible)
                 pnlUredjaj.Visible = false;
 
-            if (pnlKorisnici.Visible)
-                pnlKorisnici.Visible = false;
+
         }
 
         private void showPanel(Panel subMenu)
@@ -75,10 +94,7 @@ namespace eWorkshop.WinUI
             FormControl.NovaFormaOpcije(childForm);
         }
 
-        private void btnKorisnici_Click(object sender, EventArgs e)
-        {
-            showPanel(pnlKorisnici);
-        }
+
 
         private void btnLista_Click(object sender, EventArgs e)
         {
@@ -134,7 +150,7 @@ namespace eWorkshop.WinUI
 
         private void btnListaKorisnika_Click(object sender, EventArgs e)
         {
-            frmKorisnici childForm = ServiceProvider.GetRequiredService<frmKorisnici>();
+            frmDodajKorisnika childForm = ServiceProvider.GetRequiredService<frmDodajKorisnika>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -142,27 +158,6 @@ namespace eWorkshop.WinUI
         {
             frmRacun childForm = new frmRacun(APIService.Korisnik.KorisniciId, ServiceProvider, TokenService);
             FormControl.NovaFormaOpcije(childForm);
-        }
-
-        private void odjaviSeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = frmPotvrda.Show("Da li se želite odjaviti?", "Da", "Ne");
-
-            if (result == DialogResult.Yes)
-            {
-                APIService.Korisnik = null;
-
-                var login = ServiceProvider.GetRequiredService<frmLogin>();
-
-                if (login.ShowDialog() == DialogResult.OK)
-                {
-                    Application.Restart();
-                }
-                else
-                {
-
-                }
-            }
         }
 
         private void btnIzvjestaj_Click(object sender, EventArgs e)
@@ -173,13 +168,13 @@ namespace eWorkshop.WinUI
 
         private void btnDodajKorisnika_Click(object sender, EventArgs e)
         {
-            frmDodajKlijenta childForm = ServiceProvider.GetRequiredService<frmDodajKlijenta>();
+            frmDodajKorisnika childForm = ServiceProvider.GetRequiredService<frmDodajKorisnika>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
         private void dodajNovogKorisnikaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDodajKlijenta childForm = ServiceProvider.GetRequiredService<frmDodajKlijenta>();
+            frmDodajKorisnika childForm = ServiceProvider.GetRequiredService<frmDodajKorisnika>();
             FormControl.NovaFormaOpcije(childForm);
         }
 
@@ -201,9 +196,10 @@ namespace eWorkshop.WinUI
             FormControl.NovaFormaOpcije(childForm);
         }
 
-        private void claimTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void korisniciToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-
+            frmKorisnici childForm = ServiceProvider.GetRequiredService<frmKorisnici>();
+            FormControl.NovaFormaOpcije(childForm);
         }
     }
 }

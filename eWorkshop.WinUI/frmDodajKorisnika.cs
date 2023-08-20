@@ -14,14 +14,15 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace eWorkshop.WinUI
 {
-    public partial class frmDodajKlijenta : Form
+    public partial class frmDodajKorisnika : Form
     {
         public APIService KorisniciService { get; set; }
+        public APIService Scopes { get; set; }
         public readonly IServiceProvider ServiceProvider;
         public readonly ITokenService TokenService;
         public FormControl FormControl { get; set; } = new FormControl();
 
-        public frmDodajKlijenta(IServiceProvider serviceProvider, ITokenService tokenService)
+        public frmDodajKorisnika(IServiceProvider serviceProvider, ITokenService tokenService)
         {
             InitializeComponent();
 
@@ -29,11 +30,17 @@ namespace eWorkshop.WinUI
             TokenService = tokenService;
 
             KorisniciService = new APIService("Korisnici", TokenService);
+            Scopes = new APIService("Scopes", TokenService);
         }
 
-        private void frmDodajKorisnika_Load(object sender, EventArgs e)
+        private async void frmDodajKorisnika_Load(object sender, EventArgs e)
         {
+            var scopes = await Scopes.Get<List<ScopesVM>>();
 
+            foreach (var item in scopes)
+            {
+                chlbScopes.Items.Add(item.DisplayName + " - " + item.Name);
+            }
         }
 
         private bool ValidirajUnos()
@@ -79,7 +86,7 @@ namespace eWorkshop.WinUI
                     chlbUloge.SetItemChecked(i, false);
                 }
 
-                
+
             }
             else
             {

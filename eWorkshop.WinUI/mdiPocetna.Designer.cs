@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            pnlKorisnici = new Panel();
-            btnListaKorisnika = new Button();
-            btnDodajKorisnika = new Button();
-            btnKorisnici = new Button();
             btnStatistika = new Button();
             btnIzvjestaj = new Button();
             pnlUredjaj = new Panel();
@@ -63,8 +59,9 @@
             korisniciToolStripMenuItem1 = new ToolStripMenuItem();
             ulogeToolStripMenuItem = new ToolStripMenuItem();
             resursiToolStripMenuItem = new ToolStripMenuItem();
+            korisniciToolStripMenuItem2 = new ToolStripMenuItem();
+            scopesToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
-            pnlKorisnici.SuspendLayout();
             pnlUredjaj.SuspendLayout();
             panel4.SuspendLayout();
             tblLayoutPanel.SuspendLayout();
@@ -75,8 +72,6 @@
             // 
             panel1.AutoScroll = true;
             panel1.BackColor = Color.FromArgb(6, 40, 61);
-            panel1.Controls.Add(pnlKorisnici);
-            panel1.Controls.Add(btnKorisnici);
             panel1.Controls.Add(btnStatistika);
             panel1.Controls.Add(btnIzvjestaj);
             panel1.Controls.Add(pnlUredjaj);
@@ -84,70 +79,10 @@
             panel1.Controls.Add(panel4);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(228, 623);
+            panel1.Size = new Size(261, 831);
             panel1.TabIndex = 10;
-            // 
-            // pnlKorisnici
-            // 
-            pnlKorisnici.Controls.Add(btnListaKorisnika);
-            pnlKorisnici.Controls.Add(btnDodajKorisnika);
-            pnlKorisnici.Dock = DockStyle.Top;
-            pnlKorisnici.Location = new Point(0, 388);
-            pnlKorisnici.Name = "pnlKorisnici";
-            pnlKorisnici.Size = new Size(228, 140);
-            pnlKorisnici.TabIndex = 14;
-            // 
-            // btnListaKorisnika
-            // 
-            btnListaKorisnika.Dock = DockStyle.Top;
-            btnListaKorisnika.FlatAppearance.BorderSize = 0;
-            btnListaKorisnika.FlatStyle = FlatStyle.Flat;
-            btnListaKorisnika.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnListaKorisnika.ForeColor = SystemColors.ButtonFace;
-            btnListaKorisnika.Location = new Point(0, 44);
-            btnListaKorisnika.Name = "btnListaKorisnika";
-            btnListaKorisnika.Padding = new Padding(30, 0, 0, 0);
-            btnListaKorisnika.Size = new Size(228, 44);
-            btnListaKorisnika.TabIndex = 1;
-            btnListaKorisnika.Text = "Lista korisnika";
-            btnListaKorisnika.TextAlign = ContentAlignment.MiddleLeft;
-            btnListaKorisnika.UseVisualStyleBackColor = true;
-            btnListaKorisnika.Click += btnListaKorisnika_Click;
-            // 
-            // btnDodajKorisnika
-            // 
-            btnDodajKorisnika.Dock = DockStyle.Top;
-            btnDodajKorisnika.FlatAppearance.BorderSize = 0;
-            btnDodajKorisnika.FlatStyle = FlatStyle.Flat;
-            btnDodajKorisnika.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnDodajKorisnika.ForeColor = SystemColors.ButtonFace;
-            btnDodajKorisnika.Location = new Point(0, 0);
-            btnDodajKorisnika.Name = "btnDodajKorisnika";
-            btnDodajKorisnika.Padding = new Padding(30, 0, 0, 0);
-            btnDodajKorisnika.Size = new Size(228, 44);
-            btnDodajKorisnika.TabIndex = 0;
-            btnDodajKorisnika.Text = "Dodaj korisnika";
-            btnDodajKorisnika.TextAlign = ContentAlignment.MiddleLeft;
-            btnDodajKorisnika.UseVisualStyleBackColor = true;
-            btnDodajKorisnika.Click += btnDodajKorisnika_Click;
-            // 
-            // btnKorisnici
-            // 
-            btnKorisnici.Dock = DockStyle.Top;
-            btnKorisnici.FlatAppearance.BorderSize = 0;
-            btnKorisnici.FlatStyle = FlatStyle.Flat;
-            btnKorisnici.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnKorisnici.ForeColor = SystemColors.ButtonFace;
-            btnKorisnici.Location = new Point(0, 344);
-            btnKorisnici.Name = "btnKorisnici";
-            btnKorisnici.Padding = new Padding(10, 0, 0, 0);
-            btnKorisnici.Size = new Size(228, 44);
-            btnKorisnici.TabIndex = 8;
-            btnKorisnici.Text = "Korisnici";
-            btnKorisnici.TextAlign = ContentAlignment.MiddleLeft;
-            btnKorisnici.UseVisualStyleBackColor = true;
-            btnKorisnici.Click += btnKorisnici_Click;
             // 
             // btnStatistika
             // 
@@ -156,10 +91,11 @@
             btnStatistika.FlatStyle = FlatStyle.Flat;
             btnStatistika.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnStatistika.ForeColor = SystemColors.ButtonFace;
-            btnStatistika.Location = new Point(0, 300);
+            btnStatistika.Location = new Point(0, 400);
+            btnStatistika.Margin = new Padding(3, 4, 3, 4);
             btnStatistika.Name = "btnStatistika";
-            btnStatistika.Padding = new Padding(10, 0, 0, 0);
-            btnStatistika.Size = new Size(228, 44);
+            btnStatistika.Padding = new Padding(11, 0, 0, 0);
+            btnStatistika.Size = new Size(261, 59);
             btnStatistika.TabIndex = 7;
             btnStatistika.Text = "Statistika";
             btnStatistika.TextAlign = ContentAlignment.MiddleLeft;
@@ -172,10 +108,11 @@
             btnIzvjestaj.FlatStyle = FlatStyle.Flat;
             btnIzvjestaj.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnIzvjestaj.ForeColor = SystemColors.ButtonFace;
-            btnIzvjestaj.Location = new Point(0, 256);
+            btnIzvjestaj.Location = new Point(0, 341);
+            btnIzvjestaj.Margin = new Padding(3, 4, 3, 4);
             btnIzvjestaj.Name = "btnIzvjestaj";
-            btnIzvjestaj.Padding = new Padding(10, 0, 0, 0);
-            btnIzvjestaj.Size = new Size(228, 44);
+            btnIzvjestaj.Padding = new Padding(11, 0, 0, 0);
+            btnIzvjestaj.Size = new Size(261, 59);
             btnIzvjestaj.TabIndex = 6;
             btnIzvjestaj.Text = "Izvještaj";
             btnIzvjestaj.TextAlign = ContentAlignment.MiddleLeft;
@@ -187,9 +124,10 @@
             pnlUredjaj.Controls.Add(btnLista);
             pnlUredjaj.Controls.Add(btnPrijemUredjaja);
             pnlUredjaj.Dock = DockStyle.Top;
-            pnlUredjaj.Location = new Point(0, 165);
+            pnlUredjaj.Location = new Point(0, 220);
+            pnlUredjaj.Margin = new Padding(3, 4, 3, 4);
             pnlUredjaj.Name = "pnlUredjaj";
-            pnlUredjaj.Size = new Size(228, 91);
+            pnlUredjaj.Size = new Size(261, 121);
             pnlUredjaj.TabIndex = 5;
             // 
             // btnLista
@@ -199,10 +137,11 @@
             btnLista.FlatStyle = FlatStyle.Flat;
             btnLista.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnLista.ForeColor = SystemColors.ButtonFace;
-            btnLista.Location = new Point(0, 44);
+            btnLista.Location = new Point(0, 59);
+            btnLista.Margin = new Padding(3, 4, 3, 4);
             btnLista.Name = "btnLista";
-            btnLista.Padding = new Padding(30, 0, 0, 0);
-            btnLista.Size = new Size(228, 44);
+            btnLista.Padding = new Padding(34, 0, 0, 0);
+            btnLista.Size = new Size(261, 59);
             btnLista.TabIndex = 3;
             btnLista.Text = "Lista uređaja";
             btnLista.TextAlign = ContentAlignment.MiddleLeft;
@@ -217,9 +156,10 @@
             btnPrijemUredjaja.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnPrijemUredjaja.ForeColor = SystemColors.ButtonFace;
             btnPrijemUredjaja.Location = new Point(0, 0);
+            btnPrijemUredjaja.Margin = new Padding(3, 4, 3, 4);
             btnPrijemUredjaja.Name = "btnPrijemUredjaja";
-            btnPrijemUredjaja.Padding = new Padding(30, 0, 0, 0);
-            btnPrijemUredjaja.Size = new Size(228, 44);
+            btnPrijemUredjaja.Padding = new Padding(34, 0, 0, 0);
+            btnPrijemUredjaja.Size = new Size(261, 59);
             btnPrijemUredjaja.TabIndex = 0;
             btnPrijemUredjaja.Text = "Prijem uređaja";
             btnPrijemUredjaja.TextAlign = ContentAlignment.MiddleLeft;
@@ -233,10 +173,11 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = SystemColors.ButtonFace;
-            button1.Location = new Point(0, 121);
+            button1.Location = new Point(0, 161);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Padding = new Padding(10, 0, 0, 0);
-            button1.Size = new Size(228, 44);
+            button1.Padding = new Padding(11, 0, 0, 0);
+            button1.Size = new Size(261, 59);
             button1.TabIndex = 0;
             button1.Text = "Uređaji";
             button1.TextAlign = ContentAlignment.MiddleLeft;
@@ -250,15 +191,17 @@
             panel4.Controls.Add(btnMain);
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 0);
+            panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(228, 121);
+            panel4.Size = new Size(261, 161);
             panel4.TabIndex = 15;
             // 
             // btnMain
             // 
-            btnMain.Location = new Point(71, 59);
+            btnMain.Location = new Point(81, 79);
+            btnMain.Margin = new Padding(3, 4, 3, 4);
             btnMain.Name = "btnMain";
-            btnMain.Size = new Size(75, 23);
+            btnMain.Size = new Size(86, 31);
             btnMain.TabIndex = 0;
             btnMain.Text = "Main";
             btnMain.UseVisualStyleBackColor = true;
@@ -267,25 +210,28 @@
             // tblLayoutPanel
             // 
             tblLayoutPanel.ColumnCount = 2;
-            tblLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44.56671F));
-            tblLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.43329F));
+            tblLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.60241F));
+            tblLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.39759F));
             tblLayoutPanel.Controls.Add(menuStrip1, 0, 0);
             tblLayoutPanel.Dock = DockStyle.Top;
-            tblLayoutPanel.Location = new Point(228, 0);
+            tblLayoutPanel.Location = new Point(261, 0);
+            tblLayoutPanel.Margin = new Padding(3, 4, 3, 4);
             tblLayoutPanel.Name = "tblLayoutPanel";
             tblLayoutPanel.RowCount = 1;
             tblLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblLayoutPanel.Size = new Size(727, 27);
+            tblLayoutPanel.Size = new Size(830, 32);
             tblLayoutPanel.TabIndex = 12;
             // 
             // menuStrip1
             // 
             menuStrip1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { radniZadaciToolStripMenuItem, korisniciToolStripMenuItem, magacinToolStripMenuItem, administratorToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
             menuStrip1.RenderMode = ToolStripRenderMode.System;
-            menuStrip1.Size = new Size(324, 24);
+            menuStrip1.Size = new Size(420, 30);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -293,20 +239,20 @@
             // 
             radniZadaciToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { detaljiToolStripMenuItem, listaRadnihZadatakaToolStripMenuItem });
             radniZadaciToolStripMenuItem.Name = "radniZadaciToolStripMenuItem";
-            radniZadaciToolStripMenuItem.Size = new Size(85, 20);
+            radniZadaciToolStripMenuItem.Size = new Size(108, 24);
             radniZadaciToolStripMenuItem.Text = "Radni zadaci";
             // 
             // detaljiToolStripMenuItem
             // 
             detaljiToolStripMenuItem.Name = "detaljiToolStripMenuItem";
-            detaljiToolStripMenuItem.Size = new Size(184, 22);
+            detaljiToolStripMenuItem.Size = new Size(232, 26);
             detaljiToolStripMenuItem.Text = "Opcije";
             detaljiToolStripMenuItem.Click += detaljiToolStripMenuItem_Click;
             // 
             // listaRadnihZadatakaToolStripMenuItem
             // 
             listaRadnihZadatakaToolStripMenuItem.Name = "listaRadnihZadatakaToolStripMenuItem";
-            listaRadnihZadatakaToolStripMenuItem.Size = new Size(184, 22);
+            listaRadnihZadatakaToolStripMenuItem.Size = new Size(232, 26);
             listaRadnihZadatakaToolStripMenuItem.Text = "Lista radnih zadataka";
             listaRadnihZadatakaToolStripMenuItem.Click += listaRadnihZadatakaToolStripMenuItem_Click;
             // 
@@ -314,33 +260,33 @@
             // 
             korisniciToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajNovogKorisnikaToolStripMenuItem, detaljiToolStripMenuItem2, mojRačunToolStripMenuItem, odjaviSeToolStripMenuItem });
             korisniciToolStripMenuItem.Name = "korisniciToolStripMenuItem";
-            korisniciToolStripMenuItem.Size = new Size(64, 20);
+            korisniciToolStripMenuItem.Size = new Size(79, 24);
             korisniciToolStripMenuItem.Text = "Korisnici";
             // 
             // dodajNovogKorisnikaToolStripMenuItem
             // 
             dodajNovogKorisnikaToolStripMenuItem.Name = "dodajNovogKorisnikaToolStripMenuItem";
-            dodajNovogKorisnikaToolStripMenuItem.Size = new Size(192, 22);
+            dodajNovogKorisnikaToolStripMenuItem.Size = new Size(241, 26);
             dodajNovogKorisnikaToolStripMenuItem.Text = "Dodaj novog korisnika";
             dodajNovogKorisnikaToolStripMenuItem.Click += dodajNovogKorisnikaToolStripMenuItem_Click;
             // 
             // detaljiToolStripMenuItem2
             // 
             detaljiToolStripMenuItem2.Name = "detaljiToolStripMenuItem2";
-            detaljiToolStripMenuItem2.Size = new Size(192, 22);
+            detaljiToolStripMenuItem2.Size = new Size(241, 26);
             detaljiToolStripMenuItem2.Text = "Detalji";
             // 
             // mojRačunToolStripMenuItem
             // 
             mojRačunToolStripMenuItem.Name = "mojRačunToolStripMenuItem";
-            mojRačunToolStripMenuItem.Size = new Size(192, 22);
+            mojRačunToolStripMenuItem.Size = new Size(241, 26);
             mojRačunToolStripMenuItem.Text = "Moj račun";
             mojRačunToolStripMenuItem.Click += mojRačunToolStripMenuItem_Click;
             // 
             // odjaviSeToolStripMenuItem
             // 
             odjaviSeToolStripMenuItem.Name = "odjaviSeToolStripMenuItem";
-            odjaviSeToolStripMenuItem.Size = new Size(192, 22);
+            odjaviSeToolStripMenuItem.Size = new Size(241, 26);
             odjaviSeToolStripMenuItem.Text = "Odjavi se";
             odjaviSeToolStripMenuItem.Click += odjaviSeToolStripMenuItem_Click;
             // 
@@ -348,100 +294,111 @@
             // 
             magacinToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { komponenteToolStripMenuItem, uređajToolStripMenuItem });
             magacinToolStripMenuItem.Name = "magacinToolStripMenuItem";
-            magacinToolStripMenuItem.Size = new Size(65, 20);
+            magacinToolStripMenuItem.Size = new Size(80, 24);
             magacinToolStripMenuItem.Text = "Magacin";
             // 
             // komponenteToolStripMenuItem
             // 
             komponenteToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajToolStripMenuItem, vidiSveToolStripMenuItem });
             komponenteToolStripMenuItem.Name = "komponenteToolStripMenuItem";
-            komponenteToolStripMenuItem.Size = new Size(143, 22);
+            komponenteToolStripMenuItem.Size = new Size(178, 26);
             komponenteToolStripMenuItem.Text = "Komponente";
             // 
             // dodajToolStripMenuItem
             // 
             dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
-            dodajToolStripMenuItem.Size = new Size(114, 22);
+            dodajToolStripMenuItem.Size = new Size(143, 26);
             dodajToolStripMenuItem.Text = "Dodaj";
             dodajToolStripMenuItem.Click += dodajToolStripMenuItem_Click;
             // 
             // vidiSveToolStripMenuItem
             // 
             vidiSveToolStripMenuItem.Name = "vidiSveToolStripMenuItem";
-            vidiSveToolStripMenuItem.Size = new Size(114, 22);
+            vidiSveToolStripMenuItem.Size = new Size(143, 26);
             vidiSveToolStripMenuItem.Text = "Vidi sve";
             // 
             // uređajToolStripMenuItem
             // 
             uređajToolStripMenuItem.Name = "uređajToolStripMenuItem";
-            uređajToolStripMenuItem.Size = new Size(143, 22);
+            uređajToolStripMenuItem.Size = new Size(178, 26);
             uređajToolStripMenuItem.Text = "Uređaj";
             // 
             // administratorToolStripMenuItem
             // 
-            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajKlijentaToolStripMenuItem, klijentiToolStripMenuItem, claimTypesToolStripMenuItem, korisniciToolStripMenuItem1, ulogeToolStripMenuItem, resursiToolStripMenuItem });
+            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajKlijentaToolStripMenuItem, klijentiToolStripMenuItem, claimTypesToolStripMenuItem, korisniciToolStripMenuItem1, ulogeToolStripMenuItem, resursiToolStripMenuItem, korisniciToolStripMenuItem2, scopesToolStripMenuItem });
             administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
-            administratorToolStripMenuItem.Size = new Size(92, 20);
+            administratorToolStripMenuItem.Size = new Size(114, 24);
             administratorToolStripMenuItem.Text = "Administrator";
             // 
             // dodajKlijentaToolStripMenuItem
             // 
             dodajKlijentaToolStripMenuItem.Name = "dodajKlijentaToolStripMenuItem";
-            dodajKlijentaToolStripMenuItem.Size = new Size(180, 22);
+            dodajKlijentaToolStripMenuItem.Size = new Size(224, 26);
             dodajKlijentaToolStripMenuItem.Text = "Dodaj klijenta";
             dodajKlijentaToolStripMenuItem.Click += dodajKlijentaToolStripMenuItem_Click;
             // 
             // klijentiToolStripMenuItem
             // 
             klijentiToolStripMenuItem.Name = "klijentiToolStripMenuItem";
-            klijentiToolStripMenuItem.Size = new Size(180, 22);
+            klijentiToolStripMenuItem.Size = new Size(224, 26);
             klijentiToolStripMenuItem.Text = "Klijenti";
             klijentiToolStripMenuItem.Click += klijentiToolStripMenuItem_Click;
             // 
             // claimTypesToolStripMenuItem
             // 
             claimTypesToolStripMenuItem.Name = "claimTypesToolStripMenuItem";
-            claimTypesToolStripMenuItem.Size = new Size(180, 22);
+            claimTypesToolStripMenuItem.Size = new Size(224, 26);
             claimTypesToolStripMenuItem.Text = "ClaimTypes";
-            claimTypesToolStripMenuItem.Click += claimTypesToolStripMenuItem_Click;
             // 
             // korisniciToolStripMenuItem1
             // 
             korisniciToolStripMenuItem1.Name = "korisniciToolStripMenuItem1";
-            korisniciToolStripMenuItem1.Size = new Size(180, 22);
+            korisniciToolStripMenuItem1.Size = new Size(224, 26);
             korisniciToolStripMenuItem1.Text = "Korisnici";
             // 
             // ulogeToolStripMenuItem
             // 
             ulogeToolStripMenuItem.Name = "ulogeToolStripMenuItem";
-            ulogeToolStripMenuItem.Size = new Size(180, 22);
+            ulogeToolStripMenuItem.Size = new Size(224, 26);
             ulogeToolStripMenuItem.Text = "Uloge";
             // 
             // resursiToolStripMenuItem
             // 
             resursiToolStripMenuItem.Name = "resursiToolStripMenuItem";
-            resursiToolStripMenuItem.Size = new Size(180, 22);
+            resursiToolStripMenuItem.Size = new Size(224, 26);
             resursiToolStripMenuItem.Text = "Resursi";
             resursiToolStripMenuItem.Click += resursiToolStripMenuItem_Click;
             // 
+            // korisniciToolStripMenuItem2
+            // 
+            korisniciToolStripMenuItem2.Name = "korisniciToolStripMenuItem2";
+            korisniciToolStripMenuItem2.Size = new Size(224, 26);
+            korisniciToolStripMenuItem2.Text = "Korisnici";
+            korisniciToolStripMenuItem2.Click += korisniciToolStripMenuItem2_Click;
+            // 
+            // scopesToolStripMenuItem
+            // 
+            scopesToolStripMenuItem.Name = "scopesToolStripMenuItem";
+            scopesToolStripMenuItem.Size = new Size(224, 26);
+            scopesToolStripMenuItem.Text = "Scopes";
+            // 
             // mdiPocetna
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(955, 623);
+            ClientSize = new Size(1091, 831);
             Controls.Add(tblLayoutPanel);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(4, 3, 4, 3);
+            Margin = new Padding(5, 4, 5, 4);
             MaximizeBox = false;
             Name = "mdiPocetna";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "mdiPocetna";
             Load += mdiPocetna_Load;
             panel1.ResumeLayout(false);
-            pnlKorisnici.ResumeLayout(false);
             pnlUredjaj.ResumeLayout(false);
             panel4.ResumeLayout(false);
             tblLayoutPanel.ResumeLayout(false);
@@ -458,10 +415,6 @@
         private Button btnPrijemUredjaja;
         private Button btnStatistika;
         private Button btnIzvjestaj;
-        private Panel pnlKorisnici;
-        private Button btnListaKorisnika;
-        private Button btnDodajKorisnika;
-        private Button btnKorisnici;
         private Panel panel4;
         private Button btnMain;
         private TableLayoutPanel tblLayoutPanel;
@@ -486,6 +439,8 @@
         private ToolStripMenuItem korisniciToolStripMenuItem1;
         private ToolStripMenuItem ulogeToolStripMenuItem;
         private ToolStripMenuItem resursiToolStripMenuItem;
+        private ToolStripMenuItem korisniciToolStripMenuItem2;
+        private ToolStripMenuItem scopesToolStripMenuItem;
     }
 }
 

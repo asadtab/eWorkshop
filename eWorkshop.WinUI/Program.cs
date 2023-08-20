@@ -1,5 +1,6 @@
 using eWorkshop.WinUI.Service;
 using eWorkshop.WinUI.UserControls;
+using eWorkshop.WinUI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -67,6 +68,7 @@ namespace eWorkshop.WinUI
             services.AddTransient<frmDodajTipUredjaja>();
             services.AddTransient<frmKomponenteEdit>();
             services.AddTransient<frmKomponenteLista>();
+            services.AddTransient<frmDodajKorisnika>();
             services.AddTransient<frmKorisnici>();
             services.AddTransient<frmListaUredjaja>();
             services.AddTransient<frmMagacin>();
