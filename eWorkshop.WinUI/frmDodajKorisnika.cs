@@ -17,10 +17,13 @@ namespace eWorkshop.WinUI
     public partial class frmDodajKorisnika : Form
     {
         public APIService KorisniciService { get; set; }
+        public APIService AspNetUserService { get; set; }
         public APIService Scopes { get; set; }
         public readonly IServiceProvider ServiceProvider;
         public readonly ITokenService TokenService;
         public FormControl FormControl { get; set; } = new FormControl();
+
+        List<string> checkedRoles = new List<string>();
 
         public frmDodajKorisnika(IServiceProvider serviceProvider, ITokenService tokenService)
         {
@@ -31,16 +34,12 @@ namespace eWorkshop.WinUI
 
             KorisniciService = new APIService("Korisnici", TokenService);
             Scopes = new APIService("Scopes", TokenService);
+            AspNetUserService = new APIService("AspNetUser", TokenService);
         }
 
         private async void frmDodajKorisnika_Load(object sender, EventArgs e)
         {
-            var scopes = await Scopes.Get<List<ScopesVM>>();
 
-            foreach (var item in scopes)
-            {
-                chlbScopes.Items.Add(item.DisplayName + " - " + item.Name);
-            }
         }
 
         private bool ValidirajUnos()
@@ -49,25 +48,26 @@ namespace eWorkshop.WinUI
             FormControl.CheckInput(errProvider, txtPrezime, FormControl.ObaveznaVrijednost) &&
             FormControl.CheckInput(errProvider, txtEmail, FormControl.ObaveznaVrijednost) &&
             FormControl.CheckInput(errProvider, txtPassword, FormControl.ObaveznaVrijednost) &&
-            FormControl.CheckInput(errProvider, txtPasswordPotvrda, FormControl.ObaveznaVrijednost) &&
-            FormControl.CheckInput(errProvider, txtTelefon, FormControl.ObaveznaVrijednost);
+            FormControl.CheckInput(errProvider, txtPasswordPotvrda, FormControl.ObaveznaVrijednost);
         }
 
         private void btnPotvrdi_Click(object sender, EventArgs e)
         {
-            KorisniciInsertRequest request = new KorisniciInsertRequest();
+            AspNetUserInsertRequest request = new AspNetUserInsertRequest();
 
-            request.Ime = txtIme.Text;
-            request.Prezime = txtPrezime.Text;
+            request.UserName = txtIme.Text.ToLower() + txtPrezime.Text.ToLower();
             request.Email = txtEmail.Text;
-            request.Password = txtPassword.Text;
-            request.PasswordPotvrda = txtPasswordPotvrda.Text;
-            request.Telefon = txtTelefon.Text;
-            request.KorisnickoIme = request.Ime + "." + request.Prezime;
+            //request.PasswordHash = txtPassword.Text == txtPasswordPotvrda.Text ? txtPasswordPotvrda.Text : "";
+            request.NormalizedUserName = request.UserName.ToLower();
+
+            if (txtPassword.Text != txtPasswordPotvrda.Text)
+            {
+                throw new Exception("Lozinke se ne podudaraju!");
+            }
 
             if (ValidirajUnos())
             {
-                KorisniciService.Post<KorisniciVM>(request);
+                AspNetUserService.Post<AspNetUserVM>(request);
             }
             else
             {
@@ -86,11 +86,40 @@ namespace eWorkshop.WinUI
                     chlbUloge.SetItemChecked(i, false);
                 }
 
-
             }
             else
             {
                 chlbUloge.Enabled = true;
+            }
+        }
+            
+        private void chlbUloge_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (chlbUloge.SelectedIndex != -1)
+            {
+                bool isSelected = chlbUloge.GetSelected(chlbUloge.SelectedIndex);
+
+                if (isSelected)
+                {
+                    // Item is checked
+                    foreach (var item in chlbUloge.CheckedItems)
+                    {
+                        checkedRoles.Add(item.ToString());
+                    }
+                }
+                else
+                {
+                    // Item is unchecked
+                    foreach (var item in chlbUloge.CheckedItems)
+                    {
+                        checkedRoles.Add(item.ToString());
+                    }
+                }
+
+                
+
+                string checkedItemsText = string.Join(", ", checkedRoles);
+                MessageBox.Show("Checked items: " + checkedItemsText);
             }
         }
     }

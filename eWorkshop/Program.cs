@@ -102,6 +102,7 @@ builder.Services.AddTransient<IUlogeService, UlogeService>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
 builder.Services.AddTransient<IScopesService, ScopesService>();
+builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
 
 
 builder.Services.AddAutoMapper(typeof(UredjajService));

@@ -46,6 +46,7 @@ namespace eWorkshop.Services
             CreateMap<ClientScope, ClientScopeVM>();
             CreateMap<ApiResource, ApiResourceVM>();
             CreateMap<ApiScope, ScopesVM>();
+            CreateMap<AspNetUser, AspNetUserVM>();
             
 
             CreateMap<UredjajUpsertRequest, Uredjaj>();
@@ -65,6 +66,7 @@ namespace eWorkshop.Services
             CreateMap<ClientInsertRequest, Client>(); 
             CreateMap<ApiResourceUpsertRequest, ApiResource>(); 
             CreateMap<ScopesUpsertRequest, ApiScope>(); 
+            CreateMap<AspNetUserInsertRequest, AspNetUser>(); 
         }
     }
 }

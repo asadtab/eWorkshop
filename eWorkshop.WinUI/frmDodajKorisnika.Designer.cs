@@ -48,12 +48,9 @@
             groupBox2 = new GroupBox();
             chbUposlenik = new CheckBox();
             chlbUloge = new CheckedListBox();
-            groupBox3 = new GroupBox();
-            chlbScopes = new CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)errProvider).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // txtIme
@@ -150,7 +147,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(293, 12);
+            label7.Location = new Point(184, 9);
             label7.Name = "label7";
             label7.Size = new Size(213, 46);
             label7.TabIndex = 11;
@@ -158,7 +155,7 @@
             // 
             // btnPotvrdi
             // 
-            btnPotvrdi.Location = new Point(350, 420);
+            btnPotvrdi.Location = new Point(247, 402);
             btnPotvrdi.Margin = new Padding(3, 4, 3, 4);
             btnPotvrdi.Name = "btnPotvrdi";
             btnPotvrdi.Size = new Size(86, 31);
@@ -247,34 +244,13 @@
             chlbUloge.Name = "chlbUloge";
             chlbUloge.Size = new Size(137, 158);
             chlbUloge.TabIndex = 0;
-            // 
-            // groupBox3
-            // 
-            groupBox3.Controls.Add(chlbScopes);
-            groupBox3.Location = new Point(641, 117);
-            groupBox3.Margin = new Padding(3, 4, 3, 4);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new Padding(3, 4, 3, 4);
-            groupBox3.Size = new Size(150, 253);
-            groupBox3.TabIndex = 17;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Scopes";
-            // 
-            // chlbScopes
-            // 
-            chlbScopes.FormattingEnabled = true;
-            chlbScopes.Location = new Point(6, 33);
-            chlbScopes.Margin = new Padding(3, 4, 3, 4);
-            chlbScopes.Name = "chlbScopes";
-            chlbScopes.Size = new Size(137, 202);
-            chlbScopes.TabIndex = 3;
+            chlbUloge.SelectedIndexChanged += chlbUloge_SelectedIndexChanged;
             // 
             // frmDodajKorisnika
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(816, 548);
-            Controls.Add(groupBox3);
+            ClientSize = new Size(651, 548);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(btnPotvrdi);
@@ -290,7 +266,6 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -316,7 +291,5 @@
         private GroupBox groupBox1;
         private CheckedListBox chlbUloge;
         private CheckBox chbUposlenik;
-        private GroupBox groupBox3;
-        private CheckedListBox chlbScopes;
     }
 }
