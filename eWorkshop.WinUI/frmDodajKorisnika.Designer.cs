@@ -238,13 +238,11 @@
             // 
             chlbUloge.CheckOnClick = true;
             chlbUloge.FormattingEnabled = true;
-            chlbUloge.Items.AddRange(new object[] { "Administrator", "Serviser" });
             chlbUloge.Location = new Point(7, 33);
             chlbUloge.Margin = new Padding(3, 4, 3, 4);
             chlbUloge.Name = "chlbUloge";
             chlbUloge.Size = new Size(137, 158);
             chlbUloge.TabIndex = 0;
-            chlbUloge.SelectedIndexChanged += chlbUloge_SelectedIndexChanged;
             // 
             // frmDodajKorisnika
             // 

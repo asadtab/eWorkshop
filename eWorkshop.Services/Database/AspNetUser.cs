@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 
 namespace eWorkshop.Services.Database;
 
-public partial class AspNetUser
+public partial class AspNetUser: IdentityUser
 {
     public string Id { get; set; } = null!;
 

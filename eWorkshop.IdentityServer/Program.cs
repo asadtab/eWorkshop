@@ -2,6 +2,8 @@ using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Test;
 using eWorkshop.IdentityServer;
 using eWorkshop.IdentityServer.Database;
+using eWorkshop.Services;
+using eWorkshop.Services.Database;
 using eWorkshop.Services.IDS;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +23,9 @@ var config = builder.Configuration;
 
 var connectionString = config.GetConnectionString("DefaultConnection");
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -30,8 +35,7 @@ builder.Services.AddSwaggerGen();
 
 var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
 
 builder.Services.AddIdentityServer(options =>
 {
@@ -42,7 +46,7 @@ builder.Services.AddIdentityServer(options =>
 
     options.EmitStaticAudienceClaim = true;
 })
-.AddAspNetIdentity<IdentityUser>()
+.AddAspNetIdentity<AspNetUser>()
 .AddInMemoryClients(Config.Clients)
 .AddInMemoryApiResources(Config.ApiResources)
   .AddInMemoryApiScopes(Config.ApiScopes)

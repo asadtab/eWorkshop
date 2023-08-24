@@ -90,7 +90,6 @@ namespace eWorkshop.Services
             var byteArray = new byte[16];
             provider.GetBytes(byteArray);
 
-
             return Convert.ToBase64String(byteArray);
         }
         public static string GenerateHash(string salt, string password)
@@ -106,8 +105,5 @@ namespace eWorkshop.Services
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
         }
-
-
-
         }
 }

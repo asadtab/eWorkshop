@@ -15,8 +15,13 @@ using Microsoft.AspNetCore.Builder;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using eWorkshop.Services.IDS;
+using Microsoft.AspNetCore.Identity;
+using eWorkshop.IdentityServer.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 
 // Add services to the container.
 
@@ -103,6 +108,7 @@ builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
 builder.Services.AddTransient<IScopesService, ScopesService>();
 builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
+builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
 
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
