@@ -110,6 +110,8 @@ builder.Services.AddTransient<IScopesService, ScopesService>();
 builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
 builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
 
+/*builder.Services.AddScoped<UserManager<IdentityUser>>();*/
+
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
 
@@ -133,7 +135,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("IdentityServerSettings"));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+
 builder.Services.AddDbContext<_190128Context>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddTransient<ActiveDeviceState>();
@@ -154,7 +162,6 @@ builder.Services.AddTransient<eWorkshop.Services.RadniZadatakStateMachine.Initia
 builder.Services.AddTransient<eWorkshop.Services.RadniZadatakStateMachine.InvoiceTaskState>();
 
 var app = builder.Build();
-
 
 
 // Configure the HTTP request pipeline.

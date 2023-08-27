@@ -23,8 +23,7 @@ var config = builder.Configuration;
 
 var connectionString = config.GetConnectionString("DefaultConnection");
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 // Add services to the container.
 
@@ -35,7 +34,19 @@ builder.Services.AddSwaggerGen();
 
 var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
 
-builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
+//builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
+
+
+
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
+});
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityServer(options =>
 {
@@ -46,20 +57,11 @@ builder.Services.AddIdentityServer(options =>
 
     options.EmitStaticAudienceClaim = true;
 })
-.AddAspNetIdentity<AspNetUser>()
+.AddAspNetIdentity<IdentityUser>()
 .AddInMemoryClients(Config.Clients)
 .AddInMemoryApiResources(Config.ApiResources)
   .AddInMemoryApiScopes(Config.ApiScopes)
   .AddInMemoryIdentityResources(Config.IdentityResources);
-
-
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
-});
-
-
 
 var app = builder.Build();
 

@@ -14,10 +14,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace eWorkshop.Services
 {
-    public class AspNetUserService : BaseCRUDService<AspNetUserVM, object, AspNetUser, AspNetUserInsertRequest, AspNetUserInsertRequest>, IAspNetUserService
+    public class AspNetUserService: BaseCRUDService<AspNetUserVM, object, AspNetUser, AspNetUserInsertRequest, AspNetUserInsertRequest>, IAspNetUserService
     {
-        private readonly UserManager<IdentityUser> UserManager;
-        private readonly RoleManager<IdentityRole> RoleManager;
+        private  UserManager<IdentityUser> UserManager;
+        private  RoleManager<IdentityRole> RoleManager;
 
         public AspNetUserService(_190128Context context, IMapper mapper, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) : base(context, mapper)
         {

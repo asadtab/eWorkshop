@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eWorkshop.IdentityServer.Database
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
 
         /// <summary>
