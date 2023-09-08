@@ -1,10 +1,11 @@
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Test;
 using eWorkshop.IdentityServer;
+using eWorkshop.IdentityServer.Data;
 using eWorkshop.IdentityServer.Database;
+using eWorkshop.Model;
 using eWorkshop.Services;
-using eWorkshop.Services.Database;
-using eWorkshop.Services.IDS;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,10 @@ using Serilog.Sinks.SystemConsole.Themes;
 using System.Reflection;
 
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 
@@ -34,8 +38,9 @@ builder.Services.AddSwaggerGen();
 
 var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
 
-//builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
 
+//builder.Services.AddAutoMapper(typeof(eWorkshop.IdentityServer.Data.Mapper).Assembly);
+builder.Services.AddAutoMapper(typeof(AspNetUserService).Assembly);
 
 
 
@@ -47,6 +52,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddIdentityServer(options =>
 {
@@ -64,6 +70,7 @@ builder.Services.AddIdentityServer(options =>
   .AddInMemoryIdentityResources(Config.IdentityResources);
 
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {

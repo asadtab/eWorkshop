@@ -5,9 +5,9 @@ using eWorkshop.Services;
 
 namespace eWorkshop.Controllers
 {
-    public class UlogeController : BaseCRUDController<UlogeVM, UlogeSearchObject, UlogeUpsertRequest, UlogeUpsertRequest>
+    public class UlogeController //: BaseCRUDController<UlogeVM, UlogeSearchObject, UlogeUpsertRequest, UlogeUpsertRequest>
     {
-        public UlogeController(IUlogeService service) : base(service)
+        public UlogeController(IUlogeService service) //: base(service)
         {
         }
     }

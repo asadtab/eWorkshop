@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace eWorkshop.Services.Database;
@@ -36,7 +37,8 @@ public partial class _190128Context : DbContext
     public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
 
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-    public virtual DbSet<AspNetUser> AspNetUserRoles { get; set; }
+
+    //public virtual DbSet<AspNetUser> AspNetUserRoles { get; set; }
 
     public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
 

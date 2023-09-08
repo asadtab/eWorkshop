@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace eWorkshop.Services.Database;
 
-public partial class AspNetUser: IdentityUser
+public partial class AspNetUser
 {
     public string Id { get; set; } = null!;
 
     public string? UserName { get; set; }
-
+        
     public string? NormalizedUserName { get; set; }
 
     public string? Email { get; set; }

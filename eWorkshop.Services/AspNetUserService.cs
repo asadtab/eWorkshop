@@ -16,41 +16,32 @@ namespace eWorkshop.Services
 {
     public class AspNetUserService: BaseCRUDService<AspNetUserVM, object, AspNetUser, AspNetUserInsertRequest, AspNetUserInsertRequest>, IAspNetUserService
     {
-        private  UserManager<IdentityUser> UserManager;
-        private  RoleManager<IdentityRole> RoleManager;
 
-        public AspNetUserService(_190128Context context, IMapper mapper, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) : base(context, mapper)
+
+        public AspNetUserService(_190128Context context, IMapper mapper) : base(context, mapper)
         {
-            UserManager = userManager;
-            RoleManager = roleManager;
+
         }
 
 
-
-        public override void BeforeInsert(AspNetUserInsertRequest insert, AspNetUser entity)
+/*        public override void BeforeInsert(AspNetUserInsertRequest insert, AspNetUser entity)
         {
             var salt = GenerateSalt();
             entity.PasswordHash = GenerateHash(insert.PasswordHash);
             entity.Id = Guid.NewGuid().ToString();
 
-            foreach (var item in insert.Roles)
-            {
-                UserManager.AddToRoleAsync(entity, item.Name);
-            }
-
-
             base.BeforeInsert(insert, entity);
         }
-
+*/
         public static string GenerateSalt()
         {
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
             var byteArray = new byte[16];
             provider.GetBytes(byteArray);
 
-
             return Convert.ToBase64String(byteArray);
         }
+
         public static string GenerateHash(string password)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(password);

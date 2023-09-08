@@ -17,6 +17,7 @@ namespace eWorkshop.WinUI.Service
     {
         private string Resource = null;
         public string EndPoint = "https://localhost:7189/";
+        public string EndPointIds = "https://localhost:5443/";
 
         public ITokenService TokenService { get; set; }
 
@@ -27,8 +28,13 @@ namespace eWorkshop.WinUI.Service
 
 
 
-        public APIService(string resource, ITokenService tokenService = null)
+        public APIService(string resource, ITokenService tokenService = null, bool server = false)
         {
+            if (server)
+            {
+                EndPoint = EndPointIds;
+            }
+
             Resource = resource;
             TokenService = tokenService;
         }

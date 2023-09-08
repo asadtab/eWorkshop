@@ -14,6 +14,6 @@ namespace eWorkshop.Model.Requests
 
         public string PasswordHash { get; set; }
 
-        public virtual ICollection<AspNetRoleUpsertRequest> Roles { get; set; } = new List<AspNetRoleUpsertRequest>();
+        public  List<string> Roles { get; set; } = new List<string>();
     }
 }

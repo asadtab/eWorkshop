@@ -2,6 +2,7 @@
 using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Services.Database;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,8 @@ namespace eWorkshop.Services
             CreateMap<ApiScope, ScopesVM>();
             CreateMap<AspNetUser, AspNetUserVM>();
             CreateMap<AspNetRole, AspNetRoleVM>();
+
+            CreateMap<IdentityUser, AspNetUserVM>();
             
 
             CreateMap<UredjajUpsertRequest, Uredjaj>();
@@ -69,6 +72,8 @@ namespace eWorkshop.Services
             CreateMap<ScopesUpsertRequest, ApiScope>(); 
             CreateMap<AspNetUserInsertRequest, AspNetUser>(); 
             CreateMap<AspNetRoleUpsertRequest, AspNetRole>(); 
+
+            CreateMap<AspNetUserInsertRequest, IdentityUser>(); 
         }
     }
 }

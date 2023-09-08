@@ -88,6 +88,8 @@ options =>
     });
 });*/
 
+
+
 builder.Services.AddTransient<ISwaggerProvider, SwaggerGenerator>();
 
 builder.Services.AddTransient<IUredjajService, UredjajService>();
@@ -108,9 +110,15 @@ builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
 builder.Services.AddTransient<IScopesService, ScopesService>();
 builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
+
+/*builder.Services.AddScoped<UserManager<IdentityUser>>();
+builder.Services.AddScoped<UserManager<IdentityRole>>();*/
+
 builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
 
 /*builder.Services.AddScoped<UserManager<IdentityUser>>();*/
+
+
 
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
@@ -127,6 +135,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
+/*builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<_190128Context>();*/
 
 
 /*builder.Services.AddAuthentication("BasicAuthentication")
@@ -141,8 +151,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<_190128Context>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+
+
 
 builder.Services.AddTransient<ActiveDeviceState>();
 builder.Services.AddTransient<BaseState>();
@@ -153,6 +163,11 @@ builder.Services.AddTransient<OutDeviceState>();
 builder.Services.AddTransient<PartsDeviceState>();
 builder.Services.AddTransient<ReadyDeviceState>();
 builder.Services.AddTransient<TaskDeviceState>();
+
+
+//builder.Services.AddTransient<UserManager<IdentityUser>>();
+
+
 
 builder.Services.AddTransient<eWorkshop.Services.RadniZadatakStateMachine.BaseState>();
 builder.Services.AddTransient<eWorkshop.Services.RadniZadatakStateMachine.ActiveTaskState>();

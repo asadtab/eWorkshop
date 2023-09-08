@@ -31,7 +31,7 @@ namespace eWorkshop.WinUI
 
             FormControl.OpcijeTabele(dgvLista);
 
-            KorisniciService = new APIService("Korisnici", TokenService);
+            KorisniciService = new APIService("AspNetUser", TokenService);
         }
 
 
@@ -50,7 +50,7 @@ namespace eWorkshop.WinUI
             searchobject.ImePrezime = txtImePrezime.Text;
             searchobject.IncludeUloge = true;
 
-            var lista = await KorisniciService.Get<List<KorisniciVM>>(searchobject);
+            var lista = await KorisniciService.Get<List<AspNetUserVM>>(searchobject);
 
             dgvLista.DataSource = lista;
 
@@ -60,7 +60,7 @@ namespace eWorkshop.WinUI
         {
             FormControl.OpcijeTabele(dgvLista);
 
-            var lista = await KorisniciService.Get<List<KorisniciVM>>();
+            var lista = await KorisniciService.Get<List<AspNetUserVM>>();
 
             dgvLista.DataSource = lista;
         }

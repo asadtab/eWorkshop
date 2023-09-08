@@ -38,8 +38,6 @@ namespace eWorkshop.WinUI
             APIService.username = txtUsername.Text;
             APIService.password = txtPassword.Text;
 
-
-
             try
             {
                 LoginSearchObject login = new LoginSearchObject();

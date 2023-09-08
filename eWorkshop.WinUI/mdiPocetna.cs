@@ -201,5 +201,11 @@ namespace eWorkshop.WinUI
             frmKorisnici childForm = ServiceProvider.GetRequiredService<frmKorisnici>();
             FormControl.NovaFormaOpcije(childForm);
         }
+
+        private void ulogeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUloge childForm = ServiceProvider.GetRequiredService<frmUloge>();
+            FormControl.NovaFormaOpcije(childForm);
+        }
     }
 }

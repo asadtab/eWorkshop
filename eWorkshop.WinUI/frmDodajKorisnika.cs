@@ -1,6 +1,7 @@
 ﻿using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.WinUI.Service;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace eWorkshop.WinUI
     {
         public APIService KorisniciService { get; set; }
         public APIService AspNetUserService { get; set; }
+        public APIService IdsRegister { get; set; }
 
         public APIService Uloge { get; set; }
         public APIService Scopes { get; set; }
@@ -38,12 +40,15 @@ namespace eWorkshop.WinUI
             Scopes = new APIService("Scopes", TokenService);
             AspNetUserService = new APIService("AspNetUser", TokenService);
             Uloge = new APIService("AspNetRole", TokenService);
+            IdsRegister = new APIService("Account", TokenService, true);
         }
 
         private async void frmDodajKorisnika_Load(object sender, EventArgs e)
         {
             chlbUloge.DataSource = await Uloge.Get<List<AspNetRoleVM>>();
             chlbUloge.DisplayMember = "name";
+
+            chlbUloge.ItemCheck += checkBoxList_ItemCheck;
         }
 
         private bool ValidirajUnos()
@@ -57,46 +62,36 @@ namespace eWorkshop.WinUI
 
         private async void btnPotvrdi_Click(object sender, EventArgs e)
         {
-            //var roleList = chlbUloge.CheckedItems.Cast<AspNetRoleVM>().ToList();
-
             AspNetUserInsertRequest request = new AspNetUserInsertRequest();
 
-            request.UserName = txtIme.Text.ToLower() + txtPrezime.Text.ToLower();
+            request.UserName = txtIme.Text.ToLower() + "." + txtPrezime.Text.ToLower();
             request.Email = txtEmail.Text;
-            //request.PasswordHash = txtPassword.Text == txtPasswordPotvrda.Text ? txtPasswordPotvrda.Text : "";
             request.NormalizedUserName = request.UserName.ToLower();
-
-            /*var rolesRequest = new List<AspNetRoleUpsertRequest>();
-
-            foreach (var item in roleList)
-            {
-                rolesRequest.Add(new AspNetRoleUpsertRequest()
-                {
-                    Id = item.Id,
-                    Name = item.Name
-                });
-            }
-
-            request.Roles = rolesRequest;*/
+            request.Roles = checkedRoles;
 
             if (txtPassword.Text != txtPasswordPotvrda.Text)
             {
                 throw new Exception("Lozinke se ne podudaraju!");
-            } else
-            {
-                request.PasswordHash = txtPassword.Text;
             }
+
+            request.PasswordHash = Convert.ToBase64String(Encoding.UTF8.GetBytes(txtPassword.Text));
+
+            HttpClient client = new HttpClient();
 
             if (ValidirajUnos())
             {
-                var korisnik =  await AspNetUserService.Post<AspNetUserVM>(request);
-                
-                
+                try
+                {
+                   var result = await IdsRegister.Post<AspNetUserVM>(request);
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
             }
             else
-            {
-                MessageBox.Show("Netačna vrijednost!");
-            }
+                MessageBox.Show("Polja ne smiju biti prazna");
+
         }
 
         private void chbUposlenik_CheckStateChanged(object sender, EventArgs e)
@@ -108,7 +103,15 @@ namespace eWorkshop.WinUI
                 for (int i = 0; i < chlbUloge.Items.Count; i++)
                 {
                     chlbUloge.SetItemChecked(i, false);
+
+                    /*                    if (chlbUloge.CheckedItems.Contains(chlbUloge.Items[i]))
+                                        {
+                                            // Item is checked, add it to the list
+                                            checkedRoles.Add(chlbUloge.Items[i].ToString());
+                                        }*/
                 }
+
+
 
             }
             else
@@ -117,30 +120,45 @@ namespace eWorkshop.WinUI
             }
         }
 
-
-
 /*        private void chlbUloge_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            bool isChecked = (e.NewValue == CheckState.Checked);
-
-            if (isChecked)
+            foreach (var item in chlbUloge.Items)
             {
-
-
-                // Handle item being checked
-                foreach (var item in chlbUloge.CheckedItems.)
+                if (chlbUloge.CheckedItems.Contains(item))
                 {
-                    checkedRoles.Add((item as AspNetRoleVM).Name);
+                    // Item is checked, add it to the list
+                    checkedRoles.Add(item.ToString());
+                    return;
+                }
+                else
+                {
+                    if (checkedRoles.Contains(item.ToString()))
+                    {
+                        checkedRoles.Remove(item.ToString());
+                    }
                 }
             }
-            else
-            {
-                // Handle item being unchecked
-                foreach (var item in chlbUloge.CheckedItems)
-                {
-                    checkedRoles.Remove((item as AspNetRoleVM).Name);
-                }
-            }
+
+            *//* bool isChecked = (e.NewValue == CheckState.Checked);
+
+             if (isChecked)
+             {
+
+
+                 // Handle item being checked
+                 foreach (var item in chlbUloge.CheckedItems)
+                 {
+                     checkedRoles.Add((item as AspNetRoleVM).Name);
+                 }
+             }
+             else
+             {
+                 // Handle item being unchecked
+                 foreach (var item in chlbUloge.CheckedItems)
+                 {
+                     checkedRoles.Remove((item as AspNetRoleVM).Name);
+                 }
+             }*//*
 
             string checkedItemsText = string.Join(", ", checkedRoles);
             MessageBox.Show("Checked items: " + checkedItemsText);
@@ -149,6 +167,27 @@ namespace eWorkshop.WinUI
         private void chlbUloge_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+
+
         }*/
+
+        private void checkBoxList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            string itemText = (chlbUloge.Items[e.Index] as AspNetRoleVM).Name;
+
+            // If the item is being checked, add it to the list
+            if (e.NewValue == CheckState.Checked)
+            {
+                checkedRoles.Add(itemText);
+            }
+            // If the item is being unchecked and exists in the list, remove it
+            else if (e.NewValue == CheckState.Unchecked && checkedRoles.Contains(itemText))
+            {
+                checkedRoles.Remove(itemText);
+            }
+
+            // Display the items in a TextBox (for demonstration)
+            //UpdateTextBox();
+        }
     }
 }
