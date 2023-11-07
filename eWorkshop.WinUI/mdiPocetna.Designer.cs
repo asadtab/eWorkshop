@@ -53,7 +53,6 @@
             vidiSveToolStripMenuItem = new ToolStripMenuItem();
             uređajToolStripMenuItem = new ToolStripMenuItem();
             administratorToolStripMenuItem = new ToolStripMenuItem();
-            dodajKlijentaToolStripMenuItem = new ToolStripMenuItem();
             klijentiToolStripMenuItem = new ToolStripMenuItem();
             claimTypesToolStripMenuItem = new ToolStripMenuItem();
             ulogeToolStripMenuItem = new ToolStripMenuItem();
@@ -313,17 +312,10 @@
             // 
             // administratorToolStripMenuItem
             // 
-            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dodajKlijentaToolStripMenuItem, klijentiToolStripMenuItem, claimTypesToolStripMenuItem, ulogeToolStripMenuItem, resursiToolStripMenuItem, korisniciToolStripMenuItem2, scopesToolStripMenuItem });
+            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { klijentiToolStripMenuItem, claimTypesToolStripMenuItem, ulogeToolStripMenuItem, resursiToolStripMenuItem, korisniciToolStripMenuItem2, scopesToolStripMenuItem });
             administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
             administratorToolStripMenuItem.Size = new Size(92, 20);
             administratorToolStripMenuItem.Text = "Administrator";
-            // 
-            // dodajKlijentaToolStripMenuItem
-            // 
-            dodajKlijentaToolStripMenuItem.Name = "dodajKlijentaToolStripMenuItem";
-            dodajKlijentaToolStripMenuItem.Size = new Size(180, 22);
-            dodajKlijentaToolStripMenuItem.Text = "Dodaj klijenta";
-            dodajKlijentaToolStripMenuItem.Click += dodajKlijentaToolStripMenuItem_Click;
             // 
             // klijentiToolStripMenuItem
             // 
@@ -416,7 +408,6 @@
         private ToolStripMenuItem mojRačunToolStripMenuItem;
         private ToolStripMenuItem odjaviSeToolStripMenuItem;
         private ToolStripMenuItem administratorToolStripMenuItem;
-        private ToolStripMenuItem dodajKlijentaToolStripMenuItem;
         private ToolStripMenuItem klijentiToolStripMenuItem;
         private ToolStripMenuItem claimTypesToolStripMenuItem;
         private ToolStripMenuItem ulogeToolStripMenuItem;

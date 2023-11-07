@@ -1,5 +1,7 @@
 ﻿using eWorkshop.Model;
+using eWorkshop.Model.SearchObject;
 using eWorkshop.WinUI.Service;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +21,7 @@ namespace eWorkshop.WinUI
 
         public readonly IServiceProvider ServiceProvider;
         public readonly ITokenService TokenService;
-        public APIService Uloge { get; set; } 
+        public APIService Uloge { get; set; }
 
         public frmUloge(IServiceProvider serviceProvider, ITokenService tokenService)
         {
@@ -36,7 +38,22 @@ namespace eWorkshop.WinUI
         private async void frmUloge_Load(object sender, EventArgs e)
         {
             dgvListaUloga.DataSource = await Uloge.Get<List<AspNetRoleVM>>();
-            
+
+        }
+
+        private void btnDodajNovogKorisnika_Click(object sender, EventArgs e)
+        {
+            frmDodajUlogu childForm = ServiceProvider.GetRequiredService<frmDodajUlogu>();
+            childForm.ShowDialog();
+        }
+
+        private async void btnPrikazi_Click(object sender, EventArgs e)
+        {
+            AspNetRolesSearchObject search = new AspNetRolesSearchObject();
+
+            search.Name = txtNazivUloge.Text;
+
+            dgvListaUloga.DataSource = await Uloge.Get<List<AspNetRoleVM>>(search);
         }
     }
 }

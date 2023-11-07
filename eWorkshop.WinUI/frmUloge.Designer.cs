@@ -34,7 +34,7 @@
             Name = new DataGridViewTextBoxColumn();
             label1 = new Label();
             btnPrikazi = new Button();
-            txtUserName = new TextBox();
+            txtNazivUloge = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvListaUloga).BeginInit();
             SuspendLayout();
             // 
@@ -47,6 +47,7 @@
             btnDodajNovogKorisnika.TabIndex = 15;
             btnDodajNovogKorisnika.Text = "Dodaj novu ulogu";
             btnDodajNovogKorisnika.UseVisualStyleBackColor = true;
+            btnDodajNovogKorisnika.Click += btnDodajNovogKorisnika_Click;
             // 
             // label3
             // 
@@ -96,14 +97,15 @@
             btnPrikazi.TabIndex = 10;
             btnPrikazi.Text = "Prikazi";
             btnPrikazi.UseVisualStyleBackColor = true;
+            btnPrikazi.Click += btnPrikazi_Click;
             // 
-            // txtUserName
+            // txtNazivUloge
             // 
-            txtUserName.BorderStyle = BorderStyle.FixedSingle;
-            txtUserName.Location = new Point(10, 158);
-            txtUserName.Name = "txtUserName";
-            txtUserName.Size = new Size(152, 23);
-            txtUserName.TabIndex = 8;
+            txtNazivUloge.BorderStyle = BorderStyle.FixedSingle;
+            txtNazivUloge.Location = new Point(10, 158);
+            txtNazivUloge.Name = "txtNazivUloge";
+            txtNazivUloge.Size = new Size(152, 23);
+            txtNazivUloge.TabIndex = 8;
             // 
             // frmUloge
             // 
@@ -115,7 +117,7 @@
             Controls.Add(dgvListaUloga);
             Controls.Add(label1);
             Controls.Add(btnPrikazi);
-            Controls.Add(txtUserName);
+            Controls.Add(txtNazivUloge);
             FormBorderStyle = FormBorderStyle.None;
             //Name = "frmUloge";
             Text = "frmUloge";
@@ -133,6 +135,6 @@
         private DataGridViewTextBoxColumn Name;
         private Label label1;
         private Button btnPrikazi;
-        private TextBox txtUserName;
+        private TextBox txtNazivUloge;
     }
 }

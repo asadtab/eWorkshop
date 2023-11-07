@@ -82,7 +82,7 @@ namespace eWorkshop.WinUI
             {
                 try
                 {
-                   var result = await IdsRegister.Post<AspNetUserVM>(request);
+                    var result = await IdsRegister.Post<OkObjectResult>(request);
                 }
                 catch (Exception x)
                 {
@@ -91,7 +91,6 @@ namespace eWorkshop.WinUI
             }
             else
                 MessageBox.Show("Polja ne smiju biti prazna");
-
         }
 
         private void chbUposlenik_CheckStateChanged(object sender, EventArgs e)

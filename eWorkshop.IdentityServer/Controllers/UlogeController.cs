@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
+using eWorkshop.Model;
 
 namespace eWorkshop.IdentityServer.Controllers
 {
@@ -17,30 +18,31 @@ namespace eWorkshop.IdentityServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRole([FromBody] string roleName)
+        public async Task<AspNetRoleVM> CreateRole([FromBody] string roleName)
         {
             var roleCheck = await RoleManager.FindByNameAsync(roleName);
 
-            if (string.IsNullOrWhiteSpace(roleName))
-            {
-                return BadRequest("Naziv uloge ne može biti prazan.");
-            }
-
             if(roleCheck is not null)
             {
-                return BadRequest($"Uloga sa nazivom '{roleName}' postoji.");
+                return null;
             }
 
             var role = new Microsoft.AspNetCore.Identity.IdentityRole(roleName);
 
             var result = await RoleManager.CreateAsync(role);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return Ok($"Role '{roleName}' created successfully.");
+                return null;
             }
 
-            return BadRequest("Role creation failed.");
+            var uloga = new AspNetRoleVM();
+
+            uloga.Id = role.Id;
+            uloga.Name = role.Name;
+            uloga.NormalizedName = role.NormalizedName;
+
+            return uloga;
         }
     }
 }

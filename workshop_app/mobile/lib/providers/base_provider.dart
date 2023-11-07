@@ -17,7 +17,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   //oauth2.Client clientIds;
 
-  static String? authorizationHost = "https://b2b1-109-237-44-2.ngrok-free.app";
+  static String? authorizationHost = "https://78b6-77-78-218-115.ngrok-free.app";
   final redirectUrl = Uri.parse("https://ee5e-109-237-44-2.ngrok-free.app/swagger/oauth2-redirect.html");
 
   final authorizationEndpoint = Uri.parse('$authorizationHost/connect/authorize');
@@ -83,7 +83,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     /*_baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://0426-77-78-227-173.eu.ngrok.io/");*/
 
-    _baseUrl = "https://bcfe-109-237-44-2.ngrok-free.app/";
+    _baseUrl = "https://78b6-77-78-218-115.ngrok-free.app";
 
     if (_baseUrl!.endsWith("/") == false) {
       _baseUrl = _baseUrl! + "/";

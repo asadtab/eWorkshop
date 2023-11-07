@@ -84,6 +84,7 @@ namespace eWorkshop.WinUI
             services.AddTransient<frmResursi>();
             services.AddTransient<frmDodajResurs>();
             services.AddTransient<frmUloge>();
+            services.AddTransient<frmDodajUlogu>();
 
         }
     }
