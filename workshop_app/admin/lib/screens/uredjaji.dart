@@ -39,11 +39,9 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
     super.initState();
 
     _uredjajiProvider = context.read<UredjajProvider>();
-    uredjajiBloc = UredjajiBloc(_uredjajiProvider, "active");
+    uredjajiBloc = UredjajiBloc(_uredjajiProvider, "active", null);
 
-    //var map = {'StateMachine': 'active'};
-
-    //_fetchData(map);
+    uredjajiBloc!.filterSink.add("active");
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -56,6 +54,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
     setState(() {
       uredjajiData = response!;
       _isLoading = false;
+      //dropdownvalue = map!['Status'] ?? "";
     });
   }
 
@@ -136,14 +135,19 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                           ],
                           rows: uredjajiData!
                               .map((x) => DataRow(
-                                      onSelectChanged: (isSelected) => {
+                                      onSelectChanged: (isSelected) async => {
                                             if (isSelected!)
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) => UredjajDetaljiScreen(
-                                                            uredjaj: x,
-                                                          )))
+                                              {
+                                                await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => UredjajDetaljiScreen(
+                                                              uredjaj: x,
+                                                              uredjajiBloc: uredjajiBloc!,
+                                                              context: context,
+                                                            )))
+                                              },
+                                            uredjajiBloc!.eventSink.add(UredjajAction.Refresh)
                                           },
                                       cells: [
                                         DataCell(Text(x.uredjajId.toString())),
