@@ -142,6 +142,32 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
+  Future<T?> delete(int? id, [dynamic request, String? endPoint]) async {
+    if (endPoint != null) {
+      _endpoint = endPoint;
+    }
+
+    var uri;
+    if (id == null) {
+      var url = "$_baseUrl$_endpoint";
+      uri = Uri.parse(url);
+    } else {
+      var url = "$_baseUrl$_endpoint/$id";
+      uri = Uri.parse(url);
+    }
+
+    Map<String, String> headers = createHeaders();
+
+    var response = await http!.delete(uri, headers: headers, body: jsonEncode(request));
+
+    if (isValidResponseCode(response)) {
+      var data = jsonDecode(response.body);
+      return null;
+    } else {
+      return null;
+    }
+  }
+
   String getQueryString(Map params, {String prefix: '&', bool inRecursion: false}) {
     String query = '';
     params.forEach((key, value) {

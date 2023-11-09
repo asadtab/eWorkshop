@@ -1,3 +1,5 @@
+import 'package:admin/bloc/uredjaji_bloc.dart';
+import 'package:admin/bloc/zadatak_uredjaj_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/radni_zadaci_lista.dart';
 import 'package:commons/helpers/state_helper.dart';
@@ -48,6 +50,8 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
   RadniZadaciProvider? radniZadaciProvider = null;
 
+  ZadatakUredjajBloc? zadatakUredjajBloc;
+
   @override
   void initState() {
     super.initState();
@@ -56,9 +60,13 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
     radniZadaciProvider = context.read<RadniZadaciProvider>();
 
-    var map = {'Status': 'active'};
+    zadatakUredjajBloc = ZadatakUredjajBloc(zadatakProvider: radniZadaciUredjajProvider);
 
-    _fetchData(map);
+    zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
+
+    //var map = {'Status': 'active'};
+
+    //_fetchData(map);
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -329,6 +337,8 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
 
     var zadatakUredjaj = await radniZadaciUredjajProvider!.get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
     var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
+
+    zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
 
     setState(() {
       radniZadatakUredjaj = zadatakUredjaj;

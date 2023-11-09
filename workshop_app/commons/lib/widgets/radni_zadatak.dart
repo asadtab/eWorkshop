@@ -6,7 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class RadniZadaciWidget extends StatefulWidget {
   List<RadniZadatakUredjaj> radniZadatakUredjaj = [];
-  RadniZadatak? radniZadatak;
+  RadniZadatakUredjaj? radniZadatak;
 
   RadniZadaciWidget({required this.radniZadatakUredjaj, required this.radniZadatak});
 
@@ -15,6 +15,11 @@ class RadniZadaciWidget extends StatefulWidget {
 }
 
 class _RadniZadaciWidgetState extends State<RadniZadaciWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   //var radniZadatak = widget.radniZadatakUredjaj.first;
   List<RadniZadatakUredjaj> uredjaji = [];
 
@@ -48,7 +53,7 @@ class _RadniZadaciWidgetState extends State<RadniZadaciWidget> {
                         shadowColor: Color(0xFFCBE4DE),
                         child: Center(
                             child: Text(
-                          widget.radniZadatak!.naziv ?? "",
+                          widget.radniZadatak!.radniZadatakNaziv ?? "",
                           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black),
                         )))
                   ]),

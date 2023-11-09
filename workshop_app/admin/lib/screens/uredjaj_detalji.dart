@@ -80,7 +80,13 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
           stream: uredjajBloc?.uredjajStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              final uredjaj = snapshot.data?.where((x) => x.uredjajId == widget.uredjaj?.uredjajId).toList().first;
+              final uredjaj = snapshot.data?.where((x) => x.uredjajId == widget.uredjaj?.uredjajId).toList().firstOrNull;
+
+              if (uredjaj == null) {
+                Future.delayed(Duration(seconds: 2), () {
+                  return Center(child: Text("Uređaj je izbrisan"));
+                });
+              }
 
               return Row(
                 children: [
@@ -264,7 +270,16 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                 ListTile(
                                   title: MinimalisticButton(
                                     text: 'Izbriši',
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      try {
+                                        var temp = await uredjajProvider!.delete(uredjaj!.uredjajId, null, "Uredjaj");
+
+                                        poruka("Uređaj je izbrisan");
+                                        uredjajBloc!.eventSink.add(UredjajAction.Refresh);
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
+                                    },
                                   ),
                                 ),
                             if ((uredjaj?.status ?? "") == "parts")
