@@ -1,3 +1,4 @@
+import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_bloc.dart';
 import 'package:commons/helpers/change_state_helper.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
@@ -11,16 +12,17 @@ import 'package:commons/widgets/notification.dart';
 import 'package:darq/darq.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
 class UredjajDetaljiScreen extends StatefulWidget {
   final Uredjaj? uredjaj;
-  final UredjajiBloc uredjajiBloc;
+  //final UredjajiBloc uredjajiBloc;
   BuildContext? context;
 
-  UredjajDetaljiScreen({required this.uredjaj, required this.uredjajiBloc, this.context});
+  UredjajDetaljiScreen({required this.uredjaj, this.context});
 
   @override
   _UredjajDetaljiScreenState createState() => _UredjajDetaljiScreenState();
@@ -72,288 +74,305 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Info'),
-        ),
-        body: StreamBuilder<List<Uredjaj>>(
-          stream: uredjajBloc?.uredjajStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final uredjaj = snapshot.data?.where((x) => x.uredjajId == widget.uredjaj?.uredjajId).toList().firstOrNull;
+    final UredjajBloc uredjajBlocTemp = BlocProvider.of<UredjajBloc>(context);
 
-              if (uredjaj == null) {
-                Future.delayed(Duration(seconds: 2), () {
-                  return Center(child: Text("Uređaj je izbrisan"));
-                });
-              }
-
-              return Row(
-                children: [
-                  Card(
-                    elevation: 4.0,
-                    margin: EdgeInsets.all(16.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Ev. broj: ${uredjaj?.uredjajId.toString() ?? ""}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => UredjajBloc(uredjajiProvider: uredjajProvider!),
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text('Info'),
+          ),
+          body: BlocConsumer<UredjajBloc, UredjajState>(
+            bloc: uredjajBlocTemp,
+            listenWhen: (previous, current) => current is UredjajDataLoadedState,
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              if (state is LoadingEvent) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is UredjajDataLoadedState) {
+                var uredjaj = state.data.first;
+                return Row(
+                  children: [
+                    Card(
+                      elevation: 4.0,
+                      margin: EdgeInsets.all(16.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ev. broj: ${uredjaj.uredjajId.toString()}',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 20),
-                          DataTable(
-                            columns: [
-                              DataColumn(label: Text('')),
-                              DataColumn(label: Text('')),
-                            ],
-                            rows: [
-                              DataRow(
-                                cells: [
-                                  DataCell(Text('ID')),
-                                  DataCell(Text(uredjaj?.uredjajId.toString() ?? "")),
-                                ],
-                              ),
-                              DataRow(
-                                cells: [
-                                  DataCell(Text('Tip')),
-                                  DataCell(Text(uredjaj?.tipNaziv ?? "")),
-                                ],
-                              ),
-                              DataRow(
-                                cells: [
-                                  DataCell(Text('Koda')),
-                                  DataCell(Text(uredjaj?.koda ?? "")),
-                                ],
-                              ),
-                              DataRow(
-                                cells: [
-                                  DataCell(Text('Serijski broj')),
-                                  DataCell(Text(uredjaj?.serijskiBroj ?? "")),
-                                ],
-                              ),
-                              DataRow(
-                                cells: [
-                                  DataCell(Text('Stanje')),
-                                  DataCell(Text(uredjaj?.status ?? "")),
-                                ],
-                              ),
-                              DataRow(
-                                cells: [
-                                  DataCell(Text('Lokacija')),
-                                  DataCell(Text(uredjaj?.lokacijaNaziv ?? "")),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                            SizedBox(height: 20),
+                            DataTable(
+                              columns: [
+                                DataColumn(label: Text('')),
+                                DataColumn(label: Text('')),
+                              ],
+                              rows: [
+                                DataRow(
+                                  cells: [
+                                    const DataCell(Text('ID')),
+                                    DataCell(Text(uredjaj.uredjajId.toString() ?? "")),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: [
+                                    DataCell(Text('Tip')),
+                                    DataCell(Text(uredjaj.tipNaziv ?? "")),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: [
+                                    DataCell(Text('Koda')),
+                                    DataCell(Text(uredjaj.koda ?? "")),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: [
+                                    DataCell(Text('Serijski broj')),
+                                    DataCell(Text(uredjaj.serijskiBroj ?? "")),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: [
+                                    DataCell(Text('Stanje')),
+                                    DataCell(Text(uredjaj.status ?? "")),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: [
+                                    DataCell(Text('Lokacija')),
+                                    DataCell(Text(uredjaj.lokacijaNaziv ?? "")),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                      width: 250,
-                      child: Card(
-                        elevation: 4.0,
-                        margin: EdgeInsets.all(16.0),
-                        child: ListView(
-                          physics: AlwaysScrollableScrollPhysics(),
-                          shrinkWrap: true, // This is important to allow the ListView to be used inside a Column
-                          children: [
-                            if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status.toString() ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Aktiviraj',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
-                                      poruka("Uređaj je aktiviran");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {
-                                      poruka(e.toString());
-                                    }
-                                  },
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonServisiraj(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Servisiraj',
-                                  onPressed: () {},
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonSpremi(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Spremi',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
-                                      poruka("Uređaj je spreman za isporuku");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {
-                                      poruka(e.toString());
-                                    }
-                                  },
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonPosalji(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Pošalji',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Posalji");
-                                      poruka("Uređaj je poslan");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {
-                                      poruka(e.toString());
-                                    }
-                                  },
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonVrati(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Vrati',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
-                                      poruka("Uređaj je ponovo vraćen u servis");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {
-                                      poruka(e.toString());
-                                    }
-                                  },
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Rezervni dijelovi',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/SpareParts");
-                                      poruka("Uređaj je ostavljen za rezervne dijelove");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {
-                                      poruka(e.toString());
-                                    }
-                                  },
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonDeaktiviraj(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Deaktiviraj',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Deaktiviraj");
-                                      poruka("Uređaj je deaktiviran.");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {}
-                                  },
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Uredi',
-                                  onPressed: () {},
-                                ),
-                              ),
-                            if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
-                              if (check)
+                    Container(
+                        width: 250,
+                        child: Card(
+                          elevation: 4.0,
+                          margin: EdgeInsets.all(16.0),
+                          child: ListView(
+                            physics: AlwaysScrollableScrollPhysics(),
+                            shrinkWrap: true, // This is important to allow the ListView to be used inside a Column
+                            children: [
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status.toString() ?? ""))
                                 ListTile(
                                   title: MinimalisticButton(
-                                    text: 'Izbriši',
+                                    text: 'Aktiviraj',
                                     onPressed: () async {
                                       try {
-                                        var temp = await uredjajProvider!.delete(uredjaj!.uredjajId, null, "Uredjaj");
-
-                                        poruka("Uređaj je izbrisan");
-                                        uredjajBloc!.eventSink.add(UredjajAction.Refresh);
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
+                                        poruka("Uređaj je aktiviran");
+                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                        uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
                                     },
                                   ),
                                 ),
-                            if ((uredjaj?.status ?? "") == "parts")
-                              ListTile(
-                                title: MinimalisticButton(
-                                  text: 'Recikliraj',
-                                  onPressed: () async {
-                                    try {
-                                      await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
-                                      poruka("Uređaj je aktiviran");
-                                      uredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                                    } catch (e) {
-                                      poruka(e.toString());
-                                    }
-                                  },
+                              if (ChangeStateHelper.buttonServisiraj(uredjaj.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Servisiraj',
+                                    onPressed: () {},
+                                  ),
                                 ),
-                              ),
-                          ],
-                        ),
-                      )),
-                  Padding(padding: EdgeInsets.fromLTRB(50, 0, 0, 0)),
-                  Container(
-                      width: 500,
-                      height: 800,
-                      padding: EdgeInsets.all(50),
-                      child: Timeline(
-                        children: servis
-                            .distinct((x) => x.servisId)
-                            .map((e) => TimelineModel(
-                                  Container(
-                                    height: 200,
-                                    child: ListView(
-                                      children: <Widget>[
-                                        ExpansionPanelList(
-                                            elevation: 2,
-                                            expandedHeaderPadding: EdgeInsets.all(8),
-                                            expansionCallback: (int index, bool isExpanded) {
-                                              setState(() {
-                                                e.isExpanded = isExpanded;
-                                              });
-                                            },
-                                            children: [
-                                              ExpansionPanel(
-                                                  headerBuilder: (BuildContext context, bool isExpanded) {
-                                                    return ListTile(
-                                                      title: Text(e.datum.toString()),
-                                                    );
-                                                  },
-                                                  body: ListTile(
-                                                    title: Text("item.expandedValue"),
-                                                  ),
-                                                  isExpanded: e.isExpanded)
-                                            ]),
-                                      ],
+                              if (ChangeStateHelper.buttonSpremi(uredjaj.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Spremi',
+                                    onPressed: () async {
+                                      try {
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
+                                        poruka("Uređaj je spreman za isporuku");
+                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                        uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
+                                    },
+                                  ),
+                                ),
+                              if (ChangeStateHelper.buttonPosalji(uredjaj.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Pošalji',
+                                    onPressed: () async {
+                                      try {
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Posalji");
+                                        poruka("Uređaj je poslan");
+                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                        uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
+                                    },
+                                  ),
+                                ),
+                              if (ChangeStateHelper.buttonVrati(uredjaj.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Vrati',
+                                    onPressed: () async {
+                                      try {
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
+
+                                      poruka("Uređaj je ponovo vraćen u servis");
+                                      uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                      Future.delayed(Duration(seconds: 3));
+                                      uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                    },
+                                  ),
+                                ),
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Rezervni dijelovi',
+                                    onPressed: () async {
+                                      try {
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/SpareParts");
+                                        poruka("Uređaj je ostavljen za rezervne dijelove");
+                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                        uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
+                                    },
+                                  ),
+                                ),
+                              if (ChangeStateHelper.buttonDeaktiviraj(uredjaj?.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Deaktiviraj',
+                                    onPressed: () async {
+                                      try {
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Deaktiviraj");
+                                        poruka("Uređaj je deaktiviran.");
+                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                        Future.delayed(Duration(seconds: 3));
+                                        uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                      } catch (e) {}
+                                    },
+                                  ),
+                                ),
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Uredi',
+                                    onPressed: () {},
+                                  ),
+                                ),
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
+                                if (check)
+                                  ListTile(
+                                    title: MinimalisticButton(
+                                      text: 'Izbriši',
+                                      onPressed: () async {
+                                        try {
+                                          var temp = await uredjajProvider!.delete(uredjaj!.uredjajId, null, "Uredjaj");
+
+                                          poruka("Uređaj je izbrisan");
+                                          uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                          uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        } catch (e) {
+                                          poruka(e.toString());
+                                        }
+                                      },
                                     ),
                                   ),
-                                  icon: Icon(
-                                    Icons.build,
-                                    color: Colors.white,
+                              if ((uredjaj?.status ?? "") == "parts")
+                                ListTile(
+                                  title: MinimalisticButton(
+                                    text: 'Recikliraj',
+                                    onPressed: () async {
+                                      try {
+                                        await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
+                                        poruka("Uređaj je aktiviran");
+                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
+                                        uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
+                                    },
                                   ),
-                                  iconBackground: Colors.blue,
-                                ))
-                            .toList(),
-                        position: TimelinePosition.Right,
-                        iconSize: 30,
-                        lineColor: Colors.blueGrey,
-                      )),
-                ],
-              );
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
-        ));
+                                ),
+                            ],
+                          ),
+                        )),
+                    Padding(padding: EdgeInsets.fromLTRB(50, 0, 0, 0)),
+                    Container(
+                        width: 500,
+                        height: 800,
+                        padding: EdgeInsets.all(50),
+                        child: Timeline(
+                          children: servis
+                              .distinct((x) => x.servisId)
+                              .map((e) => TimelineModel(
+                                    Container(
+                                      height: 200,
+                                      child: ListView(
+                                        children: <Widget>[
+                                          ExpansionPanelList(
+                                              elevation: 2,
+                                              expandedHeaderPadding: EdgeInsets.all(8),
+                                              expansionCallback: (int index, bool isExpanded) {
+                                                setState(() {
+                                                  e.isExpanded = isExpanded;
+                                                });
+                                              },
+                                              children: [
+                                                ExpansionPanel(
+                                                    headerBuilder: (BuildContext context, bool isExpanded) {
+                                                      return ListTile(
+                                                        title: Text(e.datum.toString()),
+                                                      );
+                                                    },
+                                                    body: ListTile(
+                                                      title: Text("item.expandedValue"),
+                                                    ),
+                                                    isExpanded: e.isExpanded)
+                                              ]),
+                                        ],
+                                      ),
+                                    ),
+                                    icon: Icon(
+                                      Icons.build,
+                                      color: Colors.white,
+                                    ),
+                                    iconBackground: Colors.blue,
+                                  ))
+                              .toList(),
+                          position: TimelinePosition.Right,
+                          iconSize: 30,
+                          lineColor: Colors.blueGrey,
+                        )),
+                  ],
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          )),
+    );
   }
 
   void poruka(String msg) {

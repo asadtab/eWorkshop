@@ -1,9 +1,12 @@
+import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/providers/lokacija_provider.dart';
 import 'package:commons/providers/reparacija_provider.dart';
 import 'package:commons/providers/tip_uredjaja_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
@@ -35,11 +38,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    RadniZadaciUredjajProvider radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
+    var uredjajProvider = context.read<UredjajProvider>();
+
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<UredjajBloc>(create: (context) => UredjajBloc(uredjajiProvider: uredjajProvider)..add(LoadingEvent())),
+          BlocProvider<RadniZadatakUredjajBloc>(
+              create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadaciUredjajProvider)..add(RadniZadatakLoadingEvent()))
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(),
+          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        ));
   }
 }
 

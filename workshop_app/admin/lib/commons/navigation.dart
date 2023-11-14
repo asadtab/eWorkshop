@@ -1,5 +1,6 @@
 import 'package:admin/screens/radni_zadaci.dart';
 import 'package:admin/screens/uredjaji.dart';
+import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -11,10 +12,8 @@ class CommonNavigation extends StatelessWidget {
 
   final int selectedIndex;
   final Function(int) onItemSelected;
-  //final void Function()? refreshKonzola;
-  final VoidCallback? refreshKonzolaCallBack;
 
-  CommonNavigation({required this.onItemSelected, required this.selectedIndex, this.refreshKonzolaCallBack});
+  CommonNavigation({required this.onItemSelected, required this.selectedIndex}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +64,7 @@ class CommonNavigation extends StatelessWidget {
         Expanded(
           child: IndexedStack(
             index: selectedIndex,
-            children: [
-              KonzolaScreen(
-                refreshKonzolaCallback: refreshKonzolaCallBack,
-              ),
-              UredjajiScreen(),
-              RadniZadaciScreen(),
-              AdministratorScreen()
-            ],
+            children: [KonzolaScreen(), UredjajiScreen(), RadniZadaciScreen(), AdministratorScreen()],
           ),
         ),
       ],

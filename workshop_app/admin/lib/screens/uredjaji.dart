@@ -1,3 +1,5 @@
+import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
@@ -10,6 +12,7 @@ import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class UredjajiScreen extends StatefulWidget {
@@ -20,7 +23,7 @@ class UredjajiScreen extends StatefulWidget {
 
 class _UredjajiScreenState extends State<UredjajiScreen> {
   UredjajProvider? _uredjajiProvider = null;
-  List<Uredjaj> uredjajiData = [];
+  //List<Uredjaj> uredjajiData = [];
 
   String selected = "";
   List<Uredjaj> uredjajRadniZadatak = [];
@@ -52,7 +55,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
     final response = await _uredjajiProvider?.get(map, "Uredjaj");
 
     setState(() {
-      uredjajiData = response!;
+      //uredjajiData = response!;
       _isLoading = false;
       //dropdownvalue = map!['Status'] ?? "";
     });
@@ -60,68 +63,81 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: BarrApp(naslov: "Uređaji"),
-        body: SingleChildScrollView(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Padding(
-                padding: EdgeInsets.all(20),
-                child: DropdownButton<String>(
-                  value: dropdownvalue,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  hint: Container(child: Text("Odaberi status")),
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.blueGrey,
-                  ),
-                  onChanged: (String? value) {
-                    uredjajiBloc?.filterSink.add(StateHelper.nizSearch(value!));
+    final UredjajBloc uredjajBloc = BlocProvider.of<UredjajBloc>(context);
 
-                    setState(() {
-                      dropdownvalue = value!;
-                    });
-                  },
-                  items: StateHelper.nizOpis.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                )),
-            Container(
-                height: 40,
-                width: 200,
-                child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Pretraga', // Placeholder text
-                      border: OutlineInputBorder(), // Border for the input field
+    return BlocProvider(
+      create: (context) => UredjajBloc(uredjajiProvider: _uredjajiProvider!),
+      child: Scaffold(
+          appBar: BarrApp(naslov: "Uređaji"),
+          body: SingleChildScrollView(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: DropdownButton<String>(
+                    value: dropdownvalue,
+                    icon: const Icon(Icons.arrow_downward),
+                    elevation: 16,
+                    hint: Container(child: Text("Odaberi status")),
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.blueGrey,
                     ),
-                    onChanged: (text) {
-                      // Handle text input changes here
-                    })),
-            Padding(
-                padding: EdgeInsets.all(20),
-                child: MinimalisticButton(
-                  icons: Icon(Icons.add),
-                  text: "Dodaj novi uređaj",
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DodajUrediUredjaj()));
-                  },
-                ))
-          ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              StreamBuilder<List<Uredjaj>>(
-                  stream: uredjajiBloc?.uredjajStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final uredjajiData = snapshot.data;
+                    onChanged: (String? value) {
+                      uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch(value!)));
 
-                      return DataTable(
+                      uredjajiBloc?.filterSink.add(StateHelper.nizSearch(value!));
+
+                      setState(() {
+                        dropdownvalue = value!;
+                      });
+                    },
+                    items: StateHelper.nizOpis.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  )),
+              Container(
+                  height: 40,
+                  width: 200,
+                  child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Pretraga', // Placeholder text
+                        border: OutlineInputBorder(), // Border for the input field
+                      ),
+                      onChanged: (text) {
+                        // Handle text input changes here
+                      })),
+              Padding(
+                  padding: EdgeInsets.all(20),
+                  child: MinimalisticButton(
+                    icons: Icon(Icons.add),
+                    text: "Dodaj novi uređaj",
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DodajUrediUredjaj()));
+                    },
+                  ))
+            ]),
+            BlocConsumer<UredjajBloc, UredjajState>(
+              bloc: uredjajBloc,
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                if (state is UredjajLoadingState) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is UredjajDataLoadedState) {
+                  var uredjajiData = state.data;
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DataTable(
                           columnSpacing: 21,
                           columns: [
                             DataColumn(label: Text('Id')),
@@ -133,7 +149,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                             DataColumn(label: Text('Lokacija')),
                             DataColumn(label: Text('Opcije')),
                           ],
-                          rows: uredjajiData!
+                          rows: uredjajiData
                               .map((x) => DataRow(
                                       onSelectChanged: (isSelected) async => {
                                             if (isSelected!)
@@ -143,7 +159,6 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                                     MaterialPageRoute(
                                                         builder: (context) => UredjajDetaljiScreen(
                                                               uredjaj: x,
-                                                              uredjajiBloc: uredjajiBloc!,
                                                               context: context,
                                                             )))
                                               },
@@ -155,7 +170,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                         DataCell(Text(x.tipOpis ?? "")),
                                         DataCell(Text(x.koda ?? "")),
                                         DataCell(Text(x.serijskiBroj ?? "")),
-                                        DataCell(Text(StateHelper.nizRezultat(x.status.toString()) ?? "")),
+                                        DataCell(Text(StateHelper.nizRezultat(x.status.toString()))),
                                         DataCell(Text(x.lokacijaNaziv ?? "")),
                                         DataCell(PopupMenuButton<String>(
                                           initialValue: selected,
@@ -173,15 +188,15 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                           ],
                                         )),
                                       ]))
-                              .toList());
-                    } else if (snapshot.hasError) {
-                      return Text("Greška: ${snapshot.error}");
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  })
-            ],
-          )
-        ])));
+                              .toList())
+                    ],
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            )
+          ]))),
+    );
   }
 }

@@ -1,5 +1,4 @@
-import 'package:admin/bloc/uredjaji_bloc.dart';
-import 'package:admin/bloc/zadatak_uredjaj_bloc.dart';
+import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/radni_zadaci_lista.dart';
 import 'package:commons/helpers/state_helper.dart';
@@ -12,6 +11,7 @@ import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class RadniZadaciScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class RadniZadaciScreen extends StatefulWidget {
 
   //RadniZadaciScreen({this.refreshKonzolaCallback});
 
-  RadniZadaciScreen({Key? key}) : super(key: key);
+  RadniZadaciScreen();
 
   RadniZadaciScreen.uredi({this.radniZadatakId});
 
@@ -50,23 +50,16 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
   RadniZadaciProvider? radniZadaciProvider = null;
 
-  ZadatakUredjajBloc? zadatakUredjajBloc;
-
   @override
   void initState() {
-    super.initState();
-
     uredjajiProvider = context.read<UredjajProvider>();
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
     radniZadaciProvider = context.read<RadniZadaciProvider>();
 
-    zadatakUredjajBloc = ZadatakUredjajBloc(zadatakProvider: radniZadaciUredjajProvider);
+    var map = {'Status': 'active'};
 
-    zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
-
-    //var map = {'Status': 'active'};
-
-    //_fetchData(map);
+    _fetchData(map);
+    super.initState();
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -110,6 +103,8 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final RadniZadatakUredjajBloc uredjajBloc = BlocProvider.of<RadniZadatakUredjajBloc>(context);
+
     return Scaffold(
         appBar: BarrApp(naslov: "Radni zadaci"),
         body: SingleChildScrollView(
@@ -202,6 +197,10 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                       DragTarget<Uredjaj>(
                         onAccept: (data) async {
                           _dodajUredjajIRefreshListu(data);
+
+                          await Future.delayed(Duration(seconds: 3));
+
+                          uredjajBloc.add(RadniZadatakLoadingEvent());
 
                           setState(() {
                             targetList.add(data);
@@ -331,14 +330,14 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
       await radniZadaciUredjajProvider!.update(null, request, "Uredjaj/RadniZadatak");
 
       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Uspješno je dodan uredjaj u radni zadatak."));
+
+      //zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(e.toString()));
     }
 
     var zadatakUredjaj = await radniZadaciUredjajProvider!.get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
     var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
-
-    zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
 
     setState(() {
       radniZadatakUredjaj = zadatakUredjaj;

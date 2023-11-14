@@ -1,0 +1,26 @@
+part of 'uredjaj_bloc.dart';
+
+@immutable
+abstract class UredjajEvent extends Equatable {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class LoadingEvent extends UredjajEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class UredjajFilterEvent extends UredjajEvent {
+  String? status;
+
+  UredjajFilterEvent({required this.status});
+}
+
+class UredjajRefreshEvent extends UredjajEvent {
+  int id;
+
+  UredjajRefreshEvent({required this.id});
+}

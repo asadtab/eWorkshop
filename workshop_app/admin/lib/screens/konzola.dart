@@ -1,28 +1,25 @@
-import 'package:admin/bloc/uredjaji_bloc.dart';
-import 'package:admin/bloc/zadatak_uredjaj_bloc.dart';
+import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
+import 'package:admin/widgets/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
-import 'package:commons/widgets/radni_zadatak.dart';
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class KonzolaScreen extends StatefulWidget {
-  final void Function()? refreshKonzolaCallback;
-
-  KonzolaScreen({this.refreshKonzolaCallback = defaultRefreshCallback});
+  KonzolaScreen();
 
   //const KonzolaScreen({super.key});
 
   @override
   State<KonzolaScreen> createState() => _KonzolaScreenState();
-
-  static void defaultRefreshCallback() {}
 }
 
 class _KonzolaScreenState extends State<KonzolaScreen> {
@@ -34,16 +31,10 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
 
   bool _isLoading = true;
 
-  ZadatakUredjajBloc? zadatakUredjajBloc;
-
   @override
   void initState() {
     radniZadaciProvider = context.read<RadniZadaciProvider>();
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
-
-    zadatakUredjajBloc = ZadatakUredjajBloc(zadatakProvider: radniZadaciUredjajProvider);
-
-    zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
 
     super.initState();
     //_fetchData(null);
@@ -62,64 +53,73 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
       radniZadatakDetalj = response!;
       _isLoading = false;
     });
-
-    KonzolaScreen.defaultRefreshCallback();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: BarrApp(naslov: "Informacioni sistem za podršku rada servisne radionice"),
-        body: SafeArea(
-            child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        "Aktivni radni zadaci:",
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                      ))
-                ],
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: StreamBuilder<List<RadniZadatakUredjaj>>(
-                    stream: zadatakUredjajBloc?.zadatakUredjajStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        var listDistinct = Set();
+    final RadniZadatakUredjajBloc uredjajBloc = BlocProvider.of<RadniZadatakUredjajBloc>(context);
 
-                        //final zadatakUredjajiDataDistinct = snapshot.data!.distinct().toList();
-                        final zadatakUredjajiData = snapshot.data!;
-
-                        List<RadniZadatakUredjaj> unique = zadatakUredjajiData.where((x) => listDistinct.add(x.radniZadatakId)).toList();
-
-                        return Row(
-                            children: unique
+    return BlocProvider(
+        create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadaciUredjajProvider!)..add(RadniZadatakLoadingEvent()),
+        child: Scaffold(
+          appBar: BarrApp(naslov: "Informacioni sistem za podršku rada servisne radionice"),
+          body: BlocConsumer<RadniZadatakUredjajBloc, RadniZadatakUredjajState>(
+            bloc: uredjajBloc,
+            listenWhen: (previous, current) => previous is DataLoadedState,
+            listener: (context, state) {
+              //uredjajBloc.add(LoadingEvent());
+              if (state is DataLoadedState) radniZadatakUredjajData = state.data;
+            },
+            buildWhen: (previous, current) => current is DataLoadedState,
+            builder: (context, state) {
+              if (state is LoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is DataLoadedState) {
+                var temp = radniZadatakUredjajData;
+                var uredjaji = state.data;
+                var uredjajiDistinct = uredjaji.distinct((x) => x.radniZadatakId).toList();
+                return SafeArea(
+                    child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text(
+                                "Aktivni radni zadaci:",
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                              ))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Row(
+                            children: uredjajiDistinct
                                 .map((e) => RadniZadaciWidget(
-                                      radniZadatakUredjaj:
-                                          zadatakUredjajiData!.where((uredjaj) => uredjaj.radniZadatakId == e.radniZadatakId).toList(),
+                                      radniZadatakUredjaj: uredjaji,
                                       radniZadatak: e,
                                     ))
-                                .toList());
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    })),
-            Container(
-              child: MinimalisticButton(
-                text: "Osvježi",
-                onPressed: () {
-                  zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
-                },
-              ),
-            )
-          ]),
-        )));
+                                .toList())),
+                    /* Container(
+                      child: MinimalisticButton(
+                        text: "Osvježi",
+                        onPressed: () {
+                          uredjajBloc.add(RadniZadatakLoadingEvent());
+                        },
+                      ),
+                    )*/
+                  ]),
+                ));
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ));
   }
 }
