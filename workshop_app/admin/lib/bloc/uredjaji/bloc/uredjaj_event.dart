@@ -24,3 +24,5 @@ class UredjajRefreshEvent extends UredjajEvent {
 
   UredjajRefreshEvent({required this.id});
 }
+
+class UredjajAktivniEvent extends UredjajEvent {}

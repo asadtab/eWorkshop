@@ -1,5 +1,4 @@
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
-import 'package:admin/bloc/uredjaji_bloc.dart';
 import 'package:commons/helpers/progres.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
@@ -20,8 +19,6 @@ class RadniZadaciWidget extends StatefulWidget {
 
 class _RadniZadaciWidgetState extends State<RadniZadaciWidget> {
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
-
-  UredjajiBloc? zadatakUredjajBloc;
 
   @override
   void initState() {

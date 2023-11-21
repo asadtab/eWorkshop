@@ -1,5 +1,6 @@
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
+import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/providers/lokacija_provider.dart';
 import 'package:commons/providers/reparacija_provider.dart';
@@ -45,7 +46,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<UredjajBloc>(create: (context) => UredjajBloc(uredjajiProvider: uredjajProvider)..add(LoadingEvent())),
           BlocProvider<RadniZadatakUredjajBloc>(
-              create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadaciUredjajProvider)..add(RadniZadatakLoadingEvent()))
+              create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadaciUredjajProvider)..add(RadniZadatakLoadingEvent())),
+          BlocProvider<UredjajiListaZadatakBloc>(
+              create: (context) => UredjajiListaZadatakBloc(uredjajiProvider: uredjajProvider)..add(UredjajiLoadZadatakEvent()))
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

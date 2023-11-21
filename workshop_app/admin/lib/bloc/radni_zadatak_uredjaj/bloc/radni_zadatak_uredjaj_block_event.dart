@@ -14,3 +14,9 @@ class RadniZadatakFilterEvent extends RadniZadatakUredjajEvent {
 
   RadniZadatakFilterEvent({required this.status});
 }
+
+class RadniZadatakIdEvent extends RadniZadatakUredjajEvent {
+  int id;
+
+  RadniZadatakIdEvent({required this.id});
+}

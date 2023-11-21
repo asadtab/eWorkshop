@@ -1,8 +1,9 @@
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
-import 'package:admin/bloc/uredjaji_bloc.dart';
+import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
+import 'package:admin/screens/servisiraj.dart';
 import 'package:commons/helpers/change_state_helper.dart';
+import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
-import 'package:commons/models/reparacija.dart';
 import 'package:commons/models/izvrseni_servis.dart';
 import 'package:commons/providers/reparacija_provider.dart';
 import 'package:commons/models/uredjaj.dart';
@@ -10,12 +11,12 @@ import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:darq/darq.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
+import 'package:admin/commons/app_bar.dart';
 
 class UredjajDetaljiScreen extends StatefulWidget {
   final Uredjaj? uredjaj;
@@ -39,7 +40,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
   IzvrseniServisProvider? izvrseniServisProvider;
   UredjajProvider? uredjajProvider;
 
-  UredjajiBloc? uredjajBloc;
+  UredjajBloc? uredjajBlocTemp;
 
   @override
   void initState() {
@@ -47,16 +48,20 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
     izvrseniServisProvider = context.read<IzvrseniServisProvider>();
     uredjajProvider = context.read<UredjajProvider>();
 
-    uredjajBloc = UredjajiBloc(uredjajProvider, null, widget.uredjaj!.uredjajId);
+    uredjajBlocTemp = BlocProvider.of<UredjajBloc>(context);
 
-    uredjajBloc!.eventSink.add(UredjajAction.Refresh);
+    uredjajBlocTemp!.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+
+    var map = {'id': widget.uredjaj!.uredjajId!.toString()};
+
+    _fetchData(map);
 
     super.initState();
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
     final response = await izvrseniServisProvider?.get(map, "Reparacija/IzvrseniServis");
-    final uredjajResponse = await uredjajProvider?.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Uredjaj");
+    //final uredjajResponse = await uredjajProvider?.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Uredjaj");
 
     setState(() {
       servis = response!;
@@ -75,12 +80,13 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
   @override
   Widget build(BuildContext context) {
     final UredjajBloc uredjajBlocTemp = BlocProvider.of<UredjajBloc>(context);
+    final UredjajiListaZadatakBloc zadaciActiveUredjaj = BlocProvider.of<UredjajiListaZadatakBloc>(context);
 
     return BlocProvider(
       create: (context) => UredjajBloc(uredjajiProvider: uredjajProvider!),
       child: Scaffold(
-          appBar: AppBar(
-            title: Text('Info'),
+          appBar: BarrApp(
+            naslov: widget.uredjaj!.tipOpis ?? "",
           ),
           body: BlocConsumer<UredjajBloc, UredjajState>(
             bloc: uredjajBlocTemp,
@@ -93,8 +99,8 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is UredjajDataLoadedState) {
-                var uredjaj = state.data.first;
+              } else if (state is UredjajLoadedState) {
+                var uredjaj = state.data;
                 return Row(
                   children: [
                     Card(
@@ -106,7 +112,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Ev. broj: ${uredjaj.uredjajId.toString()}',
+                              ' ${uredjaj.tipOpis}',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -122,37 +128,37 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                 DataRow(
                                   cells: [
                                     const DataCell(Text('ID')),
-                                    DataCell(Text(uredjaj.uredjajId.toString() ?? "")),
+                                    DataCell(tekstInfo(uredjaj.uredjajId.toString())),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
                                     DataCell(Text('Tip')),
-                                    DataCell(Text(uredjaj.tipNaziv ?? "")),
+                                    DataCell(tekstInfo(uredjaj.tipNaziv ?? "")),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
                                     DataCell(Text('Koda')),
-                                    DataCell(Text(uredjaj.koda ?? "")),
+                                    DataCell(tekstInfo(uredjaj.koda ?? "")),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
                                     DataCell(Text('Serijski broj')),
-                                    DataCell(Text(uredjaj.serijskiBroj ?? "")),
+                                    DataCell(tekstInfo(uredjaj.serijskiBroj ?? "")),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
                                     DataCell(Text('Stanje')),
-                                    DataCell(Text(uredjaj.status ?? "")),
+                                    DataCell(tekstInfo(StateHelper.nizRezultat(uredjaj.status ?? ""))),
                                   ],
                                 ),
                                 DataRow(
                                   cells: [
                                     DataCell(Text('Lokacija')),
-                                    DataCell(Text(uredjaj.lokacijaNaziv ?? "")),
+                                    DataCell(tekstInfo(uredjaj.lokacijaNaziv ?? "")),
                                   ],
                                 ),
                               ],
@@ -178,8 +184,8 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       try {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
                                         poruka("Uređaj je aktiviran");
-                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        zadaciActiveUredjaj.add(UredjajiLoadZadatakEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
@@ -190,7 +196,9 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                 ListTile(
                                   title: MinimalisticButton(
                                     text: 'Servisiraj',
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen()));
+                                    },
                                   ),
                                 ),
                               if (ChangeStateHelper.buttonSpremi(uredjaj.status ?? ""))
@@ -201,7 +209,6 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       try {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
                                         poruka("Uređaj je spreman za isporuku");
-                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                       } catch (e) {
                                         poruka(e.toString());
@@ -217,7 +224,6 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       try {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Posalji");
                                         poruka("Uređaj je poslan");
-                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                       } catch (e) {
                                         poruka(e.toString());
@@ -237,8 +243,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       }
 
                                       poruka("Uređaj je ponovo vraćen u servis");
-                                      uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
-                                      Future.delayed(Duration(seconds: 3));
+
                                       uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                     },
                                   ),
@@ -251,7 +256,6 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       try {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/SpareParts");
                                         poruka("Uređaj je ostavljen za rezervne dijelove");
-                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                       } catch (e) {
                                         poruka(e.toString());
@@ -259,7 +263,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                     },
                                   ),
                                 ),
-                              if (ChangeStateHelper.buttonDeaktiviraj(uredjaj?.status ?? ""))
+                              if (ChangeStateHelper.buttonDeaktiviraj(uredjaj.status ?? ""))
                                 ListTile(
                                   title: MinimalisticButton(
                                     text: 'Deaktiviraj',
@@ -267,31 +271,30 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       try {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Deaktiviraj");
                                         poruka("Uređaj je deaktiviran.");
-                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
-                                        Future.delayed(Duration(seconds: 3));
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
-                                      } catch (e) {}
+                                      } catch (e) {
+                                        poruka(e.toString());
+                                      }
                                     },
                                   ),
                                 ),
-                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status ?? ""))
                                 ListTile(
                                   title: MinimalisticButton(
                                     text: 'Uredi',
                                     onPressed: () {},
                                   ),
                                 ),
-                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj?.status ?? ""))
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status ?? ""))
                                 if (check)
                                   ListTile(
                                     title: MinimalisticButton(
                                       text: 'Izbriši',
                                       onPressed: () async {
                                         try {
-                                          var temp = await uredjajProvider!.delete(uredjaj!.uredjajId, null, "Uredjaj");
+                                          await uredjajProvider!.delete(uredjaj.uredjajId, null, "Uredjaj");
 
                                           poruka("Uređaj je izbrisan");
-                                          uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
                                           uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                         } catch (e) {
                                           poruka(e.toString());
@@ -299,15 +302,14 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       },
                                     ),
                                   ),
-                              if ((uredjaj?.status ?? "") == "parts")
+                              if ((uredjaj.status ?? "") == "parts")
                                 ListTile(
                                   title: MinimalisticButton(
                                     text: 'Recikliraj',
                                     onPressed: () async {
                                       try {
-                                        await uredjajProvider!.update(uredjaj!.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
+                                        await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
                                         poruka("Uređaj je aktiviran");
-                                        uredjajBlocTemp.add(UredjajFilterEvent(status: widget.uredjaj!.status));
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                       } catch (e) {
                                         poruka(e.toString());
@@ -374,6 +376,11 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
           )),
     );
   }
+
+  Text tekstInfo(String uredjaj) => Text(
+        uredjaj,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      );
 
   void poruka(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(msg));

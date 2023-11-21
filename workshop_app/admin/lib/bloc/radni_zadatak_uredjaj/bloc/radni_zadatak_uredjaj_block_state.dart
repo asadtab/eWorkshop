@@ -19,3 +19,12 @@ class DataLoadedState extends RadniZadatakUredjajState {
   @override
   get props => [data];
 }
+
+class RadniZadatakIdState extends RadniZadatakUredjajState {
+  final List<RadniZadatakUredjaj> data;
+
+  RadniZadatakIdState(this.data);
+
+  @override
+  get props => [data];
+}

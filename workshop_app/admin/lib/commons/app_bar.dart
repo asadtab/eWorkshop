@@ -8,14 +8,15 @@ class BarrApp extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             naslov,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Color(0xFF071815)),
           ),
         ]),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xFF8dc4dd),
         elevation: 0);
   }
 

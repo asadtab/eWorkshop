@@ -1,6 +1,5 @@
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
-import 'package:admin/bloc/uredjaji_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
 import 'package:admin/screens/uredjaj_detalji.dart';
@@ -35,16 +34,11 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
   bool addZadatakActive = false;
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
 
-  UredjajiBloc? uredjajiBloc;
-
   @override
   void initState() {
     super.initState();
 
     _uredjajiProvider = context.read<UredjajProvider>();
-    uredjajiBloc = UredjajiBloc(_uredjajiProvider, "active", null);
-
-    uredjajiBloc!.filterSink.add("active");
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -87,10 +81,8 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                     onChanged: (String? value) {
                       uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch(value!)));
 
-                      uredjajiBloc?.filterSink.add(StateHelper.nizSearch(value!));
-
                       setState(() {
-                        dropdownvalue = value!;
+                        dropdownvalue = value;
                       });
                     },
                     items: StateHelper.nizOpis.map<DropdownMenuItem<String>>((String value) {
@@ -160,9 +152,9 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                                         builder: (context) => UredjajDetaljiScreen(
                                                               uredjaj: x,
                                                               context: context,
-                                                            )))
+                                                            ))).then(
+                                                    (value) => uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch(dropdownvalue))))
                                               },
-                                            uredjajiBloc!.eventSink.add(UredjajAction.Refresh)
                                           },
                                       cells: [
                                         DataCell(Text(x.uredjajId.toString())),

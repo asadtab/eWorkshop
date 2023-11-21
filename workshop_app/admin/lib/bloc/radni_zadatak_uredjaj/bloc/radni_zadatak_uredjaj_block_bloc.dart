@@ -13,6 +13,7 @@ class RadniZadatakUredjajBloc extends Bloc<RadniZadatakUredjajEvent, RadniZadata
 
   RadniZadatakUredjajBloc({required this.radniZadaciUredjajProvider}) : super(LoadingState()) {
     on<RadniZadatakLoadingEvent>(loadingEvent);
+    on<RadniZadatakIdEvent>(radniZadatakIdEvent);
   }
 
   FutureOr<void> loadingEvent(RadniZadatakLoadingEvent event, Emitter<RadniZadatakUredjajState> emit) async {
@@ -22,5 +23,11 @@ class RadniZadatakUredjajBloc extends Bloc<RadniZadatakUredjajEvent, RadniZadata
     var data = await radniZadaciUredjajProvider.get({'StateMachine': 'active'}, "RadniZadatakUredjaj/Flutter");
 
     emit(DataLoadedState(data));
+  }
+
+  FutureOr<void> radniZadatakIdEvent(RadniZadatakIdEvent event, Emitter<RadniZadatakUredjajState> emit) async {
+    var data = await radniZadaciUredjajProvider.get({'RadniZadatakId': event.id.toString()}, "RadniZadatakUredjaj/Flutter");
+
+    emit(RadniZadatakIdState(data));
   }
 }

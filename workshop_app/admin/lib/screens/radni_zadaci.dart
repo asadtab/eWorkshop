@@ -1,6 +1,9 @@
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
+import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/radni_zadaci_lista.dart';
+import 'package:commons/helpers/progres.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
@@ -16,10 +19,6 @@ import 'package:provider/provider.dart';
 
 class RadniZadaciScreen extends StatefulWidget {
   int? radniZadatakId;
-
-  //final void Function()? refreshKonzolaCallback;
-
-  //RadniZadaciScreen({this.refreshKonzolaCallback});
 
   RadniZadaciScreen();
 
@@ -45,10 +44,15 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
   bool _isLoading = true;
 
   int? dropdownvalue;
+  String? dropdownvalueStatus;
 
   UredjajProvider? uredjajiProvider = null;
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
   RadniZadaciProvider? radniZadaciProvider = null;
+
+  UredjajiListaZadatakBloc? uredjajBlocActive;
+
+  RadniZadatakUredjajBloc? uredjajBloc;
 
   @override
   void initState() {
@@ -56,9 +60,18 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
     radniZadaciProvider = context.read<RadniZadaciProvider>();
 
-    var map = {'Status': 'active'};
+    uredjajBlocActive = BlocProvider.of<UredjajiListaZadatakBloc>(context);
 
-    _fetchData(map);
+    uredjajBloc = BlocProvider.of<RadniZadatakUredjajBloc>(context);
+
+    //uredjajBloc!.add(RadniZadatakIdEvent(id: 1));
+
+    uredjajBlocActive!.add(UredjajiLoadZadatakEvent());
+
+    dropdownvalueStatus = 'active';
+
+    _fetchData(null);
+
     super.initState();
   }
 
@@ -67,25 +80,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
       _isLoading = true;
     });
 
-    Map<String, String>? mapZadatak;
-
-    if (widget.radniZadatakId == null) {
-      mapZadatak = {'StateMachine': 'active'};
-    } else {
-      mapZadatak = {'RadniZadatakId': widget.radniZadatakId.toString()};
-      dropdownvalue = widget.radniZadatakId;
-      odabraniZadatakId = widget.radniZadatakId;
-    }
-
-    final response = await uredjajiProvider?.get(map, "Uredjaj");
-
-    final responseZadatakUredjaj = await radniZadaciUredjajProvider?.get(mapZadatak, "RadniZadatakUredjaj/Flutter");
-
-    var mapCustomZadatak = {
-      'StateMachineArray': ['active', 'idle']
-    };
-
-    final responseZadatak = await radniZadaciProvider?.get(mapCustomZadatak, "RadniZadatak");
+    List<RadniZadatak>? responseZadatak = await idleActiveZadatak();
 
     odabraniRadniZadatak = new RadniZadatak();
     odabraniRadniZadatak.radniZadatakId = 0;
@@ -94,17 +89,20 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
     odabraniRadniZadatak.datum = "";
 
     setState(() {
-      aktivniUredjaji = response!;
-      radniZadatakUredjaj = responseZadatakUredjaj!;
       radniZadatak = responseZadatak!;
       _isLoading = false;
     });
   }
 
+  Future<List<RadniZadatak>?> idleActiveZadatak() async {
+    var mapCustomZadatak = {'StateMachine': 'active'};
+
+    final responseZadatak = await radniZadaciProvider?.get(mapCustomZadatak, "RadniZadatak");
+    return responseZadatak;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final RadniZadatakUredjajBloc uredjajBloc = BlocProvider.of<RadniZadatakUredjajBloc>(context);
-
     return Scaffold(
         appBar: BarrApp(naslov: "Radni zadaci"),
         body: SingleChildScrollView(
@@ -115,129 +113,139 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
             SizedBox(
               height: 50,
             ),
-            MinimalisticButton(
-              icons: Icon(
-                Icons.exit_to_app,
-                color: Colors.black,
-              ),
-              text: "Lista radnih zadataka",
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadaciLista()));
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                DropdownButton<String>(
+                  value: dropdownvalueStatus,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  hint: Container(child: Text("Odaberi status")),
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.blueGrey,
+                  ),
+                  onChanged: (String? value) async {
+                    var zadataktemp;
+
+                    final responseZadatak = await radniZadaciProvider?.get({'StateMachine': value}, "RadniZadatak");
+                    if (responseZadatak!.isNotEmpty)
+                      zadataktemp = await radniZadaciUredjajProvider!
+                          .get({'RadniZadatakId': responseZadatak.first.radniZadatakId}, 'RadniZadatakUredjaj/Flutter');
+
+                    setState(() {
+                      dropdownvalue = responseZadatak.isNotEmpty
+                          ? responseZadatak.first.radniZadatakId
+                          : 0; //provjerava da li je radniZadatak prazna lista i dodjeljuje mu bilo koji id radnog zadatka zbog dropdowwn buttona u kojem se bira radniZadatak
+                      radniZadatak = [];
+                      dropdownvalueStatus = value;
+                      odabraniZadatakId = dropdownvalue;
+                      radniZadatak = responseZadatak;
+                      if (responseZadatak.isNotEmpty) {
+                        odabraniRadniZadatak = responseZadatak.first;
+                      } else {
+                        odabraniRadniZadatak = RadniZadatak();
+                      }
+                      radniZadatakUredjaj = zadataktemp == null ? [] : (zadataktemp as List<RadniZadatakUredjaj>);
+                    });
+                  },
+                  items: StateHelper.nizZadatakState.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(StateHelper.nizZadatakRezultat(value)),
+                    );
+                  }).toList(),
+                ),
+                MinimalisticButton(
+                  icons: Icon(
+                    Icons.exit_to_app,
+                    color: Colors.black,
+                  ),
+                  text: "Lista radnih zadataka",
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadaciLista()));
+                  },
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  child: Column(
-                    children: [
-                      // Header for the left Card
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Aktivni uređaji", // Your header text
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 500,
-                        width: 300,
-                        child: ListView.builder(
-                          itemCount: aktivniUredjaji.length,
-                          itemBuilder: (context, index) {
-                            return Draggable<Uredjaj>(
-                              data: aktivniUredjaji[index],
-                              feedback: Material(
-                                elevation: 4.0,
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(aktivniUredjaji[index].uredjajId.toString() +
-                                      " - " +
-                                      aktivniUredjaji[index].tipNaziv! +
-                                      " - " +
-                                      aktivniUredjaji[index].koda!),
+                BlocProvider(
+                  create: (context) => UredjajiListaZadatakBloc(uredjajiProvider: uredjajiProvider!),
+                  child: BlocConsumer<UredjajiListaZadatakBloc, UredjajiListaZadatakState>(
+                      bloc: uredjajBlocActive,
+                      listener: (context, state) {
+                        // TODO: implement listener
+                      },
+                      builder: (context, state) {
+                        if (state is UredjajiLoadZadatakState) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (state is UredjajiActiveZadatakState) {
+                          var aktivniUredjaji = state.uredjaji;
+                          return Card(
+                            child: Column(
+                              children: [
+                                // Header for the left Card
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Aktivni uređaji", // Your header text
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: Material(
-                                color: Colors.white,
-                                child: ListTile(
-                                  title: Text(aktivniUredjaji[index].uredjajId.toString() +
-                                      " - " +
-                                      aktivniUredjaji[index].tipNaziv! +
-                                      " - " +
-                                      aktivniUredjaji[index].koda!),
+                                Container(
+                                  height: 500,
+                                  width: 300,
+                                  child: ListView.builder(
+                                    itemCount: aktivniUredjaji.length,
+                                    itemBuilder: (context, index) {
+                                      return Draggable<Uredjaj>(
+                                        data: aktivniUredjaji[index],
+                                        feedback: Material(
+                                          elevation: 4.0,
+                                          child: Container(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text(aktivniUredjaji[index].uredjajId.toString() +
+                                                " - " +
+                                                aktivniUredjaji[index].tipNaziv! +
+                                                " - " +
+                                                aktivniUredjaji[index].koda!),
+                                          ),
+                                        ),
+                                        child: Material(
+                                          color: Colors.white,
+                                          child: ListTile(
+                                            title: Text(aktivniUredjaji[index].uredjajId.toString() +
+                                                " - " +
+                                                aktivniUredjaji[index].tipNaziv! +
+                                                " - " +
+                                                aktivniUredjaji[index].koda!),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      }),
                 ),
                 Padding(
                   padding: EdgeInsets.all(40),
                 ),
                 Card(
-                  child: Column(
-                    children: [
-                      // Header for the right Card
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          odabraniRadniZadatak.naziv ?? "", // Your header text
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      DragTarget<Uredjaj>(
-                        onAccept: (data) async {
-                          _dodajUredjajIRefreshListu(data);
-
-                          await Future.delayed(Duration(seconds: 3));
-
-                          uredjajBloc.add(RadniZadatakLoadingEvent());
-
-                          setState(() {
-                            targetList.add(data);
-                          });
-                        },
-                        builder: (context, candidateData, rejectedData) {
-                          return Container(
-                            height: 500,
-                            width: 300,
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: (dropdownvalue == null)
-                                        ? Center(child: Text("Odaberi radni zadatak"))
-                                        : ListView.builder(
-                                            itemCount: radniZadatakUredjaj.length,
-                                            itemBuilder: (context, index) {
-                                              return ListTile(
-                                                title: Text(radniZadatakUredjaj[index].uredjajId.toString() +
-                                                    " - " +
-                                                    radniZadatakUredjaj[index].tipNaziv.toString() +
-                                                    " - " +
-                                                    radniZadatakUredjaj[index].koda.toString()),
-                                              );
-                                            },
-                                          ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                  child: uredjajiRadniZadatak(radniZadatakUredjaj, odabraniRadniZadatak),
                 ),
                 Padding(
                   padding: EdgeInsets.all(20),
@@ -247,7 +255,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                     Container(
                         width: 200,
                         child: DropdownButton<int>(
-                          value: dropdownvalue ?? widget.radniZadatakId,
+                          value: dropdownvalue, // ?? widget.radniZadatakId,
                           icon: const Icon(Icons.arrow_downward),
                           elevation: 16,
                           hint: Container(child: Text("Odaberi radni zadatak")),
@@ -257,14 +265,15 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                             color: Colors.blueGrey,
                           ),
                           onChanged: (int? value) async {
+                            uredjajBloc!.add(RadniZadatakIdEvent(id: value!));
+
                             var zadataktemp = await radniZadaciUredjajProvider!.get({'RadniZadatakId': value}, 'RadniZadatakUredjaj/Flutter');
                             var odabraniZadatakTemp = await radniZadaciProvider!.get({'RadniZadatakId': value}, 'RadniZadatak');
 
                             setState(() {
-                              dropdownvalue = value!;
+                              dropdownvalue = value;
                               odabraniZadatakId = dropdownvalue;
                               odabraniRadniZadatak = odabraniZadatakTemp.first;
-
                               radniZadatakUredjaj = zadataktemp;
                             });
                           },
@@ -289,7 +298,8 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                                 ),
                                 ListTile(
                                   title: Text('Stanje'),
-                                  subtitle: Text(odabraniRadniZadatak.stateMachine ?? ""),
+                                  subtitle:
+                                      Text(dropdownvalue == null ? "" : StateHelper.nizZadatakRezultat(odabraniRadniZadatak.stateMachine ?? "")),
                                 ),
                                 ListTile(
                                   title: Text('Ukupno uređaja'),
@@ -299,10 +309,55 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                                     title: Text('Progres'),
                                     //subtitle: Text('Task Name'),
                                     subtitle: LinearProgressIndicator(
-                                      value: 0.33,
+                                      minHeight: 10,
+                                      semanticsLabel: "Asad",
+                                      semanticsValue: "Tabak",
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      value: CustomProgres.postotak(radniZadatakUredjaj),
+                                      valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
                                     ))
                               ]),
-                            )))
+                            ))),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
+                    if (dropdownvalue != null && dropdownvalue != 0)
+                      Container(
+                          width: 200,
+                          child: MinimalisticButton(
+                            icons: Icon(
+                              Icons.print,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {},
+                            text: "Kreiraj izvještaj",
+                          )),
+                    if (odabraniRadniZadatak.stateMachine == 'active' || odabraniRadniZadatak.stateMachine == 'idle')
+                      Container(
+                        width: 200,
+                        child: MinimalisticButton(
+                          icons: Icon(
+                            Icons.done,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            await zavrsiZadatak();
+                          },
+                          text: "Završi",
+                        ),
+                      ),
+                    if (odabraniRadniZadatak.stateMachine == 'done')
+                      Container(
+                        width: 200,
+                        child: MinimalisticButton(
+                          icons: Icon(
+                            Icons.money,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            await fakturisiZadatak();
+                          },
+                          text: "Fakturiši",
+                        ),
+                      )
                   ],
                 )
               ],
@@ -311,9 +366,192 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
         )));
   }
 
+  Future<RadniZadatak?> fakturisiZadatak() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text("Da li želite fakturisati zadatak"),
+              content: Container(
+                  height: 50,
+                  child: Container(
+                      padding: EdgeInsets.fromLTRB(0, 29, 0, 0),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                        ElevatedButton(
+                            child: Text("Potvrdi"),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 2,
+                            ),
+                            onPressed: () async {
+                              var temp;
+
+                              try {
+                                temp = await radniZadaciProvider!.update(odabraniZadatakId, null, "RadniZadatak/Fakturisi");
+                              } catch (e) {
+                                poruka(e.toString());
+                              }
+
+                              poruka("Radni zadatak '${(temp as RadniZadatak).naziv}' je fakturisan.");
+                              uredjajBlocActive!.add(UredjajiLoadZadatakEvent());
+                              uredjajBloc!.add(RadniZadatakLoadingEvent());
+
+                              var zadatakUredjaj =
+                                  await radniZadaciUredjajProvider!.get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
+
+                              var odabraniZadatakTemp = await radniZadaciProvider!.get({'RadniZadatakId': odabraniZadatakId}, 'RadniZadatak');
+
+                              //List<RadniZadatak>? responseZadatak = await idleActiveZadatak();
+                              Navigator.pop(context);
+
+                              setState(() {
+                                radniZadatakUredjaj = zadatakUredjaj;
+                                //radniZadatak = responseZadatak!;
+                                odabraniRadniZadatak = odabraniZadatakTemp.first;
+                                //dropdownvalue = 0;
+                              });
+                            }),
+                        ElevatedButton(
+                            child: Text("Poništi"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 170, 70, 63),
+                              elevation: 2,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })
+                      ]))));
+        });
+  }
+
+  Future<RadniZadatak?> zavrsiZadatak() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text("Da li želite označiti zadatak završenim"),
+              content: Container(
+                  height: 50,
+                  child: Container(
+                      padding: EdgeInsets.fromLTRB(0, 29, 0, 0),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                        ElevatedButton(
+                            child: Text("Potvrdi"),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 2,
+                            ),
+                            onPressed: () async {
+                              var temp;
+
+                              try {
+                                temp = await radniZadaciProvider!.update(odabraniZadatakId, null, "RadniZadatak/Zavrsi");
+                              } catch (e) {
+                                poruka(e.toString());
+                              }
+                              uredjajBloc!.add(RadniZadatakLoadingEvent());
+
+                              poruka("Radni zadatak '${(temp as RadniZadatak).naziv}' je završen. Uređaji koji nisu servisirani su ponovno aktivni.");
+                              uredjajBlocActive!.add(UredjajiLoadZadatakEvent());
+                              uredjajBloc!.add(RadniZadatakLoadingEvent());
+
+                              var zadatakUredjaj =
+                                  await radniZadaciUredjajProvider!.get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
+
+                              var odabraniZadatakTemp = await radniZadaciProvider!.get({'RadniZadatakId': odabraniZadatakId}, 'RadniZadatak');
+
+                              //List<RadniZadatak>? responseZadatak = await idleActiveZadatak();
+                              Navigator.pop(context);
+
+                              setState(() {
+                                radniZadatakUredjaj = zadatakUredjaj;
+                                //radniZadatak = responseZadatak!;
+                                odabraniRadniZadatak = odabraniZadatakTemp.first;
+                                //dropdownvalue = 0;
+                              });
+                            }),
+                        ElevatedButton(
+                            child: Text("Poništi"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 170, 70, 63),
+                              elevation: 2,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })
+                      ]))));
+        });
+  }
+
+  Column uredjajiRadniZadatak(List<RadniZadatakUredjaj> odabraniRadniZadatak, RadniZadatak radniZadatak) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            radniZadatak.naziv ?? "",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        DragTarget<Uredjaj>(
+          onAccept: (data) async {
+            _dodajUredjajIRefreshListu(data);
+
+            await Future.delayed(Duration(seconds: 3));
+
+            uredjajBloc!.add(RadniZadatakLoadingEvent());
+            uredjajBlocActive!.add(UredjajiLoadZadatakEvent());
+
+            setState(() {
+              targetList.add(data);
+            });
+          },
+          builder: (context, candidateData, rejectedData) {
+            return Container(
+              height: 500,
+              width: 300,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: (dropdownvalue == null || dropdownvalue == 0)
+                          ? Center(child: Text(dropdownvalue == null ? "Odaberi radni zadatak" : "Radni zadaci ne postoje"))
+                          : ListView.builder(
+                              itemCount: odabraniRadniZadatak.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(odabraniRadniZadatak[index].uredjajId.toString() +
+                                      " - " +
+                                      odabraniRadniZadatak[index].tipNaziv.toString() +
+                                      " - " +
+                                      odabraniRadniZadatak[index].koda.toString()),
+                                );
+                              },
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  void poruka(String poruka) {
+    ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(poruka));
+  }
+
   void _dodajUredjajIRefreshListu(Uredjaj data) async {
     if (dropdownvalue == null) {
       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Radni zadatak nije odabran."));
+      return;
+    }
+
+    if (odabraniRadniZadatak.stateMachine != 'active' && odabraniRadniZadatak.stateMachine != 'idle') {
+      poruka("Radni zadatak nije aktivan");
       return;
     }
 
@@ -337,13 +575,13 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
     }
 
     var zadatakUredjaj = await radniZadaciUredjajProvider!.get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
-    var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
+    //var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
+    var odabraniZadatakTemp = await radniZadaciProvider!.get({'RadniZadatakId': odabraniZadatakId}, 'RadniZadatak');
 
     setState(() {
       radniZadatakUredjaj = zadatakUredjaj;
-      aktivniUredjaji = uredjajiTemp!;
+      //aktivniUredjaji = uredjajiTemp!;
+      odabraniRadniZadatak = odabraniZadatakTemp.first;
     });
-
-    //_fetchData({'Status': 'active'});
   }
 }

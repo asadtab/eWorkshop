@@ -19,6 +19,7 @@ class UredjajBloc extends Bloc<UredjajEvent, UredjajState> {
     on<LoadingEvent>(loadingEvent);
     on<UredjajFilterEvent>(uredjajFilterEvent);
     on<UredjajRefreshEvent>(uredjajRefreshEvent);
+    on<UredjajAktivniEvent>(uredjajAktivniZadaciEvent);
   }
 
   FutureOr<void> loadingEvent(LoadingEvent event, Emitter<UredjajState> emit) async {
@@ -46,5 +47,13 @@ class UredjajBloc extends Bloc<UredjajEvent, UredjajState> {
     var data = await uredjajiProvider.get({'UredjajId': event.id}, "Uredjaj");
 
     emit(UredjajLoadedState(data.first));
+  }
+
+  FutureOr<void> uredjajAktivniZadaciEvent(UredjajAktivniEvent event, Emitter<UredjajState> emit) async {
+    emit(UredjajLoadingState());
+
+    var data = await uredjajiProvider.get({'Status': 'active'}, "Uredjaj");
+
+    emit(UredjajAktivniState(aktivniUredjaji: data));
   }
 }

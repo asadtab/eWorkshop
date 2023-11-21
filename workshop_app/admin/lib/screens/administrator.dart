@@ -1,3 +1,4 @@
+import 'package:admin/commons/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -11,7 +12,10 @@ class AdministratorScreen extends StatefulWidget {
 class _AdministratorScreenState extends State<AdministratorScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: BarrApp(
+        naslov: 'Administrator',
+      ),
       body: Center(
         child: Text("Administrator"),
       ),

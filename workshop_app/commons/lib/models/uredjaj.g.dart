@@ -14,7 +14,8 @@ Uredjaj _$UredjajFromJson(Map<String, dynamic> json) => Uredjaj()
   ..status = json['status'] as String?
   ..tipNaziv = json['tipNaziv'] as String?
   ..tipOpis = json['tipOpis'] as String?
-  ..lokacijaNaziv = json['lokacijaNaziv'] as String?;
+  ..lokacijaNaziv = json['lokacijaNaziv'] as String?
+  ..isSelected = json['isSelected'] as bool;
 
 Map<String, dynamic> _$UredjajToJson(Uredjaj instance) => <String, dynamic>{
       'uredjajId': instance.uredjajId,

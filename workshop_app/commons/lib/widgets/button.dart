@@ -20,7 +20,7 @@ class MinimalisticButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
           padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)),
         ),
-        child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
+        child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           if (icons != null) icons!,
           SizedBox(
             width: 8,
