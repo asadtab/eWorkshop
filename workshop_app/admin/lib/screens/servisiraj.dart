@@ -1,14 +1,30 @@
 import 'package:admin/commons/app_bar.dart';
+import 'package:commons/helpers/state_helper.dart';
+import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/izvrseni_servis_provider.dart';
+import 'package:commons/providers/komponente_provider.dart';
 import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
+import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:commons/models/komponenta.dart';
+import 'package:provider/provider.dart';
 
 class ServisirajScreen extends StatefulWidget {
+  Uredjaj uredjaj;
+
+  ServisirajScreen({required this.uredjaj});
+
   @override
   _ServisirajScreenState createState() => _ServisirajScreenState();
 }
 
 class _ServisirajScreenState extends State<ServisirajScreen> {
+  List<Komponenta> komponenteList = [];
+  List<Komponenta> preporuceneKomponenteList = [];
+  IzvrseniServisProvider? izvrseniServisProvider;
+  KomponenteProvider? komponenteProvider;
+
   String evidencijskiBroj = '123';
   String tip = 'Desktop';
   String koda = 'ABC123';
@@ -17,7 +33,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   String lokacija = 'Office';
 
   List<String> komponente = ['Komponenta A', 'Komponenta B', 'Komponenta C'];
-  String selectedKomponenta = 'Komponenta A';
+  Komponenta? selectedKomponenta;
 
   TextEditingController nazivController = TextEditingController();
   TextEditingController kodaController = TextEditingController();
@@ -26,10 +42,28 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
 
   @override
   initState() {
+    izvrseniServisProvider = context.read<IzvrseniServisProvider>();
+    komponenteProvider = context.read<KomponenteProvider>();
+
     opisController.text =
         "Zamjenjeno je kućište uređaja i očišćeni su kontakti releja. Kućišta osigurača, osigurači i signalne sijalice su pregledani i izvršena je izmjena istih ako su oštećeni (vidi zamijenjene elemente). Natpisne letvice releja su zamjenjene novim. Konektori uređaja su pregledani, očišćeni i izvršen je test uklapanja konektora u odgovarajućem mjestu u ramu. Namotaji releja su ispitani dovođenjem istosmjernog napona preko zaštitnog otpornika ili direktno na pojedine namotaje u zavisnosti od tipa ispitanog releja. Ostale komponente uređaja su ispitane i izvršena je izmjena istih u slučaju neispravnog rada.";
 
+    var mapState = {'UredjajId': widget.uredjaj.uredjajId.toString()};
+    _fetchData(mapState);
+
     super.initState();
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    var mapState = {'TipUredjajaNaziv': widget.uredjaj.tipNaziv};
+
+    var temp = await komponenteProvider!.get(map, "ServisIzvrsen/Komponente");
+    var tempRecommended = await komponenteProvider!.get(mapState, "ServisIzvrsen/Komponente");
+
+    setState(() {
+      komponenteList = temp;
+      preporuceneKomponenteList = tempRecommended;
+    });
   }
 
   @override
@@ -61,12 +95,12 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildInfoCard('Evidencijski broj', evidencijskiBroj),
-                            _buildInfoCard('Tip', tip),
-                            _buildInfoCard('Koda', koda),
-                            _buildInfoCard('Serijski broj', serijskiBroj),
-                            _buildInfoCard('Status', status),
-                            _buildInfoCard('Lokacija', lokacija),
+                            _buildInfoCard('Evidencijski broj', widget.uredjaj.uredjajId.toString()),
+                            _buildInfoCard('Tip', widget.uredjaj.tipNaziv ?? ""),
+                            _buildInfoCard('Koda', widget.uredjaj.koda ?? ""),
+                            _buildInfoCard('Serijski broj', widget.uredjaj.serijskiBroj ?? ""),
+                            _buildInfoCard('Status', StateHelper.nizRezultat(widget.uredjaj.status ?? "")),
+                            _buildInfoCard('Lokacija', widget.uredjaj.lokacijaNaziv ?? ""),
                           ],
                         ),
                       ),
@@ -98,7 +132,42 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                 _buildTextField('Naziv', nazivController, false),
                                 _buildTextField('Koda', kodaController, false),
                                 _buildTextField('Vrijednost/Količina', vrijednostController, false),
-                                Container(width: 300, child: MinimalisticButton(onPressed: () {}, text: "Sačuvaj"))
+                                Container(
+                                    width: 300,
+                                    child: MinimalisticButton(
+                                        onPressed: () async {
+                                          var kompSearch = {
+                                            'Naziv': nazivController.text,
+                                            'Vrijednost': vrijednostController.text,
+                                            'Tip': kodaController.text
+                                          };
+
+                                          var komp = await komponenteProvider!.get(kompSearch, "Komponente");
+
+                                          if (komp.isEmpty) {
+                                            var komponenta;
+                                            try {
+                                              komponenta = await komponenteProvider!.insert(kompSearch, "Komponente");
+                                            } catch (e) {
+                                              poruka(e.toString());
+                                            }
+
+                                            if (dodajUListu(komponenta ?? komp.first)) {
+                                              poruka("Komponenta je dodana na listu zamijenjenih komponenti");
+                                              clearTextBox();
+                                              return;
+                                            }
+
+                                            clearTextBox();
+                                            return;
+                                          }
+
+                                          dodajUListu(komp.first);
+
+                                          poruka("Komponenta je dodana na listu zamijenjenih komponenti");
+                                          clearTextBox();
+                                        },
+                                        text: "Sačuvaj i dodaj komponentu"))
                               ],
                             ),
                           ),
@@ -112,7 +181,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                           SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {
-                              // Handle adding component logic
+                              dodajUListu(selectedKomponenta);
                             },
                             child: Text('Dodaj komponentu'),
                           ),
@@ -130,7 +199,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                       children: [
                         Text('Lista zamijenjenih komponenti', style: TextStyle(fontSize: 20)),
                         SizedBox(height: 10),
-                        _buildDataTable(),
+                        Column(children: [_buildDataTable(komponenteList)]),
                       ],
                     ),
                   ),
@@ -142,6 +211,35 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
         ),
       ),
     );
+  }
+
+  bool dodajUListu(Komponenta? selectedKomponenta) {
+    if (selectedKomponenta == null) {
+      poruka("Odaberite komponentu");
+      return false;
+    }
+
+    for (var komp in komponenteList) {
+      if (komp.komponentaId == selectedKomponenta.komponentaId) {
+        poruka("Komponenta je već u listi");
+        return false;
+      }
+    }
+
+    setState(() {
+      komponenteList.add(selectedKomponenta);
+    });
+    return true;
+  }
+
+  void poruka(String poruka) {
+    ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(poruka));
+  }
+
+  void clearTextBox() {
+    vrijednostController.clear();
+    kodaController.clear();
+    nazivController.clear();
   }
 
   Widget _buildInfoCard(String title, String value) {
@@ -161,7 +259,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
           value,
           style: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],
@@ -184,25 +282,24 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   }
 
   Widget _buildDropdownButton() {
-    return DropdownButton<String>(
+    return DropdownButton<Komponenta>(
       value: selectedKomponenta,
-      onChanged: (String? value) {
+      onChanged: (Komponenta? value) {
         setState(() {
           selectedKomponenta = value!;
         });
       },
-      items: komponente.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
+      items: preporuceneKomponenteList.map<DropdownMenuItem<Komponenta>>((Komponenta value) {
+        return DropdownMenuItem<Komponenta>(
           value: value,
-          child: Text(value),
+          child: Text(value.naziv.toString() + " - " + value.vrijednost.toString() + " - " + value.tip.toString()),
         );
       }).toList(),
       hint: Text('Prijedlog komponente'),
     );
   }
 
-  Widget _buildDataTable() {
-    // Replace with your actual data and logic for DataTable
+  Widget _buildDataTable(List<Komponenta> komp) {
     return DataTable(
       columns: [
         DataColumn(label: Text('#')),
@@ -211,31 +308,15 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
         DataColumn(label: Text('Koda')),
         DataColumn(label: Text('ID')),
       ],
-      rows: [
-        DataRow(cells: [
-          DataCell(Text('1')),
-          DataCell(Text('Komponenta A')),
-          DataCell(Text('Value A')),
-          DataCell(Text('Koda A')),
-          DataCell(Text('ID A')),
-        ]),
-        DataRow(cells: [
-          DataCell(Text('1')),
-          DataCell(Text('Komponenta A')),
-          DataCell(Text('Value A')),
-          DataCell(Text('Koda A')),
-          DataCell(Text('ID A')),
-        ]),
-        DataRow(cells: [
-          DataCell(Text('1')),
-          DataCell(Text('Komponenta A')),
-          DataCell(Text('Value A')),
-          DataCell(Text('Koda A')),
-          DataCell(Text('ID A')),
-        ]),
-
-        // Add more rows as needed
-      ],
+      rows: komp
+          .map((e) => DataRow(cells: [
+                DataCell(Text((komp.indexWhere((element) => element.komponentaId == e.komponentaId) + 1).toString())),
+                DataCell(Text(e.naziv ?? "")),
+                DataCell(Text(e.vrijednost ?? "")),
+                DataCell(Text(e.tip ?? "")),
+                DataCell(Text(e.komponentaId.toString())),
+              ]))
+          .toList(),
     );
   }
 }

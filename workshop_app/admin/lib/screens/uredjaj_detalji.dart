@@ -197,7 +197,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                   title: MinimalisticButton(
                                     text: 'Servisiraj',
                                     onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen(uredjaj: uredjaj)));
                                     },
                                   ),
                                 ),

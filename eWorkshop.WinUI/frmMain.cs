@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using ComponentFactory.Krypton.Toolkit;
 using eWorkshop.WinUI.UserControls;
 using eWorkshop.WinUI.Service;
 using eWorkshop.WinUI.Helper_classes;
