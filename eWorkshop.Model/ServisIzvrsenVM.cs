@@ -10,7 +10,7 @@ namespace eWorkshop.Model
 
         //public int ServisId { get; set; }
 
-        public DateTime Datum { get; set; }
+        public string Datum { get; set; }
 
         public KomponenteVM Komponenta { get; set; } = new KomponenteVM();
 

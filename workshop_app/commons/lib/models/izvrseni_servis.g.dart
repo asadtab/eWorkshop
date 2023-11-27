@@ -13,7 +13,8 @@ IzvrseniServis _$IzvrseniServisFromJson(Map<String, dynamic> json) => IzvrseniSe
   ..vrijednost = json['vrijednost'] as String?
   ..tip = json['tip'] as String?
   ..datum = json['datum'] as String?
-  ..servisirao = json['servisirao'] as String?;
+  ..servisirao = json['servisirao'] as String?
+  ..komponentaId = json['komponentaId'] as int;
 
 Map<String, dynamic> _$IzvrseniServisToJson(IzvrseniServis instance) => <String, dynamic>{
       'servisId': instance.servisId,
@@ -23,4 +24,5 @@ Map<String, dynamic> _$IzvrseniServisToJson(IzvrseniServis instance) => <String,
       'tip': instance.tip,
       'datum': instance.datum,
       'servisirao': instance.servisirao,
+      'komponentaId': instance.komponentaId,
     };

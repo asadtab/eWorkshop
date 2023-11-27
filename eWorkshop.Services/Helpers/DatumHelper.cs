@@ -11,7 +11,7 @@ namespace eWorkshop.Services.Helpers
     {
         static public string DatumFormat(DateTime? datum)
         {
-            return datum?.ToString("dd '.' MM '.' YYYY");
+            return datum?.ToString("dd '.' MM '.' yyyy");
         }
     }
 }

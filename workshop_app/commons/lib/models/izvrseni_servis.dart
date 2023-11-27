@@ -12,6 +12,7 @@ class IzvrseniServis {
   String? tip;
   String? datum;
   String? servisirao;
+  int komponentaId = 0;
 
   @JsonKey(includeToJson: false)
   bool isExpanded = false;

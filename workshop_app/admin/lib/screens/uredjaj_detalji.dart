@@ -322,7 +322,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                         )),
                     Padding(padding: EdgeInsets.fromLTRB(50, 0, 0, 0)),
                     Container(
-                        width: 500,
+                        width: 600,
                         height: 800,
                         padding: EdgeInsets.all(50),
                         child: Timeline(
@@ -334,7 +334,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       child: ListView(
                                         children: <Widget>[
                                           ExpansionPanelList(
-                                              elevation: 2,
+                                              elevation: 4,
                                               expandedHeaderPadding: EdgeInsets.all(8),
                                               expansionCallback: (int index, bool isExpanded) {
                                                 setState(() {
@@ -343,13 +343,16 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                               },
                                               children: [
                                                 ExpansionPanel(
+                                                    canTapOnHeader: true,
                                                     headerBuilder: (BuildContext context, bool isExpanded) {
                                                       return ListTile(
                                                         title: Text(e.datum.toString()),
                                                       );
                                                     },
                                                     body: ListTile(
-                                                      title: Text("item.expandedValue"),
+                                                      title: Expanded(
+                                                        child: _buildDataTable(servis.where((element) => element.servisId == e.servisId).toList()),
+                                                      ), //_buildDataTable(),
                                                     ),
                                                     isExpanded: e.isExpanded)
                                               ]),
@@ -384,5 +387,26 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
 
   void poruka(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(msg));
+  }
+
+  Widget _buildDataTable(List<IzvrseniServis> komp) {
+    return DataTable(
+      columns: [
+        //DataColumn(label: Text('#')),
+        DataColumn(label: Text('Naziv')),
+        DataColumn(label: Text('Vrijednost')),
+        DataColumn(label: Text('Koda')),
+        //DataColumn(label: Text('ID')),
+      ],
+      rows: komp
+          .map((e) => DataRow(cells: [
+                //DataCell(Text((komp.indexWhere((element) => element. == e.komponentaId) + 1).toString())),
+                DataCell(Text(e.naziv ?? "")),
+                DataCell(Text(e.vrijednost ?? "")),
+                DataCell(Text(e.tip ?? "")),
+                //DataCell(Text(e.komponentaId.toString())),
+              ]))
+          .toList(),
+    );
   }
 }

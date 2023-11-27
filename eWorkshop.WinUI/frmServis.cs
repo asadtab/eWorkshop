@@ -55,7 +55,7 @@ namespace eWorkshop.WinUI
             KomponenteRecommended = new APIService("ServisIzvrsen/Komponente", TokenService);
             UredjajService = new APIService("Uredjaj/Servisiraj", TokenService);
         }
-
+          
         private async void frmServis_Load(object sender, EventArgs e)
         {
             lblEvBroj.Text = Uredjaj.UredjajId.ToString();

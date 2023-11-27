@@ -3,12 +3,15 @@ import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/providers/komponente_provider.dart';
+import 'package:commons/providers/reparacija_provider.dart';
+import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:commons/models/komponenta.dart';
 import 'package:provider/provider.dart';
+import 'package:commons/providers/radniZadaci_provider.dart';
 
 class ServisirajScreen extends StatefulWidget {
   Uredjaj uredjaj;
@@ -24,6 +27,9 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   List<Komponenta> preporuceneKomponenteList = [];
   IzvrseniServisProvider? izvrseniServisProvider;
   KomponenteProvider? komponenteProvider;
+  RadniZadaciProvider? radniZadatakProvider;
+  ReparacijaProvider? reparacijaProvider;
+  UredjajProvider? uredjajProvider;
 
   String evidencijskiBroj = '123';
   String tip = 'Desktop';
@@ -44,9 +50,12 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   initState() {
     izvrseniServisProvider = context.read<IzvrseniServisProvider>();
     komponenteProvider = context.read<KomponenteProvider>();
+    radniZadatakProvider = context.read<RadniZadaciProvider>();
+    reparacijaProvider = context.read<ReparacijaProvider>();
+    uredjajProvider = context.read<UredjajProvider>();
 
     opisController.text =
-        "Zamjenjeno je kućište uređaja i očišćeni su kontakti releja. Kućišta osigurača, osigurači i signalne sijalice su pregledani i izvršena je izmjena istih ako su oštećeni (vidi zamijenjene elemente). Natpisne letvice releja su zamjenjene novim. Konektori uređaja su pregledani, očišćeni i izvršen je test uklapanja konektora u odgovarajućem mjestu u ramu. Namotaji releja su ispitani dovođenjem istosmjernog napona preko zaštitnog otpornika ili direktno na pojedine namotaje u zavisnosti od tipa ispitanog releja. Ostale komponente uređaja su ispitane i izvršena je izmjena istih u slučaju neispravnog rada.";
+        "Zamijenjeno je kućište uređaja i očišćeni su kontakti releja. Kućišta osigurača, osigurači i signalne sijalice su pregledani i izvršena je izmjena istih ako su oštećeni (vidi zamijenjene elemente). Natpisne letvice releja su zamjenjene novim. Konektori uređaja su pregledani, očišćeni i izvršen je test uklapanja konektora u odgovarajućem mjestu u ramu. Namotaji releja su ispitani dovođenjem istosmjernog napona preko zaštitnog otpornika ili direktno na pojedine namotaje u zavisnosti od tipa ispitanog releja. Ostale komponente uređaja su ispitane i izvršena je izmjena istih u slučaju neispravnog rada.";
 
     var mapState = {'UredjajId': widget.uredjaj.uredjajId.toString()};
     _fetchData(mapState);
@@ -203,7 +212,34 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                       ],
                     ),
                   ),
-                  MinimalisticButton(text: "Servisiraj", onPressed: () {})
+                  MinimalisticButton(
+                      text: "Servisiraj",
+                      onPressed: () async {
+                        List<int> komponenteId = [];
+
+                        var radniZadatakRequest = {'UredjajId': widget.uredjaj.uredjajId.toString(), 'RadniZadatakState': 'active'};
+
+                        var radniZadatak = await radniZadatakProvider!.get(radniZadatakRequest, "RadniZadatakUredjaj");
+
+                        if (komponenteList.isNotEmpty) {
+                          komponenteId = komponenteList.select((element, index) => element.komponentaId).toList();
+                        }
+
+                        var request = {
+                          'napomena': '',
+                          'korisnikId': 1003.toString(),
+                          'uredjajId': widget.uredjaj.uredjajId,
+                          'radniZadatakId': radniZadatak.length != 0 ? radniZadatak.first.radniZadatakId : 1,
+                          'datum': DateTime.now().toIso8601String(),
+                          'komponenteIdList': komponenteId
+                        };
+
+                        try {
+                          var servis = await uredjajProvider!.update(null, request, "Uredjaj/Servisiraj");
+                        } catch (e) {
+                          poruka(e.toString());
+                        }
+                      })
                 ],
               ),
             ],
