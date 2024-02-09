@@ -16,6 +16,7 @@ using Azure.Core;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Security.Principal;
+using IdentityModel;
 
 namespace eWorkshop.Services
 {
@@ -26,12 +27,73 @@ namespace eWorkshop.Services
 
         }
 
+        public override IQueryable<Korisnici> AddInclude(IQueryable<Korisnici> query, KorisniciSearchObject search = null)
+        {
+            var uloge = Context.KorisniciUloge.ToList();
+
+            return base.AddInclude(query, search);
+        }
+
+        public override IEnumerable<KorisniciVM> Get(KorisniciSearchObject search = null)
+        {
+            var korisnici = base.Get(search).ToList(); 
+
+            var ulogeKorisnici = Context.KorisniciUloge.ToList();
+            var uloge = Context.Uloge.ToList();
+
+            foreach (var user in korisnici)
+            {
+                var roles = ulogeKorisnici
+                    .Where(x => x.UserId == user.Id)
+                    .Select(x => x.RoleId)
+                    .ToList();
+
+                var userRoles = uloge
+                    .Where(x => roles.Contains(x.Id))
+                    .Select(x => x.Name)
+                    .ToList();
+
+                user.Uloge = userRoles;
+            }
+
+            return korisnici;
+        }
+
+
+        public override KorisniciVM GetById(int id)
+        {
+
+            var korisnikUloge = Context.KorisniciUloge.Where(x => x.UserId == id).ToList();
+
+            var uloge = Context.Uloge.ToList();
+
+            List<string> nazivUloge = new List<string>();
+
+            foreach (var uloga in korisnikUloge)
+            {
+                foreach (var role in uloge)
+                {
+                    if(uloga.RoleId == role.Id)
+                    {
+                        nazivUloge.Add(role.Name);
+                    }
+                }
+            }
+
+            var korisnik = base.GetById(id);
+
+            korisnik.Uloge = nazivUloge;
+
+            return korisnik;
+        }
+
+
         public override IQueryable<Korisnici> AddFilter(IQueryable<Korisnici> query, KorisniciSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
 
             if (!string.IsNullOrWhiteSpace(search.KorisnickoIme))
-                return filteredQuery = filteredQuery.Where(x => x.KorisnickoIme == search.KorisnickoIme);
+                return filteredQuery = filteredQuery.Where(x => x.UserName.Contains( search.KorisnickoIme));
 
             if (!string.IsNullOrWhiteSpace(search.ImePrezime))
                 return filteredQuery = filteredQuery
@@ -39,50 +101,15 @@ namespace eWorkshop.Services
                      (x.Ime + " " + x.Prezime).Contains(search.ImePrezime) 
                     || (x.Prezime + " " + x.Ime).Contains(search.ImePrezime));
 
-            if (search != null && search.KorisnikID != 0)
+            if (search.KorisnikID != 0 && search.KorisnikID != null)
             {
-                return filteredQuery = filteredQuery.Where(x => x.KorisniciId == search.KorisnikID);
+                return filteredQuery = filteredQuery.Where(x => x.Id == search.KorisnikID);
             }
 
             return filteredQuery;
         }
 
-        public override IQueryable<Korisnici> AddInclude(IQueryable<Korisnici> query, KorisniciSearchObject search = null)
-        {
-            if (search.IncludeUloge)
-            {
-                query = query.Include("KorisniciUloges.Uloga");
-            }
 
-            return query;
-        }
-
-        public KorisniciVM Login(string username, string password)
-        {
-            var entity = Context.Korisnicis.FirstOrDefault(x => x.KorisnickoIme == username);
-
-            if(entity == null)
-            {
-                return null;
-            }
-
-            var hash = GenerateHash(entity.LozinkaSalt, password);
-
-            if(hash != entity.LozinkaHash)
-            {
-                return null;
-            }
-
-            return Mapper.Map<KorisniciVM>(entity);
-        }
-
-        public override void BeforeInsert(KorisniciInsertRequest insert, Korisnici entity)
-        {
-            var salt = GenerateSalt();
-            entity.LozinkaSalt = salt;
-            entity.LozinkaHash = GenerateHash(salt, insert.Password);
-            base.BeforeInsert(insert, entity);
-        }
 
         public static string GenerateSalt()
         {
@@ -92,6 +119,7 @@ namespace eWorkshop.Services
 
             return Convert.ToBase64String(byteArray);
         }
+
         public static string GenerateHash(string salt, string password)
         {
             byte[] src = Convert.FromBase64String(salt);
@@ -105,5 +133,6 @@ namespace eWorkshop.Services
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
         }
+
         }
 }

@@ -6,6 +6,7 @@ namespace eWorkshop.Model
 {
     public class ClientVM
     {
+        public int Id { get; set; }
         public string ClientId { get; set; }
         public string ClientName { get; set; }
         public string ClientUri { get; set; }

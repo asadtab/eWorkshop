@@ -1,0 +1,322 @@
+2023-12-29 03:57:06.340 +01:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2023-12-29 03:57:06.529 +01:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2023-12-29 03:57:06.986 +01:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2023-12-29 03:57:07.342 +01:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-29 03:57:08.176 +01:00 [INF] Now listening on: https://localhost:5443
+2023-12-29 03:57:09.426 +01:00 [INF] Now listening on: http://localhost:5000
+2023-12-29 03:57:09.609 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2023-12-29 03:57:10.197 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-29 03:57:10.207 +01:00 [INF] Hosting environment: Development
+2023-12-29 03:57:10.210 +01:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2023-12-29 03:57:10.760 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2023-12-29 03:57:10.764 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 1161.8158ms
+2023-12-29 03:57:10.795 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 34.8690ms
+2023-12-29 03:57:11.188 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2023-12-29 03:57:11.339 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 151.5063ms
+2023-12-29 03:57:12.253 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2023-12-29 03:57:12.539 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 285.5458ms
+2023-12-29 03:57:54.688 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/Account/Login?email=mail%40tab.ba&password=Asad123%21 - -
+2023-12-29 03:58:00.590 +01:00 [INF] Executed DbCommand (160ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[Id] = @__p_0
+2023-12-29 03:58:00.981 +01:00 [INF] Executed DbCommand (26ms) [Parameters=[@__user_Id_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[ClaimType], [i].[ClaimValue], [i].[UserId]
+FROM [IdentityUserClaim<string>] AS [i]
+WHERE [i].[UserId] = @__user_Id_0
+2023-12-29 03:58:01.071 +01:00 [INF] Executed DbCommand (17ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [IdentityUserRole<string>] AS [i]
+INNER JOIN [Uloge] AS [u] ON [i].[RoleId] = [u].[Id]
+WHERE [i].[UserId] = @__userId_0
+2023-12-29 03:58:01.098 +01:00 [INF] Executed DbCommand (9ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2023-12-29 03:58:01.141 +01:00 [INF] Executed DbCommand (9ms) [Parameters=[@__role_Id_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[ClaimType], [i].[ClaimValue]
+FROM [IdentityRoleClaim<string>] AS [i]
+WHERE [i].[RoleId] = @__role_Id_0
+2023-12-29 03:58:01.205 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2023-12-29 03:58:01.273 +01:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2023-12-29 03:58:01.346 +01:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2023-12-29 03:58:01.404 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[ClaimType], [i].[ClaimValue], [i].[UserId]
+FROM [IdentityUserClaim<string>] AS [i]
+WHERE [i].[UserId] = @__user_Id_0
+2023-12-29 03:58:01.416 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [IdentityUserRole<string>] AS [i]
+INNER JOIN [Uloge] AS [u] ON [i].[RoleId] = [u].[Id]
+WHERE [i].[UserId] = @__userId_0
+2023-12-29 03:58:01.426 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2023-12-29 03:58:01.435 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[ClaimType], [i].[ClaimValue]
+FROM [IdentityRoleClaim<string>] AS [i]
+WHERE [i].[RoleId] = @__role_Id_0
+2023-12-29 03:58:01.461 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2023-12-29 03:58:01.469 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [IdentityUserRole<string>] AS [i]
+INNER JOIN [Uloge] AS [u] ON [i].[RoleId] = [u].[Id]
+WHERE [i].[UserId] = @__userId_0
+2023-12-29 03:58:01.911 +01:00 [INF] Executed DbCommand (39ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[Algorithm], [k].[Created], [k].[Data], [k].[DataProtected], [k].[IsX509Certificate], [k].[Use], [k].[Version]
+FROM [Keys] AS [k]
+WHERE [k].[Use] = N'signing'
+2023-12-29 03:58:02.291 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2023-12-29 03:58:02.308 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 1017.5633ms
+2023-12-29 03:58:02.312 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2023-12-29 03:58:02.338 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/Account/Login?email=mail%40tab.ba&password=Asad123%21 - - - 200 - text/plain;+charset=utf-8 7650.3587ms
+2023-12-29 20:49:52.542 +01:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2023-12-29 20:49:53.238 +01:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2023-12-29 20:49:55.802 +01:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2023-12-29 20:49:57.397 +01:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-29 20:49:58.773 +01:00 [INF] Now listening on: https://localhost:5443
+2023-12-29 20:49:58.891 +01:00 [INF] Now listening on: http://localhost:5000
+2023-12-29 20:49:58.922 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-29 20:49:59.057 +01:00 [INF] Hosting environment: Development
+2023-12-29 20:49:59.062 +01:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2023-12-29 20:50:05.495 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2023-12-29 20:50:07.497 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 2011.7016ms
+2023-12-29 20:50:22.049 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2023-12-29 20:50:22.063 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 14.3358ms
+2023-12-29 20:50:23.583 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2023-12-29 20:50:23.699 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 116.4808ms
+2023-12-29 20:50:25.259 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2023-12-29 20:50:25.827 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 567.7363ms
+2023-12-29 20:51:21.700 +01:00 [INF] Request starting HTTP/2 POST https://localhost:5443/Client - 0
+2023-12-29 20:51:21.735 +01:00 [INF] No CORS policy found for the specified request.
+2023-12-29 20:51:21.895 +01:00 [INF] CORS policy execution successful.
+2023-12-29 20:51:21.917 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer)'
+2023-12-29 20:51:21.984 +01:00 [INF] Route matched with {action = "Insert", controller = "Client"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[Duende.IdentityServer.Models.Client] Insert() on controller eWorkshop.IdentityServer.Controllers.ClientController (eWorkshop.IdentityServer).
+2023-12-29 20:53:02.424 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer) in 100407.4179ms
+2023-12-29 20:53:02.457 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer)'
+2023-12-29 20:53:02.466 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No suitable constructor was found for entity type 'Claim'. The following constructors had parameters that could not be bound to properties of the entity type: 
+    Cannot bind 'reader' in 'Claim(BinaryReader reader)'
+    Cannot bind 'reader', 'subject' in 'Claim(BinaryReader reader, ClaimsIdentity subject)'
+    Cannot bind 'type', 'value' in 'Claim(string type, string value)'
+    Cannot bind 'type', 'value', 'valueType' in 'Claim(string type, string value, string valueType)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer' in 'Claim(string type, string value, string valueType, string issuer)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer', 'originalIssuer' in 'Claim(string type, string value, string valueType, string issuer, string originalIssuer)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer', 'originalIssuer', 'subject' in 'Claim(string type, string value, string valueType, string issuer, string originalIssuer, ClaimsIdentity subject)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer', 'originalIssuer', 'subject', 'propertyKey', 'propertyValue' in 'Claim(string type, string value, string valueType, string issuer, string originalIssuer, ClaimsIdentity subject, string propertyKey, string propertyValue)'
+    Cannot bind 'other' in 'Claim(Claim other)'
+    Cannot bind 'other', 'subject' in 'Claim(Claim other, ClaimsIdentity subject)'
+Note that only mapped properties can be bound to constructor parameters. Navigations to related entities, including references to owned types, cannot be bound.
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.ConstructorBindingFactory.GetBindings(IReadOnlyEntityType entityType, Func`5 bind, InstantiationBinding& constructorBinding, InstantiationBinding& serviceOnlyBinding)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.ConstructorBindingFactory.GetBindings(IMutableEntityType entityType, InstantiationBinding& constructorBinding, InstantiationBinding& serviceOnlyBinding)
+   at Microsoft.EntityFrameworkCore.Metadata.Conventions.ConstructorBindingConvention.ProcessModelFinalizing(IConventionModelBuilder modelBuilder, IConventionContext`1 context)
+   at Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal.ConventionDispatcher.ImmediateConventionScope.OnModelFinalizing(IConventionModelBuilder modelBuilder)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.FinalizeModel()
+   at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+   at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at eWorkshop.IdentityServer.Controllers.ClientController.Insert() in C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\Controllers\ClientController.cs:line 25
+   at lambda_method16(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Duende.IdentityServer.Hosting.IdentityServerMiddleware.Invoke(HttpContext context, IdentityServerOptions options, IEndpointRouter router, IUserSession userSession, IEventService events, IIssuerNameService issuerNameService, ISessionCoordinationService sessionCoordinationService) in /_/src/IdentityServer/Hosting/IdentityServerMiddleware.cs:line 120
+   at Duende.IdentityServer.Hosting.MutualTlsEndpointMiddleware.Invoke(HttpContext context, IAuthenticationSchemeProvider schemes) in /_/src/IdentityServer/Hosting/MutualTlsEndpointMiddleware.cs:line 95
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Duende.IdentityServer.Hosting.DynamicProviders.DynamicSchemeAuthenticationMiddleware.Invoke(HttpContext context) in /_/src/IdentityServer/Hosting/DynamicProviders/DynamicSchemes/DynamicSchemeAuthenticationMiddleware.cs:line 50
+   at Duende.IdentityServer.Hosting.BaseUrlMiddleware.Invoke(HttpContext context) in /_/src/IdentityServer/Hosting/BaseUrlMiddleware.cs:line 27
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-12-29 20:53:02.921 +01:00 [INF] Request finished HTTP/2 POST https://localhost:5443/Client - 0 - 500 - text/plain;+charset=utf-8 101220.2328ms
+2023-12-29 20:57:29.615 +01:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2023-12-29 20:57:30.092 +01:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2023-12-29 20:57:31.107 +01:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2023-12-29 20:57:31.867 +01:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-29 20:57:32.860 +01:00 [INF] Now listening on: https://localhost:5443
+2023-12-29 20:57:32.892 +01:00 [INF] Now listening on: http://localhost:5000
+2023-12-29 20:57:32.901 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-29 20:57:32.903 +01:00 [INF] Hosting environment: Development
+2023-12-29 20:57:32.905 +01:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2023-12-29 20:57:35.605 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2023-12-29 20:57:37.474 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 1892.5341ms
+2023-12-29 20:57:48.164 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2023-12-29 20:57:48.186 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 21.8699ms
+2023-12-29 20:57:48.277 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2023-12-29 20:57:49.754 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1476.4916ms
+2023-12-29 20:57:50.837 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2023-12-29 20:57:51.375 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 537.6548ms
+2023-12-29 20:57:59.880 +01:00 [INF] Request starting HTTP/2 POST https://localhost:5443/Client - 0
+2023-12-29 20:57:59.928 +01:00 [INF] No CORS policy found for the specified request.
+2023-12-29 20:58:00.122 +01:00 [INF] CORS policy execution successful.
+2023-12-29 20:58:00.142 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer)'
+2023-12-29 20:58:00.222 +01:00 [INF] Route matched with {action = "Insert", controller = "Client"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[eWorkshop.Services.Database.Korisnici] Insert() on controller eWorkshop.IdentityServer.Controllers.ClientController (eWorkshop.IdentityServer).
+2023-12-29 20:59:10.681 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer) in 70424.8556ms
+2023-12-29 20:59:10.752 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer)'
+2023-12-29 20:59:10.767 +01:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No suitable constructor was found for entity type 'Claim'. The following constructors had parameters that could not be bound to properties of the entity type: 
+    Cannot bind 'reader' in 'Claim(BinaryReader reader)'
+    Cannot bind 'reader', 'subject' in 'Claim(BinaryReader reader, ClaimsIdentity subject)'
+    Cannot bind 'type', 'value' in 'Claim(string type, string value)'
+    Cannot bind 'type', 'value', 'valueType' in 'Claim(string type, string value, string valueType)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer' in 'Claim(string type, string value, string valueType, string issuer)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer', 'originalIssuer' in 'Claim(string type, string value, string valueType, string issuer, string originalIssuer)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer', 'originalIssuer', 'subject' in 'Claim(string type, string value, string valueType, string issuer, string originalIssuer, ClaimsIdentity subject)'
+    Cannot bind 'type', 'value', 'valueType', 'issuer', 'originalIssuer', 'subject', 'propertyKey', 'propertyValue' in 'Claim(string type, string value, string valueType, string issuer, string originalIssuer, ClaimsIdentity subject, string propertyKey, string propertyValue)'
+    Cannot bind 'other' in 'Claim(Claim other)'
+    Cannot bind 'other', 'subject' in 'Claim(Claim other, ClaimsIdentity subject)'
+Note that only mapped properties can be bound to constructor parameters. Navigations to related entities, including references to owned types, cannot be bound.
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.ConstructorBindingFactory.GetBindings(IReadOnlyEntityType entityType, Func`5 bind, InstantiationBinding& constructorBinding, InstantiationBinding& serviceOnlyBinding)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.ConstructorBindingFactory.GetBindings(IMutableEntityType entityType, InstantiationBinding& constructorBinding, InstantiationBinding& serviceOnlyBinding)
+   at Microsoft.EntityFrameworkCore.Metadata.Conventions.ConstructorBindingConvention.ProcessModelFinalizing(IConventionModelBuilder modelBuilder, IConventionContext`1 context)
+   at Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal.ConventionDispatcher.ImmediateConventionScope.OnModelFinalizing(IConventionModelBuilder modelBuilder)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.FinalizeModel()
+   at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+   at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+   at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at eWorkshop.IdentityServer.Controllers.ClientController.Insert() in C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\Controllers\ClientController.cs:line 25
+   at lambda_method16(Closure , Object , Object[] )
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Duende.IdentityServer.Hosting.IdentityServerMiddleware.Invoke(HttpContext context, IdentityServerOptions options, IEndpointRouter router, IUserSession userSession, IEventService events, IIssuerNameService issuerNameService, ISessionCoordinationService sessionCoordinationService) in /_/src/IdentityServer/Hosting/IdentityServerMiddleware.cs:line 120
+   at Duende.IdentityServer.Hosting.MutualTlsEndpointMiddleware.Invoke(HttpContext context, IAuthenticationSchemeProvider schemes) in /_/src/IdentityServer/Hosting/MutualTlsEndpointMiddleware.cs:line 95
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Duende.IdentityServer.Hosting.DynamicProviders.DynamicSchemeAuthenticationMiddleware.Invoke(HttpContext context) in /_/src/IdentityServer/Hosting/DynamicProviders/DynamicSchemes/DynamicSchemeAuthenticationMiddleware.cs:line 50
+   at Duende.IdentityServer.Hosting.BaseUrlMiddleware.Invoke(HttpContext context) in /_/src/IdentityServer/Hosting/BaseUrlMiddleware.cs:line 27
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2023-12-29 20:59:11.364 +01:00 [INF] Request finished HTTP/2 POST https://localhost:5443/Client - 0 - 500 - text/plain;+charset=utf-8 71479.6481ms
+2023-12-29 21:01:35.646 +01:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2023-12-29 21:01:36.095 +01:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2023-12-29 21:01:37.231 +01:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2023-12-29 21:01:38.004 +01:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-12-29 21:01:38.984 +01:00 [INF] Now listening on: https://localhost:5443
+2023-12-29 21:01:38.988 +01:00 [INF] Now listening on: http://localhost:5000
+2023-12-29 21:01:38.990 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-12-29 21:01:38.992 +01:00 [INF] Hosting environment: Development
+2023-12-29 21:01:38.994 +01:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2023-12-29 21:01:42.356 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2023-12-29 21:01:43.776 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 1431.2776ms
+2023-12-29 21:01:44.123 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2023-12-29 21:01:45.689 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2023-12-29 21:01:45.920 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 1796.4602ms
+2023-12-29 21:01:47.574 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1885.2721ms
+2023-12-29 21:01:48.278 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2023-12-29 21:01:48.925 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 647.4005ms
+2023-12-29 21:01:56.980 +01:00 [INF] Request starting HTTP/2 POST https://localhost:5443/Client - 0
+2023-12-29 21:01:57.017 +01:00 [INF] No CORS policy found for the specified request.
+2023-12-29 21:01:57.200 +01:00 [INF] CORS policy execution successful.
+2023-12-29 21:01:57.224 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer)'
+2023-12-29 21:01:57.332 +01:00 [INF] Route matched with {action = "Insert", controller = "Client"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[eWorkshop.Services.Database.Korisnici] Insert() on controller eWorkshop.IdentityServer.Controllers.ClientController (eWorkshop.IdentityServer).
+2023-12-29 21:02:17.598 +01:00 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2023-12-29 21:02:19.079 +01:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+2023-12-29 21:02:30.251 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2023-12-29 21:02:30.262 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer) in 32916.2746ms
+2023-12-29 21:02:30.268 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.ClientController.Insert (eWorkshop.IdentityServer)'
+2023-12-29 21:02:30.318 +01:00 [INF] Request finished HTTP/2 POST https://localhost:5443/Client - 0 - 200 0 - 33338.3341ms

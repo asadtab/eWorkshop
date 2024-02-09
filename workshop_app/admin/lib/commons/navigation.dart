@@ -1,19 +1,36 @@
+import 'package:admin/main.dart';
+import 'package:admin/screens/acc.dart';
+import 'package:admin/screens/login_screen.dart';
 import 'package:admin/screens/radni_zadaci.dart';
 import 'package:admin/screens/uredjaji.dart';
+import 'package:commons/models/user.dart';
+import 'package:commons/providers/auth_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/administrator.dart';
 import '../screens/konzola.dart';
 
-class CommonNavigation extends StatelessWidget {
-  //const CommonNavigation({super.key});
-
-  final int selectedIndex;
+class CommonNavigation extends StatefulWidget {
+  final int initialSelectedIndex;
   final Function(int) onItemSelected;
 
-  CommonNavigation({required this.onItemSelected, required this.selectedIndex}) {}
+  CommonNavigation({required this.onItemSelected, required this.initialSelectedIndex});
+
+  @override
+  _CommonNavigationState createState() => _CommonNavigationState();
+}
+
+class _CommonNavigationState extends State<CommonNavigation> {
+  late int selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.initialSelectedIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,24 +38,51 @@ class CommonNavigation extends StatelessWidget {
       children: <Widget>[
         NavigationRail(
           leading: Container(
-              decoration: BoxDecoration(
-                  border: Border(
+            decoration: BoxDecoration(
+              border: Border(
                 bottom: BorderSide(
-                  color: Colors.grey, // Customize the color of the border
-                  width: 2.0, // Customize the thickness of the border
+                  color: Colors.grey,
+                  width: 2.0,
                 ),
-              )),
-              child: Column(children: [
-                IconButton(
+              ),
+            ),
+            child: Column(
+              children: [
+                PopupMenuButton(
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      child: Text('Profil'),
+                      value: 'profile',
+                    ),
+                    PopupMenuItem<String>(
+                      child: Text('Odjava'),
+                      value: 'logout',
+                    ),
+                  ],
                   icon: Icon(Icons.account_circle),
-                  onPressed: () {
-                    // Handle the leading icon button press here.
+                  onSelected: (izbor) {
+                    switch (izbor) {
+                      case 'profile':
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserAccountScreen()));
+                        break;
+                      case 'logout':
+                        logout(context);
+                        break;
+                      default:
+                    }
                   },
                 ),
-                Text("Asad Tabak"),
-              ])),
+                Text(User.name ?? ""),
+              ],
+            ),
+          ),
           selectedIndex: selectedIndex,
-          onDestinationSelected: onItemSelected,
+          onDestinationSelected: (int index) {
+            setState(() {
+              selectedIndex = index;
+            });
+            widget.onItemSelected(index);
+          },
           groupAlignment: -1,
           labelType: NavigationRailLabelType.all,
           destinations: <NavigationRailDestination>[
@@ -54,10 +98,11 @@ class CommonNavigation extends StatelessWidget {
               icon: Icon(Icons.task),
               label: Text('Radni zadaci'),
             ),
-            NavigationRailDestination(
-              icon: Icon(Icons.settings),
-              label: Text('Administrator'),
-            ),
+            if (User.roles.contains("Administrator"))
+              NavigationRailDestination(
+                icon: Icon(Icons.settings),
+                label: Text('Administrator'),
+              ),
           ],
         ),
         VerticalDivider(thickness: 1, width: 1),
@@ -68,6 +113,19 @@ class CommonNavigation extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void logout(BuildContext context) {
+    User.name = null;
+    User.email = null;
+    User.token = null;
+
+    context.read<AuthProvider>().setLoggedIn(false);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginMainScreen()),
     );
   }
 }

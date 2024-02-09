@@ -45,13 +45,13 @@ namespace eWorkshop.WinUI
         private async void loadServise()
         {
             ReparacijaSearchObject search = new ReparacijaSearchObject();
-            search.KorisnikId = Korisnik.KorisniciId;
+            search.KorisnikId = Korisnik.KorisniciId.ToString();
 
 
             var servisi = await ReparacijaService.Get<List<ServisVM>>(search);
 
             ServisIzvrsenSearchObject servisIzvrsenSearch = new ServisIzvrsenSearchObject();
-            servisIzvrsenSearch.KorisnikId = Korisnik.KorisniciId;
+            servisIzvrsenSearch.KorisnikId = Korisnik.KorisniciId.ToString();
 
 
             var komponente = await Komponente.Get<List<ServisIzvrsenVM>>(servisIzvrsenSearch);
@@ -90,7 +90,6 @@ namespace eWorkshop.WinUI
         private async void frmRacun_Load(object sender, EventArgs e)
         {
             KorisniciSearchObject search = new KorisniciSearchObject();
-            search.KorisnikID = KorisnikID;
 
             var result = await KorisniciService.Get<List<KorisniciVM>>(search);
 

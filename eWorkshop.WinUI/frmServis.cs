@@ -186,7 +186,7 @@ namespace eWorkshop.WinUI
 
             servis.UredjajId = Uredjaj.UredjajId;
             servis.Datum = DateTime.Now;
-            servis.KorisnikId = APIService.Korisnik.KorisniciId;
+            
             servis.KomponenteIdList = KomponenteId;
             servis.RadniZadatakId = Uredjaj.Status == "task" ? radniZadatak.FirstOrDefault().RadniZadatakId : 1;
             servis.Napomena = txtOpisServisiranja.Text;

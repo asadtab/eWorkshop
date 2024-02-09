@@ -6,13 +6,7 @@ namespace eWorkshop.Model
 {
     public class KorisniciUlogeVM
     {
-        public int KorisnikUlogaId { get; set; }
+        public UlogeVM UlogeVM { get; set; } = new UlogeVM();
 
-        public int KorisnikId { get; set; }
-
-        public int UlogaId { get; set; }
-
-
-        public virtual UlogeVM Uloga { get; set; } 
     }
 }

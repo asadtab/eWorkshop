@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eWorkshop.IdentityServer.Database
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+
+   /* public class ApplicationDbContext : IdentityDbContext<Korisnici, Uloge, int>
     {
 
         /// <summary>
-        /// Ovo je implementacija databse contexta za identity server
+        /// Ovo je implementacija database contexta za identity server
         /// </summary>
         /// <param name="options"></param>
         /// 
@@ -19,5 +20,5 @@ namespace eWorkshop.IdentityServer.Database
         {
             
         }
-    }
+    }*/
 }

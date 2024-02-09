@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace eWorkshop.Services.Database;
@@ -38,7 +37,7 @@ public partial class _190128Context : DbContext
 
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
 
-    //public virtual DbSet<AspNetUser> AspNetUserRoles { get; set; }
+    public virtual DbSet<AspNetRole> AspNetUserRoles { get; set; }
 
     public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
 
@@ -84,8 +83,6 @@ public partial class _190128Context : DbContext
 
     public virtual DbSet<Korisnici> Korisnicis { get; set; }
 
-    public virtual DbSet<KorisniciUloge> KorisniciUloges { get; set; }
-
     public virtual DbSet<Lokacija> Lokacijas { get; set; }
 
     public virtual DbSet<Magacin> Magacins { get; set; }
@@ -97,22 +94,21 @@ public partial class _190128Context : DbContext
     public virtual DbSet<RadniZadatakUredjaj> RadniZadatakUredjajs { get; set; }
 
     public virtual DbSet<ServerSideSession> ServerSideSessions { get; set; }
-
     public virtual DbSet<Servi> Servis { get; set; }
-
     public virtual DbSet<Stanice> Stanices { get; set; }
-
     public virtual DbSet<StaniceUredjaj> StaniceUredjajs { get; set; }
-
     public virtual DbSet<TipUredjaja> TipUredjajas { get; set; }
+    public virtual DbSet<Uloge> Uloge { get; set; }
+    public virtual DbSet<Microsoft.AspNetCore.Identity.IdentityUserRole<int>> KorisniciUloge { get; set; }
+    public virtual DbSet<Microsoft.AspNetCore.Identity.IdentityUserClaim<int>> KorisniciClaim { get; set; }
+    public virtual DbSet<Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>> UlogeClaim { get; set; }
 
-    public virtual DbSet<Uloge> Uloges { get; set; }
 
     public virtual DbSet<Uredjaj> Uredjajs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=localhost, 1434;Initial Catalog=190128; user=sa; Password=QWEasd123!; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=localhost, 1434;Initial Catalog=190128temp3; user=sa; Password=QWEasd123!; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -195,6 +191,7 @@ public partial class _190128Context : DbContext
 
         modelBuilder.Entity<AspNetRole>(entity =>
         {
+            entity.HasKey(e => e.Id);
             entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
                 .IsUnique()
                 .HasFilter("([NormalizedName] IS NOT NULL)");
@@ -205,6 +202,7 @@ public partial class _190128Context : DbContext
 
         modelBuilder.Entity<AspNetRoleClaim>(entity =>
         {
+            entity.HasKey(e => e.Id);
             entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
 
             entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
@@ -212,6 +210,8 @@ public partial class _190128Context : DbContext
 
         modelBuilder.Entity<AspNetUser>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
 
             entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
@@ -237,6 +237,8 @@ public partial class _190128Context : DbContext
 
         modelBuilder.Entity<AspNetUserClaim>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
@@ -464,40 +466,19 @@ public partial class _190128Context : DbContext
         {
             entity.ToTable("Korisnici");
 
-            entity.Property(e => e.KorisniciId).HasColumnName("KorisniciID");
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.Ime)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.KorisnickoIme).HasMaxLength(255);
-            entity.Property(e => e.LozinkaHash).HasMaxLength(255);
-            entity.Property(e => e.LozinkaSalt).HasMaxLength(255);
             entity.Property(e => e.Prezime)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Telefon).HasMaxLength(255);
+
+
+
         });
 
-        modelBuilder.Entity<KorisniciUloge>(entity =>
-        {
-            entity.HasKey(e => e.KorisnikUlogaId).HasName("PK_KorisnikUloga");
-
-            entity.ToTable("KorisniciUloge");
-
-            entity.Property(e => e.KorisnikUlogaId).HasColumnName("KorisnikUlogaID");
-            entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
-            entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
-
-            entity.HasOne(d => d.Korisnik).WithMany(p => p.KorisniciUloges)
-                .HasForeignKey(d => d.KorisnikId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_KorisnikUloga");
-
-            entity.HasOne(d => d.Uloga).WithMany(p => p.KorisniciUloges)
-                .HasForeignKey(d => d.UlogaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UlogaKorisnik");
-        });
+       
 
         modelBuilder.Entity<Lokacija>(entity =>
         {
@@ -653,16 +634,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Opis).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<Uloge>(entity =>
-        {
-            entity.HasKey(e => e.UlogaId).HasName("PK_Uloga");
-
-            entity.ToTable("Uloge");
-
-            entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
-            entity.Property(e => e.Naziv).HasMaxLength(255);
-            entity.Property(e => e.Opis).HasMaxLength(255);
-        });
+        
 
         modelBuilder.Entity<Uredjaj>(entity =>
         {
@@ -686,6 +658,39 @@ public partial class _190128Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UredjajTip");
         });
+
+        /*modelBuilder.Entity<KorisniciUloge>(entity =>
+        {
+            entity.ToTable("KorisniciUloge");
+            entity.HasKey("Id");
+
+            entity.Property(e => e.UserId).HasColumnName("UserId");
+            entity.Property(e => e.RoleId).HasColumnName("RoleId");
+
+            modelBuilder.Entity<KorisniciUloge>()
+      .HasOne(ku => ku.Korisnici)
+      .WithMany(k => k.KorisniciUloge)
+      .HasForeignKey(ku => ku.UserId);
+
+            modelBuilder.Entity<KorisniciUloge>()
+                .HasOne(ku => ku.Uloge)
+                .WithMany(u => u.KorisniciUloge)
+                .HasForeignKey(ku => ku.RoleId);
+
+        });*/
+
+        modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUserRole<int>>(
+
+
+            entity => {
+                //entity.ToTable("KorisniciUloge");
+                entity.HasKey(p => new { p.UserId, p.RoleId }); 
+            }
+            
+            );
+        modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUserClaim<int>>().HasKey(p => new { p.Id });
+        modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>>().HasKey(p => new { p.Id });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

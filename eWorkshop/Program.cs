@@ -16,57 +16,60 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using eWorkshop.Services.IDS;
 using Microsoft.AspNetCore.Identity;
-using eWorkshop.IdentityServer.Database;
+//using eWorkshop.IdentityServer.Database;
+using Serilog;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .WriteTo.Console()
+            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
 
+builder.Host.UseSerilog();
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(
-options =>
+builder.Services.AddSwaggerGen();
+/*options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Protected API", Version = "v1" });
 
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
+        Name = JwtBearerDefaults.AuthenticationScheme,
+        Description = "Please insert JWT token.",
+        In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
-        Flows = new OpenApiOAuthFlows
-        {
-            AuthorizationCode = new OpenApiOAuthFlow
-            {
-                AuthorizationUrl = new Uri("https://localhost:5443/connect/authorize"),
-                TokenUrl = new Uri("https://localhost:5443/connect/token"),
-                Scopes = new Dictionary<string, string>
-        {
-                {"weatherapi.read", "Demo API - full access"},
-                {"weatherapi.post", "Demo API - full access"},
-        }
-            }
-        }
+        Scheme = JwtBearerDefaults.AuthenticationScheme
     });
 
 
     options.OperationFilter<AuthorizeCheckOperationFilter>();
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
             {
-                Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = JwtBearerDefaults.AuthenticationScheme
+                        },
+                        Name = JwtBearerDefaults.AuthenticationScheme,
+                        In = ParameterLocation.Header
+                    },
+                    new string[] { }
                 }
-            },
-            new string[] {}
-        }
-    });
+            });
 });
 /*c =>
 {
@@ -105,16 +108,17 @@ builder.Services.AddTransient<ILokacijaService, LokacijaService>();
 builder.Services.AddTransient<IServisAdapter, ServisAdapter>();
 builder.Services.AddTransient<IStaniceService, StaniceService>();
 builder.Services.AddTransient<IStaniceUredjajService, StaniceUredjajService>();
-builder.Services.AddTransient<IUlogeService, UlogeService>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
 builder.Services.AddTransient<IScopesService, ScopesService>();
 builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
+builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
+builder.Services.AddTransient<IUlogeService, UlogeService>();
+builder.Services.AddTransient<IClientSecretService, ClientSecretService>();
 
 /*builder.Services.AddScoped<UserManager<IdentityUser>>();
 builder.Services.AddScoped<UserManager<IdentityRole>>();*/
 
-builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
 
 /*builder.Services.AddScoped<UserManager<IdentityUser>>();*/
 
@@ -123,17 +127,63 @@ builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
 
+var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
+//zakomentarisani dio koda ne vazi u slucaju api
+/*
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = "oidc";
+}).AddOpenIdConnect("oidc", options => 
+{
+    options.Authority = builder.Configuration["ApiSettings:IdentityAPI"]; 
+    options.GetClaimsFromUserInfoEndpoint = true;
+    options.ClientId = "m2m.client";
+    options.ClientSecret = "SuperSecretPassword";
+    options.ResponseType = "code";
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    options.TokenValidationParameters.NameClaimType = "name";
+    options.TokenValidationParameters.RoleClaimType = "role";
+
+    options.Scope.Add("weatherapi.read");
+    options.Scope.Add("weatherapi.write");
+    options.SaveTokens = true;
+});
+*/
+builder.Services.AddAuthentication(x => 
+{ 
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; 
+})
     .AddJwtBearer(options =>
     {
         options.Authority = "https://localhost:5443";
-        options.Audience = "weatherapi";
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = false;
+        options.Audience = "api";
+        //options.Audience = "SuperSecretPassword";
 
         options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
-    });
 
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+/*
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope");
+    })
+});
+*/
 
 /*builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<_190128Context>();*/

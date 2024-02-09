@@ -15,8 +15,13 @@ class LoadingEvent extends UredjajEvent {
 
 class UredjajFilterEvent extends UredjajEvent {
   String? status;
+  String? tip;
+  String? naziv;
+  String? koda;
+  String? opis;
+  int? id;
 
-  UredjajFilterEvent({required this.status});
+  UredjajFilterEvent({this.status, this.id, this.koda, this.naziv, this.tip, this.opis});
 }
 
 class UredjajRefreshEvent extends UredjajEvent {

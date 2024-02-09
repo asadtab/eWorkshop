@@ -7,9 +7,14 @@ part 'reparacija.g.dart';
 class Reparacija {
   int uredjajId = 0;
   String? datum;
+  String? datumString;
   int servisId = 0;
+  String? servisirao;
 
   String? napomena;
+
+  @JsonKey(includeToJson: false)
+  bool isExpanded = false;
 
   Reparacija() {}
 

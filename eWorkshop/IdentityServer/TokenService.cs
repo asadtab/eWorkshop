@@ -47,6 +47,8 @@ namespace eWorkshop.WinUI.Service
                 throw new Exception("Unable to get token", tokenResponse.Exception);
             }
 
+            
+
             return tokenResponse;
         }
     }

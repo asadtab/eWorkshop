@@ -12,6 +12,6 @@ namespace eWorkshop.Model.Requests
 
         public string Napomena { get; set; }
 
-        public int? KorisnikId { get; set; }
+        public string KorisnikId { get; set; }
     }
 }

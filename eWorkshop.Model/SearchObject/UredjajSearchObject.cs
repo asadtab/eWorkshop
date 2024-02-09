@@ -12,6 +12,8 @@ namespace eWorkshop.Model.SearchObject
         public int Tip { get; set; }
 
         public string Koda { get; set; }
+        public string Naziv { get; set; }
+        public string Opis { get; set; }
 
         public string SerijskiBroj { get; set; }
 

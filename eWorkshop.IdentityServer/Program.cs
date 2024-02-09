@@ -5,6 +5,7 @@ using eWorkshop.IdentityServer.Data;
 using eWorkshop.IdentityServer.Database;
 using eWorkshop.Model;
 using eWorkshop.Services;
+using eWorkshop.Services.Database;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,11 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+
 
 
 
@@ -27,6 +33,8 @@ var config = builder.Configuration;
 
 var connectionString = config.GetConnectionString("DefaultConnection");
 
+
+builder.Host.UseSerilog();
 
 
 // Add services to the container.
@@ -40,18 +48,21 @@ var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
 
 
 //builder.Services.AddAutoMapper(typeof(eWorkshop.IdentityServer.Data.Mapper).Assembly);
-builder.Services.AddAutoMapper(typeof(AspNetUserService).Assembly);
 
 
 
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<_190128Context>(options =>
 {
     options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
 });
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentity<Korisnici, Uloge>().AddUserManager<Microsoft.AspNetCore.Identity.UserManager<Korisnici>>()
+    .AddRoleManager<Microsoft.AspNetCore.Identity.RoleManager<Uloge>>()
+            .AddEntityFrameworkStores<_190128Context>();
+
+//builder.Services.AddScoped<Microsoft.AspNetCore.Identity.IUserRoleStore<KorisniciUloge>>();
 
 
 builder.Services.AddIdentityServer(options =>
@@ -62,12 +73,26 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseSuccessEvents = true;
 
     options.EmitStaticAudienceClaim = true;
-})
-.AddAspNetIdentity<IdentityUser>()
-.AddInMemoryClients(Config.Clients)
-.AddInMemoryApiResources(Config.ApiResources)
-  .AddInMemoryApiScopes(Config.ApiScopes)
-  .AddInMemoryIdentityResources(Config.IdentityResources);
+})//.AddTestUsers(Config.Users)
+.AddAspNetIdentity<Korisnici>()
+    //.AddInMemoryClients(Config.Clients)
+    //.AddInMemoryApiResources(Config.ApiResources)
+    //.AddInMemoryApiScopes(Config.ApiScopes)
+    .AddConfigurationStore(options =>
+    {
+        options.ConfigureDbContext = builder =>
+            builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
+    })
+    .AddInMemoryIdentityResources(Config.IdentityResources).AddConfigurationStore(options =>
+  {
+      options.ConfigureDbContext = builder =>
+          builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
+  })
+    .AddOperationalStore(options =>
+    {
+        options.ConfigureDbContext = builder =>
+            builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
+    });
 
 var app = builder.Build();
 
@@ -76,12 +101,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseCookiePolicy(new CookiePolicyOptions() { MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax });
 }
 
 
 app.UseIdentityServer();
 
-app.UseHttpsRedirection();
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+//app.//UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();

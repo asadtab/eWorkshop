@@ -11,7 +11,7 @@ using eWorkshop.IdentityServer.Database;
 
 namespace eWorkshop.IdentityServer.Migrations.ApplicationDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    //[DbContext(typeof(ApplicationDbContext))]
     [Migration("20230722125620_InitialIdentityServerMigration")]
     partial class InitialIdentityServerMigration
     {

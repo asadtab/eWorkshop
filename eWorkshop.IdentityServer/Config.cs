@@ -37,8 +37,7 @@ namespace eWorkshop.IdentityServer
               new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
               new Claim(JwtClaimTypes.Role, "admin"),
               new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-              new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address),
-                IdentityServerConstants.ClaimValueTypes.Json)
+              
             }
           },
           new TestUser
@@ -71,7 +70,7 @@ namespace eWorkshop.IdentityServer
         new IdentityResource
         {
           Name = "role",
-          UserClaims = new List<string> {"role"}
+          UserClaims = new List<string> {}
         }
           };
 
@@ -100,7 +99,7 @@ namespace eWorkshop.IdentityServer
           ClientId = "m2m.client",
           ClientName = "Client Credentials Client",
 
-          AllowedGrantTypes = GrantTypes.ClientCredentials,
+          AllowedGrantTypes = GrantTypes.Code,
           ClientSecrets = {new Secret("SuperSecretPassword".Sha256())},
 
           AllowedScopes = {"weatherapi.read", "weatherapi.write"}
@@ -116,10 +115,14 @@ namespace eWorkshop.IdentityServer
           RequireClientSecret = false,
           ClientSecrets = {new Secret("SuperSecretPassword".Sha256())},
 
-          RedirectUris = {"https://localhost:7189/swagger/oauth2-redirect.html"},
-          AllowedCorsOrigins = {"https://localhost:7189"},
+          RedirectUris = {"http://localhost:4000/"},
+          AllowedCorsOrigins = {"http://localhost:4000"},
 
-          AllowedScopes = { "weatherapi.read", "weatherapi.write"}
+          AllowedScopes = { "weatherapi.read", "weatherapi.write"},
+
+          AllowAccessTokensViaBrowser = true,
+          RequireConsent = false
+            
         },
 
         new Client
@@ -127,23 +130,23 @@ namespace eWorkshop.IdentityServer
           ClientId = "flutter",
           ClientName = "Mobile app",
 
+          
+
           AllowedGrantTypes = GrantTypes.Code,
           RequirePkce = true,
           RequireClientSecret = false,
           AllowOfflineAccess = true,
           //ClientSecrets = {new Secret("SuperSecretPassword".Sha256())},
 
-          RedirectUris = {"https://localhost:7189/swagger/oauth2-redirect.html"},
+          RedirectUris = {"https://localhost:7189/"},
           AllowedCorsOrigins = {"https://localhost:7189"},
+          //AllowAccessTokensViaBrowser = true,
+          //RequireConsent = false,
 
           //AllowedScopes = { "weatherapi.read", "weatherapi.write"}
           AllowedScopes = 
             {
-                IdentityServerConstants.StandardScopes.OpenId,
-                IdentityServerConstants.StandardScopes.OfflineAccess,
-                IdentityServerConstants.StandardScopes.Profile,
-                "weatherapi.read",
-                "weatherapi.write"
+                "weatherapi.read"
             }
         },
 

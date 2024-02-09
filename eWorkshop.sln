@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.Services", "eWork
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.Model", "eWorkshop.Model\eWorkshop.Model.csproj", "{94C5C17D-71F8-428B-97B1-FDFEC2D85400}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.WinUI", "eWorkshop.WinUI\eWorkshop.WinUI.csproj", "{012EC8B4-B613-4AEE-865B-78F918E14A8B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.IdentityServer", "eWorkshop.IdentityServer\eWorkshop.IdentityServer.csproj", "{D314E50F-AD89-4F4C-9735-7C84695738E6}"
 EndProject
 Global
@@ -45,14 +43,6 @@ Global
 		{94C5C17D-71F8-428B-97B1-FDFEC2D85400}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94C5C17D-71F8-428B-97B1-FDFEC2D85400}.Release|x86.ActiveCfg = Release|Any CPU
 		{94C5C17D-71F8-428B-97B1-FDFEC2D85400}.Release|x86.Build.0 = Release|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Debug|x86.Build.0 = Debug|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Release|x86.ActiveCfg = Release|x86
-		{012EC8B4-B613-4AEE-865B-78F918E14A8B}.Release|x86.Build.0 = Release|x86
 		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|x86.ActiveCfg = Debug|Any CPU

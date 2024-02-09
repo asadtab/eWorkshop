@@ -1,16 +1,19 @@
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
+
 import 'package:admin/widgets/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
+
 import 'package:commons/widgets/button.dart';
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class KonzolaScreen extends StatefulWidget {
@@ -36,8 +39,10 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
     radniZadaciProvider = context.read<RadniZadaciProvider>();
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
 
+    //radniZadaciProvider
+
     super.initState();
-    //_fetchData(null);
+    _fetchData(null);
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -46,10 +51,10 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
     });
 
     var response = await radniZadaciProvider?.get({'StateMachine': 'active'}, "RadniZadatak");
-    //var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
+    var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
 
     setState(() {
-      //radniZadatakUredjajData = items!;
+      radniZadatakUredjajData = items!;
       radniZadatakDetalj = response!;
       _isLoading = false;
     });

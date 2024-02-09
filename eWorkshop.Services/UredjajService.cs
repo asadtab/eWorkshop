@@ -31,7 +31,7 @@ namespace eWorkshop.Services
         public override IQueryable<Uredjaj> AddInclude(IQueryable<Uredjaj> query, UredjajSearchObject search = null)
         {
             query = query.Include("Tip");
-            query = query.Include("Lokacija");
+            query = query.Include("Lokacija");  
 
             return query;
         }
@@ -168,8 +168,17 @@ namespace eWorkshop.Services
             if(search != null && !string.IsNullOrEmpty(search.Status))
                 filter = filter.Where(x => x.Status == search.Status);
 
-            if(search != null)
-                filter = filter.Where(x => x.IsDeleted ==  search.isDeleted);
+            if (search != null && !string.IsNullOrEmpty(search.Naziv))
+                filter = filter.Where(x => x.Tip.Naziv.ToLower().Contains(search.Naziv.ToLower()));
+
+            if (search != null && !string.IsNullOrEmpty(search.Koda))
+                filter = filter.Where(x => x.Koda.Contains(search.Koda));
+
+            if (search != null && !string.IsNullOrEmpty(search.Opis))
+                filter = filter.Where(x => x.Tip.Opis.Contains(search.Opis));
+
+            if (search != null)
+                filter = filter.Where(x => x.IsDeleted == search.isDeleted);
            
 
             return filter;

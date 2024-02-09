@@ -24,6 +24,7 @@ namespace eWorkshop.Services
         }
 
 
+
 /*        public override void BeforeInsert(AspNetUserInsertRequest insert, AspNetUser entity)
         {
             var salt = GenerateSalt();

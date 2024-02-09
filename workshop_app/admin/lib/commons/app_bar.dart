@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 
 class BarrApp extends StatelessWidget implements PreferredSizeWidget {
-  BarrApp({required this.naslov});
+  BarrApp({this.naslov, this.bottom});
 
-  String naslov;
+  PreferredSizeWidget? bottom;
+  String? naslov;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+        bottom: bottom,
         iconTheme: IconThemeData(color: Colors.black),
-        title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            naslov,
-            style: TextStyle(color: Color(0xFF071815)),
-          ),
-        ]),
+        title: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                naslov ?? "",
+                style: TextStyle(color: Colors.white),
+              ),
+            ]),
+            if (bottom != null) SizedBox(height: 50)
+          ],
+        ),
         centerTitle: true,
-        backgroundColor: Color(0xFF8dc4dd),
+        backgroundColor: Color(0xFF1D64AF),
         elevation: 0);
   }
 

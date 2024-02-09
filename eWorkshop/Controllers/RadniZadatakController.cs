@@ -1,4 +1,5 @@
-﻿using eWorkshop.Model;
+﻿using eWorkshop.IdentityServer.Controllers;
+using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services;
@@ -11,9 +12,18 @@ namespace eWorkshop.Controllers
     public class RadniZadatakController : BaseCRUDController<RadniZadatakVM, RadniZadatakSearchObject, RadniZadatakUpsertRequest, RadniZadatakUpsertRequest>
     {
         public IRadniZadatakService RadniZadatakService { get; set; }
-        public RadniZadatakController(IRadniZadatakService service) : base(service)
+        ILogger<RadniZadatakController> Logger;
+        public RadniZadatakController(IRadniZadatakService service, ILogger<RadniZadatakController> logger) : base(service)
         {
             RadniZadatakService = service;
+            Logger = logger;
+        }
+
+        public override IEnumerable<RadniZadatakVM> Get([FromQuery] RadniZadatakSearchObject search = null)
+        {
+            Logger.LogInformation("Pozivam get radnog zadatka");
+
+            return base.Get(search);
         }
 
         [HttpPost]

@@ -18,8 +18,12 @@ namespace eWorkshop.Services
             CreateMap<Uredjaj, UredjajVM>();
             CreateMap<Servi, ServisVM>();
             CreateMap<RadniZadatak, RadniZadatakVM>();
-            CreateMap<Korisnici, KorisniciVM>();
+            CreateMap<Korisnici, KorisniciVM>();//.ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
             CreateMap<Komponente, KomponenteVM>();
+            CreateMap<Uloge, UlogeVM>();
+
+            CreateMap<KorisniciUloge, KorisniciUlogeVM>();
+
             CreateMap<IzvrseniServi, ServisIzvrsenVM>();
             CreateMap<TipUredjaja, TipUredjajaVM>();
             CreateMap<RadniZadatakUredjaj, RadniZadatakUredjajVM>();
@@ -41,8 +45,6 @@ namespace eWorkshop.Services
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
 
-            CreateMap<KorisniciUloge, KorisniciUlogeVM>();
-            CreateMap<Uloge, UlogeVM>();
             CreateMap<Client, ClientVM>();
             CreateMap<ClientScope, ClientScopeVM>();
             CreateMap<ApiResource, ApiResourceVM>();
@@ -51,7 +53,11 @@ namespace eWorkshop.Services
             CreateMap<AspNetRole, AspNetRoleVM>();
 
             CreateMap<IdentityUser, AspNetUserVM>();
-            
+            CreateMap<ClientScope, ClientScopeVM>();
+            CreateMap<ClientClaim, ClientClaimVM>();
+            CreateMap<ClientGrantType, ClientGrantTypeVM>();
+            CreateMap<ClientSecret, ClientSecretsVM>();
+
 
             CreateMap<UredjajUpsertRequest, Uredjaj>();
             CreateMap<ServisInsertRequest, Servi>();
@@ -66,10 +72,19 @@ namespace eWorkshop.Services
             CreateMap<LokacijaUpsertRequest, Lokacija>(); 
             CreateMap<StaniceUpsertRequest, Stanice>(); 
             CreateMap<StaniceUredjajUpsertRequest, StaniceUredjaj>(); 
-            CreateMap<UlogeUpsertRequest, Uloge>(); 
+
             CreateMap<ClientInsertRequest, Client>(); 
             CreateMap<ApiResourceUpsertRequest, ApiResource>(); 
             CreateMap<ScopesUpsertRequest, ApiScope>(); 
+            CreateMap<ClientScopeUpsertRequest, ClientScope>(); 
+
+            CreateMap<ClientSecretUpsertRequest, ClientSecret>(); 
+            CreateMap<ClientClaimUpsertRequest, ClientClaim>(); 
+            CreateMap<UlogeUpsertRequest, Uloge>(); 
+            CreateMap<ClientGrantTypeUpsertRequest, ClientGrantType>(); 
+            CreateMap<ClientSecretUpsertRequest, ClientSecret>(); 
+
+
             CreateMap<AspNetUserInsertRequest, AspNetUser>(); 
             CreateMap<AspNetRoleUpsertRequest, AspNetRole>(); 
 

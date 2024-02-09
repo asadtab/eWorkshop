@@ -9,6 +9,5 @@ namespace eWorkshop.Model.SearchObject
         public int KorisnikID { get; set; }
         public string KorisnickoIme { get; set; }
         public string ImePrezime { get; set; }
-        public bool IncludeUloge { get; set; }
     }
 }

@@ -124,6 +124,7 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
             children: [
               Card(
                 child: DataTable(
+                  showCheckboxColumn: false,
                   columnSpacing: 21,
                   columns: [
                     DataColumn(label: Text('Id')),

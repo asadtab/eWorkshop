@@ -40,7 +40,7 @@ namespace eWorkshop.Services
             var entity = set.Find(id);
             
 
-                return Mapper.Map<TModel>(entity);
+            return Mapper.Map<TModel>(entity);
         }
 
         public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)

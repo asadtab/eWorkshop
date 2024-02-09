@@ -1,8 +1,13 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
+import 'package:admin/screens/pdf_viewer.dart';
 import 'package:admin/screens/radni_zadaci_lista.dart';
+import 'package:admin/widgets/radni_zadatak_pdf.dart';
 import 'package:commons/helpers/progres.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';
@@ -16,6 +21,7 @@ import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:commons/models/user.dart';
 
 class RadniZadaciScreen extends StatefulWidget {
   int? radniZadatakId;
@@ -80,7 +86,14 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
       _isLoading = true;
     });
 
-    List<RadniZadatak>? responseZadatak = await idleActiveZadatak();
+    List<RadniZadatak>? responseZadatak;
+
+    try {
+      responseZadatak = await idleActiveZadatak();
+    } catch (e) {
+      poruka(e.toString());
+      return;
+    }
 
     odabraniRadniZadatak = new RadniZadatak();
     odabraniRadniZadatak.radniZadatakId = 0;
@@ -97,7 +110,14 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
   Future<List<RadniZadatak>?> idleActiveZadatak() async {
     var mapCustomZadatak = {'StateMachine': 'active'};
 
-    final responseZadatak = await radniZadaciProvider?.get(mapCustomZadatak, "RadniZadatak");
+    late List<RadniZadatak> responseZadatak;
+
+    try {
+      responseZadatak = await radniZadaciProvider!.get(mapCustomZadatak, "RadniZadatak");
+    } catch (e) {
+      poruka(e.toString());
+    }
+
     return responseZadatak;
   }
 
@@ -128,9 +148,15 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                   ),
                   onChanged: (String? value) async {
                     var zadataktemp;
+                    List<RadniZadatak> responseZadatak = [];
 
-                    final responseZadatak = await radniZadaciProvider?.get({'StateMachine': value}, "RadniZadatak");
-                    if (responseZadatak!.isNotEmpty)
+                    try {
+                      responseZadatak = await radniZadaciProvider!.get({'StateMachine': value}, "RadniZadatak");
+                    } catch (e) {
+                      poruka(e.toString());
+                    }
+
+                    if (responseZadatak.isNotEmpty)
                       zadataktemp = await radniZadaciUredjajProvider!
                           .get({'RadniZadatakId': responseZadatak.first.radniZadatakId}, 'RadniZadatakUredjaj/Flutter');
 
@@ -227,6 +253,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                                                 aktivniUredjaji[index].tipNaziv! +
                                                 " - " +
                                                 aktivniUredjaji[index].koda!),
+                                            iconColor: Colors.amberAccent,
                                           ),
                                         ),
                                       );
@@ -327,7 +354,17 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                               Icons.print,
                               color: Colors.black,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              var uredjaji = radniZadatakUredjaj;
+                              //.where((uredjaj) => uredjaj.radniZadatakStatus == "done" || uredjaj.radniZadatakStatus == "fix")
+                              //.toList();
+
+                              try {
+                                GenerisiPdf.generisiPdf(uredjaji);
+                              } catch (e) {
+                                poruka(e.toString());
+                              }
+                            },
                             text: "Kreiraj izvještaj",
                           )),
                     if (odabraniRadniZadatak.stateMachine == 'active' || odabraniRadniZadatak.stateMachine == 'idle')
@@ -481,6 +518,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
         });
   }
 
+///////
   Column uredjajiRadniZadatak(List<RadniZadatakUredjaj> odabraniRadniZadatak, RadniZadatak radniZadatak) {
     return Column(
       children: [
@@ -507,32 +545,66 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
             });
           },
           builder: (context, candidateData, rejectedData) {
-            return Container(
-              height: 500,
-              width: 300,
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: (dropdownvalue == null || dropdownvalue == 0)
-                          ? Center(child: Text(dropdownvalue == null ? "Odaberi radni zadatak" : "Radni zadaci ne postoje"))
-                          : ListView.builder(
-                              itemCount: odabraniRadniZadatak.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(odabraniRadniZadatak[index].uredjajId.toString() +
-                                      " - " +
-                                      odabraniRadniZadatak[index].tipNaziv.toString() +
-                                      " - " +
-                                      odabraniRadniZadatak[index].koda.toString()),
-                                );
-                              },
-                            ),
+            return BlocConsumer<RadniZadatakUredjajBloc, RadniZadatakUredjajState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              bloc: uredjajBloc,
+              builder: (context, state) {
+                return Container(
+                  height: 500,
+                  width: 300,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: (dropdownvalue == null || dropdownvalue == 0)
+                              ? Center(child: Text(dropdownvalue == null ? "Odaberi radni zadatak" : "Radni zadaci ne postoje"))
+                              : ListView.builder(
+                                  itemCount: odabraniRadniZadatak.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      trailing: IconButton(
+                                        onPressed: () async {
+                                          try {
+                                            var result =
+                                                await uredjajiProvider!.update(odabraniRadniZadatak[index].uredjajId, null, "Uredjaj/VratiIzTaska");
+                                          } catch (e) {
+                                            poruka(e.toString());
+                                            return;
+                                          }
+
+                                          uredjajBloc!.add(RadniZadatakLoadingEvent());
+                                          uredjajBlocActive!.add(UredjajiLoadZadatakEvent());
+
+                                          var zadatakUredjaj = await radniZadaciUredjajProvider!
+                                              .get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
+                                          //var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
+                                          // var odabraniZadatakTemp =
+                                          // await radniZadaciProvider!.get({'RadniZadatakId': odabraniZadatakId}, 'RadniZadatak');
+
+                                          setState(() {
+                                            radniZadatakUredjaj = zadatakUredjaj;
+                                            //aktivniUredjaji = uredjajiTemp!;
+                                          });
+                                        },
+                                        icon: Icon(Icons.cancel),
+                                      ),
+                                      title: Text(odabraniRadniZadatak[index].uredjajId.toString() +
+                                          " - " +
+                                          odabraniRadniZadatak[index].tipNaziv.toString() +
+                                          " - " +
+                                          odabraniRadniZadatak[index].koda.toString()),
+                                    );
+                                  },
+                                ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             );
           },
         ),
@@ -562,7 +634,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
       }
     }
 
-    var request = {'radniZadatakId': odabraniZadatakId, 'uredjajId': data.uredjajId, 'napomena': "napomena", 'korisnikId': 1003};
+    var request = {'radniZadatakId': odabraniZadatakId, 'uredjajId': data.uredjajId, 'napomena': "napomena", 'korisnikId': User.id};
 
     try {
       await radniZadaciUredjajProvider!.update(null, request, "Uredjaj/RadniZadatak");

@@ -3,6 +3,7 @@ using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
+using eWorkshop.Services.Helpers;
 using eWorkshop.Services.UredjajiStateMachine;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,6 +22,20 @@ namespace eWorkshop.Services
         {
             BaseState = baseState;
         }
+        /*
+        public override IEnumerable<ServisVM> Get(ReparacijaSearchObject search = null)
+        {
+            List<ServisVM> servis =  base.Get(search).ToList();
+
+
+            foreach (var item in servis)
+            {
+                //item.Servisirao = item.Korisnik.Ime + " " + item.Korisnik.Prezime;
+                item.DatumString = DatumHelper.DatumFormat(item.Datum);
+            }
+
+            return servis;
+        }*/
 
         public override IQueryable<Servi> AddFilter(IQueryable<Servi> query, ReparacijaSearchObject search = null)
         {

@@ -34,6 +34,12 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
   bool addZadatakActive = false;
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
 
+  TextEditingController idController = TextEditingController();
+  TextEditingController tipController = TextEditingController();
+  TextEditingController nazivController = TextEditingController();
+  TextEditingController opisController = TextEditingController();
+  TextEditingController kodaController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -92,26 +98,83 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                       );
                     }).toList(),
                   )),
-              Container(
-                  height: 40,
-                  width: 200,
-                  child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Pretraga', // Placeholder text
-                        border: OutlineInputBorder(), // Border for the input field
-                      ),
-                      onChanged: (text) {
-                        // Handle text input changes here
-                      })),
               Padding(
                   padding: EdgeInsets.all(20),
                   child: MinimalisticButton(
                     icons: Icon(Icons.add),
                     text: "Dodaj novi uređaj",
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DodajUrediUredjaj()));
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => DodajUrediUredjaj(),
+                      ); /*.then((value) {
+                                          korisniciBloc.add(KorisniciLoad());
+                                        });*/
+
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => DodajUrediUredjaj()));
                     },
                   ))
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Container(
+                  height: 40,
+                  width: 200,
+                  child: TextField(
+                      controller: idController,
+                      decoration: InputDecoration(
+                        labelText: 'Id', // Placeholder text
+                        border: OutlineInputBorder(), // Border for the input field
+                      ),
+                      onChanged: (text) {
+                        // Handle text input changes here
+                      })),
+              Container(
+                  height: 40,
+                  width: 200,
+                  child: TextField(
+                      controller: nazivController,
+                      decoration: InputDecoration(
+                        labelText: 'Tip', // Placeholder text
+                        border: OutlineInputBorder(), // Border for the input field
+                      ),
+                      onChanged: (text) {
+                        // Handle text input changes here
+                      })),
+              Container(
+                  height: 40,
+                  width: 200,
+                  child: TextField(
+                      controller: opisController,
+                      decoration: InputDecoration(
+                        labelText: 'Naziv', // Placeholder text
+                        border: OutlineInputBorder(), // Border for the input field
+                      ),
+                      onChanged: (text) {
+                        // Handle text input changes here
+                      })),
+              Container(
+                  height: 40,
+                  width: 200,
+                  child: TextField(
+                      controller: kodaController,
+                      decoration: InputDecoration(
+                        labelText: 'Koda', // Placeholder text
+                        border: OutlineInputBorder(), // Border for the input field
+                      ),
+                      onChanged: (text) {
+                        // Handle text input changes here
+                      })),
+              MinimalisticButton(
+                  text: "Pretraga",
+                  onPressed: () {
+                    uredjajBloc.add(UredjajFilterEvent(
+                        status: StateHelper.nizSearch(dropdownvalue),
+                        id: idController.text.isEmpty ? null : int.parse(idController.text),
+                        tip: tipController.text,
+                        naziv: nazivController.text,
+                        koda: kodaController.text,
+                        opis: opisController.text));
+                  })
             ]),
             BlocConsumer<UredjajBloc, UredjajState>(
               bloc: uredjajBloc,
@@ -130,6 +193,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       DataTable(
+                          showCheckboxColumn: false,
                           columnSpacing: 21,
                           columns: [
                             DataColumn(label: Text('Id')),

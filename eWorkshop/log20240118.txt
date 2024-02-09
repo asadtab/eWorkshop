@@ -1,0 +1,138 @@
+2024-01-18 21:36:43.140 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:7189/Uloge application/json -
+2024-01-18 21:36:44.970 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:7189/Uloge?Naziv= application/json -
+2024-01-18 21:36:45.597 +01:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 8:36:45 PM'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2024-01-18 21:36:45.598 +01:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 8:36:45 PM'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2024-01-18 21:36:45.632 +01:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 8:36:45 PM'.
+2024-01-18 21:36:45.641 +01:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 8:36:45 PM'.
+2024-01-18 21:36:45.648 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 21:36:45.649 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 21:36:45.653 +01:00 [INF] Route matched with {action = "Get", controller = "Uloge"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UlogeVM] Get(eWorkshop.Model.SearchObject.UlogeSearchObject) on controller eWorkshop.Controllers.UlogeController (eWorkshop).
+2024-01-18 21:36:45.655 +01:00 [INF] Route matched with {action = "Get", controller = "Uloge"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UlogeVM] Get(eWorkshop.Model.SearchObject.UlogeSearchObject) on controller eWorkshop.Controllers.UlogeController (eWorkshop).
+2024-01-18 21:36:45.780 +01:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-01-18 21:36:45.858 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UlogeVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-01-18 21:36:45.864 +01:00 [INF] Executed action eWorkshop.Controllers.UlogeController.Get (eWorkshop) in 199.0127ms
+2024-01-18 21:36:45.867 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 21:36:45.872 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:7189/Uloge application/json - - 200 - application/json;+charset=utf-8 2744.8566ms
+2024-01-18 21:36:45.956 +01:00 [INF] Executed DbCommand (60ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-01-18 21:36:45.982 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UlogeVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-01-18 21:36:45.987 +01:00 [INF] Executed action eWorkshop.Controllers.UlogeController.Get (eWorkshop) in 326.2818ms
+2024-01-18 21:36:45.990 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 21:36:45.996 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:7189/Uloge?Naziv= application/json - - 200 - application/json;+charset=utf-8 1025.7627ms
+2024-01-18 22:17:45.538 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:7189/Korisnici application/json -
+2024-01-18 22:17:45.546 +01:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:45 PM'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2024-01-18 22:17:45.550 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:7189/Uloge application/json -
+2024-01-18 22:17:45.569 +01:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:45 PM'.
+2024-01-18 22:17:45.574 +01:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:45 PM'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2024-01-18 22:17:45.578 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.KorisniciController.Get (eWorkshop)'
+2024-01-18 22:17:45.599 +01:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:45 PM'.
+2024-01-18 22:17:45.602 +01:00 [INF] Route matched with {action = "Get", controller = "Korisnici"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.KorisniciVM] Get(eWorkshop.Model.SearchObject.KorisniciSearchObject) on controller eWorkshop.Controllers.KorisniciController (eWorkshop).
+2024-01-18 22:17:45.608 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 22:17:45.620 +01:00 [INF] Route matched with {action = "Get", controller = "Uloge"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UlogeVM] Get(eWorkshop.Model.SearchObject.UlogeSearchObject) on controller eWorkshop.Controllers.UlogeController (eWorkshop).
+2024-01-18 22:17:45.722 +01:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[UserId], [k].[RoleId], [k].[Discriminator], [k].[KorisniciId]
+FROM [KorisniciUloge] AS [k]
+2024-01-18 22:17:45.759 +01:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+2024-01-18 22:17:45.782 +01:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-01-18 22:17:45.784 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[UserId], [k].[RoleId], [k].[Discriminator], [k].[KorisniciId]
+FROM [KorisniciUloge] AS [k]
+2024-01-18 22:17:45.790 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UlogeVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-01-18 22:17:45.807 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-01-18 22:17:45.810 +01:00 [INF] Executed action eWorkshop.Controllers.UlogeController.Get (eWorkshop) in 183.8422ms
+2024-01-18 22:17:45.824 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.KorisniciVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-01-18 22:17:45.827 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 22:17:45.834 +01:00 [INF] Executed action eWorkshop.Controllers.KorisniciController.Get (eWorkshop) in 216.9259ms
+2024-01-18 22:17:45.840 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:7189/Uloge application/json - - 200 - application/json;+charset=utf-8 290.0106ms
+2024-01-18 22:17:45.845 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.KorisniciController.Get (eWorkshop)'
+2024-01-18 22:17:45.855 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:7189/Korisnici application/json - - 200 - application/json;+charset=utf-8 317.1154ms
+2024-01-18 22:17:46.996 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:7189/Korisnici application/json -
+2024-01-18 22:17:46.998 +01:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:46 PM'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2024-01-18 22:17:47.020 +01:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:46 PM'.
+2024-01-18 22:17:47.025 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.KorisniciController.Get (eWorkshop)'
+2024-01-18 22:17:47.027 +01:00 [INF] Route matched with {action = "Get", controller = "Korisnici"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.KorisniciVM] Get(eWorkshop.Model.SearchObject.KorisniciSearchObject) on controller eWorkshop.Controllers.KorisniciController (eWorkshop).
+2024-01-18 22:17:47.038 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[UserId], [k].[RoleId], [k].[Discriminator], [k].[KorisniciId]
+FROM [KorisniciUloge] AS [k]
+2024-01-18 22:17:47.049 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+2024-01-18 22:17:47.075 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[UserId], [k].[RoleId], [k].[Discriminator], [k].[KorisniciId]
+FROM [KorisniciUloge] AS [k]
+2024-01-18 22:17:47.090 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-01-18 22:17:47.101 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.KorisniciVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-01-18 22:17:47.104 +01:00 [INF] Executed action eWorkshop.Controllers.KorisniciController.Get (eWorkshop) in 71.8642ms
+2024-01-18 22:17:47.108 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.KorisniciController.Get (eWorkshop)'
+2024-01-18 22:17:47.117 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:7189/Korisnici application/json - - 200 - application/json;+charset=utf-8 121.4754ms
+2024-01-18 22:17:49.996 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:7189/Uloge application/json -
+2024-01-18 22:17:50.000 +01:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:49 PM'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2024-01-18 22:17:50.020 +01:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '1/17/2024 9:02:08 PM', Current time: '1/18/2024 9:17:49 PM'.
+2024-01-18 22:17:50.026 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 22:17:50.029 +01:00 [INF] Route matched with {action = "Get", controller = "Uloge"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UlogeVM] Get(eWorkshop.Model.SearchObject.UlogeSearchObject) on controller eWorkshop.Controllers.UlogeController (eWorkshop).
+2024-01-18 22:17:50.049 +01:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-01-18 22:17:50.056 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UlogeVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-01-18 22:17:50.059 +01:00 [INF] Executed action eWorkshop.Controllers.UlogeController.Get (eWorkshop) in 18.9525ms
+2024-01-18 22:17:50.061 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.UlogeController.Get (eWorkshop)'
+2024-01-18 22:17:50.064 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:7189/Uloge application/json - - 200 - application/json;+charset=utf-8 67.3838ms

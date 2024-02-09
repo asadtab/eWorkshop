@@ -20,10 +20,6 @@ namespace eWorkshop.Controllers
             KorisniciService = service;
         }
 
-        [HttpGet("Login")]
-        public KorisniciVM Login([FromQuery] LoginSearchObject loginSearchObject)
-        {
-            return KorisniciService.Login(loginSearchObject.username, loginSearchObject.password);
-        }
+       
     }
 }

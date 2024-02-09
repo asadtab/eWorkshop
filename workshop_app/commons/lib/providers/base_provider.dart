@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:commons/models/user.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
@@ -12,37 +13,45 @@ abstract class BaseProvider<T> with ChangeNotifier {
   static String? _endpoint;
   static String? _endpointSecond;
 
+  static late String? _idsNgrok;
+  static late String? _idsLocalhost;
+
   HttpClient client = new HttpClient();
   IOClient? http;
 
-  BaseProvider(String endpoint) {
+  final identifier = 'flutter';
+
+  bool _ids = false;
+
+  BaseProvider(String endpoint, [bool? ids]) {
     /*_baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://0426-77-78-227-173.eu.ngrok.io/");*/
 
-    _baseUrl = "https://localhost:7189/";
+    if (ids != null) {
+      _ids = ids;
+    }
+
+    if (!_ids) {
+      _baseUrl = "https://localhost:7189/";
+    } else {
+      _idsLocalhost = "https://localhost:5443";
+    }
 
     if (_baseUrl!.endsWith("/") == false) {
       _baseUrl = _baseUrl! + "/";
     }
 
-    _endpoint = endpoint;
+    _idsNgrok = "https://a543-109-237-46-211.ngrok-free.app";
 
-    //clientIds = oauth2.Client("");
+    _idsLocalhost = "https://localhost:5443/";
+
+    _endpoint = endpoint;
 
     client.badCertificateCallback = (cert, host, port) => true;
     http = IOClient(client);
   }
 
-  Map<String, String> createHeaders() {
-    String? username = "asad.admin";
-    String? password = "asd";
-
-    String basicAuth = "Basic ${base64Encode(utf8.encode('$username:$password'))}";
-
-    var headers = {"Content-Type": "application/json", "Authorization": basicAuth};
-
-    return headers;
-  }
+  Map<String, String> createHeaders() => {"Content-Type": "application/json", "Authorization": "Bearer ${User.token ?? ""}"};
 
   Future<List<T>> getById(int id, [dynamic additionalData, String? endPoint]) async {
     if (endPoint != null) {
@@ -57,7 +66,8 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      return data.map((x) => fromJson(x)).cast<T>().toList();
+      return data.map((x) => fromJson(x)).cast<T>();
+      //return data.map((x) => fromJson(x)).cast<T>().toList();
     } else {
       throw Exception("Exception... handle this gracefully");
     }
@@ -67,6 +77,8 @@ abstract class BaseProvider<T> with ChangeNotifier {
     if (endPoint != null) {
       _endpoint = endPoint;
     }
+
+    _baseUrl = "https://localhost:7189/";
 
     var url = "$_baseUrl$_endpoint";
     String? moreThanOne;
@@ -96,9 +108,13 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
-  Future<T?> insert(dynamic request, String? endPoint) async {
+  Future<T?> insert(dynamic request, String? endPoint, [bool? ids]) async {
     if (endPoint != null) {
       _endpoint = endPoint;
+    }
+
+    if (ids != null && ids) {
+      _baseUrl = "https://localhost:5443/";
     }
 
     var url = "$_baseUrl$_endpoint";
@@ -142,7 +158,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
-  Future<T?> delete(int? id, [dynamic request, String? endPoint]) async {
+  Future<Map<String, dynamic>?> delete(int? id, [dynamic request, String? endPoint]) async {
     if (endPoint != null) {
       _endpoint = endPoint;
     }
@@ -162,7 +178,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      return null;
+      return data;
     } else {
       return null;
     }

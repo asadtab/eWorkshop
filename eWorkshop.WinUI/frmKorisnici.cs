@@ -79,5 +79,10 @@ namespace eWorkshop.WinUI
             childForm.ShowDialog();
             //FormControl.NovaFormaOpcije(childForm);
         }
+
+        private void dgvLista_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

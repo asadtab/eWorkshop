@@ -1,4 +1,5 @@
-﻿using eWorkshop.Services;
+﻿using eWorkshop.IdentityServer.Controllers;
+using eWorkshop.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -9,9 +10,9 @@ namespace eWorkshop.Controllers
     public class BaseCRUDController<TModel, TSearch, TInsert, TUpdate> : BaseController<TModel, TSearch> 
         where TModel : class where TSearch : class where TInsert : class where TUpdate : class 
     {
+
         public BaseCRUDController(ICRUDService<TModel, TSearch, TInsert, TUpdate> service) : base (service)
         {
-
         }
 
         [HttpPost]
@@ -23,7 +24,7 @@ namespace eWorkshop.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TModel> Get([FromQuery] TSearch search = null)
+        public virtual IEnumerable<TModel> Get([FromQuery] TSearch search = null)
         {
             return Service.Get(search);
         }
@@ -47,7 +48,7 @@ namespace eWorkshop.Controllers
         {
             ((ICRUDService<TModel, TSearch, TInsert, TUpdate>)this.Service).Delete(id);
 
-            return Ok("Entitet izbrisan");
+            return Ok(new { Message = "Entitet izbrisan" });
         }
     }
 }

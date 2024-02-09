@@ -6,8 +6,6 @@ namespace eWorkshop.Model.Requests
 {
     public class UlogeUpsertRequest
     {
-        public string Naziv { get; set; }
-
-        public string Opis { get; set; }
+        public string Name { get; set; }
     }
 }

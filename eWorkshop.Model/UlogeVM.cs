@@ -6,11 +6,7 @@ namespace eWorkshop.Model
 {
     public class UlogeVM
     {
-        public int UlogaId { get; set; }
-
-        public string Naziv { get; set; }
-
-        public string Opis { get; set; }
+        public virtual string Name { get; set; }
 
     }
 }

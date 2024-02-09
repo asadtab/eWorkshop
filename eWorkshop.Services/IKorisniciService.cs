@@ -11,6 +11,5 @@ namespace eWorkshop.Services
 {
     public interface IKorisniciService : ICRUDService<KorisniciVM, KorisniciSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
     {
-        KorisniciVM Login(string username, string password);
     }
 }

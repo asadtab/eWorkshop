@@ -35,7 +35,9 @@ class UredjajBloc extends Bloc<UredjajEvent, UredjajState> {
     print("pozvan filter event");
     emit(UredjajLoadingState());
 
-    var data = await uredjajiProvider.get({'Status': event.status}, "Uredjaj");
+    var filter = {'UredjajId': event.id, 'Naziv': event.naziv, 'Koda': event.koda, 'Opis': event.opis, 'Status': event.status};
+
+    var data = await uredjajiProvider.get(filter, "Uredjaj");
 
     emit(UredjajDataLoadedState(data));
   }

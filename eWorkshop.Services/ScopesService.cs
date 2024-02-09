@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eWorkshop.Model;
 using eWorkshop.Model.Requests;
+using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,18 @@ using System.Threading.Tasks;
 
 namespace eWorkshop.Services
 {
-    public class ScopesService : BaseCRUDService<ScopesVM, object, ApiScope, ScopesUpsertRequest, ScopesUpsertRequest>, IScopesService
+    public class ScopesService : BaseCRUDService<ScopesVM, ApiScopesSearchObject, ApiScope, ScopesUpsertRequest, ScopesUpsertRequest>, IScopesService
     {
         public ScopesService(_190128Context context, IMapper mapper) : base(context, mapper)
         {
+        }
+
+        public override IQueryable<ApiScope> AddFilter(IQueryable<ApiScope> query, ApiScopesSearchObject search = null)
+        {
+            var filter = base.AddFilter(query, search);
+
+
+            return filter;
         }
     }
 }

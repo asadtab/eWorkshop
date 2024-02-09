@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace eWorkshop.Services.Database;
 
 public partial class Uredjaj
 {
+    [Key]
     public int UredjajId { get; set; }
 
     public int TipId { get; set; }

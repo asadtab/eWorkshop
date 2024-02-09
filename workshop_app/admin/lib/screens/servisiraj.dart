@@ -1,8 +1,11 @@
+import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/uredjaj.dart';
+import 'package:commons/models/user.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/providers/komponente_provider.dart';
+import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/reparacija_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -10,6 +13,7 @@ import 'package:commons/widgets/notification.dart';
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:commons/models/komponenta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 
@@ -28,6 +32,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   IzvrseniServisProvider? izvrseniServisProvider;
   KomponenteProvider? komponenteProvider;
   RadniZadaciProvider? radniZadatakProvider;
+  RadniZadaciUredjajProvider? radniZadatakUredjajProvider;
   ReparacijaProvider? reparacijaProvider;
   UredjajProvider? uredjajProvider;
 
@@ -37,6 +42,8 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   String serijskiBroj = '456';
   String status = 'Active';
   String lokacija = 'Office';
+
+  bool _validate = false;
 
   List<String> komponente = ['Komponenta A', 'Komponenta B', 'Komponenta C'];
   Komponenta? selectedKomponenta;
@@ -51,6 +58,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
     izvrseniServisProvider = context.read<IzvrseniServisProvider>();
     komponenteProvider = context.read<KomponenteProvider>();
     radniZadatakProvider = context.read<RadniZadaciProvider>();
+    radniZadatakUredjajProvider = context.read<RadniZadaciUredjajProvider>();
     reparacijaProvider = context.read<ReparacijaProvider>();
     uredjajProvider = context.read<UredjajProvider>();
 
@@ -66,11 +74,11 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
   Future<void> _fetchData(Map<String, String>? map) async {
     var mapState = {'TipUredjajaNaziv': widget.uredjaj.tipNaziv};
 
-    var temp = await komponenteProvider!.get(map, "ServisIzvrsen/Komponente");
+    //var temp = await komponenteProvider!.get(map, "ServisIzvrsen/Komponente");
     var tempRecommended = await komponenteProvider!.get(mapState, "ServisIzvrsen/Komponente");
 
     setState(() {
-      komponenteList = temp;
+      //komponenteList = temp;
       preporuceneKomponenteList = tempRecommended;
     });
   }
@@ -127,7 +135,6 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(width: 500, child: _buildTextField('Opis aktivnosti servisa', opisController, true)),
                       SizedBox(height: 10),
                       Column(
                         children: [
@@ -144,21 +151,38 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                 Container(
                                     width: 300,
                                     child: MinimalisticButton(
+                                        icons: const Icon(
+                                          Icons.save,
+                                          color: Colors.black,
+                                        ),
                                         onPressed: () async {
+                                          if (nazivController.text == "") {
+                                            setState(() {
+                                              _validate = true;
+                                            });
+                                            return;
+                                          }
+
                                           var kompSearch = {
                                             'Naziv': nazivController.text,
                                             'Vrijednost': vrijednostController.text,
                                             'Tip': kodaController.text
                                           };
+                                          setState(() {
+                                            _validate = false;
+                                          });
+
+                                          _validate = false;
 
                                           var komp = await komponenteProvider!.get(kompSearch, "Komponente");
 
-                                          if (komp.isEmpty) {
+                                          if (komp.isEmpty && nazivController.text != "") {
                                             var komponenta;
                                             try {
                                               komponenta = await komponenteProvider!.insert(kompSearch, "Komponente");
                                             } catch (e) {
                                               poruka(e.toString());
+                                              return;
                                             }
 
                                             if (dodajUListu(komponenta ?? komp.first)) {
@@ -171,10 +195,10 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                             return;
                                           }
 
-                                          dodajUListu(komp.first);
-
-                                          poruka("Komponenta je dodana na listu zamijenjenih komponenti");
-                                          clearTextBox();
+                                          if (dodajUListu(komp.first)) {
+                                            poruka("Komponenta je dodana na listu zamijenjenih komponenti");
+                                            clearTextBox();
+                                          }
                                         },
                                         text: "Sačuvaj i dodaj komponentu"))
                               ],
@@ -188,11 +212,15 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                         children: [
                           _buildDropdownButton(),
                           SizedBox(height: 10),
-                          ElevatedButton(
+                          MinimalisticButton(
+                            icons: const Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
                             onPressed: () {
                               dodajUListu(selectedKomponenta);
                             },
-                            child: Text('Dodaj komponentu'),
+                            text: 'Dodaj komponentu',
                           ),
                         ],
                       ),
@@ -201,8 +229,10 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //crossAxisAlignment: CrossAxisAlignment.,
                 children: [
+                  Container(width: 500, child: _buildTextField('Opis aktivnosti servisa', opisController, true)),
                   Card(
                     child: Column(
                       children: [
@@ -212,34 +242,67 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                       ],
                     ),
                   ),
-                  MinimalisticButton(
-                      text: "Servisiraj",
-                      onPressed: () async {
-                        List<int> komponenteId = [];
+                  BlocProvider(
+                    create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadatakUredjajProvider!),
+                    child: MinimalisticButton(
+                        icons: const Icon(
+                          Icons.build,
+                          color: Colors.black,
+                        ),
+                        text: "Servisiraj",
+                        onPressed: () async {
+                          List<int> komponenteId = [];
 
-                        var radniZadatakRequest = {'UredjajId': widget.uredjaj.uredjajId.toString(), 'RadniZadatakState': 'active'};
+                          var radniZadatakRequest = {'UredjajId': widget.uredjaj.uredjajId.toString(), 'RadniZadatakState': 'active'};
 
-                        var radniZadatak = await radniZadatakProvider!.get(radniZadatakRequest, "RadniZadatakUredjaj");
+                          var radniZadatak = await radniZadatakProvider!.get(radniZadatakRequest, "RadniZadatakUredjaj");
 
-                        if (komponenteList.isNotEmpty) {
-                          komponenteId = komponenteList.select((element, index) => element.komponentaId).toList();
-                        }
+                          if (komponenteList.isNotEmpty) {
+                            komponenteId = komponenteList.select((element, index) => element.komponentaId).toList();
+                          }
 
-                        var request = {
-                          'napomena': '',
-                          'korisnikId': 1003.toString(),
-                          'uredjajId': widget.uredjaj.uredjajId,
-                          'radniZadatakId': radniZadatak.length != 0 ? radniZadatak.first.radniZadatakId : 1,
-                          'datum': DateTime.now().toIso8601String(),
-                          'komponenteIdList': komponenteId
-                        };
+                          var request = {
+                            'napomena': '',
+                            'korisnikId': User.id,
+                            'uredjajId': widget.uredjaj.uredjajId,
+                            'radniZadatakId': radniZadatak.length != 0 ? radniZadatak.first.radniZadatakId : 1,
+                            'datum': DateTime.now().toIso8601String(),
+                            'komponenteIdList': komponenteId
+                          };
 
-                        try {
-                          var servis = await uredjajProvider!.update(null, request, "Uredjaj/Servisiraj");
-                        } catch (e) {
-                          poruka(e.toString());
-                        }
-                      })
+                          try {
+                            var temp = await uredjajProvider!.update(null, request, "Uredjaj/Servisiraj");
+                          } catch (e, stackTrace) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Alert'),
+                                  content: Text('${e.toString()} ${stackTrace}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        // Close the AlertDialog
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+
+                          poruka("Uređaj je uspješno servisiran.");
+
+                          setState(() {
+                            komponenteList = [];
+                            selectedKomponenta = null;
+                          });
+
+                          clearTextBox();
+                        }),
+                  )
                 ],
               ),
             ],
@@ -310,9 +373,9 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
         textAlign: TextAlign.justify,
         controller: controller,
         decoration: InputDecoration(
-          labelText: placeholder,
-          border: OutlineInputBorder(),
-        ),
+            labelText: placeholder,
+            border: OutlineInputBorder(),
+            errorText: _validate && controller == nazivController ? 'Unesite naziv komponente' : null),
       ),
     );
   }

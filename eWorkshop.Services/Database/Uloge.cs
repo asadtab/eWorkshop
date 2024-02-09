@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace eWorkshop.Services.Database;
-
-public partial class Uloge
+namespace eWorkshop.Services.Database
 {
-    public int UlogaId { get; set; }
+    public class Uloge: IdentityRole<int>
+    {
 
-    public string? Naziv { get; set; }
-
-    public string? Opis { get; set; }
-
-    public virtual ICollection<KorisniciUloge> KorisniciUloges { get; } = new List<KorisniciUloge>();
+    }
 }

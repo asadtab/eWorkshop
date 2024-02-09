@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:admin/commons/app_bar.dart';
+import 'package:commons/models/reparacija.dart';
 
 class UredjajDetaljiScreen extends StatefulWidget {
   final Uredjaj? uredjaj;
@@ -34,6 +35,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
 
   bool check = true;
   List<IzvrseniServis> servis = [];
+  List<Reparacija> reparacija = [];
   //Uredjaj? uredjaj;
 
   ReparacijaProvider? reparacijaProvider;
@@ -60,11 +62,22 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
+    try {
+      final response = await izvrseniServisProvider?.get(map, "Reparacija/IzvrseniServis");
+
+      final reparacijaGet = await reparacijaProvider!.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Reparacija");
+    } catch (e) {
+      poruka(e.toString());
+    }
     final response = await izvrseniServisProvider?.get(map, "Reparacija/IzvrseniServis");
+
+    final reparacijaGet = await reparacijaProvider!.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Reparacija");
+
     //final uredjajResponse = await uredjajProvider?.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Uredjaj");
 
     setState(() {
       servis = response!;
+      reparacija = reparacijaGet;
       //uredjaj = uredjajResponse!.first;
     });
   }
@@ -176,7 +189,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                             physics: AlwaysScrollableScrollPhysics(),
                             shrinkWrap: true, // This is important to allow the ListView to be used inside a Column
                             children: [
-                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status.toString() ?? ""))
+                              if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status.toString()))
                                 ListTile(
                                   title: MinimalisticButton(
                                     text: 'Aktiviraj',
@@ -197,7 +210,8 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                   title: MinimalisticButton(
                                     text: 'Servisiraj',
                                     onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen(uredjaj: uredjaj)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen(uredjaj: uredjaj)))
+                                          .then((value) => _fetchData({'id': widget.uredjaj!.uredjajId!.toString()}));
                                     },
                                   ),
                                 ),
@@ -326,9 +340,9 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                         height: 800,
                         padding: EdgeInsets.all(50),
                         child: Timeline(
-                          children: servis
-                              .distinct((x) => x.servisId)
+                          children: reparacija
                               .map((e) => TimelineModel(
+                                    position: TimelineItemPosition.right,
                                     Container(
                                       height: 200,
                                       child: ListView(
@@ -346,12 +360,21 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                                     canTapOnHeader: true,
                                                     headerBuilder: (BuildContext context, bool isExpanded) {
                                                       return ListTile(
-                                                        title: Text(e.datum.toString()),
+                                                        title: Text(e.datumString ?? "Datum nepoznat"),
                                                       );
                                                     },
                                                     body: ListTile(
-                                                      title: Expanded(
-                                                        child: _buildDataTable(servis.where((element) => element.servisId == e.servisId).toList()),
+                                                      title: Column(
+                                                        children: [
+                                                          _buildDataTable(servis.where((element) => element.servisId == e.servisId).toList()),
+                                                          Text("Servisirao: " +
+                                                              reparacija
+                                                                  .where((element) => element.servisId == e.servisId)
+                                                                  .toList()
+                                                                  .first
+                                                                  .servisirao
+                                                                  .toString())
+                                                        ],
                                                       ), //_buildDataTable(),
                                                     ),
                                                     isExpanded: e.isExpanded)
@@ -390,23 +413,37 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
   }
 
   Widget _buildDataTable(List<IzvrseniServis> komp) {
-    return DataTable(
-      columns: [
-        //DataColumn(label: Text('#')),
-        DataColumn(label: Text('Naziv')),
-        DataColumn(label: Text('Vrijednost')),
-        DataColumn(label: Text('Koda')),
-        //DataColumn(label: Text('ID')),
+    return Column(
+      children: [
+        DataTable(
+          columns: [
+            //DataColumn(label: Text('#')),
+            DataColumn(label: Text('Naziv')),
+            DataColumn(label: Text('Vrijednost')),
+            DataColumn(label: Text('Koda')),
+            //DataColumn(label: Text('ID')),
+          ],
+          rows: komp.isEmpty
+              ? [
+                  const DataRow(cells: [
+                    //DataCell(Text((komp.indexWhere((element) => element. == e.komponentaId) + 1).toString())),
+                    DataCell(Text("")),
+                    DataCell(Text("")),
+                    DataCell(Text("")),
+                    //DataCell(Text(e.komponentaId.toString())),
+                  ])
+                ]
+              : komp
+                  .map((e) => DataRow(cells: [
+                        //DataCell(Text((komp.indexWhere((element) => element. == e.komponentaId) + 1).toString())),
+                        DataCell(Text(e.naziv ?? "")),
+                        DataCell(Text(e.vrijednost ?? "")),
+                        DataCell(Text(e.tip ?? "")),
+                        //DataCell(Text(e.komponentaId.toString())),
+                      ]))
+                  .toList(),
+        )
       ],
-      rows: komp
-          .map((e) => DataRow(cells: [
-                //DataCell(Text((komp.indexWhere((element) => element. == e.komponentaId) + 1).toString())),
-                DataCell(Text(e.naziv ?? "")),
-                DataCell(Text(e.vrijednost ?? "")),
-                DataCell(Text(e.tip ?? "")),
-                //DataCell(Text(e.komponentaId.toString())),
-              ]))
-          .toList(),
     );
   }
 }

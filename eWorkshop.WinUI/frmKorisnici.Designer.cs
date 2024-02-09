@@ -34,10 +34,10 @@
             label1 = new Label();
             label2 = new Label();
             dgvLista = new DataGridView();
-            label3 = new Label();
-            btnDodajNovogKorisnika = new Button();
             NormalizedUserName = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
+            label3 = new Label();
+            btnDodajNovogKorisnika = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvLista).BeginInit();
             SuspendLayout();
             // 
@@ -96,7 +96,22 @@
             dgvLista.RowTemplate.Height = 25;
             dgvLista.Size = new Size(699, 326);
             dgvLista.TabIndex = 5;
+            dgvLista.CellContentClick += dgvLista_CellContentClick_1;
             dgvLista.CellDoubleClick += dgvLista_CellContentClick;
+            // 
+            // NormalizedUserName
+            // 
+            NormalizedUserName.DataPropertyName = "NormalizedUserName";
+            NormalizedUserName.HeaderText = "Korisničko ime";
+            NormalizedUserName.Name = "NormalizedUserName";
+            // 
+            // Email
+            // 
+            Email.DataPropertyName = "Email";
+            Email.HeaderText = "Email";
+            Email.MinimumWidth = 6;
+            Email.Name = "Email";
+            Email.Width = 125;
             // 
             // label3
             // 
@@ -118,20 +133,6 @@
             btnDodajNovogKorisnika.Text = "Dodaj novog korisnika";
             btnDodajNovogKorisnika.UseVisualStyleBackColor = true;
             btnDodajNovogKorisnika.Click += btnDodajNovogKorisnika_Click;
-            // 
-            // NormalizedUserName
-            // 
-            NormalizedUserName.DataPropertyName = "NormalizedUserName";
-            NormalizedUserName.HeaderText = "Korisničko ime";
-            NormalizedUserName.Name = "NormalizedUserName";
-            // 
-            // Email
-            // 
-            Email.DataPropertyName = "Email";
-            Email.HeaderText = "Email";
-            Email.MinimumWidth = 6;
-            Email.Name = "Email";
-            Email.Width = 125;
             // 
             // frmKorisnici
             // 

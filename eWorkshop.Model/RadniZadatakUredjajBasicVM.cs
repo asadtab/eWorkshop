@@ -14,7 +14,7 @@ namespace eWorkshop.Model
 
         public string Napomena { get; set; }
 
-        public int KorisnikId { get; set; }
+        public string KorisnikId { get; set; }
 
         public KorisniciVM Korisnik { get; set; }
 

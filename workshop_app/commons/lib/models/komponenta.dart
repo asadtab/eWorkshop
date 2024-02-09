@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'komponenta.g.dart';
@@ -13,8 +12,7 @@ class Komponenta {
 
   Komponenta();
 
-  factory Komponenta.fromJson(Map<String, dynamic> json) =>
-      _$KomponentaFromJson(json);
+  factory Komponenta.fromJson(Map<String, dynamic> json) => _$KomponentaFromJson(json);
 
   Map<String, dynamic> toJson() => _$KomponentaToJson(this);
 }

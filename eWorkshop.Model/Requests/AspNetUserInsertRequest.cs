@@ -6,14 +6,15 @@ namespace eWorkshop.Model.Requests
 {
     public class AspNetUserInsertRequest
     {
-        public string UserName { get; set; }
-
-        public string NormalizedUserName { get; set; }
 
         public string Email { get; set; }
 
         public string PasswordHash { get; set; }
 
-        public  List<string> Roles { get; set; } = new List<string>();
+        public string Ime { get; set; } = null;
+
+        public string Prezime { get; set; } = null;
+
+        public List<string> Uloge { get; set; }
     }
 }
