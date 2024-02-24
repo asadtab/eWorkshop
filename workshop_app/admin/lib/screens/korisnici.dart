@@ -1,11 +1,10 @@
 import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
-import 'package:admin/model/token.dart';
 import 'package:admin/screens/acc.dart';
 import 'package:admin/widgets/dodaj_korisnika.dart';
 import 'package:commons/models/korisnik.dart';
-import 'package:commons/providers/auth_provider.dart';
 import 'package:commons/providers/korisnici_provider.dart';
-import 'package:commons/providers/radniZadaci_provider.dart';
+import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +19,17 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
 
   List<Korisnik> korisnici = [];
 
+  late KorisniciProvider korisniciProvider;
+
   String _selected = "";
+
+  @override
+  void initState() {
+    korisniciProvider = context.read<KorisniciProvider>();
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +126,6 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
                                   DataCell(Text(user.status! ? "Da" : "Ne")),
                                   DataCell(PopupMenuButton<String>(
                                     initialValue: _selected,
-                                    // Callback that sets the selected popup menu item.
                                     onSelected: (izbor) {
                                       if (izbor == "edit") {
                                         showDialog(
@@ -126,6 +134,41 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
                                         ).then((value) {
                                           korisniciBloc.add(KorisniciLoad());
                                         });
+                                      }
+                                      if (izbor == "delete") {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  title: Text("Da li želite izbrisati ulogu?"),
+                                                  content: Container(
+                                                      height: 170,
+                                                      child: Row(children: [
+                                                        MinimalisticButton(
+                                                          text: "Potvrdi",
+                                                          onPressed: () async {
+                                                            var result = await korisniciProvider.delete(user.id, user, "Korisnici");
+
+                                                            korisniciBloc.add(KorisniciLoad());
+
+                                                            ScaffoldMessenger.of(context)
+                                                                .showSnackBar(CustomNotification.infoSnack(result!["message"].toString()));
+
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          icons: Icon(
+                                                            Icons.save,
+                                                            color: Colors.blueAccent,
+                                                          ),
+                                                        ),
+                                                        MinimalisticButton(
+                                                            text: "Poništi",
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            icons: Icon(Icons.cancel, color: Colors.redAccent))
+                                                      ])));
+                                            });
                                       }
                                     },
                                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[

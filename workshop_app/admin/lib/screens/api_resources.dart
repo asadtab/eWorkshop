@@ -1,6 +1,9 @@
 import 'package:admin/bloc/api_resources/api_resources_bloc.dart';
-import 'package:admin/screens/dodaj_klijenta.dart';
+import 'package:admin/screens/dodaj_uredi_resurs.dart';
 import 'package:commons/models/korisnik.dart';
+import 'package:commons/providers/api_resources_provider.dart';
+import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +17,16 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
   TextEditingController _nazivController = TextEditingController();
 
   List<Korisnik> korisnici = [];
+
+  late ApiResourcesProvider apiResourcesProvider;
+
+  @override
+  void initState() {
+    apiResourcesProvider = context.read<ApiResourcesProvider>();
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   String _selected = "";
 
@@ -49,7 +62,9 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                     ),
                     SizedBox(width: 16),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        apiResourcesBloc.add(ApiResourcesSearchEvent(naziv: _nazivController.text, tip: _tipImeController.text));
+                      },
                       child: Text('Prikaži'),
                     ),
                     SizedBox(width: 16),
@@ -57,7 +72,7 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                       onPressed: () async {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => AddClientDialog(),
+                          builder: (BuildContext context) => DodajUrediResurs(),
                         ).then((value) {});
                       },
                       child: Text('Dodaj novi resurs'),
@@ -94,8 +109,10 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                                 onSelectChanged: (isSelected) async => {
                                   if (isSelected!)
                                     {
-                                      /*Navigator.push(context, MaterialPageRoute(builder: (context) => UserAccountScreen(korisnik: user)))
-                                          .then((value) {})*/
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => DodajUrediResurs(apiResources: resource),
+                                      )
                                     },
                                 },
                                 cells: [
@@ -106,20 +123,41 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                                     initialValue: _selected,
                                     // Callback that sets the selected popup menu item.
                                     onSelected: (izbor) {
-                                      if (izbor == "edit") {
-                                        /*showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => DodajKorisnikaDialog(user),
-                                        ).then((value) {
-                                          korisniciBloc.add(KorisniciLoad());
-                                        });*/
+                                      if (izbor == "delete") {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  title: Text("Da li želite izbrisati ApiScope"),
+                                                  content: Container(
+                                                      height: 170,
+                                                      child: Row(children: [
+                                                        MinimalisticButton(
+                                                          text: "Potvrdi",
+                                                          onPressed: () async {
+                                                            var result = await apiResourcesProvider.delete(resource.id, resource, "ApiResource");
+
+                                                            apiResourcesBloc.add(ApiResourcesDataLoadEvent());
+
+                                                            ScaffoldMessenger.of(context)
+                                                                .showSnackBar(CustomNotification.infoSnack(result!["message"].toString()));
+                                                          },
+                                                          icons: Icon(
+                                                            Icons.save,
+                                                            color: Colors.blueAccent,
+                                                          ),
+                                                        ),
+                                                        MinimalisticButton(
+                                                            text: "Poništi",
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            icons: Icon(Icons.cancel, color: Colors.redAccent))
+                                                      ])));
+                                            });
                                       }
                                     },
                                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                      PopupMenuItem<String>(
-                                        child: Text('Uredi'),
-                                        value: 'edit',
-                                      ),
                                       PopupMenuItem<String>(
                                         child: Text('Izbriši'),
                                         value: 'delete',

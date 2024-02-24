@@ -14,3 +14,16 @@ class ApiScopeClientLoadEvent extends ApiScopesEvent {
 
   ApiScopeClientLoadEvent({required this.clientId});
 }
+
+class ScopesAddEvent extends ApiScopesEvent {
+  final Map<String, String> request;
+
+  ScopesAddEvent({required this.request});
+}
+
+class ScopesSearchEvent extends ApiScopesEvent {
+  final String? tip;
+  final String? naziv;
+
+  ScopesSearchEvent({this.naziv, this.tip});
+}

@@ -115,6 +115,8 @@ builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
 builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
 builder.Services.AddTransient<IUlogeService, UlogeService>();
 builder.Services.AddTransient<IClientSecretService, ClientSecretService>();
+builder.Services.AddTransient<IClientScopeService, ClientScopeService>();
+builder.Services.AddTransient<IClientGrantTypeService, ClientGrantTypeService>();
 
 /*builder.Services.AddScoped<UserManager<IdentityUser>>();
 builder.Services.AddScoped<UserManager<IdentityRole>>();*/

@@ -18,10 +18,64 @@ namespace eWorkshop.Services.IDS
         {
         }
 
-        public override IEnumerable<ClientVM> Get(ClientSearchObject search = null)
+        public override ClientVM Update(int id, ClientInsertRequest update)
         {
-            var client = base.Get(search);
-            return client;
+            foreach (var grantTypeRequest in update.ClientGrantTypes)
+            {
+                var existingGrantType =
+                    Context.ClientGrantTypes.FirstOrDefault(x =>x.ClientId == id && x.GrantType == grantTypeRequest.GrantType);
+
+                if (existingGrantType != null) 
+                {
+                    Mapper.Map(grantTypeRequest, existingGrantType);
+                } else
+                {
+                    var newGrantType = Mapper.Map<ClientGrantType>(grantTypeRequest);
+                    newGrantType.ClientId = id;
+                    Context.ClientGrantTypes.Add(newGrantType);
+                    Context.SaveChanges();
+                }
+            }
+
+            foreach (var clientScopesRequest in update.ClientScopes)
+            {
+                var existingClientScope = Context.ClientScopes.FirstOrDefault(x => x.ClientId == id && x.Scope == clientScopesRequest.Scope);
+
+                if (existingClientScope != null)
+                {
+                    Mapper.Map(clientScopesRequest, existingClientScope);
+                }
+                else
+                {
+                    var newClientScope = Mapper.Map<ClientScope>(clientScopesRequest);
+                    newClientScope.ClientId = id;
+                    Context.ClientScopes.Add(newClientScope);
+                    Context.SaveChanges();
+                }
+            }
+
+            var requestUpdate = new ClientUpsertRequest() 
+            { 
+                AllowOfflineAccess = update.AllowOfflineAccess,
+                ClientId = update.ClientId,
+                RequireClientSecret = update.RequireClientSecret,
+                ClientName = update.ClientName,
+                ClientUri = update.ClientUri,
+                Enabled = update.Enabled,
+                ProtocolType = update.ProtocolType,
+                RequirePkce = update.RequirePkce
+            };
+
+            var entity = Context.Clients.Find(id);
+
+            if (entity != null)
+                Mapper.Map(requestUpdate, entity);
+            else
+                return null;
+
+            Context.SaveChanges();
+
+            return Mapper.Map<ClientVM>(entity);
         }
 
         public override IQueryable<Client> AddFilter(IQueryable<Client> query, ClientSearchObject search = null)

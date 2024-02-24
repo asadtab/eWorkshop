@@ -16,9 +16,10 @@ class KlijentiAddEvent extends KlijentiEvent {
 }
 
 class KlijentiUpdateEvent extends KlijentiEvent {
-  late Klijenti klijent;
+  late Map<String, Object> klijent;
+  late int klijentId;
 
-  KlijentiUpdateEvent({required this.klijent});
+  KlijentiUpdateEvent({required this.klijent, required this.klijentId});
 }
 
 class KlijentiSearchEvent extends KlijentiEvent {

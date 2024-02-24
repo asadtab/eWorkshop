@@ -1,10 +1,7 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
 import 'package:equatable/equatable.dart';
-import 'package:provider/provider.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

@@ -18,6 +18,8 @@ class ApiScopesBloc extends Bloc<ApiScopesEvent, ApiScopesState> {
 
     on<ApiScopeLoadDataEvent>(apiScopeLoadDataEvent);
     on<ApiScopeClientLoadEvent>(apiScopeClientLoadEvent);
+    on<ScopesAddEvent>(scopesAddEvent);
+    on<ScopesSearchEvent>(scopesSearchEvent);
   }
 
   FutureOr<void> apiScopeLoadDataEvent(ApiScopeLoadDataEvent event, Emitter<ApiScopesState> emit) async {
@@ -32,6 +34,18 @@ class ApiScopesBloc extends Bloc<ApiScopesEvent, ApiScopesState> {
     emit(ApiScopesLoadingState());
 
     var request = await apiScopesProvider.get(null, "ApiScopes");
+
+    emit(ApiScopesDataLoadedState(apiScopes: request));
+  }
+
+  FutureOr<void> scopesAddEvent(ScopesAddEvent event, Emitter<ApiScopesState> emit) async {
+    await apiScopesProvider.insert(event.request, "ApiScopes");
+  }
+
+  FutureOr<void> scopesSearchEvent(ScopesSearchEvent event, Emitter<ApiScopesState> emit) async {
+    emit(ApiScopesLoadingState());
+
+    var request = await apiScopesProvider.get({'Name': event.tip, 'DisplayName': event.naziv}, "ApiScopes");
 
     emit(ApiScopesDataLoadedState(apiScopes: request));
   }

@@ -34,10 +34,10 @@ namespace eWorkshop.Controllers
             return ReparacijaService.Insert(request);
         }
 
-        [HttpPut("Posalji")]
-        public UredjajLokacijaVM Servisiraj([FromBody]UredjajLokacijaVM uredjajLokacija)
+        [HttpPut("Posalji/{id}")]
+        public void Servisiraj(int id)
         {
-            return Service.Posalji(uredjajLokacija);
+           Service.Posalji(id);
         }
 
         [HttpPut("SpareParts/{id}")]

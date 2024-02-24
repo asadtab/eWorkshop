@@ -43,6 +43,6 @@ class KlijentiBloc extends Bloc<KlijentiEvent, KlijentiState> {
   }
 
   FutureOr<void> klijentiUpdateEvent(KlijentiUpdateEvent event, Emitter<KlijentiState> emit) async {
-    await klijentiProvider.update(event.klijent.id, event.klijent, "Client");
+    await klijentiProvider.update(event.klijentId, event.klijent, "Client");
   }
 }

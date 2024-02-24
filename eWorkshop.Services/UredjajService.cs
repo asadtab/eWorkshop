@@ -55,15 +55,15 @@ namespace eWorkshop.Services
             return Mapper.Map<UredjajVM>(uredjaj);
         }
 
-        public UredjajLokacijaVM Posalji(UredjajLokacijaVM uredjajLokacija)
+        public void Posalji(int id)
         {
             var state = BaseState.CreateState("ready");
-            var uredjaj = Context.Uredjajs.Find(uredjajLokacija.UredjajId);
+            var uredjaj = Context.Uredjajs.Find(id);
             state.CurrentEntity = uredjaj;
 
-            state.Posalji(uredjajLokacija);
+            state.Posalji(id);
 
-            return uredjajLokacija;
+            //return uredjajLokacija;
         }
 
         public override UredjajVM Insert(UredjajUpsertRequest insert)

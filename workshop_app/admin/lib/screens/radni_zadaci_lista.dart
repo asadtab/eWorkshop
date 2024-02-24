@@ -1,7 +1,4 @@
-import 'package:admin/commons/app_bar.dart';
-import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
 import 'package:admin/screens/radni_zadaci.dart';
-import 'package:admin/screens/uredjaj_detalji.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
@@ -9,7 +6,6 @@ import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
-import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -105,14 +105,6 @@ namespace eWorkshop.IdentityServer.Controllers
 
                 var ulogetemp =  await _userManager?.AddToRolesAsync(user, request.Uloge);
   
-                
-
-            /*    var claims = new List<Claim>
-             {
-              new Claim(JwtClaimTypes.Name, user.UserName),
-              new Claim(JwtClaimTypes.Email, user.NormalizedEmail),
-              
-            };*/
 
                 var claims = new List<Claim>
              {
@@ -165,23 +157,8 @@ namespace eWorkshop.IdentityServer.Controllers
         [HttpGet]
         public async Task<IEnumerable<KorisniciVM>> GetUsersAsync()
         {
-            // Start with a base query
             IQueryable<Korisnici> query = _userManager.Users;
 
-            // Apply search criteria
-            /*if (!string.IsNullOrEmpty(search.UserName))
-            {
-                query = query.Where(u => u.UserName.Contains(search.UserName));
-            }
-
-            if (!string.IsNullOrEmpty(search.Email))
-            {
-                query = query.Where(u => u.Email.Contains(search.Email));
-            }*/
-
-            // Add more criteria as needed
-
-            // Execute the query and return results
             var users = await query.ToListAsync();
             
 

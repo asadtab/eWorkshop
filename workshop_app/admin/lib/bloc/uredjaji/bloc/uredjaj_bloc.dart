@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/models/uredjaj.dart';
-import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:equatable/equatable.dart';
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
 part 'uredjaj_event.dart';

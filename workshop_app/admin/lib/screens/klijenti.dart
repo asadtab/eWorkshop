@@ -1,8 +1,10 @@
-import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
 import 'package:admin/bloc/client_secret/client_secret_bloc.dart';
 import 'package:admin/bloc/klijenti/klijenti_bloc.dart';
 import 'package:admin/screens/dodaj_klijenta.dart';
 import 'package:commons/models/korisnik.dart';
+import 'package:commons/providers/klijenti_provider.dart';
+import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,13 +19,21 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
 
   List<Korisnik> korisnici = [];
 
+  late KlijentiProvider klijentProvider;
+
   String _selected = "";
+
+  @override
+  void initState() {
+    klijentProvider = context.read<KlijentiProvider>();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final KlijentiBloc klijentiBloc = BlocProvider.of<KlijentiBloc>(context);
     final ClientSecretBloc clientSecretBloc = BlocProvider.of<ClientSecretBloc>(context);
-    final ApiScopesBloc apiScopesBloc = BlocProvider.of<ApiScopesBloc>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -118,21 +128,44 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
                                   DataCell(PopupMenuButton<String>(
                                     initialValue: _selected,
                                     // Callback that sets the selected popup menu item.
-                                    onSelected: (izbor) {
-                                      if (izbor == "edit") {
-                                        /*showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => DodajKorisnikaDialog(user),
-                                        ).then((value) {
-                                          korisniciBloc.add(KorisniciLoad());
-                                        });*/
+                                    onSelected: (izbor) async {
+                                      if (izbor == "delete") {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  title: Text("Da li želite izbrisati ApiScope"),
+                                                  content: Container(
+                                                      height: 170,
+                                                      child: Row(children: [
+                                                        MinimalisticButton(
+                                                          text: "Potvrdi",
+                                                          onPressed: () async {
+                                                            var result = await klijentProvider.delete(klijent.id, klijent, "Client");
+
+                                                            klijentiBloc.add(KlijentiInitialDataEvent());
+
+                                                            ScaffoldMessenger.of(context)
+                                                                .showSnackBar(CustomNotification.infoSnack(result!["message"].toString()));
+
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          icons: Icon(
+                                                            Icons.save,
+                                                            color: Colors.blueAccent,
+                                                          ),
+                                                        ),
+                                                        MinimalisticButton(
+                                                            text: "Poništi",
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            icons: Icon(Icons.cancel, color: Colors.redAccent))
+                                                      ])));
+                                            });
                                       }
                                     },
                                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                      PopupMenuItem<String>(
-                                        child: Text('Uredi'),
-                                        value: 'edit',
-                                      ),
                                       PopupMenuItem<String>(
                                         child: Text('Izbriši'),
                                         value: 'delete',

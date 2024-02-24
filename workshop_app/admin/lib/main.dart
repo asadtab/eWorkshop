@@ -9,6 +9,7 @@ import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/screens/login_screen.dart';
+import 'package:commons/providers/client_grant_type_provider.dart';
 import 'package:commons/providers/ids_provider.dart';
 //import 'package:admin/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
@@ -23,6 +24,7 @@ import 'package:commons/providers/auth_provider.dart';
 import 'package:commons/providers/uloge_provider.dart';
 import 'package:commons/providers/api_scopes_provider.dart';
 import 'package:commons/providers/api_resources_provider.dart';
+import 'package:commons/providers/client_scope_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +58,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => ApiScopesProvider()),
       ChangeNotifierProvider(create: (_) => ApiResourcesProvider()),
       ChangeNotifierProvider(create: (_) => ClientSecretProvider()),
+      ChangeNotifierProvider(create: (_) => ClientScopeProvider()),
+      ChangeNotifierProvider(create: (_) => ClientGrantTypeProvider()),
     ],
     child: const MyApp(),
   ));

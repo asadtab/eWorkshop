@@ -1,0 +1,20 @@
+2024-02-21 20:38:30.350 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-02-21 20:38:30.622 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 285.9617ms
+2024-02-21 20:38:47.946 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-02-21 20:38:48.267 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 321.1617ms
+2024-02-21 20:38:55.290 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-02-21 20:38:55.560 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 270.0047ms
+2024-02-21 20:42:33.778 +01:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-02-21 20:42:36.263 +01:00 [INF] Now listening on: https://localhost:7189
+2024-02-21 20:42:37.396 +01:00 [INF] Now listening on: http://localhost:5189
+2024-02-21 20:42:37.736 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-02-21 20:42:37.748 +01:00 [INF] Hosting environment: Development
+2024-02-21 20:42:37.750 +01:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop\
+2024-02-21 20:42:40.874 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/index.html - -
+2024-02-21 20:42:42.579 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/index.html - - - 200 - text/html;charset=utf-8 1742.8773ms
+2024-02-21 20:42:49.370 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-02-21 20:42:49.372 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-02-21 20:42:49.381 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 11.2450ms
+2024-02-21 20:42:49.460 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 87.9763ms
+2024-02-21 20:43:00.842 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-02-21 20:43:01.320 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 477.0786ms

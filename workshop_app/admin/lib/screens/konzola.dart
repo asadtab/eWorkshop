@@ -4,16 +4,13 @@ import 'package:admin/commons/app_bar.dart';
 import 'package:admin/widgets/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
-import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 
-import 'package:commons/widgets/button.dart';
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class KonzolaScreen extends StatefulWidget {
@@ -32,8 +29,6 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
   List<RadniZadatakUredjaj> radniZadatakUredjajData = [];
   List<RadniZadatak> radniZadatakDetalj = [];
 
-  bool _isLoading = true;
-
   @override
   void initState() {
     radniZadaciProvider = context.read<RadniZadaciProvider>();
@@ -46,17 +41,12 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     var response = await radniZadaciProvider?.get({'StateMachine': 'active'}, "RadniZadatak");
     var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
 
     setState(() {
       radniZadatakUredjajData = items!;
       radniZadatakDetalj = response!;
-      _isLoading = false;
     });
   }
 
@@ -68,7 +58,10 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
         create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadaciUredjajProvider!)..add(RadniZadatakLoadingEvent()),
         child: Scaffold(
           appBar: BarrApp(naslov: "Informacioni sistem za podršku rada servisne radionice"),
-          body: BlocConsumer<RadniZadatakUredjajBloc, RadniZadatakUredjajState>(
+          body: SingleChildScrollView(
+              child:
+                  //scrollDirection: Axis.horizontal,
+                  BlocConsumer<RadniZadatakUredjajBloc, RadniZadatakUredjajState>(
             bloc: uredjajBloc,
             listenWhen: (previous, current) => previous is DataLoadedState,
             listener: (context, state) {
@@ -82,49 +75,57 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is DataLoadedState) {
-                var temp = radniZadatakUredjajData;
                 var uredjaji = state.data;
                 var uredjajiDistinct = uredjaji.distinct((x) => x.radniZadatakId).toList();
-                return SafeArea(
-                    child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text(
-                                "Aktivni radni zadaci:",
-                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                              ))
-                        ],
-                      ),
+                return Column(
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text(
+                                    "Aktivni radni zadaci:",
+                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 400,
+                          child: Padding(
+                              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              child: Row(
+                                  children: uredjajiDistinct
+                                      .map((e) => RadniZadaciWidget(
+                                            radniZadatakUredjaj: uredjaji,
+                                            radniZadatak: e,
+                                          ))
+                                      .toList())),
+                        ),
+                      ]),
                     ),
-                    Padding(
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: Row(
-                            children: uredjajiDistinct
-                                .map((e) => RadniZadaciWidget(
-                                      radniZadatakUredjaj: uredjaji,
-                                      radniZadatak: e,
-                                    ))
-                                .toList())),
-                    /* Container(
-                      child: MinimalisticButton(
-                        text: "Osvježi",
-                        onPressed: () {
-                          uredjajBloc.add(RadniZadatakLoadingEvent());
-                        },
-                      ),
-                    )*/
-                  ]),
-                ));
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            child: Card(elevation: 3, borderOnForeground: true, shadowColor: Colors.amber, child: ListView(
+                                physics: AlwaysScrollableScrollPhysics(),
+                                shrinkWrap: false, // This is important to allow the ListView to be used inside a Column
+                                children: []))),
+                      ],
+                    )
+                  ],
+                );
               } else {
                 return Center(child: CircularProgressIndicator());
               }
             },
-          ),
+          )),
         ));
   }
 }

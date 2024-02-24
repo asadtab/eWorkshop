@@ -1,3 +1,4 @@
+import 'package:commons/models/client_grant_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'klijenti.g.dart';
@@ -9,9 +10,7 @@ class Klijenti {
   String? clientName;
   String? clientUri;
   String? protocolType;
-  //String? allowedGrantTypes;
   String? redirectUris;
-  List<String>? allowedGrantTypes;
 
   Klijenti();
 

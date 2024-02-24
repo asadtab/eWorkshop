@@ -64,7 +64,7 @@ namespace eWorkshop.Services.UredjajiStateMachine
             throw new Exception("Not allowed");
         }
 
-        public virtual void Posalji(UredjajLokacijaVM uredjajLokacija)
+        public virtual void Posalji(int id)
         {
             throw new Exception("Not allowed");
         }

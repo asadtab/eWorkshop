@@ -4,6 +4,7 @@ part 'api_scopes.g.dart';
 
 @JsonSerializable()
 class ApiScopes {
+  int? id;
   String? name;
   String? displayName;
   String? description;

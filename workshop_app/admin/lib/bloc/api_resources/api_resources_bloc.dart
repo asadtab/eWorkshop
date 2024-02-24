@@ -17,12 +17,21 @@ class ApiResourcesBloc extends Bloc<ApiResourcesEvent, ApiResourcesState> {
     });
 
     on<ApiResourcesDataLoadEvent>(apiResourcesDataLoadEvent);
+    on<ApiResourcesSearchEvent>(apiResourcesSearchEvent);
   }
 
   FutureOr<void> apiResourcesDataLoadEvent(ApiResourcesDataLoadEvent event, Emitter<ApiResourcesState> emit) async {
     emit(ApiResourcesLoadingState());
 
     var request = await apiResourcesProvider.get(null, "ApiResource");
+
+    emit(ApiResourcesDataLoadedState(resources: request));
+  }
+
+  FutureOr<void> apiResourcesSearchEvent(ApiResourcesSearchEvent event, Emitter<ApiResourcesState> emit) async {
+    emit(ApiResourcesLoadingState());
+
+    var request = await apiResourcesProvider.get({'Name': event.tip, 'DisplayName': event.naziv}, "ApiResource");
 
     emit(ApiResourcesDataLoadedState(resources: request));
   }

@@ -21,6 +21,16 @@ namespace eWorkshop.Services
         {
             var filter = base.AddFilter(query, search);
 
+           if (search != null && !string.IsNullOrEmpty(search.Name))
+                {
+                    filter = filter.Where(x => x.Name.ToLower().Contains(search.Name.ToLower()));
+                }
+
+            if (search != null && !string.IsNullOrEmpty(search.DisplayName))
+            {
+                filter = filter.Where(x => x.DisplayName.ToLower().Contains(search.DisplayName.ToLower()));
+            }
+
 
             return filter;
         }

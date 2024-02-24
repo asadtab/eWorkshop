@@ -1,11 +1,9 @@
-import 'package:admin/main.dart';
 import 'package:admin/screens/acc.dart';
 import 'package:admin/screens/login_screen.dart';
 import 'package:admin/screens/radni_zadaci.dart';
 import 'package:admin/screens/uredjaji.dart';
 import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
-import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';

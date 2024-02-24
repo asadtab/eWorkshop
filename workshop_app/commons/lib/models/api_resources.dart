@@ -4,6 +4,7 @@ part 'api_resources.g.dart';
 
 @JsonSerializable()
 class ApiResources {
+  int? id;
   String? name;
   String? displayName;
   String? description;

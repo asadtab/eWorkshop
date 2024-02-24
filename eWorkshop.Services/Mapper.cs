@@ -84,11 +84,10 @@ namespace eWorkshop.Services
             CreateMap<ClientGrantTypeUpsertRequest, ClientGrantType>(); 
             CreateMap<ClientSecretUpsertRequest, ClientSecret>(); 
 
-
-            CreateMap<AspNetUserInsertRequest, AspNetUser>(); 
-            CreateMap<AspNetRoleUpsertRequest, AspNetRole>(); 
-
             CreateMap<AspNetUserInsertRequest, IdentityUser>(); 
+
+
+            CreateMap<ClientUpsertRequest, Client>(); 
         }
     }
 }

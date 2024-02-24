@@ -1,4 +1,3 @@
-import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
@@ -8,9 +7,7 @@ import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import "package:commons/providers/uredjaj_provider.dart";
 import 'package:commons/widgets/button.dart';
-import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +26,6 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
   String dropdownvalue = "Aktivni";
   int radniZadatakId = 0;
 
-  late List<dynamic> _dataList;
-  bool _isLoading = true;
   bool addZadatakActive = false;
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
 
@@ -45,20 +40,6 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
     super.initState();
 
     _uredjajiProvider = context.read<UredjajProvider>();
-  }
-
-  Future<void> _fetchData(Map<String, String>? map) async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final response = await _uredjajiProvider?.get(map, "Uredjaj");
-
-    setState(() {
-      //uredjajiData = response!;
-      _isLoading = false;
-      //dropdownvalue = map!['Status'] ?? "";
-    });
   }
 
   @override

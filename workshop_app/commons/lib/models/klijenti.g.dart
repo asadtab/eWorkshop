@@ -12,10 +12,7 @@ Klijenti _$KlijentiFromJson(Map<String, dynamic> json) => Klijenti()
   ..clientName = json['clientName'] as String?
   ..clientUri = json['clientUri'] as String?
   ..protocolType = json['protocolType'] as String?
-  ..redirectUris = json['redirectUris'] as String?
-  ..allowedGrantTypes = (json['allowedGrantTypes'] as List<dynamic>?)
-      ?.map((e) => e as String)
-      .toList();
+  ..redirectUris = json['redirectUris'] as String?;
 
 Map<String, dynamic> _$KlijentiToJson(Klijenti instance) => <String, dynamic>{
       'id': instance.id,
@@ -24,5 +21,4 @@ Map<String, dynamic> _$KlijentiToJson(Klijenti instance) => <String, dynamic>{
       'clientUri': instance.clientUri,
       'protocolType': instance.protocolType,
       'redirectUris': instance.redirectUris,
-      'allowedGrantTypes': instance.allowedGrantTypes,
     };

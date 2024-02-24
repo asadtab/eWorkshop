@@ -4,11 +4,9 @@ part 'client_scope.g.dart';
 
 @JsonSerializable()
 class ClientScope {
-  String? name;
-  String? displayName;
-  String? description;
+  String? scope;
 
-  ClientScope();
+  ClientScope({this.scope});
 
   factory ClientScope.fromJson(Map<String, dynamic> json) => _$ClientScopeFromJson(json);
 

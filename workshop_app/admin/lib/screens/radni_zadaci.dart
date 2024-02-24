@@ -1,11 +1,6 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
-import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
-import 'package:admin/screens/pdf_viewer.dart';
 import 'package:admin/screens/radni_zadaci_lista.dart';
 import 'package:admin/widgets/radni_zadatak_pdf.dart';
 import 'package:commons/helpers/progres.dart';
@@ -47,8 +42,6 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
   RadniZadatak odabraniRadniZadatak = RadniZadatak();
   RadniZadatak? dummyRadniZadatak;
 
-  bool _isLoading = true;
-
   int? dropdownvalue;
   String? dropdownvalueStatus;
 
@@ -82,10 +75,6 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     List<RadniZadatak>? responseZadatak;
 
     try {
@@ -103,7 +92,6 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
 
     setState(() {
       radniZadatak = responseZadatak!;
-      _isLoading = false;
     });
   }
 
@@ -458,6 +446,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                             })
                       ]))));
         });
+    return null;
   }
 
   Future<RadniZadatak?> zavrsiZadatak() async {
@@ -516,6 +505,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                             })
                       ]))));
         });
+    return null;
   }
 
 ///////
@@ -568,8 +558,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                                       trailing: IconButton(
                                         onPressed: () async {
                                           try {
-                                            var result =
-                                                await uredjajiProvider!.update(odabraniRadniZadatak[index].uredjajId, null, "Uredjaj/VratiIzTaska");
+                                            await uredjajiProvider!.update(odabraniRadniZadatak[index].uredjajId, null, "Uredjaj/VratiIzTaska");
                                           } catch (e) {
                                             poruka(e.toString());
                                             return;

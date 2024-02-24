@@ -11,7 +11,8 @@ namespace eWorkshop.Model
         public string ClientName { get; set; }
         public string ClientUri { get; set; }
         public string ProtocolType { get; set; }
-        public ICollection<string> AllowedGrantTypes { get; set; }
+        public ICollection<string> GrantType { get; set; }
+        public ICollection<ClientGrantTypeVM> ClientGrantTypes { get; set; }
         public List<string> RedirectUris { get; set; }
     }
 }

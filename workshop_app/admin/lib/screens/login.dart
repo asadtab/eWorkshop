@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:admin/bloc/login/bloc/login_bloc.dart';
-import 'package:admin/commons/navigation.dart';
 import 'package:admin/main.dart';
-import 'package:admin/screens/radni_zadaci.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';

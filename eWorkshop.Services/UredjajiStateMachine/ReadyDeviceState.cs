@@ -15,9 +15,9 @@ namespace eWorkshop.Services.UredjajiStateMachine
         {
         }
 
-        public override void Posalji(UredjajLokacijaVM uredjajLokacija)
+        public override void Posalji(int id)
         {
-            CurrentEntity.LokacijaId = uredjajLokacija.LokacijaId;
+            //CurrentEntity.LokacijaId = uredjajLokacija.LokacijaId;
             CurrentEntity.Status = "out";
             Context.SaveChanges();
         }

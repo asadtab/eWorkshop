@@ -1,6 +1,7 @@
 import 'package:admin/widgets/dodaj_ulogu.dart';
-import 'package:commons/models/korisnik.dart';
 import 'package:commons/providers/uloge_provider.dart';
+import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,6 @@ class UlogeScreen extends StatefulWidget {
 
 class _UlogeScreenState extends State<UlogeScreen> {
   TextEditingController _nazivUlogeController = TextEditingController();
-  TextEditingController _imePrezimeController = TextEditingController();
 
   late UlogeProvider ulogeProvider;
 
@@ -33,7 +33,6 @@ class _UlogeScreenState extends State<UlogeScreen> {
     final UlogeBloc ulogeBloc = BlocProvider.of<UlogeBloc>(context);
 
     var _selected;
-    var userData;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -111,12 +110,44 @@ class _UlogeScreenState extends State<UlogeScreen> {
                                     DataCell(PopupMenuButton<String>(
                                       initialValue: _selected,
                                       // Callback that sets the selected popup menu item.
-                                      onSelected: (izbor) {},
+                                      onSelected: (izbor) {
+                                        if (izbor == "delete") {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                    title: Text("Da li želite izbrisati ulogu?"),
+                                                    content: Container(
+                                                        height: 170,
+                                                        child: Row(children: [
+                                                          MinimalisticButton(
+                                                            text: "Potvrdi",
+                                                            onPressed: () async {
+                                                              var result = await ulogeProvider.delete(role.id, role, "Uloge");
+
+                                                              ulogeBloc.add(UlogeRequest());
+
+                                                              ScaffoldMessenger.of(context)
+                                                                  .showSnackBar(CustomNotification.infoSnack(result!["message"].toString()));
+
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            icons: Icon(
+                                                              Icons.save,
+                                                              color: Colors.blueAccent,
+                                                            ),
+                                                          ),
+                                                          MinimalisticButton(
+                                                              text: "Poništi",
+                                                              onPressed: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              icons: Icon(Icons.cancel, color: Colors.redAccent))
+                                                        ])));
+                                              });
+                                        }
+                                      },
                                       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                        PopupMenuItem<String>(
-                                          child: Text('Uredi'),
-                                          value: 'edit',
-                                        ),
                                         PopupMenuItem<String>(
                                           child: Text('Izbriši'),
                                           value: 'delete',

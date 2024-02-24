@@ -4,6 +4,7 @@ part 'uloge.g.dart';
 
 @JsonSerializable()
 class Uloge {
+  int? id;
   String? name;
 
   Uloge();

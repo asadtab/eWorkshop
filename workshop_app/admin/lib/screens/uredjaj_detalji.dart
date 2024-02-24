@@ -10,7 +10,6 @@ import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
-import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -62,23 +61,13 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
-    try {
-      final response = await izvrseniServisProvider?.get(map, "Reparacija/IzvrseniServis");
-
-      final reparacijaGet = await reparacijaProvider!.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Reparacija");
-    } catch (e) {
-      poruka(e.toString());
-    }
     final response = await izvrseniServisProvider?.get(map, "Reparacija/IzvrseniServis");
 
     final reparacijaGet = await reparacijaProvider!.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Reparacija");
 
-    //final uredjajResponse = await uredjajProvider?.get({'UredjajId': widget.uredjaj!.uredjajId.toString()}, "Uredjaj");
-
     setState(() {
       servis = response!;
       reparacija = reparacijaGet;
-      //uredjaj = uredjajResponse!.first;
     });
   }
 

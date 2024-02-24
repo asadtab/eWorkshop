@@ -8,3 +8,10 @@ class ApiResourcesEvent extends Equatable {
 }
 
 class ApiResourcesDataLoadEvent extends ApiResourcesEvent {}
+
+class ApiResourcesSearchEvent extends ApiResourcesEvent {
+  final String? tip;
+  final String? naziv;
+
+  ApiResourcesSearchEvent({this.naziv, this.tip});
+}

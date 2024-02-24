@@ -1,6 +1,9 @@
 import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
-import 'package:admin/screens/dodaj_klijenta.dart';
+import 'package:admin/screens/dodaj_uredi_scope.dart';
 import 'package:commons/models/korisnik.dart';
+import 'package:commons/providers/api_scopes_provider.dart';
+import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +19,16 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
   List<Korisnik> korisnici = [];
 
   String _selected = "";
+
+  late ApiScopesProvider apiScopeProvider;
+
+  @override
+  void initState() {
+    apiScopeProvider = context.read<ApiScopesProvider>();
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,9 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
                     ),
                     SizedBox(width: 16),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        apiScopesBloc.add(ScopesSearchEvent(tip: _tipImeController.text, naziv: _nazivController.text));
+                      },
                       child: Text('Prikaži'),
                     ),
                     SizedBox(width: 16),
@@ -57,7 +72,7 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
                       onPressed: () async {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => AddClientDialog(),
+                          builder: (BuildContext context) => DodajUrediScope(),
                         ).then((value) {});
                       },
                       child: Text('Dodaj novi scope'),
@@ -94,8 +109,12 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
                                 onSelectChanged: (isSelected) async => {
                                   if (isSelected!)
                                     {
-                                      /*Navigator.push(context, MaterialPageRoute(builder: (context) => UserAccountScreen(korisnik: user)))
-                                          .then((value) {})*/
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => DodajUrediScope(
+                                          apiScope: scope,
+                                        ),
+                                      ).then((value) {})
                                     },
                                 },
                                 cells: [
@@ -105,21 +124,42 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
                                   DataCell(PopupMenuButton<String>(
                                     initialValue: _selected,
                                     // Callback that sets the selected popup menu item.
-                                    onSelected: (izbor) {
-                                      if (izbor == "edit") {
-                                        /*showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => DodajKorisnikaDialog(user),
-                                        ).then((value) {
-                                          korisniciBloc.add(KorisniciLoad());
-                                        });*/
+                                    onSelected: (izbor) async {
+                                      if (izbor == "delete") {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  title: Text("Da li želite izbrisati ApiScope"),
+                                                  content: Container(
+                                                      height: 170,
+                                                      child: Row(children: [
+                                                        MinimalisticButton(
+                                                          text: "Potvrdi",
+                                                          onPressed: () async {
+                                                            var result = await apiScopeProvider.delete(scope.id, scope, "ApiScopes");
+
+                                                            apiScopesBloc.add(ApiScopeLoadDataEvent());
+
+                                                            ScaffoldMessenger.of(context)
+                                                                .showSnackBar(CustomNotification.infoSnack(result!["message"].toString()));
+                                                          },
+                                                          icons: Icon(
+                                                            Icons.save,
+                                                            color: Colors.blueAccent,
+                                                          ),
+                                                        ),
+                                                        MinimalisticButton(
+                                                            text: "Poništi",
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            icons: Icon(Icons.cancel, color: Colors.redAccent))
+                                                      ])));
+                                            });
                                       }
                                     },
                                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                      PopupMenuItem<String>(
-                                        child: Text('Uredi'),
-                                        value: 'edit',
-                                      ),
                                       PopupMenuItem<String>(
                                         child: Text('Izbriši'),
                                         value: 'delete',

@@ -1,15 +1,16 @@
 import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
-import 'package:admin/bloc/client_secret/client_secret_bloc.dart';
 import 'package:admin/bloc/klijenti/klijenti_bloc.dart';
 import 'package:admin/widgets/date_picker.dart';
-import 'package:commons/models/api_scopes.dart';
+import 'package:commons/models/client_grant_type.dart';
 import 'package:commons/models/client_scope.dart';
 import 'package:commons/models/client_secret.dart';
 import 'package:commons/models/klijenti.dart';
+import 'package:commons/providers/client_grant_type_provider.dart';
 import 'package:commons/providers/client_scope_provider.dart';
 import 'package:commons/providers/client_secret_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
+import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,12 +39,11 @@ class _AddClientDialogState extends State<AddClientDialog> {
 
   late ClientSecretProvider clientSecretProvider;
   late ClientScopeProvider clientScopeProvider;
+  late ClientGrantTypeProvider clientGrantTypeProvider;
+
   List<ClientSecret> clientSecretList = [];
   List<ClientSecret> clientSecretListWidget = [];
 
-  List<String> addClientScopes = [];
-  List<Map<String, Object>> addGrantTypeMap = [];
-  List<Map<String, Object>> addClientScopesMap = [];
   bool requirePkce = false;
   bool allowOfflineAccess = false;
   bool requireSecret = true;
@@ -56,6 +56,11 @@ class _AddClientDialogState extends State<AddClientDialog> {
 
   String selectedGrantType = '';
   List<String> allowedGrantTypes = [];
+
+  List<String> addClientScopes = [];
+  List<Map<String, Object>> addGrantTypeMap = [];
+  List<Map<String, Object>> addClientScopesMap = [];
+  List<Map<String, Object>> clientScopesMap = [];
 
   bool provjera = false;
 
@@ -70,19 +75,14 @@ class _AddClientDialogState extends State<AddClientDialog> {
 
   List<Map<String, String>> clientSecrets = [];
   List<ClientScope> clientScopes = [];
+  List<ClientGrantType> clientGrantType = [];
 
   @override
   void initState() {
     super.initState();
-    // Initialize checkbox states
-
-    for (var grantType in allowedGrantTypesMap) {
-      String key = grantType.keys.first;
-      checkboxStates[key] = false;
-    }
-
     clientSecretProvider = context.read<ClientSecretProvider>();
     clientScopeProvider = context.read<ClientScopeProvider>();
+    clientGrantTypeProvider = context.read<ClientGrantTypeProvider>();
 
     clientNameController.text = widget.klijent?.clientName ?? '';
     clientIdController.text = widget.klijent?.clientId ?? '';
@@ -99,10 +99,12 @@ class _AddClientDialogState extends State<AddClientDialog> {
   Future<void> _fetchData(Map<String, String>? map) async {
     final response = await clientSecretProvider.get(map, "ClientSecret");
     final scopeResponse = await clientScopeProvider.get(map, "ClientScope");
+    final grantTypeResponse = await clientGrantTypeProvider.get(map, "ClientGrantType");
 
     setState(() {
       clientSecretList = response;
       clientScopes = scopeResponse;
+      clientGrantType = grantTypeResponse;
     });
   }
 
@@ -205,7 +207,7 @@ class _AddClientDialogState extends State<AddClientDialog> {
                       provjera = _formKey.currentState!.validate();
                     }
 
-                    if (provjera && addClientScopesMap.isNotEmpty && allowedGrantTypesMap.isNotEmpty) {
+                    if (provjera && clientScopes.isNotEmpty && allowedGrantTypesMap.isNotEmpty) {
                       Map<String, Object> request = {
                         'clientName': clientNameController.text,
                         'clientId': clientIdController.text,
@@ -213,22 +215,22 @@ class _AddClientDialogState extends State<AddClientDialog> {
                         'protocolType': protocolTypeController.text,
                         'requireClientSecret': requireSecret,
                         'enabled': true,
-                        'clientGrantTypes': addGrantTypeMap, // or format as needed
-                        'clientScopes': addClientScopesMap, // or format as needed
+                        'clientGrantTypes': clientGrantType,
+                        'clientScopes': clientScopes,
                         'requirePkce': requirePkce,
                         'allowOfflineAccess': allowOfflineAccess,
                         'clientSecrets': clientSecretList
                       };
 
                       if (widget.klijent != null) {
-                        widget.klijent!.clientId = clientIdController.text;
-                        widget.klijent!.clientName = clientNameController.text;
-                        widget.klijent!.clientUri = clientUriController.text;
-                        widget.klijent!.protocolType = protocolTypeController.text;
-                        //widget.klijent!. = addClientScopesMap;
-                        widget.klijent!.clientId = clientIdController.text;
+                        /*widget.klijent!.clientId = clientIdController.text;
+                          widget.klijent!.clientName = clientNameController.text;
+                          widget.klijent!.clientUri = clientUriController.text;
+                          widget.klijent!.protocolType = protocolTypeController.text;
+                          //widget.klijent!. = addClientScopesMap;
+                          widget.klijent!.clientId = clientIdController.text;*/
 
-                        clientBloc.add(KlijentiUpdateEvent(klijent: widget.klijent!));
+                        clientBloc.add(KlijentiUpdateEvent(klijent: request, klijentId: widget.klijent!.id!));
                         clientBloc.add(KlijentiInitialDataEvent());
                         Navigator.of(context).pop();
                         return;
@@ -585,25 +587,28 @@ class _AddClientDialogState extends State<AddClientDialog> {
       child: Column(
         children: [
           RichText(
-              text: TextSpan(style: DefaultTextStyle.of(context).style, children: <TextSpan>[
-            TextSpan(
+            text: TextSpan(style: DefaultTextStyle.of(context).style, children: <TextSpan>[
+              TextSpan(
                 text: 'Odaberi ',
                 style: TextStyle(
                   fontSize: 16.0,
-                )),
-            TextSpan(
-              text: 'scopes',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 16.0,
+                ),
               ),
-            ),
-            TextSpan(
+              TextSpan(
+                text: 'scopes',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16.0,
+                ),
+              ),
+              TextSpan(
                 text: ' klijenta',
                 style: TextStyle(
                   fontSize: 16.0,
-                ))
-          ])),
+                ),
+              ),
+            ]),
+          ),
           BlocConsumer<ApiScopesBloc, ApiScopesState>(
             bloc: scopesBloc,
             listener: (context, state) {
@@ -614,28 +619,23 @@ class _AddClientDialogState extends State<AddClientDialog> {
                 return CircularProgressIndicator();
               }
               if (state is ApiScopesDataLoadedState) {
-                @override
-                void initState() {
-                  super.initState();
-                  for (ApiScopes item in state.apiScopes.toList()) {
-                    checkboxStates[item.displayName ?? ""] = false;
-                  }
-                  // Initialize checkbox states to false for all items
-                }
-
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.apiScopes.length,
                   itemBuilder: (context, index) {
+                    final apiScope = state.apiScopes[index];
+                    final bool hasClientScope = clientScopes.where((x) => true).select((element, index) => element.scope).contains(apiScope.name);
                     return CheckboxListTile(
-                      title: Text(state.apiScopes[index].displayName ?? ""),
-                      value: checkboxStates[state.apiScopes[index].name] ?? false,
+                      title: Text(apiScope.displayName ?? ""),
+                      value: hasClientScope,
                       onChanged: (value) {
                         setState(() {
-                          checkboxStates[state.apiScopes[index].name ?? ""] = value!;
-                          addClientScopesMap.add({'scope': state.apiScopes[index].name ?? ""});
-
-                          //addClientScopes.add(clientScopes[index]);
+                          if (value!) {
+                            clientScopes.add(ClientScope(scope: apiScope.name));
+                            //clientScopesMap.add({'scope': clientScopes.firstWhere((element) => element.scope == apiScope.name)});
+                          } else {
+                            clientScopes.remove(clientScopes.firstWhere((element) => element.scope == apiScope.name));
+                          }
                         });
                       },
                     );
@@ -652,32 +652,35 @@ class _AddClientDialogState extends State<AddClientDialog> {
             height: 16,
           ),
           Divider(
-            height: 20, // Set the height of the divider
-            color: Colors.grey, // Set the color of the divider
+            height: 20,
+            color: Colors.grey,
           ),
           SizedBox(
             height: 16,
           ),
           RichText(
-              text: TextSpan(style: DefaultTextStyle.of(context).style, children: <TextSpan>[
-            TextSpan(
+            text: TextSpan(style: DefaultTextStyle.of(context).style, children: <TextSpan>[
+              TextSpan(
                 text: 'Odaberi ',
                 style: TextStyle(
                   fontSize: 16.0,
-                )),
-            TextSpan(
-              text: 'GrantTypes',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 16.0,
+                ),
               ),
-            ),
-            TextSpan(
+              TextSpan(
+                text: 'GrantTypes',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16.0,
+                ),
+              ),
+              TextSpan(
                 text: ' klijenta',
                 style: TextStyle(
                   fontSize: 16.0,
-                ))
-          ])),
+                ),
+              ),
+            ]),
+          ),
           Container(
             height: 300,
             child: ListView.builder(
@@ -685,17 +688,18 @@ class _AddClientDialogState extends State<AddClientDialog> {
               itemBuilder: (context, index) {
                 String key = allowedGrantTypesMap[index].keys.first;
                 String value = allowedGrantTypesMap[index][key]!;
-                bool isChecked = checkboxStates[key] ?? false;
+                bool isChecked = clientGrantType.where((element) => true).select((element, index) => element.grantType).contains(key);
 
                 return CheckboxListTile(
                   title: Text(value),
                   value: isChecked,
                   onChanged: (bool? value) {
                     setState(() {
-                      checkboxStates[key] = value!;
-                      addGrantTypeMap.add({'grantType': allowedGrantTypesMap[index].keys.first});
-
-                      allowedGrantTypes.add(allowedGrantTypesMap[index].keys.first);
+                      if (value!) {
+                        clientGrantType.add(ClientGrantType(grantType: allowedGrantTypesMap[index].keys.first));
+                      } else {
+                        clientGrantType.removeWhere((element) => element.grantType == allowedGrantTypesMap[index].keys.first);
+                      }
                     });
                   },
                 );

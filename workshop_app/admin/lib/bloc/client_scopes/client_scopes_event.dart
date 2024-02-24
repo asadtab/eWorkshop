@@ -12,3 +12,9 @@ class ClientScopesIdEvent extends ClientScopesEvent {
 
   ClientScopesIdEvent({required this.clientId});
 }
+
+class ScopesAddEvent extends ClientScopesEvent {
+  final Map<String, String> request;
+
+  ScopesAddEvent({required this.request});
+}

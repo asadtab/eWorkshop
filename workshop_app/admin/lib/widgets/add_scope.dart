@@ -10,8 +10,6 @@ class AddScopeDialog extends StatefulWidget {
 class _AddScopeDialogState extends State<AddScopeDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _scopeTipController = TextEditingController();
-  final TextEditingController _scopeNazivController = TextEditingController();
-  final TextEditingController _scopeOpisController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
