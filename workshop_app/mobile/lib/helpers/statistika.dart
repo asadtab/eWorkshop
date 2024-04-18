@@ -1,4 +1,4 @@
-import '../model/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
 
 class Statistika {
   static double postotak(List<RadniZadatakUredjaj> uredjaji) {

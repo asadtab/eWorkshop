@@ -15,7 +15,7 @@ namespace eWorkshop.Model
 
         public string SerijskiBroj { get; set; }
 
-        public string DatumIzvedbe { get; set; }
+        public string GodinaIzvedbe { get; set; }
 
         public bool isSelected { get; set; }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class MyBottomBar extends StatefulWidget {
   MyBottomBar({super.key}) {}
@@ -21,21 +20,21 @@ class _MyBottomBarState extends State<MyBottomBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                IconButton(
+                /*IconButton(
                   tooltip: 'Open navigation menu',
                   icon: const Icon(Icons.menu),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
-                ),
+                )*/
                 const Spacer(),
-                IconButton(
-                  tooltip: 'Open navigation menu',
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                // IconButton(
+                //   tooltip: 'Open navigation menu',
+                //   icon: const Icon(Icons.arrow_back),
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //   },
+                // ),
               ],
             )));
   }

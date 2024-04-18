@@ -1,13 +1,12 @@
+import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
 import '../../helpers/master_screen.dart';
-import '../../providers/radniZadaci_provider.dart';
 
 class RadniZadatakDodajUredi extends StatefulWidget {
   static const String routeName = "/dodajRadniZadatak";
@@ -43,7 +42,7 @@ class _RadniZadatakDodajUrediState extends State<RadniZadatakDodajUredi> {
               if (!_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Popunite obavezna polja!"));
               } else {
-                var request = {'naziv': nazivTextController.text};
+                var request = {'naziv': nazivTextController.text, 'datum': DateTime.now().toIso8601String()};
 
                 await radniZadaciProvider!.insert(request, "RadniZadatak");
 

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:commons/models/uredjaj.dart';
 import 'package:flutter/material.dart';
-import 'package:http/io_client.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';

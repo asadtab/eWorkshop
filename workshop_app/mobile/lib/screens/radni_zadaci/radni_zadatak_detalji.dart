@@ -1,18 +1,20 @@
+import 'package:commons/models/radni_zadatak.dart';
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/radniZadaci_provider.dart';
+import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
+import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
-import 'package:workshop_app/model/radni_zadatak_uredjaj.dart';
-import 'package:workshop_app/model/uredjaj.dart';
-import 'package:workshop_app/providers/radniZadaci_provider.dart';
+import 'package:workshop_app/helpers/state_helper.dart';
+
 import 'package:workshop_app/screens/uredjaji/lista_uredjaja.dart';
 
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
 import '../../helpers/master_screen.dart';
 import '../../helpers/statistika.dart';
-import '../../model/radni_zadatak.dart';
-import '../../providers/radniZadaci_uredjaj_provider.dart';
-import '../../providers/uredjaji_provider.dart';
 
 class RadniZadatakDetaljiScreen extends StatefulWidget {
   static const String routeName = "/radniZadatakDetalji";
@@ -42,8 +44,7 @@ class RadniZadatakDetaljiScreen extends StatefulWidget {
 class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
   List<RadniZadatakUredjaj>? radniZadatak = [];
   List<Uredjaj> uredjaji = [];
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  UredjajiProvider? uredjajProvider = null;
+  UredjajProvider? uredjajProvider = null;
   RadniZadatak? detalji;
   RadniZadatakUredjaj? uredjajiZadatak;
   RadniZadaciProvider? radniZadatakProvider = null;
@@ -60,7 +61,7 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
     if (RadniZadatakId != 0) {
       radniZadatakId = RadniZadatakId!;
     } else {
-      radniZadatakId = uredjaji!.first.radniZadatakId;
+      radniZadatakId = uredjaji!.first.radniZadatakId!;
     }
   }
 
@@ -68,7 +69,7 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
   void initState() {
     super.initState();
 
-    uredjajProvider = context.read<UredjajiProvider>();
+    uredjajProvider = context.read<UredjajProvider>();
     radniZadatakProvider = context.read<RadniZadaciProvider>();
     radniZadatakUredjajProvider = context.read<RadniZadaciUredjajProvider>();
 
@@ -95,9 +96,11 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
       isLoading = false;
       radniZadatak = result;
 
+      uredjaji.clear();
+
       for (var i = 0; i < radniZadatak!.length; i++) {
         var device = Uredjaj();
-        device.datumIzvedbe = radniZadatak![i].uredjajDatumIzvedbe;
+        device.godinaIzvedbe = radniZadatak![i].uredjajDatumIzvedbe;
         device.koda = radniZadatak![i].koda;
         device.lokacijaNaziv = radniZadatak![i].lokacija;
         device.serijskiBroj = radniZadatak![i].serijskiBroj;
@@ -136,7 +139,7 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
             spaceBetweenChildren: 15,
             closeManually: true,
             children: [
-              if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine != "done")
+              if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine != "done" && radniZadatakDetalji!.stateMachine != "invoice")
                 SpeedDialChild(
                     child: Icon(Icons.add),
                     label: 'Dodaj uređaj',
@@ -145,32 +148,33 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
                       Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => UredjajiListScreen.add(radniZadatakDetalji!.radniZadatakId)));
                     }),
-              if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine == "done")
-                SpeedDialChild(
-                    child: Icon(Icons.airport_shuttle),
-                    label: 'Isporuči',
-                    onTap: () {
-                      print('Copy Tapped');
-                    }),
-              if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine != "idle" && radniZadatakDetalji!.stateMachine != "done")
+              if (radniZadatakDetalji != null &&
+                  radniZadatakDetalji!.stateMachine != "idle" &&
+                  radniZadatakDetalji!.stateMachine != "done" &&
+                  radniZadatakDetalji!.stateMachine != "invoice")
                 SpeedDialChild(
                     child: Icon(Icons.done),
                     label: 'Završi',
                     onTap: () {
                       zavrsiZadatak();
                     }),
-              if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine == "done")
+              if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine == "done" && radniZadatakDetalji!.stateMachine != "invoice")
                 SpeedDialChild(
                     child: Icon(Icons.mark_email_read),
                     label: 'Fakturiši',
                     onTap: () async {
                       try {
                         await radniZadatakProvider!.update(radniZadatakId, null, "RadniZadatak/Fakturisi");
+
+                        _fetchData(null);
+                        ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Radni zadatak je uspješno fakturisan!"));
+                        isDialOpen.value = false;
+                        return;
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
                       }
-
-                      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Radni zadatak je uspješno fakturisan!"));
+                      isDialOpen.value = false;
+                      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Neuspješna akcija"));
                     })
             ],
           ),
@@ -193,7 +197,6 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
                               CommonWidget.detaljiContainer("Naziv:"),
                               CommonWidget.detaljiContainer("Datum kreiranja:"),
                               CommonWidget.detaljiContainer("Status:"),
-                              CommonWidget.detaljiContainer("Lokacija:"),
                               CommonWidget.detaljiContainer("Ukupno:"),
                               CommonWidget.detaljiContainer("Progres:"),
                               SizedBox(
@@ -206,9 +209,12 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
                             children: [
                               CommonWidget.detaljiContainer(radniZadatakDetalji?.radniZadatakId.toString() ?? ''),
                               CommonWidget.detaljiContainer(radniZadatakDetalji?.naziv ?? ''),
-                              CommonWidget.detaljiContainer(radniZadatakDetalji?.datum ?? ''),
-                              CommonWidget.detaljiContainer(radniZadatakDetalji?.stateMachine ?? ''),
-                              CommonWidget.detaljiContainer(lokacija),
+                              CommonWidget.detaljiContainer(DateTime.parse(radniZadatakDetalji?.datum ?? "").day.toString() +
+                                  "." +
+                                  DateTime.parse(radniZadatakDetalji?.datum ?? "").month.toString() +
+                                  "." +
+                                  DateTime.parse(radniZadatakDetalji?.datum ?? "").year.toString()),
+                              CommonWidget.detaljiContainer(StateHelper.nizZadatakRezultat(radniZadatakDetalji?.stateMachine ?? "")),
                               CommonWidget.detaljiContainer(radniZadatak == null ? '0' : radniZadatak!.length.toString()),
                               CommonWidget.detaljiContainer(Statistika.postotak(radniZadatak!).toString() + "%")
                             ],
@@ -232,6 +238,18 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
   void zavrsiZadatak() async {
     try {
       await radniZadatakProvider!.update(radniZadatakId, null, "RadniZadatak/Zavrsi");
-    } catch (e) {}
+
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Radni zadatak je završen!"));
+
+      for (var uredjaj in radniZadatak!) {
+        if (uredjaj.uredjajStatus == "task") {
+          await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
+        }
+      }
+
+      _fetchData(null);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
+    }
   }
 }

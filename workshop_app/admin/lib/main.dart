@@ -4,6 +4,7 @@ import 'package:admin/bloc/client_secret/client_secret_bloc.dart';
 import 'package:admin/bloc/klijenti/klijenti_bloc.dart';
 import 'package:admin/bloc/lokacija/lokacija_bloc.dart';
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:admin/bloc/statistika_bloc/statistika_bloc.dart';
 import 'package:admin/bloc/uloge/uloge_bloc.dart';
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
@@ -18,6 +19,7 @@ import 'package:commons/providers/komponente_provider.dart';
 import 'package:commons/providers/lokacija_provider.dart';
 import 'package:commons/providers/reparacija_provider.dart';
 import 'package:commons/providers/client_secret_provider.dart';
+import 'package:commons/providers/statistika_provider.dart';
 import 'package:commons/providers/tip_uredjaja_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/providers/auth_provider.dart';
@@ -60,6 +62,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => ClientSecretProvider()),
       ChangeNotifierProvider(create: (_) => ClientScopeProvider()),
       ChangeNotifierProvider(create: (_) => ClientGrantTypeProvider()),
+      ChangeNotifierProvider(create: (_) => StatistikaProvider()),
     ],
     child: const MyApp(),
   ));
@@ -80,6 +83,7 @@ class MyApp extends StatelessWidget {
     ApiScopesProvider apiScopesProvider = context.read<ApiScopesProvider>();
     ApiResourcesProvider apiResourcesProvider = context.read<ApiResourcesProvider>();
     ClientSecretProvider clientSecretProvider = context.read<ClientSecretProvider>();
+    StatistikaProvider statistikaProvider = context.read<StatistikaProvider>();
 
     return MultiBlocProvider(
         providers: [
@@ -96,7 +100,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<ApiResourcesBloc>(
               create: (context) => ApiResourcesBloc(apiResourcesProvider: apiResourcesProvider)..add(ApiResourcesDataLoadEvent())),
           BlocProvider<ClientSecretBloc>(
-              create: (context) => ClientSecretBloc(clientSecretProvider: clientSecretProvider)..add(ClientSecretLoadDataEvent()))
+              create: (context) => ClientSecretBloc(clientSecretProvider: clientSecretProvider)..add(ClientSecretLoadDataEvent())),
+          BlocProvider<StatistikaBloc>(create: (context) => StatistikaBloc(statistikaProvider: statistikaProvider)..add(StatistikaRefreshEvent())),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

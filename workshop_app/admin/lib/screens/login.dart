@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:admin/bloc/login/bloc/login_bloc.dart';
 import 'package:admin/main.dart';
 import 'package:commons/models/uredjaj.dart';
-import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
+import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,51 +78,69 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Ime: ${User.email ?? ""}"),
-              TextField(
-                controller: usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Password'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  try {
-                    var token = await authProvider!.login(usernameController.text, passwordController.text);
+        return Center(
+          child: Card(
+            child: Container(
+              width: 500,
+              height: 500,
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 20.0),
+                    TextField(
+                      controller: usernameController,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    MinimalisticButton(
+                      icons: Icon(
+                        Icons.login,
+                        color: Colors.black,
+                      ),
+                      text: "Login",
+                      onPressed: () async {
+                        try {
+                          var token = await authProvider!.login(usernameController.text, passwordController.text);
 
-                    context.read<AuthProvider>().setLoggedIn(true);
+                          context.read<AuthProvider>().setLoggedIn(true);
 
-                    setState(() {
-                      authProvider!.getUser(token);
-                    });
+                          setState(() {
+                            authProvider!.getUser(token);
+                          });
 
-                    if (context.read<AuthProvider>().isLoggedIn!) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                //RadniZadaciScreen())
-                                MyHomePage(title: "Informacioni sistem za podršku rada servisne radionice")),
-                      );
-                    }
-                  } catch (e) {
-                    poruka("Login nije uspio" + e.toString());
-                  }
-                },
-                child: Text('Login'),
+                          if (context.read<AuthProvider>().isLoggedIn!) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyHomePage(title: "Informacioni sistem za podršku rada servisne radionice"),
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          poruka("Login nije uspio" + e.toString());
+                        }
+                      },
+                    ),
+                    if (state is LoginLoading) CircularProgressIndicator(),
+                  ],
+                ),
               ),
-              if (state is LoginLoading) CircularProgressIndicator(),
-            ],
+            ),
           ),
         );
       },

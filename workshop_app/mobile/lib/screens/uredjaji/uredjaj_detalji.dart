@@ -1,28 +1,21 @@
-import 'package:darq/darq.dart';
+import 'package:commons/models/izvrseni_servis.dart';
+import 'package:commons/models/lokacija.dart';
+import 'package:commons/models/reparacija.dart';
+import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/izvrseni_servis_provider.dart';
+import 'package:commons/providers/komponente_provider.dart';
+import 'package:commons/providers/lokacija_provider.dart';
+import 'package:commons/providers/reparacija_provider.dart';
+import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-import 'package:workshop_app/main.dart';
-import 'package:workshop_app/model/izvrseni_servis.dart';
-import 'package:workshop_app/providers/reparacija_provider.dart';
-import 'package:workshop_app/providers/uredjaji_provider.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
 import '../../helpers/master_screen.dart';
-import '../../helpers/state_helper.dart';
-import '../../model/lokacija.dart';
-import '../../model/reparacija.dart';
-import '../../model/uredjaj.dart';
-import '../../providers/izvrseni_servis_provider.dart';
-import '../../providers/komponente_provider.dart';
-import '../../providers/lokacija_provider.dart';
 import '../servis/servisiraj.dart';
 
 class UredjajDetaljiScreen extends StatefulWidget {
@@ -38,8 +31,6 @@ class UredjajDetaljiScreen extends StatefulWidget {
   State<UredjajDetaljiScreen> createState() => _UredjajDetaljiState(uredjaj);
 }
 
-enum SampleItem { itemOne, itemTwo, itemThree }
-
 class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
   Uredjaj uredjaj = new Uredjaj();
   Lokacija? lokacijaDropdownValue;
@@ -53,7 +44,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
   ReparacijaProvider? reparacijaProvider = null; //servis
   IzvrseniServisProvider? izvrseniServisProvider = null;
   KomponenteProvider? komponenteProvider = null;
-  UredjajiProvider? uredjajProvider = null;
+  UredjajProvider? uredjajProvider = null;
 
   _UredjajDetaljiState(Uredjaj uredjaj) {
     this.uredjaj = uredjaj;
@@ -65,8 +56,9 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
 
     izvrseniServisProvider = context.read<IzvrseniServisProvider>();
     komponenteProvider = context.read<KomponenteProvider>();
-    uredjajProvider = context.read<UredjajiProvider>();
+    uredjajProvider = context.read<UredjajProvider>();
     lokacijaProvider = context.read<LokacijaProvider>();
+    reparacijaProvider = context.read<ReparacijaProvider>();
 
     _fetchData(null);
   }
@@ -77,8 +69,12 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
     var item = await uredjajProvider?.get({'UredjajId': uredjaj.uredjajId}, "Uredjaj");
 
     var lokacija = await lokacijaProvider?.get(null, "Lokacija");
+
+    var reparacijaResponse = await reparacijaProvider!.get({'UredjajId': uredjaj.uredjajId}, "Reparacija");
+
     if (mounted) {
       setState(() {
+        reparacija = reparacijaResponse;
         izvrseniServis = komponente!;
         uredjaj = item!.first;
         lokacijaList = lokacija!;
@@ -100,10 +96,10 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
   }
 
   void posalji() async {
-    var request = {'uredjajId': uredjaj.uredjajId, 'lokacijaId': lokacijaDropdownValue!.lokacijaId};
+    //var request = {'uredjajId': uredjaj.uredjajId};
 
     try {
-      await uredjajProvider!.update(null, request, "Uredjaj/Posalji");
+      await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Posalji");
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
       return;
@@ -137,7 +133,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
               spaceBetweenChildren: 15,
               closeManually: true,
               children: [
-                if (uredjaj.status == "idle")
+                if (uredjaj.status == "idle" || uredjaj.status == "parts")
                   SpeedDialChild(
                       child: Icon(Icons.auto_fix_high),
                       label: 'Aktiviraj',
@@ -171,11 +167,11 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                  title: Text("Odaberi lokaciju: "),
+                                  title: Text("Da li želite poslati uređaj?"),
                                   content: Container(
                                     height: 150,
                                     child: Column(children: [
-                                      DropdownButton<Lokacija>(
+                                      /* DropdownButton<Lokacija>(
                                         value: lokacijaDropdownValue,
                                         icon: const Icon(Icons.arrow_downward),
                                         elevation: 16,
@@ -196,7 +192,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                                             child: Text(value.naziv.toString()),
                                           );
                                         }).toList(),
-                                      ),
+                                      )*/
                                       Container(
                                           padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                                           child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -235,15 +231,34 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                   SpeedDialChild(
                       child: Icon(Icons.recycling),
                       label: 'Rezervni dijelovi',
-                      onTap: () {
+                      onTap: () async {
+                        try {
+                          await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/SpareParts");
+
+                          ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Uspješna promjena stanja uređaja"));
+
+                          _fetchData(null);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
+                        }
+
                         isDialOpen.value = false;
                       }),
-                if (uredjaj.status == "active" || uredjaj.status == "fix" || uredjaj.status == "ready")
+                if (uredjaj.status == "active" || uredjaj.status == "fix")
                   SpeedDialChild(
                       child: Icon(Icons.not_interested),
                       label: 'Deaktiviraj',
                       backgroundColor: Colors.redAccent,
-                      onTap: () {
+                      onTap: () async {
+                        try {
+                          await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Deaktiviraj");
+
+                          ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Uspješna promjena stanja uređaja"));
+
+                          _fetchData(null);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
+                        }
                         isDialOpen.value = false;
                       })
               ],
@@ -276,9 +291,9 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
       return [Text("Uređaj nije servisiran.")];
     }
 
-    var distinct = izvrseniServis.distinct((x) => x.servisId).toList();
+    var servisi = reparacija;
 
-    List<Widget> list = distinct
+    List<Widget> list = servisi
         .map((x) => ExpandableNotifier(
               child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Expandable(
@@ -286,7 +301,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                         child: Card(
                             child: Container(
                       padding: EdgeInsets.all(20),
-                      child: Text(x.datum.toString(), style: TextStyle(fontSize: 20)),
+                      child: Text(vrijemeFormat(x.datum!), style: TextStyle(fontSize: 20)),
                     ))),
                     expanded: Column(children: [
                       Card(
@@ -296,7 +311,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                           children: [
                             DataTable(
                               columns: [DataColumn(label: Text("Naziv")), DataColumn(label: Text("Vrijednost"))],
-                              rows: komponenteList(x),
+                              rows: komponenteList(x.servisId),
                             ),
                             Text(
                               "Servisirao: " + x.servisirao.toString(),
@@ -322,8 +337,8 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
     return list;
   }
 
-  List<DataRow> komponenteList(IzvrseniServis item) {
-    filtriraniServis = izvrseniServis.where((x) => x.servisId == item.servisId).toList();
+  List<DataRow> komponenteList(int servisId) {
+    filtriraniServis = izvrseniServis.where((x) => x.servisId == servisId).toList();
 
     List<DataRow> list =
         filtriraniServis.map((e) => DataRow(cells: [DataCell(Text(e.naziv.toString())), DataCell(Text(e.tip.toString()))])).cast<DataRow>().toList();
@@ -336,14 +351,14 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
             PopupMenuItem(
               value: 1,
               child: Text(
-                "Flutter Open",
+                "Asad",
                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
               ),
             ),
             PopupMenuItem(
               value: 2,
               child: Text(
-                "Flutter Tutorial",
+                "Tabak",
                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
               ),
             ),
@@ -356,6 +371,11 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
             shape: StadiumBorder(
               side: BorderSide(color: Colors.white, width: 2),
             )),
-        //child: Icon(Icons.menu, color: Colors.white), <-- You can give your icon here
       ));
+
+  String vrijemeFormat(String datumTekst) {
+    var datum = DateTime.parse(datumTekst);
+
+    return datum.day.toString() + "." + datum.month.toString() + "." + datum.year.toString();
+  }
 }

@@ -1,13 +1,12 @@
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:workshop_app/helpers/state_helper.dart';
-import 'package:workshop_app/model/radni_zadatak.dart';
-import 'package:workshop_app/providers/uredjaji_provider.dart';
-import 'package:workshop_app/screens/uredjaji/dodaj_uredi_uredjaj.dart';
+
 import 'package:workshop_app/screens/uredjaji/uredjaj_detalji.dart';
 
-import '../model/radni_zadatak_uredjaj.dart';
-import '../model/uredjaj.dart';
 import '../screens/radni_zadaci/radni_zadatak_detalji.dart';
 
 class CommonWidget {
@@ -126,7 +125,7 @@ class CommonWidget {
           CommonWidget.detaljiContainer(uredjaj.tipNaziv.toString()),
           CommonWidget.detaljiContainer(uredjaj.koda.toString()),
           CommonWidget.detaljiContainer(uredjaj.serijskiBroj.toString()),
-          CommonWidget.detaljiContainer(uredjaj.datumIzvedbe.toString() == "null" ? "Nepoznato" : uredjaj.datumIzvedbe.toString()),
+          CommonWidget.detaljiContainer(uredjaj.godinaIzvedbe ?? "Nepoznato"),
           CommonWidget.detaljiContainer(uredjaj.lokacijaNaziv.toString()),
           CommonWidget.detaljiContainer(StateHelper.nizRezultat(uredjaj.status.toString())),
         ],
@@ -214,7 +213,7 @@ class CommonWidget {
         height: 2,
         color: Colors.blueGrey,
       ),
-      onChanged: (dynamic? valueSet) {
+      onChanged: (dynamic valueSet) {
         // This is called when the user selects an item.
         context.setState(() {
           objekat = valueSet;
@@ -229,11 +228,10 @@ class CommonWidget {
     );
   }
 
-  static List<Widget> list(BuildContext context, List<Uredjaj> dataResult, UredjajiProvider? provider, int? radniZadatakId) {
+  static List<Widget> list(BuildContext context, List<Uredjaj> dataResult, UredjajProvider? provider, int? radniZadatakId) {
     //final dataResult = data;
 
     String selected = "";
-    bool isChecked = false;
 
     List<Widget> list = dataResult
         .map((x) => Card(

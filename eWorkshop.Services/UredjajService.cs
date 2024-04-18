@@ -165,7 +165,7 @@ namespace eWorkshop.Services
             if (search != null && search.UredjajId != 0)
                 filter = filter.Where(x => x.UredjajId == search.UredjajId);
 
-            if(search != null && !string.IsNullOrEmpty(search.Status))
+            if (search != null && !string.IsNullOrEmpty(search.Status))
                 filter = filter.Where(x => x.Status == search.Status);
 
             if (search != null && !string.IsNullOrEmpty(search.Naziv))
@@ -179,9 +179,13 @@ namespace eWorkshop.Services
 
             if (search != null)
                 filter = filter.Where(x => x.IsDeleted == search.isDeleted);
-           
 
-            return filter;
+            if (search != null && search.GetNajveciEvBroj)
+            {
+                filter = filter.OrderByDescending(x => x.UredjajId);
+            }
+
+                return filter;
         }
 
         public UredjajVM Deaktiviraj(int id)

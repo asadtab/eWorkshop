@@ -1,10 +1,9 @@
+import 'package:commons/models/radni_zadatak.dart';
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../helpers/common_widget.dart';
-import '../model/radni_zadatak.dart';
-import '../model/radni_zadatak_uredjaj.dart';
 import '../screens/radni_zadaci/radni_zadatak_detalji.dart';
 
 class RadniZadatakCommon {
@@ -14,7 +13,6 @@ class RadniZadatakCommon {
     }
 
     double progres = 0;
-    var listDistinct = Set();
 
     List<RadniZadatakUredjaj> getUredjaj(int id) {
       return data.where((x) => x.radniZadatakId == id).toList();
@@ -52,8 +50,6 @@ class RadniZadatakCommon {
 
       return list;
     }
-
-    List<RadniZadatakUredjaj> unique = data.where((x) => listDistinct.add(x.radniZadatakId)).toList();
 
     List<Widget> list = zadatak
         .map((x) => Column(children: [

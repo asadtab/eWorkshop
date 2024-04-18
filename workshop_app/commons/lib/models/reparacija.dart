@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'reparacija.g.dart';
@@ -18,7 +17,13 @@ class Reparacija {
 
   Reparacija() {}
 
-  factory Reparacija.fromJson(Map<String, dynamic> json) => _$ReparacijaFromJson(json);
+  factory Reparacija.fromJson(Map<String, dynamic> json) {
+    final reparacija = _$ReparacijaFromJson(json);
+
+    reparacija.isExpanded = false;
+
+    return reparacija;
+  }
 
   Map<String, dynamic> toJson() => _$ReparacijaToJson(this);
 }

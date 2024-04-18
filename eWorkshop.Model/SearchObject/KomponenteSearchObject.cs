@@ -6,6 +6,8 @@ namespace eWorkshop.Model.SearchObject
 {
     public class KomponenteSearchObject
     {
+        public int Id { get; set; }
+
         public string Naziv { get; set; }
 
         public string Vrijednost { get; set; }

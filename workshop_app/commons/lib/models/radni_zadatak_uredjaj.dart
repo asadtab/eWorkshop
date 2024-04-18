@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'radni_zadatak_uredjaj.g.dart';
 
 @JsonSerializable()
 class RadniZadatakUredjaj {
-  int uredjajId = 0;
-  int radniZadatakId = 0;
+  int? uredjajId;
+  int? radniZadatakId;
   String? radniZadatakNaziv;
   String? radniZadatakStatus;
   String? radniZadatakDatum;

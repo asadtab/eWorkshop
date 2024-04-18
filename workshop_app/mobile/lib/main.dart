@@ -1,21 +1,19 @@
-import 'package:darq/darq.dart';
+import 'package:commons/models/radni_zadatak.dart';
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/user.dart';
+import 'package:commons/providers/auth_provider.dart';
+import 'package:commons/providers/statistika_provider.dart';
+import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workshop_app/helpers/common_widget.dart';
-import 'package:workshop_app/model/izvrseni_servis.dart';
-import 'package:workshop_app/model/radni_zadatak.dart';
-import 'package:workshop_app/providers/izvrseni_servis_provider.dart';
-import 'package:workshop_app/providers/komponente_provider.dart';
-import 'package:workshop_app/providers/komponente_recommended_provider.dart';
-import 'package:workshop_app/providers/lokacija_provider.dart';
-import 'package:workshop_app/providers/radniZadaci_provider.dart';
-import 'package:workshop_app/providers/radniZadaci_uredjaj_provider.dart';
-import 'package:workshop_app/providers/stanice_provider.dart';
-import 'package:workshop_app/providers/stanice_uredjaj_provider.dart';
-import 'package:workshop_app/providers/tip_uredjaja_provider.dart';
-import 'package:workshop_app/providers/uredjaji_provider.dart';
-import 'package:workshop_app/screens/end-user/premjesti.dart';
-import 'package:workshop_app/screens/end-user/raspored.dart';
+import 'package:commons/providers/izvrseni_servis_provider.dart';
+import 'package:commons/providers/komponente_provider.dart';
+import 'package:commons/providers/lokacija_provider.dart';
+import 'package:commons/providers/radniZadaci_provider.dart';
+import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
+
+import 'package:commons/providers/tip_uredjaja_provider.dart';
 import 'package:workshop_app/screens/home_screen.dart';
 import 'package:workshop_app/screens/login_screen.dart';
 import 'package:workshop_app/screens/radni_zadaci/dodaj_uredi_zadatak.dart';
@@ -23,11 +21,7 @@ import 'package:workshop_app/screens/radni_zadaci/lista_zadataka.dart';
 import 'package:workshop_app/screens/servis/servisiraj.dart';
 import 'package:workshop_app/screens/uredjaji/dodaj_uredi_uredjaj.dart';
 import 'package:workshop_app/screens/uredjaji/lista_uredjaja.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-
-import 'helpers/master_screen.dart';
-import 'model/radni_zadatak_uredjaj.dart';
-import 'providers/reparacija_provider.dart';
+import 'package:commons/providers/reparacija_provider.dart';
 import 'screens/radni_zadaci/radni_zadatak_detalji.dart';
 import 'screens/uredjaji/uredjaj_detalji.dart';
 
@@ -37,17 +31,18 @@ import 'screens/uredjaji/uredjaj_detalji.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UredjajiProvider()),
+        ChangeNotifierProvider(create: (_) => UredjajProvider()),
         ChangeNotifierProvider(create: (_) => RadniZadaciProvider()),
         ChangeNotifierProvider(create: (_) => RadniZadaciUredjajProvider()),
         ChangeNotifierProvider(create: (_) => ReparacijaProvider()),
         ChangeNotifierProvider(create: (_) => IzvrseniServisProvider()),
-        ChangeNotifierProvider(create: (_) => KomponenteRecommendedProvider()),
         ChangeNotifierProvider(create: (_) => KomponenteProvider()),
         ChangeNotifierProvider(create: (_) => TipUredjajaProvider()),
         ChangeNotifierProvider(create: (_) => LokacijaProvider()),
-        ChangeNotifierProvider(create: (_) => StaniceUredjajProvider()),
-        ChangeNotifierProvider(create: (_) => StaniceProvider())
+        //ChangeNotifierProvider(create: (_) => StaniceUredjajProvider()),
+        //ChangeNotifierProvider(create: (_) => StaniceProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => StatistikaProvider())
       ],
       child: const MyApp(),
     ));
@@ -98,12 +93,6 @@ class MyApp extends StatelessWidget {
         if (settings.name == RadniZadatakDodajUredi.routeName) {
           return MaterialPageRoute(builder: ((context) => RadniZadatakDodajUredi()));
         }
-        if (settings.name == Raspored.routeName) {
-          return MaterialPageRoute(builder: ((context) => Raspored()));
-        }
-        if (settings.name == Premjesti.routeName) {
-          return MaterialPageRoute(builder: ((context) => Premjesti()));
-        }
       },
     );
   }
@@ -132,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
 
     print("called initState");
-    _fetchData(null);
+    //_fetchData(null);
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
@@ -141,107 +130,40 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     //var response = await radniZadaciProvider?.get({'UredjajState': 'active'});
-    var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
 
-    setState(() {
-      radniZadatakUredjajData = items!;
-      _isLoading = false;
-    });
+    try {
+      var items = await radniZadaciUredjajProvider?.get({'search': 'active'}, "RadniZadatakUredjaj/Flutter");
+
+      setState(() {
+        radniZadatakUredjajData = items!;
+        _isLoading = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: DrawerWidget(),
-        appBar: AppBar(
-          title: Text(
-            "SS&TK",
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: () async {
+        if (User.id != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          return false;
+        }
+        return true;
+      },
+      child: Scaffold(
+          //drawer: DrawerWidget(),
+          appBar: AppBar(
+            title: Text(
+              "SS&TK",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        body: Center(
-            child: FractionallySizedBox(
-                widthFactor: 0.8, child: Align(alignment: Alignment.center, child: Padding(padding: EdgeInsets.all(16.0), child: LoginForm())))));
-  }
-
-  List<RadniZadatakUredjaj> getUredjaj(int id) {
-    return radniZadatakUredjajData.where((x) => x.radniZadatakId == id).toList();
-  }
-
-  List<Widget> items(int id) {
-    if (radniZadatakUredjajData.length == 0) {
-      return [CircularProgressIndicator()];
-    }
-
-    List<Widget> list = getUredjaj(id)
-        .map((x) => Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-            width: 150,
-            height: 30,
-            child: Text(x.uredjajId.toString() + " - " + x.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold))))
-        .cast<Widget>()
-        .toList();
-
-    return list;
-  }
-
-  List<Widget> zadatak(BuildContext context, List<RadniZadatakUredjaj> data) {
-    if (radniZadatakUredjajData.length == 0) {
-      return [CircularProgressIndicator()];
-    }
-
-    var distinct = radniZadatakUredjajData.distinct((x) => [x.radniZadatakNaziv]);
-
-    List<Widget> list = distinct
-        .map((x) => Column(children: [
-              Card(
-                child: Container(
-                  width: 150,
-                  height: 250,
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    InkWell(
-                      onTap: () {
-                        var uredjaji = getUredjaj(x.radniZadatakId);
-
-                        MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji));
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaci(uredjaji)));
-                      },
-                      child: Container(
-                          width: 150,
-                          height: 30,
-                          child: Card(
-                              color: Color(0xFFCBE4DE),
-                              shadowColor: Color(0xFFCBE4DE),
-                              child: Center(
-                                  child: Text(
-                                x.radniZadatakNaziv ?? "",
-                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                              )))),
-                    ),
-                    Column(
-                      children: items(x.radniZadatakId),
-                    ),
-                    CommonWidget.dividerLista(),
-                  ]),
-                ),
-              ),
-              new CircularPercentIndicator(
-                radius: 40,
-                lineWidth: 13.0,
-                animation: true,
-                percent: 0.7,
-                center: new Text(
-                  "70.0%",
-                  style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-                ),
-                circularStrokeCap: CircularStrokeCap.round,
-                progressColor: Color(0xFF0E8388),
-              ),
-            ]))
-        .cast<Widget>()
-        .toList();
-
-    return list;
+          body: Center(
+              child: FractionallySizedBox(
+                  widthFactor: 0.8, child: Align(alignment: Alignment.center, child: Padding(padding: EdgeInsets.all(16.0), child: LoginForm()))))),
+    );
   }
 }

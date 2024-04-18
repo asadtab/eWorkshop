@@ -33,9 +33,9 @@ namespace eWorkshop.Controllers
         }
 
         [HttpGet("Flutter")]
-        public List<RadniZadatakFlutterVM> RadniZadatakFlutter(string? StateMachine, int RadniZadatakId)
+        public List<RadniZadatakFlutterVM> RadniZadatakFlutter(string? StateMachine, int RadniZadatakId, int UredjajId)
         {
-            return RadniZadatakUredjajService.RadniZadatakFlutter(RadniZadatakId, StateMachine);
+            return RadniZadatakUredjajService.RadniZadatakFlutter(RadniZadatakId, UredjajId, StateMachine);
         }
     }
 }

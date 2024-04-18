@@ -52,6 +52,8 @@ namespace eWorkshop.Services
                 filter = filter.Where(x => x.Vrijednost.ToLower() == search.Vrijednost.ToLower());
             }
 
+           
+
             return filter;
         }
 

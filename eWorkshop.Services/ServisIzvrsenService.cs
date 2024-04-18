@@ -36,7 +36,7 @@ namespace eWorkshop.Services
             if (search != null && !string.IsNullOrEmpty(search.TipUredjajaNaziv))
                 filter = filter.Where(x => x.Servis.Uredjaj.Tip.Naziv == search.TipUredjajaNaziv);
 
-            if (search.KorisnikId != 0 || search.KorisnikId != null)
+            if (search.KorisnikId != 0 && search.KorisnikId != null)
                 filter = filter.Where(x => x.Servis.KorisnikId == search.KorisnikId);
 
 
@@ -62,6 +62,8 @@ namespace eWorkshop.Services
             search.UredjajId = uredjajId;
 
             var list = base.Get(search);
+
+            
 
             
 

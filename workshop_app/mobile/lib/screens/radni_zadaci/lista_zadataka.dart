@@ -1,17 +1,16 @@
+import 'package:commons/models/radni_zadatak.dart';
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/providers/radniZadaci_provider.dart';
+import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-import 'package:workshop_app/model/radni_zadatak.dart';
-import 'package:workshop_app/model/radni_zadatak_uredjaj.dart';
-import 'package:workshop_app/providers/radniZadaci_provider.dart';
 
 import '../../common_widget/radni_zadaci.dart';
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
 import '../../helpers/master_screen.dart';
 import '../../helpers/state_helper.dart';
-import '../../providers/radniZadaci_uredjaj_provider.dart';
 import 'dodaj_uredi_zadatak.dart';
 
 class ListaZadataka extends StatefulWidget {
@@ -50,20 +49,23 @@ class _ListaZadatakaState extends State<ListaZadataka> {
       _isLoading = true;
     });
 
-    var responseZadaci = await _zadaci?.get(map, "RadniZadatak");
+    try {
+      var responseZadaci = await _zadaci?.get(map, "RadniZadatak");
 
-    var response = await _uredjajZadaci?.get(map, "RadniZadatakUredjaj/Flutter");
+      var response = await _uredjajZadaci?.get(map, "RadniZadatakUredjaj/Flutter");
 
-    setState(() {
-      uredjajiUZadatku = response!;
-      radniZadatak = responseZadaci!;
-      _isLoading = false;
-    });
+      setState(() {
+        uredjajiUZadatku = response!;
+        radniZadatak = responseZadaci!;
+        _isLoading = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    String dropdownvalue = "idle";
     return Scaffold(
         drawer: DrawerWidget(),
         appBar: AppBar(
@@ -90,7 +92,7 @@ class _ListaZadatakaState extends State<ListaZadataka> {
           _isLoading
               ? Center(child: CircularProgressIndicator())
               : Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height - 200,
                   child: GridView(
                     gridDelegate:
                         SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.5, mainAxisSpacing: 0, crossAxisSpacing: 0),

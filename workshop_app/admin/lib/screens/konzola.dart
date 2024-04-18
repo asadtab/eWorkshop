@@ -1,4 +1,5 @@
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:admin/bloc/statistika_bloc/statistika_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 
 import 'package:admin/widgets/radni_zadatak.dart';
@@ -53,19 +54,18 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
   @override
   Widget build(BuildContext context) {
     final RadniZadatakUredjajBloc uredjajBloc = BlocProvider.of<RadniZadatakUredjajBloc>(context);
+    final StatistikaBloc statistikaBloc = BlocProvider.of<StatistikaBloc>(context);
+    statistikaBloc.add(StatistikaRefreshEvent());
 
     return BlocProvider(
         create: (context) => RadniZadatakUredjajBloc(radniZadaciUredjajProvider: radniZadaciUredjajProvider!)..add(RadniZadatakLoadingEvent()),
         child: Scaffold(
           appBar: BarrApp(naslov: "Informacioni sistem za podršku rada servisne radionice"),
           body: SingleChildScrollView(
-              child:
-                  //scrollDirection: Axis.horizontal,
-                  BlocConsumer<RadniZadatakUredjajBloc, RadniZadatakUredjajState>(
+              child: BlocConsumer<RadniZadatakUredjajBloc, RadniZadatakUredjajState>(
             bloc: uredjajBloc,
             listenWhen: (previous, current) => previous is DataLoadedState,
             listener: (context, state) {
-              //uredjajBloc.add(LoadingEvent());
               if (state is DataLoadedState) radniZadatakUredjajData = state.data;
             },
             buildWhen: (previous, current) => current is DataLoadedState,
@@ -79,45 +79,119 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
                 var uredjajiDistinct = uredjaji.distinct((x) => x.radniZadatakId).toList();
                 return Column(
                   children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.all(20),
-                                  child: Text(
-                                    "Aktivni radni zadaci:",
-                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                                  ))
-                            ],
-                          ),
+                    Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      Container(
+                        child: Row(
+                          children: [
+                            Container(
+                                padding: EdgeInsets.all(20),
+                                child: Text(
+                                  "Aktivni radni zadaci:",
+                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                                ))
+                          ],
                         ),
-                        Container(
-                          height: 400,
-                          child: Padding(
-                              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      ),
+                      Container(
+                        height: 400,
+                        child: Padding(
+                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
                               child: Row(
                                   children: uredjajiDistinct
                                       .map((e) => RadniZadaciWidget(
                                             radniZadatakUredjaj: uredjaji,
                                             radniZadatak: e,
                                           ))
-                                      .toList())),
+                                      .toList()),
+                            )),
+                      ),
+                    ]),
+                    Scrollbar(
+                      interactive: true,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                child: BlocConsumer<StatistikaBloc, StatistikaState>(
+                                  listener: (context, state) {
+                                    // TODO: implement listener
+                                  },
+                                  bloc: statistikaBloc,
+                                  builder: (context, state) {
+                                    if (state is StatistikaInitial) {
+                                      var stat = state.statistika;
+
+                                      return Expanded(
+                                        child: Card(
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Container(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Uređaji',
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      _buildStatItem('Ukupno uređaja', stat?.uredjajiUkupno.toString() ?? ""),
+                                                      _buildStatItem('Aktivni uređaji', stat?.aktivniUredjaji.toString() ?? ""),
+                                                      _buildStatItem('Servisirani uređaji', stat?.servisiraniUredjaji.toString() ?? ""),
+                                                      _buildStatItem('Poslani uređaji', stat?.poslaniUredjaji.toString() ?? ""),
+                                                      _buildStatItem('Spremni uređaji', stat?.spremniUredjaji.toString() ?? ""),
+                                                      _buildStatItem('Neaktivni uređaji', stat?.neaktivniUredjaji.toString() ?? ""),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                  Text(
+                                                    'Radni zadaci',
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      _buildStatItem('Ukupno radnih zadataka', stat?.radniZadaciUkupno.toString() ?? ""),
+                                                      _buildStatItem('Aktivni radni zadaci', stat?.aktivniRadniZadaci.toString() ?? ""),
+                                                      _buildStatItem('Završeni radni zadaci', stat?.zavrseniRadniZadaci.toString() ?? ""),
+                                                      _buildStatItem('Neaktivni radni zadaci', stat?.neaktivniRadniZadaci.toString() ?? ""),
+                                                      _buildStatItem('Fakturisani radni zadaci', stat?.fakturisaniRadniZadaci.toString() ?? ""),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container(
+                                        child: Text("Podaci nedostupni"),
+                                      );
+                                    }
+                                  },
+                                )),
+                          ],
                         ),
-                      ]),
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                            child: Card(elevation: 3, borderOnForeground: true, shadowColor: Colors.amber, child: ListView(
-                                physics: AlwaysScrollableScrollPhysics(),
-                                shrinkWrap: false, // This is important to allow the ListView to be used inside a Column
-                                children: []))),
-                      ],
+                      ),
                     )
                   ],
                 );
@@ -127,5 +201,31 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
             },
           )),
         ));
+  }
+
+  Widget _buildStatItem(String title, String value) {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[600],
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

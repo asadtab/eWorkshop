@@ -1,6 +1,7 @@
 ﻿using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
+using eWorkshop.Services.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace eWorkshop.Services
     {
         RadniZadatakUredjajBasicVM Dodaj(RadniZadatakUredjajUpsertRequest request);
         int Progres(int id);
-        List<RadniZadatakFlutterVM> RadniZadatakFlutter( int RadniZadatakId, string status);
+        List<RadniZadatakFlutterVM> RadniZadatakFlutter( int RadniZadatakId, int UredjajId, string status);
     }
 
 }

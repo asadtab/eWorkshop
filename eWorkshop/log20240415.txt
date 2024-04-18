@@ -1,0 +1,277 @@
+2024-04-15 06:40:04.773 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-04-15 06:40:08.147 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-04-15 06:40:08.177 +02:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-04-15 06:40:08.269 +02:00 [INF] Pozivam get radnog zadatka
+2024-04-15 06:40:08.677 +02:00 [INF] Executed DbCommand (29ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-04-15 06:40:08.696 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:40:08.705 +02:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 514.2907ms
+2024-04-15 06:40:08.710 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-04-15 06:40:08.713 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 3963.0070ms
+2024-04-15 06:40:09.391 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json -
+2024-04-15 06:40:09.408 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-04-15 06:40:09.413 +02:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-04-15 06:40:09.511 +02:00 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-15 06:40:09.527 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:40:09.533 +02:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 112.3022ms
+2024-04-15 06:40:09.540 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-04-15 06:40:09.544 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 152.2422ms
+2024-04-15 06:40:09.805 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json -
+2024-04-15 06:40:09.813 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-15 06:40:09.821 +02:00 [INF] Route matched with {action = "UredjajiStatistika", controller = "Statistika"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.StatistikaVM] UredjajiStatistika() on controller eWorkshop.Controllers.StatistikaController (eWorkshop).
+2024-04-15 06:40:09.863 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-15 06:40:09.910 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+2024-04-15 06:40:09.932 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.StatistikaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:40:09.937 +02:00 [INF] Executed action eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop) in 110.205ms
+2024-04-15 06:40:09.941 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-15 06:40:09.943 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json - - 200 - application/json;+charset=utf-8 137.7746ms
+2024-04-15 06:45:16.549 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json -
+2024-04-15 06:45:16.672 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:45:16.703 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 06:45:16.896 +02:00 [INF] Executed DbCommand (23ms) [Parameters=[@__search_Status_0='?' (Size = 255), @__search_isDeleted_1='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[Status] = @__search_Status_0 AND [u].[isDeleted] = @__search_isDeleted_1
+2024-04-15 06:45:16.912 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:45:16.929 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 217.4068ms
+2024-04-15 06:45:16.932 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:45:16.935 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json - - 200 - application/json;+charset=utf-8 398.1447ms
+2024-04-15 06:45:24.408 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/TipUredjaja application/json -
+2024-04-15 06:45:24.424 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.TipUredjajaController.Get (eWorkshop)'
+2024-04-15 06:45:24.429 +02:00 [INF] Route matched with {action = "Get", controller = "TipUredjaja"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.TipUredjajaVM] Get(System.Object) on controller eWorkshop.Controllers.TipUredjajaController (eWorkshop).
+2024-04-15 06:45:24.468 +02:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[TipUredjajaID], [t].[Naziv], [t].[Opis]
+FROM [TipUredjaja] AS [t]
+2024-04-15 06:45:24.495 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.TipUredjajaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:45:24.504 +02:00 [INF] Executed action eWorkshop.Controllers.TipUredjajaController.Get (eWorkshop) in 70.1285ms
+2024-04-15 06:45:24.507 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.TipUredjajaController.Get (eWorkshop)'
+2024-04-15 06:45:24.510 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/TipUredjaja application/json - - 200 - application/json;+charset=utf-8 101.8350ms
+2024-04-15 06:45:24.897 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Lokacija application/json -
+2024-04-15 06:45:24.935 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.LokacijaController.Get (eWorkshop)'
+2024-04-15 06:45:24.944 +02:00 [INF] Route matched with {action = "Get", controller = "Lokacija"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.LokacijaVM] Get(System.Object) on controller eWorkshop.Controllers.LokacijaController (eWorkshop).
+2024-04-15 06:45:25.007 +02:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Lokacija] AS [l]
+2024-04-15 06:45:25.026 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.LokacijaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:45:25.040 +02:00 [INF] Executed action eWorkshop.Controllers.LokacijaController.Get (eWorkshop) in 87.3405ms
+2024-04-15 06:45:25.042 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.LokacijaController.Get (eWorkshop)'
+2024-04-15 06:45:25.047 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Lokacija application/json - - 200 - application/json;+charset=utf-8 149.5170ms
+2024-04-15 06:45:25.179 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?GetNajveciEvBroj=true application/json -
+2024-04-15 06:45:25.222 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:45:25.225 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 06:45:25.253 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 06:45:25.271 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:45:25.277 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 45.6261ms
+2024-04-15 06:45:25.281 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:45:25.283 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?GetNajveciEvBroj=true application/json - - 200 - application/json;+charset=utf-8 103.8831ms
+2024-04-15 06:47:44.838 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-04-15 06:47:45.046 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-04-15 06:47:45.466 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 643.3446ms
+2024-04-15 06:47:45.582 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 541.8118ms
+2024-04-15 06:47:46.069 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-04-15 06:47:46.163 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/favicon-32x32.png - -
+2024-04-15 06:47:46.511 +02:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-15 06:47:47.049 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/favicon-32x32.png - - - 200 628 image/png 885.6946ms
+2024-04-15 06:47:47.253 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 1183.5220ms
+2024-04-15 06:48:09.045 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=true - -
+2024-04-15 06:48:09.077 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:48:09.104 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 06:48:09.232 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 06:48:09.249 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:48:09.255 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 143.531ms
+2024-04-15 06:48:09.261 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:48:09.264 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=true - - - 200 - application/json;+charset=utf-8 219.7048ms
+2024-04-15 06:48:17.483 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?isDeleted=true&GetNajveciEvBroj=true - -
+2024-04-15 06:48:17.547 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:48:17.550 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 06:48:17.576 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 06:48:17.585 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:48:17.592 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 33.0364ms
+2024-04-15 06:48:17.597 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:48:17.600 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?isDeleted=true&GetNajveciEvBroj=true - - - 200 - application/json;+charset=utf-8 116.9435ms
+2024-04-15 06:48:21.480 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?isDeleted=true&GetNajveciEvBroj=false - -
+2024-04-15 06:48:21.482 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:48:21.485 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 06:48:21.511 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 06:48:21.518 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 06:48:21.526 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 34.3965ms
+2024-04-15 06:48:21.529 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 06:48:21.532 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?isDeleted=true&GetNajveciEvBroj=false - - - 200 - application/json;+charset=utf-8 52.3159ms
+2024-04-15 06:58:46.494 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-15 06:58:49.986 +02:00 [INF] Now listening on: https://localhost:7189
+2024-04-15 06:58:50.127 +02:00 [INF] Now listening on: http://localhost:5189
+2024-04-15 06:58:50.248 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-15 06:58:50.428 +02:00 [INF] Hosting environment: Development
+2024-04-15 06:58:50.441 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop\
+2024-04-15 06:58:53.176 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/index.html - -
+2024-04-15 06:58:59.117 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/index.html - - - 200 - text/html;charset=utf-8 5961.2251ms
+2024-04-15 06:59:00.176 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-04-15 06:59:00.176 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-04-15 06:59:00.185 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 8.8090ms
+2024-04-15 06:59:00.228 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 51.6702ms
+2024-04-15 06:59:06.166 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-04-15 06:59:06.560 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 394.2101ms
+2024-04-15 07:01:21.774 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=true - -
+2024-04-15 07:01:21.898 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:01:22.048 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:01:27.057 +02:00 [INF] Executed DbCommand (90ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+ORDER BY [u].[UredjajID] DESC
+2024-04-15 07:01:27.159 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:01:27.194 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 5128.4294ms
+2024-04-15 07:01:27.197 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:01:27.212 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=true - - - 200 - application/json;+charset=utf-8 5448.5088ms
+2024-04-15 07:01:40.440 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=false - -
+2024-04-15 07:01:40.471 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:01:40.496 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:01:40.723 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 07:01:40.754 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:01:40.760 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 252.1991ms
+2024-04-15 07:01:40.764 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:01:40.769 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=false - - - 200 - application/json;+charset=utf-8 329.3002ms
+2024-04-15 07:02:15.565 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=false - -
+2024-04-15 07:02:15.569 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:02:15.571 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:02:15.637 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 07:02:15.646 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:02:15.650 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 76.3403ms
+2024-04-15 07:02:15.653 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:02:15.656 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=false - - - 200 - application/json;+charset=utf-8 91.6492ms
+2024-04-15 07:02:55.788 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-15 07:02:56.803 +02:00 [INF] Now listening on: https://localhost:7189
+2024-04-15 07:02:56.818 +02:00 [INF] Now listening on: http://localhost:5189
+2024-04-15 07:02:56.832 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-15 07:02:56.838 +02:00 [INF] Hosting environment: Development
+2024-04-15 07:02:56.847 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop\
+2024-04-15 07:02:57.962 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/index.html - -
+2024-04-15 07:02:59.960 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/index.html - - - 200 - text/html;charset=utf-8 2005.0075ms
+2024-04-15 07:03:07.059 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-04-15 07:03:07.059 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-04-15 07:03:07.069 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 10.1325ms
+2024-04-15 07:03:07.129 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 69.6131ms
+2024-04-15 07:03:11.986 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-04-15 07:03:12.692 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 705.7112ms
+2024-04-15 07:06:41.350 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj - -
+2024-04-15 07:06:41.453 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:06:41.624 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:06:49.225 +02:00 [INF] Executed DbCommand (98ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 07:06:49.299 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:06:49.338 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 7694.3722ms
+2024-04-15 07:06:49.346 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:06:49.402 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj - - - 200 - application/json;+charset=utf-8 8059.8064ms
+2024-04-15 07:08:01.615 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj - -
+2024-04-15 07:08:01.643 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:08:01.654 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:08:01.898 +02:00 [INF] Executed DbCommand (22ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+2024-04-15 07:08:02.292 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:08:02.323 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 663.1219ms
+2024-04-15 07:08:02.326 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:08:02.329 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj - - - 200 - application/json;+charset=utf-8 717.9132ms
+2024-04-15 07:08:12.400 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=true - -
+2024-04-15 07:08:12.408 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:08:12.411 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:08:12.708 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+ORDER BY [u].[UredjajID] DESC
+2024-04-15 07:08:12.724 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:08:12.729 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 310.0324ms
+2024-04-15 07:08:12.735 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:08:12.738 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Uredjaj?GetNajveciEvBroj=true - - - 200 - application/json;+charset=utf-8 337.1862ms
+2024-04-15 07:09:13.867 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/TipUredjaja application/json -
+2024-04-15 07:09:20.730 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.TipUredjajaController.Get (eWorkshop)'
+2024-04-15 07:09:20.749 +02:00 [INF] Route matched with {action = "Get", controller = "TipUredjaja"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.TipUredjajaVM] Get(System.Object) on controller eWorkshop.Controllers.TipUredjajaController (eWorkshop).
+2024-04-15 07:09:20.980 +02:00 [INF] Executed DbCommand (161ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[TipUredjajaID], [t].[Naziv], [t].[Opis]
+FROM [TipUredjaja] AS [t]
+2024-04-15 07:09:21.004 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.TipUredjajaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:09:21.018 +02:00 [INF] Executed action eWorkshop.Controllers.TipUredjajaController.Get (eWorkshop) in 262.7215ms
+2024-04-15 07:09:21.021 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.TipUredjajaController.Get (eWorkshop)'
+2024-04-15 07:09:21.024 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/TipUredjaja application/json - - 200 - application/json;+charset=utf-8 7161.1222ms
+2024-04-15 07:09:23.833 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Lokacija application/json -
+2024-04-15 07:09:23.838 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.LokacijaController.Get (eWorkshop)'
+2024-04-15 07:09:23.842 +02:00 [INF] Route matched with {action = "Get", controller = "Lokacija"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.LokacijaVM] Get(System.Object) on controller eWorkshop.Controllers.LokacijaController (eWorkshop).
+2024-04-15 07:09:23.865 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Lokacija] AS [l]
+2024-04-15 07:09:23.876 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.LokacijaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:09:23.881 +02:00 [INF] Executed action eWorkshop.Controllers.LokacijaController.Get (eWorkshop) in 31.9122ms
+2024-04-15 07:09:23.884 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.LokacijaController.Get (eWorkshop)'
+2024-04-15 07:09:23.886 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Lokacija application/json - - 200 - application/json;+charset=utf-8 52.8860ms
+2024-04-15 07:09:27.010 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?GetNajveciEvBroj=true application/json -
+2024-04-15 07:09:27.019 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:09:27.027 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-15 07:09:27.045 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__search_isDeleted_0='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[isDeleted] = @__search_isDeleted_0
+ORDER BY [u].[UredjajID] DESC
+2024-04-15 07:09:27.060 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-15 07:09:27.067 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 35.0412ms
+2024-04-15 07:09:27.070 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-15 07:09:27.074 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?GetNajveciEvBroj=true application/json - - 200 - application/json;+charset=utf-8 64.6270ms

@@ -1,11 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-
-import '../helpers/common_widget.dart';
-import '../model/radni_zadatak.dart';
-import '../model/radni_zadatak_uredjaj.dart';
-import '../screens/radni_zadaci/radni_zadatak_detalji.dart';
 
 class Box {
   static List<Widget> BoxPodaci(BuildContext context, List<dynamic> data) {

@@ -1,16 +1,17 @@
+import 'package:commons/models/lokacija.dart';
+import 'package:commons/models/tip_uredjaja.dart';
+import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/lokacija_provider.dart';
+import 'package:commons/providers/tip_uredjaja_provider.dart';
+import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workshop_app/providers/tip_uredjaja_provider.dart';
+import 'package:workshop_app/screens/uredjaji/lista_uredjaja.dart';
 
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
 import '../../helpers/master_screen.dart';
-import '../../model/lokacija.dart';
-import '../../model/tip_uredjaja.dart';
-import '../../model/uredjaj.dart';
-import '../../providers/lokacija_provider.dart';
-import '../../providers/uredjaji_provider.dart';
 
 class DodajUrediUredjajScreen extends StatefulWidget {
   static const String routeName = "/dodajUredi";
@@ -34,7 +35,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
   Lokacija? lokacijaDropdownValue;
 
   TipUredjajaProvider? tipUredjajaProvider = null;
-  UredjajiProvider? uredjajiProvider = null;
+  UredjajProvider? uredjajiProvider = null;
   LokacijaProvider? lokacijaProvider = null;
 
   List<TipUredjaja> tipUredjajaList = [];
@@ -58,7 +59,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
     this.uredjaj = uredjaj;
 
     kodaTextController.text = uredjaj!.koda ?? "";
-    izdanjeTextController.text = uredjaj.datumIzvedbe ?? "";
+    izdanjeTextController.text = uredjaj.godinaIzvedbe ?? "";
     serijskiBrojTextController.text = uredjaj.serijskiBroj ?? "";
   }
 
@@ -68,33 +69,40 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
 
     tipUredjajaProvider = context.read<TipUredjajaProvider>();
     lokacijaProvider = context.read<LokacijaProvider>();
-    uredjajiProvider = context.read<UredjajiProvider>();
+    uredjajiProvider = context.read<UredjajProvider>();
     _fetchData(null);
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
-    var items = await tipUredjajaProvider?.get(null, "TipUredjaja");
-    var lokacija = await lokacijaProvider?.get(null, "Lokacija");
-    var uredjaji = await uredjajiProvider?.get({'GetNajveciEvBroj': true}, "Uredjaj");
-    if (mounted) {
-      setState(() {
-        tipUredjajaList = items!;
-        lokacijaList = lokacija!;
+    try {
+      var items = await tipUredjajaProvider?.get(null, "TipUredjaja");
+      var lokacija = await lokacijaProvider?.get(null, "Lokacija");
+      var uredjaji = await uredjajiProvider?.get({'GetNajveciEvBroj': true}, "Uredjaj");
 
-        for (var i = 0; i < lokacijaList.length; i++) {
-          if (lokacijaList[i].naziv == uredjaj!.lokacijaNaziv) {
-            lokacijaDropdownValue = lokacijaList[i];
-          }
-        }
+      if (mounted) {
+        setState(() {
+          tipUredjajaList = items!;
+          lokacijaList = lokacija!;
+          dropdownvalue = null;
+          lokacijaDropdownValue = null;
 
-        for (var i = 0; i < tipUredjajaList.length; i++) {
-          if (tipUredjajaList[i].naziv == uredjaj!.tipNaziv) {
-            dropdownvalue = tipUredjajaList[i];
+          for (var i = 0; i < lokacijaList.length; i++) {
+            if (lokacijaList[i].naziv == uredjaj!.lokacijaNaziv) {
+              lokacijaDropdownValue = lokacijaList[i];
+            }
           }
-        }
-        uredjaji!.sort((a, b) => b.uredjajId!.compareTo(a.uredjajId!));
-        EvBroj = uredjaji.first.uredjajId!;
-      });
+
+          for (var i = 0; i < tipUredjajaList.length; i++) {
+            if (tipUredjajaList[i].naziv == uredjaj!.tipNaziv) {
+              dropdownvalue = tipUredjajaList[i];
+            }
+          }
+          uredjaji!.sort((a, b) => b.uredjajId!.compareTo(a.uredjajId!));
+          EvBroj = uredjaji.first.uredjajId!;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
     }
   }
 
@@ -112,6 +120,8 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
             _formKey.currentState!.save();
 
             _sacuvaj();
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => UredjajiListScreen()));
           } else if (!_formKey.currentState!.validate()) {
             ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Popunite obavezna polja!"));
           } else if (dropdownvalue == null) {
@@ -190,7 +200,6 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                         color: Colors.blueGrey,
                       ),
                       onChanged: (Lokacija? valueSet) {
-                        // This is called when the user selects an item.
                         setState(() {
                           lokacijaDropdownValue = valueSet;
                         });
@@ -246,20 +255,32 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                                     },
                                     onSaved: (value) {},
                                   ),
-                                  TextFormField(
-                                    controller: serijskiBrojTextController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Serijski broj',
+                                  Row(children: [
+                                    Container(
+                                      width: 200,
+                                      child: TextFormField(
+                                        controller: serijskiBrojTextController,
+                                        decoration: InputDecoration(
+                                          labelText: 'Serijski broj',
+                                        ),
+                                        //initialValue: _serijskiBroj,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Unesite serijski broj uređaja';
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (value) {},
+                                      ),
                                     ),
-                                    //initialValue: _serijskiBroj,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Unesite serijski broj uređaja';
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {},
-                                  ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        serijskiBrojTextController.text = (EvBroj + 1).toString() + "/" + DateTime.now().year.toString();
+                                      },
+                                      child: const Icon(Icons.generating_tokens),
+                                      style: ElevatedButton.styleFrom(shape: CircleBorder(), padding: EdgeInsets.all(10)),
+                                    )
+                                  ]),
                                   TextFormField(
                                     controller: prijemTextController,
                                     decoration: InputDecoration(
@@ -270,19 +291,6 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                                   )
                                 ])))
                       ])),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Container(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        height: 50,
-                        width: 170,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            serijskiBrojTextController.text = EvBroj.toString() + "/" + DateTime.now().year.toString();
-                          },
-                          child: const Text("Generiši serijski broj"),
-                          style: ElevatedButton.styleFrom(),
-                        ))
-                  ]),
                 ],
               ))),
     );
@@ -293,21 +301,25 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
       'tipId': dropdownvalue!.tipUredjajaId,
       'koda': kodaTextController.text,
       'serijskiBroj': serijskiBrojTextController.text,
-      'datumIzvedbe': izdanjeTextController.text,
+      'godinaIzvedbe': izdanjeTextController.text,
       'lokacijaId': lokacijaDropdownValue!.lokacijaId
     };
 
-    if (uredjaj!.uredjajId == null) {
-      await uredjajiProvider!.insert(request, "Uredjaj");
+    try {
+      if (uredjaj!.uredjajId == null) {
+        await uredjajiProvider!.insert(request, "Uredjaj");
+      }
+
+      if (uredjaj!.uredjajId != null) {
+        await uredjajiProvider!.update(uredjaj!.uredjajId, request, "Uredjaj");
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Uspješno!"));
+
+      clear();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Deaktivirajte uređaj za uređivanje. " + e.toString()));
     }
-
-    if (uredjaj!.uredjajId != null) {
-      await uredjajiProvider!.update(uredjaj!.uredjajId, request, "Uredjaj");
-    }
-
-    ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Uspješno!"));
-
-    clear();
   }
 
   void clear() {
@@ -377,6 +389,8 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
 
                                 try {
                                   await tipUredjajaProvider?.insert(request, "TipUredjaja");
+
+                                  _fetchData(null);
                                 } catch (e) {
                                   ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
                                   Navigator.pop(context);
@@ -386,7 +400,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                                 ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack("Uspješno je dodan novi tip uređaja"));
                                 tipOpisTextController.clear();
                                 tipNazivTextController.clear();
-                                _fetchData(null);
+
                                 Navigator.pop(context);
                               }
                             }),
@@ -444,8 +458,6 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                             ),
                             onPressed: () async {
                               var request = {'naziv': lokacijaTextController.text};
-
-                              await lokacijaProvider!.insert(request, "Lokacija");
 
                               if (_formKeyLokacija.currentState!.validate()) {
                                 _formKeyLokacija.currentState!.save();

@@ -1,0 +1,125 @@
+2024-03-12 04:54:05.914 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/swagger-ui-standalone-preset.js - -
+2024-03-12 04:54:05.921 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-03-12 04:54:05.925 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/swagger-ui-bundle.js - -
+2024-03-12 04:54:05.925 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/swagger-ui.css - -
+2024-03-12 04:54:06.524 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 625.2230ms
+2024-03-12 04:54:06.534 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-03-12 04:54:06.654 +01:00 [INF] The file /swagger-ui-standalone-preset.js was not modified
+2024-03-12 04:54:06.656 +01:00 [INF] The file /swagger-ui-bundle.js was not modified
+2024-03-12 04:54:06.656 +01:00 [INF] The file /swagger-ui.css was not modified
+2024-03-12 04:54:06.668 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/swagger-ui-standalone-preset.js - - - 304 - application/javascript 770.1857ms
+2024-03-12 04:54:06.669 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/swagger-ui-bundle.js - - - 304 - application/javascript 773.1044ms
+2024-03-12 04:54:06.670 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 136.5270ms
+2024-03-12 04:54:06.672 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/swagger-ui.css - - - 304 - text/css 778.5818ms
+2024-03-12 04:54:07.709 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-03-12 04:54:07.955 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 246.1785ms
+2024-03-12 04:55:21.342 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-03-12 04:55:23.608 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 04:55:23.699 +01:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-03-12 04:55:24.407 +01:00 [INF] Pozivam get radnog zadatka
+2024-03-12 04:55:29.892 +01:00 [INF] Executed DbCommand (79ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-03-12 04:55:30.171 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 04:55:30.234 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 6520.323ms
+2024-03-12 04:55:30.238 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 04:55:30.254 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 8912.3238ms
+2024-03-12 04:55:30.491 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json -
+2024-03-12 04:55:30.500 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 04:55:30.505 +01:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-03-12 04:55:30.822 +01:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-03-12 04:55:30.833 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 04:55:30.857 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 345.3085ms
+2024-03-12 04:55:30.860 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 04:55:30.863 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 371.6782ms
+2024-03-12 05:31:36.119 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-03-12 05:31:36.270 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 05:31:36.287 +01:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-03-12 05:31:36.344 +01:00 [INF] Pozivam get radnog zadatka
+2024-03-12 05:31:36.568 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-03-12 05:31:36.586 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 05:31:36.599 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 305.2377ms
+2024-03-12 05:31:36.602 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 05:31:36.605 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 497.0357ms
+2024-03-12 05:31:36.892 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json -
+2024-03-12 05:31:36.900 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 05:31:36.903 +01:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-03-12 05:31:36.938 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-03-12 05:31:36.947 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 05:31:36.952 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 43.6875ms
+2024-03-12 05:31:36.956 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 05:31:36.958 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 66.6663ms
+2024-03-12 05:45:29.808 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-03-12 05:45:29.830 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 05:45:29.836 +01:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-03-12 05:45:29.852 +01:00 [INF] Pozivam get radnog zadatka
+2024-03-12 05:45:29.919 +01:00 [INF] Executed DbCommand (11ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-03-12 05:45:29.930 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 05:45:29.937 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 93.2762ms
+2024-03-12 05:45:29.940 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 05:45:29.943 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 136.8709ms
+2024-03-12 05:45:30.191 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json -
+2024-03-12 05:45:30.195 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 05:45:30.200 +01:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-03-12 05:45:30.219 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-03-12 05:45:30.232 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 05:45:30.237 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 30.0831ms
+2024-03-12 05:45:30.240 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 05:45:30.243 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 51.7449ms
+2024-03-12 05:47:15.267 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-03-12 05:47:15.272 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 05:47:15.275 +01:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-03-12 05:47:15.281 +01:00 [INF] Pozivam get radnog zadatka
+2024-03-12 05:47:15.289 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-03-12 05:47:15.296 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 05:47:15.301 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 21.0977ms
+2024-03-12 05:47:15.305 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-03-12 05:47:15.309 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 41.4558ms
+2024-03-12 05:47:15.553 +01:00 [INF] Request starting HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json -
+2024-03-12 05:47:15.557 +01:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 05:47:15.560 +01:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-03-12 05:47:15.572 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-03-12 05:47:15.581 +01:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-03-12 05:47:15.586 +01:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 21.8983ms
+2024-03-12 05:47:15.590 +01:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-03-12 05:47:15.593 +01:00 [INF] Request finished HTTP/1.1 GET https://fa27-109-237-46-211.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 40.0253ms
+2024-03-12 05:51:18.796 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-03-12 05:51:18.811 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 14.4151ms
+2024-03-12 05:51:18.927 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-03-12 05:51:18.998 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 70.3985ms
+2024-03-12 05:51:19.913 +01:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-03-12 05:51:20.055 +01:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 141.6122ms

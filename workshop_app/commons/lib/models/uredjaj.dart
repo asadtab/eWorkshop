@@ -7,7 +7,7 @@ class Uredjaj {
   int? uredjajId;
   String? koda;
   String? serijskiBroj;
-  String? datumIzvedbe;
+  String? godinaIzvedbe;
   String? status;
   String? tipNaziv;
   String? tipOpis;

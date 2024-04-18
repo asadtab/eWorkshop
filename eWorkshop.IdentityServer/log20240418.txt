@@ -1,0 +1,320 @@
+2024-04-18 19:25:35.526 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-18 19:25:36.097 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 621.3866ms
+2024-04-18 19:25:55.184 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-18 19:25:55.418 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 233.1497ms
+2024-04-18 19:26:05.146 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-18 19:26:06.174 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 1027.8024ms
+2024-04-18 19:36:27.379 +02:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-04-18 19:36:27.761 +02:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-04-18 19:36:27.799 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-04-18 19:36:28.382 +02:00 [INF] Executed DbCommand (41ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-04-18 19:36:28.463 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-04-18 19:36:28.497 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-04-18 19:36:28.568 +02:00 [INF] Executed DbCommand (34ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-04-18 19:36:28.755 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-04-18 19:36:28.766 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-04-18 19:36:28.786 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-04-18 19:36:30.684 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-04-18 19:36:30.692 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-04-18 19:36:30.722 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-04-18 19:36:30.751 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-04-18 19:36:30.839 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[Algorithm], [k].[Created], [k].[Data], [k].[DataProtected], [k].[IsX509Certificate], [k].[Use], [k].[Version]
+FROM [Keys] AS [k]
+WHERE [k].[Use] = N'signing'
+2024-04-18 19:36:30.936 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-04-18 19:36:30.947 +02:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 3127.4274ms
+2024-04-18 19:36:30.980 +02:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-04-18 19:36:30.987 +02:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 3633.2298ms
+2024-04-18 19:36:33.874 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - -
+2024-04-18 19:36:34.022 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2024-04-18 19:36:34.810 +02:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[Created], [i].[Description], [i].[DisplayName], [i].[Emphasize], [i].[Enabled], [i].[Name], [i].[NonEditable], [i].[Required], [i].[ShowInDiscoveryDocument], [i].[Updated], [i0].[Id], [i0].[IdentityResourceId], [i0].[Type], [i1].[Id], [i1].[IdentityResourceId], [i1].[Key], [i1].[Value]
+FROM [IdentityResources] AS [i]
+LEFT JOIN [IdentityResourceClaims] AS [i0] ON [i].[Id] = [i0].[IdentityResourceId]
+LEFT JOIN [IdentityResourceProperties] AS [i1] ON [i].[Id] = [i1].[IdentityResourceId]
+ORDER BY [i].[Id], [i0].[Id]
+2024-04-18 19:36:34.843 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AllowedAccessTokenSigningAlgorithms], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[RequireResourceIndicator], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ApiResourceId], [a0].[Created], [a0].[Description], [a0].[Expiration], [a0].[Type], [a0].[Value], [a1].[Id], [a1].[ApiResourceId], [a1].[Scope], [a2].[Id], [a2].[ApiResourceId], [a2].[Type], [a3].[Id], [a3].[ApiResourceId], [a3].[Key], [a3].[Value]
+FROM [ApiResources] AS [a]
+LEFT JOIN [ApiResourceSecrets] AS [a0] ON [a].[Id] = [a0].[ApiResourceId]
+LEFT JOIN [ApiResourceScopes] AS [a1] ON [a].[Id] = [a1].[ApiResourceId]
+LEFT JOIN [ApiResourceClaims] AS [a2] ON [a].[Id] = [a2].[ApiResourceId]
+LEFT JOIN [ApiResourceProperties] AS [a3] ON [a].[Id] = [a3].[ApiResourceId]
+ORDER BY [a].[Id], [a0].[Id], [a1].[Id], [a2].[Id]
+2024-04-18 19:36:34.878 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Emphasize], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[Required], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ScopeId], [a0].[Type], [a1].[Id], [a1].[Key], [a1].[ScopeId], [a1].[Value]
+FROM [ApiScopes] AS [a]
+LEFT JOIN [ApiScopeClaims] AS [a0] ON [a].[Id] = [a0].[ScopeId]
+LEFT JOIN [ApiScopeProperties] AS [a1] ON [a].[Id] = [a1].[ScopeId]
+ORDER BY [a].[Id], [a0].[Id]
+2024-04-18 19:36:34.910 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - - - 200 - application/json;+charset=UTF-8 1035.9396ms
+2024-04-18 19:36:36.406 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - -
+2024-04-18 19:36:36.427 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2024-04-18 19:36:36.443 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - - - 200 - application/json;+charset=UTF-8 36.7442ms
+2024-04-18 19:44:19.124 +02:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-04-18 19:44:19.291 +02:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-04-18 19:44:19.317 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-04-18 19:44:19.579 +02:00 [INF] Executed DbCommand (14ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-04-18 19:44:19.947 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-04-18 19:44:19.969 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-04-18 19:44:19.983 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-04-18 19:44:20.000 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-04-18 19:44:20.011 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-04-18 19:44:20.022 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-04-18 19:44:20.044 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-04-18 19:44:20.052 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-04-18 19:44:20.070 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-04-18 19:44:20.089 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-04-18 19:44:20.123 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-04-18 19:44:20.129 +02:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 804.5087ms
+2024-04-18 19:44:20.132 +02:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-04-18 19:44:20.137 +02:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 1029.3276ms
+2024-04-18 19:56:55.031 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-18 19:56:55.033 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-18 19:56:55.103 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 69.1402ms
+2024-04-18 19:56:55.548 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 524.1030ms
+2024-04-18 19:56:56.671 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-18 19:57:00.704 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 4032.4431ms
+2024-04-18 20:02:58.275 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-18 20:02:58.466 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-18 20:02:58.879 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-18 20:02:59.156 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 20:03:00.438 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-18 20:03:00.441 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-18 20:03:00.443 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 20:03:00.445 +02:00 [INF] Hosting environment: Development
+2024-04-18 20:03:00.447 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-18 20:03:01.388 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-04-18 20:03:03.616 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 2262.4821ms
+2024-04-18 20:03:03.941 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-18 20:03:03.941 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-18 20:03:04.227 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 286.3389ms
+2024-04-18 20:03:04.453 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 510.5841ms
+2024-04-18 20:03:12.756 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-18 20:03:12.939 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 183.0294ms
+2024-04-18 20:03:35.570 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - -
+2024-04-18 20:03:35.668 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2024-04-18 20:03:38.313 +02:00 [INF] Executed DbCommand (75ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[Algorithm], [k].[Created], [k].[Data], [k].[DataProtected], [k].[IsX509Certificate], [k].[Use], [k].[Version]
+FROM [Keys] AS [k]
+WHERE [k].[Use] = N'signing'
+2024-04-18 20:03:41.110 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[Created], [i].[Description], [i].[DisplayName], [i].[Emphasize], [i].[Enabled], [i].[Name], [i].[NonEditable], [i].[Required], [i].[ShowInDiscoveryDocument], [i].[Updated], [i0].[Id], [i0].[IdentityResourceId], [i0].[Type], [i1].[Id], [i1].[IdentityResourceId], [i1].[Key], [i1].[Value]
+FROM [IdentityResources] AS [i]
+LEFT JOIN [IdentityResourceClaims] AS [i0] ON [i].[Id] = [i0].[IdentityResourceId]
+LEFT JOIN [IdentityResourceProperties] AS [i1] ON [i].[Id] = [i1].[IdentityResourceId]
+ORDER BY [i].[Id], [i0].[Id]
+2024-04-18 20:03:41.172 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AllowedAccessTokenSigningAlgorithms], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[RequireResourceIndicator], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ApiResourceId], [a0].[Created], [a0].[Description], [a0].[Expiration], [a0].[Type], [a0].[Value], [a1].[Id], [a1].[ApiResourceId], [a1].[Scope], [a2].[Id], [a2].[ApiResourceId], [a2].[Type], [a3].[Id], [a3].[ApiResourceId], [a3].[Key], [a3].[Value]
+FROM [ApiResources] AS [a]
+LEFT JOIN [ApiResourceSecrets] AS [a0] ON [a].[Id] = [a0].[ApiResourceId]
+LEFT JOIN [ApiResourceScopes] AS [a1] ON [a].[Id] = [a1].[ApiResourceId]
+LEFT JOIN [ApiResourceClaims] AS [a2] ON [a].[Id] = [a2].[ApiResourceId]
+LEFT JOIN [ApiResourceProperties] AS [a3] ON [a].[Id] = [a3].[ApiResourceId]
+ORDER BY [a].[Id], [a0].[Id], [a1].[Id], [a2].[Id]
+2024-04-18 20:03:41.222 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Emphasize], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[Required], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ScopeId], [a0].[Type], [a1].[Id], [a1].[Key], [a1].[ScopeId], [a1].[Value]
+FROM [ApiScopes] AS [a]
+LEFT JOIN [ApiScopeClaims] AS [a0] ON [a].[Id] = [a0].[ScopeId]
+LEFT JOIN [ApiScopeProperties] AS [a1] ON [a].[Id] = [a1].[ScopeId]
+ORDER BY [a].[Id], [a0].[Id]
+2024-04-18 20:03:41.758 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - - - 200 - application/json;+charset=UTF-8 6188.3220ms
+2024-04-18 20:03:42.036 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - -
+2024-04-18 20:03:42.042 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2024-04-18 20:03:43.044 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - - - 200 - application/json;+charset=UTF-8 1008.6651ms
+2024-04-18 20:05:32.180 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-18 20:05:32.671 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-18 20:05:33.173 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-18 20:05:33.654 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 20:05:34.125 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-18 20:05:34.139 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-18 20:05:34.141 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 20:05:34.144 +02:00 [INF] Hosting environment: Development
+2024-04-18 20:05:34.148 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-18 20:05:37.230 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-04-18 20:05:39.205 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 1994.6835ms
+2024-04-18 20:05:39.321 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-18 20:05:40.241 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-18 20:05:41.231 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 1905.8042ms
+2024-04-18 20:05:41.480 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1238.7249ms
+2024-04-18 20:05:48.969 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-18 20:05:49.195 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 225.9939ms
+2024-04-18 20:07:30.327 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-18 20:07:35.076 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-18 20:07:35.767 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-18 20:07:36.253 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 20:07:36.802 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-18 20:07:36.805 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-18 20:07:36.808 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 20:07:36.810 +02:00 [INF] Hosting environment: Development
+2024-04-18 20:07:36.812 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-18 20:07:40.450 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-04-18 20:07:42.074 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 1606.9521ms
+2024-04-18 20:07:42.145 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-18 20:07:42.168 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 23.1691ms
+2024-04-18 20:07:43.537 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-18 20:07:49.229 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 5692.4439ms
+2024-04-18 20:07:56.625 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-18 20:07:59.976 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 3351.2272ms
+2024-04-18 20:08:06.502 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - -
+2024-04-18 20:08:06.720 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2024-04-18 20:08:09.120 +02:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[Algorithm], [k].[Created], [k].[Data], [k].[DataProtected], [k].[IsX509Certificate], [k].[Use], [k].[Version]
+FROM [Keys] AS [k]
+WHERE [k].[Use] = N'signing'
+2024-04-18 20:08:11.178 +02:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[Created], [i].[Description], [i].[DisplayName], [i].[Emphasize], [i].[Enabled], [i].[Name], [i].[NonEditable], [i].[Required], [i].[ShowInDiscoveryDocument], [i].[Updated], [i0].[Id], [i0].[IdentityResourceId], [i0].[Type], [i1].[Id], [i1].[IdentityResourceId], [i1].[Key], [i1].[Value]
+FROM [IdentityResources] AS [i]
+LEFT JOIN [IdentityResourceClaims] AS [i0] ON [i].[Id] = [i0].[IdentityResourceId]
+LEFT JOIN [IdentityResourceProperties] AS [i1] ON [i].[Id] = [i1].[IdentityResourceId]
+ORDER BY [i].[Id], [i0].[Id]
+2024-04-18 20:08:11.247 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AllowedAccessTokenSigningAlgorithms], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[RequireResourceIndicator], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ApiResourceId], [a0].[Created], [a0].[Description], [a0].[Expiration], [a0].[Type], [a0].[Value], [a1].[Id], [a1].[ApiResourceId], [a1].[Scope], [a2].[Id], [a2].[ApiResourceId], [a2].[Type], [a3].[Id], [a3].[ApiResourceId], [a3].[Key], [a3].[Value]
+FROM [ApiResources] AS [a]
+LEFT JOIN [ApiResourceSecrets] AS [a0] ON [a].[Id] = [a0].[ApiResourceId]
+LEFT JOIN [ApiResourceScopes] AS [a1] ON [a].[Id] = [a1].[ApiResourceId]
+LEFT JOIN [ApiResourceClaims] AS [a2] ON [a].[Id] = [a2].[ApiResourceId]
+LEFT JOIN [ApiResourceProperties] AS [a3] ON [a].[Id] = [a3].[ApiResourceId]
+ORDER BY [a].[Id], [a0].[Id], [a1].[Id], [a2].[Id]
+2024-04-18 20:08:11.312 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Emphasize], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[Required], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ScopeId], [a0].[Type], [a1].[Id], [a1].[Key], [a1].[ScopeId], [a1].[Value]
+FROM [ApiScopes] AS [a]
+LEFT JOIN [ApiScopeClaims] AS [a0] ON [a].[Id] = [a0].[ScopeId]
+LEFT JOIN [ApiScopeProperties] AS [a1] ON [a].[Id] = [a1].[ScopeId]
+ORDER BY [a].[Id], [a0].[Id]
+2024-04-18 20:08:11.715 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - - - 200 - application/json;+charset=UTF-8 5212.7402ms
+2024-04-18 20:08:11.982 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - -
+2024-04-18 20:08:12.015 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2024-04-18 20:08:12.074 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - - - 200 - application/json;+charset=UTF-8 90.6913ms
+2024-04-18 20:43:42.955 +02:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-04-18 20:43:43.371 +02:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-04-18 20:43:43.617 +02:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-04-18 20:43:46.359 +02:00 [INF] Executed DbCommand (93ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-04-18 20:43:47.844 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-04-18 20:43:47.916 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-04-18 20:43:47.936 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-04-18 20:43:47.974 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-04-18 20:43:47.990 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-04-18 20:43:48.002 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-04-18 20:43:48.076 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-04-18 20:43:48.097 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-04-18 20:43:48.138 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-04-18 20:43:48.304 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-04-18 20:43:48.576 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-04-18 20:43:48.590 +02:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 4957.6607ms
+2024-04-18 20:43:48.594 +02:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-04-18 20:43:48.598 +02:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 5668.6622ms
+2024-04-18 20:51:42.582 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-18 20:51:42.695 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-18 20:51:43.111 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-18 20:51:43.384 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 20:51:43.709 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-18 20:51:43.714 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-18 20:51:43.716 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 20:51:43.717 +02:00 [INF] Hosting environment: Development
+2024-04-18 20:51:43.719 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-18 20:51:46.204 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-04-18 20:51:46.918 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 718.6916ms
+2024-04-18 20:51:47.019 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-18 20:51:48.024 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-18 20:51:48.251 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 1231.6053ms
+2024-04-18 20:51:49.092 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1067.8780ms
+2024-04-18 20:51:58.531 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-18 20:51:58.738 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 207.5972ms

@@ -1,3 +1,4 @@
+import 'package:admin/bloc/statistika_bloc/statistika_bloc.dart';
 import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/screens/servisiraj.dart';
@@ -83,6 +84,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
   Widget build(BuildContext context) {
     final UredjajBloc uredjajBlocTemp = BlocProvider.of<UredjajBloc>(context);
     final UredjajiListaZadatakBloc zadaciActiveUredjaj = BlocProvider.of<UredjajiListaZadatakBloc>(context);
+    final StatistikaBloc statistikaBloc = BlocProvider.of<StatistikaBloc>(context);
 
     return BlocProvider(
       create: (context) => UredjajBloc(uredjajiProvider: uredjajProvider!),
@@ -176,7 +178,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                           margin: EdgeInsets.all(16.0),
                           child: ListView(
                             physics: AlwaysScrollableScrollPhysics(),
-                            shrinkWrap: true, // This is important to allow the ListView to be used inside a Column
+                            shrinkWrap: true,
                             children: [
                               if (ChangeStateHelper.buttonAktiviraj_rezervniDijelovi(uredjaj.status.toString()))
                                 ListTile(
@@ -188,6 +190,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         poruka("Uređaj je aktiviran");
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
                                         zadaciActiveUredjaj.add(UredjajiLoadZadatakEvent());
+                                        statistikaBloc.add(StatistikaRefreshEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
@@ -201,6 +204,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                     onPressed: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen(uredjaj: uredjaj)))
                                           .then((value) => _fetchData({'id': widget.uredjaj!.uredjajId!.toString()}));
+                                      statistikaBloc.add(StatistikaRefreshEvent());
                                     },
                                   ),
                                 ),
@@ -213,6 +217,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
                                         poruka("Uređaj je spreman za isporuku");
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        statistikaBloc.add(StatistikaRefreshEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
@@ -228,6 +233,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Posalji");
                                         poruka("Uređaj je poslan");
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        statistikaBloc.add(StatistikaRefreshEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
@@ -248,6 +254,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                       poruka("Uređaj je ponovo vraćen u servis");
 
                                       uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                      statistikaBloc.add(StatistikaRefreshEvent());
                                     },
                                   ),
                                 ),
@@ -260,6 +267,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/SpareParts");
                                         poruka("Uređaj je ostavljen za rezervne dijelove");
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        statistikaBloc.add(StatistikaRefreshEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
@@ -275,6 +283,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Deaktiviraj");
                                         poruka("Uređaj je deaktiviran.");
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        statistikaBloc.add(StatistikaRefreshEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }
@@ -299,6 +308,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
 
                                           poruka("Uređaj je izbrisan");
                                           uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                          statistikaBloc.add(StatistikaRefreshEvent());
                                         } catch (e) {
                                           poruka(e.toString());
                                         }
@@ -314,6 +324,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         await uredjajProvider!.update(uredjaj.uredjajId, null, "Uredjaj/Aktiviraj-Ready-Vrati");
                                         poruka("Uređaj je aktiviran");
                                         uredjajBlocTemp.add(UredjajRefreshEvent(id: widget.uredjaj!.uredjajId!));
+                                        statistikaBloc.add(StatistikaRefreshEvent());
                                       } catch (e) {
                                         poruka(e.toString());
                                       }

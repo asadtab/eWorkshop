@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'lokacija.g.dart';
@@ -11,8 +10,7 @@ class Lokacija {
 
   Lokacija();
 
-  factory Lokacija.fromJson(Map<String, dynamic> json) =>
-      _$LokacijaFromJson(json);
+  factory Lokacija.fromJson(Map<String, dynamic> json) => _$LokacijaFromJson(json);
 
   Map<String, dynamic> toJson() => _$LokacijaToJson(this);
 }

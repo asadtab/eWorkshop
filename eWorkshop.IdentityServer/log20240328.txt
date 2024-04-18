@@ -1,0 +1,280 @@
+2024-03-28 04:25:36.802 +01:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-03-28 04:25:37.148 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 04:25:37.173 +01:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-03-28 04:25:37.493 +01:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-03-28 04:25:37.562 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-03-28 04:25:37.584 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 04:25:37.598 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 04:25:37.615 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 04:25:37.628 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 04:25:37.639 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 04:25:38.524 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-03-28 04:25:38.539 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 04:25:38.573 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-03-28 04:25:38.611 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-03-28 04:25:38.836 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-03-28 04:25:38.920 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 1729.4015ms
+2024-03-28 04:25:38.926 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 04:25:38.934 +01:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 2149.6074ms
+2024-03-28 04:25:40.783 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - -
+2024-03-28 04:25:40.847 +01:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+2024-03-28 04:25:41.025 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[Created], [i].[Description], [i].[DisplayName], [i].[Emphasize], [i].[Enabled], [i].[Name], [i].[NonEditable], [i].[Required], [i].[ShowInDiscoveryDocument], [i].[Updated], [i0].[Id], [i0].[IdentityResourceId], [i0].[Type], [i1].[Id], [i1].[IdentityResourceId], [i1].[Key], [i1].[Value]
+FROM [IdentityResources] AS [i]
+LEFT JOIN [IdentityResourceClaims] AS [i0] ON [i].[Id] = [i0].[IdentityResourceId]
+LEFT JOIN [IdentityResourceProperties] AS [i1] ON [i].[Id] = [i1].[IdentityResourceId]
+ORDER BY [i].[Id], [i0].[Id]
+2024-03-28 04:25:41.057 +01:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AllowedAccessTokenSigningAlgorithms], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[RequireResourceIndicator], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ApiResourceId], [a0].[Created], [a0].[Description], [a0].[Expiration], [a0].[Type], [a0].[Value], [a1].[Id], [a1].[ApiResourceId], [a1].[Scope], [a2].[Id], [a2].[ApiResourceId], [a2].[Type], [a3].[Id], [a3].[ApiResourceId], [a3].[Key], [a3].[Value]
+FROM [ApiResources] AS [a]
+LEFT JOIN [ApiResourceSecrets] AS [a0] ON [a].[Id] = [a0].[ApiResourceId]
+LEFT JOIN [ApiResourceScopes] AS [a1] ON [a].[Id] = [a1].[ApiResourceId]
+LEFT JOIN [ApiResourceClaims] AS [a2] ON [a].[Id] = [a2].[ApiResourceId]
+LEFT JOIN [ApiResourceProperties] AS [a3] ON [a].[Id] = [a3].[ApiResourceId]
+ORDER BY [a].[Id], [a0].[Id], [a1].[Id], [a2].[Id]
+2024-03-28 04:25:41.094 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Emphasize], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[Required], [a].[ShowInDiscoveryDocument], [a].[Updated], [a0].[Id], [a0].[ScopeId], [a0].[Type], [a1].[Id], [a1].[Key], [a1].[ScopeId], [a1].[Value]
+FROM [ApiScopes] AS [a]
+LEFT JOIN [ApiScopeClaims] AS [a0] ON [a].[Id] = [a0].[ScopeId]
+LEFT JOIN [ApiScopeProperties] AS [a1] ON [a].[Id] = [a1].[ScopeId]
+ORDER BY [a].[Id], [a0].[Id]
+2024-03-28 04:25:41.127 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration - - - 200 - application/json;+charset=UTF-8 343.8797ms
+2024-03-28 04:25:41.204 +01:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - -
+2024-03-28 04:25:41.213 +01:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+2024-03-28 04:25:41.224 +01:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - - - 200 - application/json;+charset=UTF-8 19.8605ms
+2024-03-28 04:55:37.541 +01:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-03-28 04:55:37.739 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 04:55:37.767 +01:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-03-28 04:55:38.040 +01:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-03-28 04:55:38.112 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-03-28 04:55:38.133 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 04:55:38.144 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 04:55:38.157 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 04:55:38.167 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 04:55:38.178 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 04:55:38.201 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-03-28 04:55:38.209 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 04:55:38.227 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-03-28 04:55:38.250 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-03-28 04:55:38.315 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-03-28 04:55:38.322 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 548.0794ms
+2024-03-28 04:55:38.326 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 04:55:38.333 +01:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 812.7446ms
+2024-03-28 05:44:31.565 +01:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-03-28 05:44:31.871 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 05:44:31.925 +01:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-03-28 05:44:32.902 +01:00 [INF] Executed DbCommand (21ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-03-28 05:44:33.052 +01:00 [INF] Executed DbCommand (28ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-03-28 05:44:33.141 +01:00 [INF] Executed DbCommand (18ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 05:44:33.177 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 05:44:33.241 +01:00 [INF] Executed DbCommand (9ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 05:44:33.279 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 05:44:33.325 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 05:44:33.420 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-03-28 05:44:33.450 +01:00 [INF] Executed DbCommand (10ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 05:44:33.497 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-03-28 05:44:33.556 +01:00 [INF] Executed DbCommand (32ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-03-28 05:44:33.773 +01:00 [INF] Executed DbCommand (84ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[Algorithm], [k].[Created], [k].[Data], [k].[DataProtected], [k].[IsX509Certificate], [k].[Use], [k].[Version]
+FROM [Keys] AS [k]
+WHERE [k].[Use] = N'signing'
+2024-03-28 05:44:34.101 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-03-28 05:44:34.125 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 2184.1386ms
+2024-03-28 05:44:34.148 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 05:44:34.162 +01:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 2616.8236ms
+2024-03-28 05:57:33.454 +01:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-03-28 05:57:33.648 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 05:57:33.665 +01:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-03-28 05:57:33.865 +01:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-03-28 05:57:33.934 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-03-28 05:57:33.957 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 05:57:33.978 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 05:57:33.995 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 05:57:34.010 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 05:57:34.025 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 05:57:34.052 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-03-28 05:57:34.059 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 05:57:34.073 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-03-28 05:57:34.091 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-03-28 05:57:34.149 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-03-28 05:57:34.156 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 485.4665ms
+2024-03-28 05:57:34.160 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 05:57:34.165 +01:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 725.4165ms
+2024-03-28 06:01:06.508 +01:00 [INF] Request starting HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - -
+2024-03-28 06:01:06.583 +01:00 [INF] Executing endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 06:01:06.592 +01:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(System.String, System.String) on controller eWorkshop.IdentityServer.Controllers.AccountController (eWorkshop.IdentityServer).
+2024-03-28 06:01:06.677 +01:00 [INF] Executed DbCommand (11ms) [Parameters=[@__normalizedEmail_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+WHERE [k].[NormalizedEmail] = @__normalizedEmail_0
+2024-03-28 06:01:06.719 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[ClaimType], [k].[ClaimValue], [k].[UserId]
+FROM [KorisniciClaim] AS [k]
+WHERE [k].[UserId] = @__user_Id_0
+2024-03-28 06:01:06.738 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 06:01:06.749 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 06:01:06.761 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 06:01:06.770 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+WHERE [u].[NormalizedName] = @__normalizedName_0
+2024-03-28 06:01:06.776 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[ClaimType], [u].[ClaimValue]
+FROM [UlogeClaim] AS [u]
+WHERE [u].[RoleId] = @__role_Id_0
+2024-03-28 06:01:06.790 +01:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-03-28 06:01:06.795 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Name]
+FROM [KorisniciUloge] AS [k]
+INNER JOIN [Uloge] AS [u] ON [k].[RoleId] = [u].[Id]
+WHERE [k].[UserId] = @__userId_0
+2024-03-28 06:01:06.811 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AbsoluteRefreshTokenLifetime], [c].[AccessTokenLifetime], [c].[AccessTokenType], [c].[AllowAccessTokensViaBrowser], [c].[AllowOfflineAccess], [c].[AllowPlainTextPkce], [c].[AllowRememberConsent], [c].[AllowedIdentityTokenSigningAlgorithms], [c].[AlwaysIncludeUserClaimsInIdToken], [c].[AlwaysSendClientClaims], [c].[AuthorizationCodeLifetime], [c].[BackChannelLogoutSessionRequired], [c].[BackChannelLogoutUri], [c].[CibaLifetime], [c].[ClientClaimsPrefix], [c].[ClientId], [c].[ClientName], [c].[ClientUri], [c].[ConsentLifetime], [c].[CoordinateLifetimeWithUserSession], [c].[Created], [c].[Description], [c].[DeviceCodeLifetime], [c].[EnableLocalLogin], [c].[Enabled], [c].[FrontChannelLogoutSessionRequired], [c].[FrontChannelLogoutUri], [c].[IdentityTokenLifetime], [c].[IncludeJwtId], [c].[LastAccessed], [c].[LogoUri], [c].[NonEditable], [c].[PairWiseSubjectSalt], [c].[PollingInterval], [c].[ProtocolType], [c].[RefreshTokenExpiration], [c].[RefreshTokenUsage], [c].[RequireClientSecret], [c].[RequireConsent], [c].[RequirePkce], [c].[RequireRequestObject], [c].[SlidingRefreshTokenLifetime], [c].[UpdateAccessTokenClaimsOnRefresh], [c].[Updated], [c].[UserCodeType], [c].[UserSsoLifetime]
+FROM [Clients] AS [c]
+WHERE [c].[ClientId] = N'flutter'
+2024-03-28 06:01:06.828 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__client_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Scope]
+FROM [ClientScopes] AS [c]
+WHERE [c].[ClientId] = @__client_Id_0
+2024-03-28 06:01:06.849 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-03-28 06:01:06.856 +01:00 [INF] Executed action eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer) in 256.9627ms
+2024-03-28 06:01:06.859 +01:00 [INF] Executed endpoint 'eWorkshop.IdentityServer.Controllers.AccountController.Login (eWorkshop.IdentityServer)'
+2024-03-28 06:01:06.864 +01:00 [INF] Request finished HTTP/1.1 GET https://ac98-77-78-214-49.ngrok-free.app/account/login?email=mail@tab.ba&password=Asad123! - - - 200 - text/plain;+charset=utf-8 360.8075ms

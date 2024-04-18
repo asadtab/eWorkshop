@@ -4,46 +4,24 @@ import 'package:commons/models/user.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
-import 'package:oauth2/oauth2.dart' as oauth2;
-import 'package:uni_links/uni_links.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 abstract class BaseProvider<T> with ChangeNotifier {
   static String? _baseUrl;
   static String? _endpoint;
-  static String? _endpointSecond;
-
-  static late String? _idsNgrok;
-  static late String? _idsLocalhost;
 
   HttpClient client = new HttpClient();
   IOClient? http;
 
+  static final String? _ids = "https://ac98-77-78-214-49.ngrok-free.app/";
+
   final identifier = 'flutter';
 
-  bool _ids = false;
-
   BaseProvider(String endpoint, [bool? ids]) {
-    /*_baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://0426-77-78-227-173.eu.ngrok.io/");*/
-
-    if (ids != null) {
-      _ids = ids;
-    }
-
-    if (!_ids) {
-      _baseUrl = "https://localhost:7189/";
-    } else {
-      _idsLocalhost = "https://localhost:5443";
-    }
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://2a9b-77-78-214-49.ngrok-free.app/");
 
     if (_baseUrl!.endsWith("/") == false) {
       _baseUrl = _baseUrl! + "/";
     }
-
-    _idsNgrok = "https://a543-109-237-46-211.ngrok-free.app";
-
-    _idsLocalhost = "https://localhost:5443/";
 
     _endpoint = endpoint;
 
@@ -78,7 +56,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
       _endpoint = endPoint;
     }
 
-    _baseUrl = "https://localhost:7189/";
+    //_baseUrl = "https://fa27-109-237-46-211.ngrok-free.app/";
 
     var url = "$_baseUrl$_endpoint";
     String? moreThanOne;
@@ -114,7 +92,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
 
     if (ids != null && ids) {
-      _baseUrl = "https://localhost:5443/";
+      _baseUrl = _ids;
     }
 
     var url = "$_baseUrl$_endpoint";

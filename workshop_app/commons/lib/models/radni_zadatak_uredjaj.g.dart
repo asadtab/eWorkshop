@@ -8,8 +8,8 @@ part of 'radni_zadatak_uredjaj.dart';
 
 RadniZadatakUredjaj _$RadniZadatakUredjajFromJson(Map<String, dynamic> json) =>
     RadniZadatakUredjaj()
-      ..uredjajId = json['uredjajId'] as int
-      ..radniZadatakId = json['radniZadatakId'] as int
+      ..uredjajId = json['uredjajId'] as int?
+      ..radniZadatakId = json['radniZadatakId'] as int?
       ..radniZadatakNaziv = json['radniZadatakNaziv'] as String?
       ..radniZadatakStatus = json['radniZadatakStatus'] as String?
       ..radniZadatakDatum = json['radniZadatakDatum'] as String?

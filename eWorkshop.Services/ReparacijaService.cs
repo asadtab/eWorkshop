@@ -22,7 +22,7 @@ namespace eWorkshop.Services
         {
             BaseState = baseState;
         }
-        /*
+        
         public override IEnumerable<ServisVM> Get(ReparacijaSearchObject search = null)
         {
             List<ServisVM> servis =  base.Get(search).ToList();
@@ -30,12 +30,12 @@ namespace eWorkshop.Services
 
             foreach (var item in servis)
             {
-                //item.Servisirao = item.Korisnik.Ime + " " + item.Korisnik.Prezime;
-                item.DatumString = DatumHelper.DatumFormat(item.Datum);
+                item.Servisirao = item.Korisnik.Ime + " " + item.Korisnik.Prezime;
+                //item.DatumString = DatumHelper.DatumFormat(item.Datum);
             }
 
             return servis;
-        }*/
+        }
 
         public override IQueryable<Servi> AddFilter(IQueryable<Servi> query, ReparacijaSearchObject search = null)
         {
@@ -76,6 +76,7 @@ namespace eWorkshop.Services
                 servis.KomponentaId = id;
                 servis.ServisId = entity.ServisId;
                 servis.Datum = entity.Datum;
+                servis.Servis.RadniZadatakId = insert.RadniZadatakId;
 
                 Context.Add(servis);
             }
@@ -90,6 +91,8 @@ namespace eWorkshop.Services
 
             return entity;
         }
+
+
 
 
 

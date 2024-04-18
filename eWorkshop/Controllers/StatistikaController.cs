@@ -35,36 +35,58 @@ namespace eWorkshop.Controllers
         }
 
         [HttpGet("Uredjaji")]
-        public StatistikaVM UredjajiStatistika()
+        public List<StatistikaVM> UredjajiStatistika()
         {
-            StatistikaVM statistika = new StatistikaVM();
+            var statistika = new List<StatistikaVM>
+            {
+                new StatistikaVM()
+            };
 
             List<UredjajVM> uredjaji = UredjajService.Get().ToList();
 
             for (int i = 0; i < uredjaji.Count(); i++)
             {
-                statistika.UredjajiUkupno++;
+                statistika[0].UredjajiUkupno++;
 
                 if (uredjaji[i].Status == "task")
-                    statistika.RadniZadaciUredjaji++;
+                    statistika[0].RadniZadaciUredjaji++;
 
                 if (uredjaji[i].Status == "fix")
-                    statistika.ServisiraniUredjaji++;
+                    statistika[0].ServisiraniUredjaji++;
 
                 if (uredjaji[i].Status == "out")
-                    statistika.PoslaniUredjaji++;
+                    statistika[0].PoslaniUredjaji++;
 
                 if (uredjaji[i].Status == "ready")
-                    statistika.SpremniUredjaji++;
+                    statistika[0].SpremniUredjaji++;
 
                 if (uredjaji[i].Status == "active")
-                    statistika.AktivniUredjaji++;
+                    statistika[0].AktivniUredjaji++;
 
                 if (uredjaji[i].Status == "idle")
-                    statistika.NeaktivniUredjaji++;
+                    statistika[0].NeaktivniUredjaji++;
 
                 if (uredjaji[i].Status == "parts")
-                    statistika.RezervniDijeloviUredjaji++;
+                    statistika[0].RezervniDijeloviUredjaji++;
+            }
+
+            List<RadniZadatakVM> zadaci = RadniZadatakService.Get().ToList();
+
+            for (int i = 0; i < zadaci.Count; i++)
+            {
+                statistika[0].RadniZadaciUkupno++;
+
+                if (zadaci[i].StateMachine == "idle")
+                    statistika[0].NeaktivniRadniZadaci++;
+
+                if (zadaci[i].StateMachine == "active")
+                    statistika[0].AktivniRadniZadaci++;
+
+                if (zadaci[i].StateMachine == "done")
+                    statistika[0].ZavrseniRadniZadaci++;
+
+                if (zadaci[i].StateMachine == "invoice")
+                    statistika[0].FakturisaniRadniZadaci++;
             }
 
             return statistika;

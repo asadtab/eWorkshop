@@ -1,19 +1,15 @@
+import 'package:commons/providers/stanice_provider.dart';
+import 'package:commons/providers/stanice_uredjaj_provider.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-import 'package:workshop_app/screens/end-user/premjesti.dart';
-
-import '../../common_widget/box.dart';
 import '../../helpers/bottom_bar.dart';
 import '../../helpers/common_widget.dart';
 import '../../helpers/master_screen.dart';
-import '../../model/stanica.dart';
-import '../../model/stanica_uredjaj.dart';
-import '../../providers/stanice_provider.dart';
-import '../../providers/stanice_uredjaj_provider.dart';
+import 'package:commons/models/stanica.dart';
+import 'package:commons/models/stanica_uredjaj.dart';
 
 class Raspored extends StatefulWidget {
   static const String routeName = "/raspored";
@@ -46,14 +42,18 @@ class _RasporedState extends State<Raspored> {
       _isLoading = true;
     });
 
-    var data = await staniceUredjajProvider!.get(map, "StaniceUredjaj");
-    var stanice = await staniceProvider!.get(map, "Stanice");
+    try {
+      var data = await staniceUredjajProvider!.get(map, "StaniceUredjaj");
+      var stanice = await staniceProvider!.get(map, "Stanice");
 
-    setState(() {
-      staniceUredjaj = data;
-      this.stanice = stanice;
-      _isLoading = false;
-    });
+      setState(() {
+        staniceUredjaj = data;
+        this.stanice = stanice;
+        _isLoading = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
+    }
   }
 
   @override

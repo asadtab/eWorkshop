@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tip_uredjaja.g.dart';
@@ -12,8 +11,7 @@ class TipUredjaja {
 
   TipUredjaja();
 
-  factory TipUredjaja.fromJson(Map<String, dynamic> json) =>
-      _$TipUredjajaFromJson(json);
+  factory TipUredjaja.fromJson(Map<String, dynamic> json) => _$TipUredjajaFromJson(json);
 
   Map<String, dynamic> toJson() => _$TipUredjajaToJson(this);
 }

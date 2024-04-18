@@ -13,7 +13,7 @@ namespace eWorkshop.Model
         public int KorisnikId { get; set; }
         
 
-        //public KorisniciVM Korisnik { get; set; } = new KorisniciVM();
+       public KorisniciVM Korisnik { get; set; } = new KorisniciVM();
 
 
         public string Servisirao { get; set; }
