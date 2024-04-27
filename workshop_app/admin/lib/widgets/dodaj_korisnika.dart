@@ -175,22 +175,7 @@ class _AddUserFormState extends State<AddUserForm> {
                 )),
 
           SizedBox(height: 16.0),
-          Row(
-            children: [
-              Text("Uposlenik ŽFBiH"),
-              Checkbox(
-                value: isSelected,
-                semanticLabel: "Asad",
-                onChanged: (bool? value) {
-                  setState(() {
-                    isSelected = value!;
 
-                    selectedRoles = [];
-                  });
-                },
-              ),
-            ],
-          ),
           SizedBox(height: 16.0),
           Row(
             children: [

@@ -111,12 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
   List<RadniZadatakUredjaj> radniZadatakUredjajData = [];
   List<RadniZadatak> data = [];
-  bool _isLoading = true;
+  bool? isLoggedIn = false;
 
   @override
   void initState() {
     super.initState();
 
+    isLoggedIn = context.read<AuthProvider>().isLoggedIn;
     radniZadaciProvider = context.read<RadniZadaciProvider>();
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
 
@@ -125,10 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     //var response = await radniZadaciProvider?.get({'UredjajState': 'active'});
 
     try {
@@ -136,7 +133,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
       setState(() {
         radniZadatakUredjajData = items!;
-        _isLoading = false;
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(CommonWidget.infoSnack(e.toString()));
@@ -146,24 +142,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        if (User.id != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-          return false;
-        }
-        return true;
-      },
-      child: Scaffold(
-          //drawer: DrawerWidget(),
-          appBar: AppBar(
-            title: Text(
-              "SS&TK",
-              style: TextStyle(fontWeight: FontWeight.bold),
+        onWillPop: () async {
+          if (User.id != null) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            return false;
+          }
+          return true;
+        },
+        child: Scaffold(
+            //drawer: DrawerWidget(),
+            appBar: AppBar(
+              title: Text(
+                "SS&TK",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          body: Center(
-              child: FractionallySizedBox(
-                  widthFactor: 0.8, child: Align(alignment: Alignment.center, child: Padding(padding: EdgeInsets.all(16.0), child: LoginForm()))))),
-    );
+            body: Center(
+                child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: !isLoggedIn! ? LoginForm() : HomeScreen(),
+                      ),
+                    )))));
   }
 }

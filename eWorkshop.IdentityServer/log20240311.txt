@@ -1,6 +1,0 @@
-2024-03-11 04:29:05.174 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
-2024-03-11 04:29:05.224 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
-2024-03-11 04:29:05.312 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 149.0208ms
-2024-03-11 04:29:05.401 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 178.6260ms
-2024-03-11 04:29:23.323 +01:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
-2024-03-11 04:29:23.411 +01:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 88.2424ms

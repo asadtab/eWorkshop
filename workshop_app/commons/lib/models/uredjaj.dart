@@ -13,7 +13,7 @@ class Uredjaj {
   String? tipOpis;
   String? lokacijaNaziv;
 
-  @JsonKey(includeToJson: false)
+  @JsonKey(includeToJson: false, includeFromJson: false)
   bool isSelected = false;
 
   Uredjaj() {}

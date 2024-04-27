@@ -12,7 +12,7 @@ class Reparacija {
 
   String? napomena;
 
-  @JsonKey(includeToJson: false)
+  @JsonKey(includeToJson: false, includeFromJson: false)
   bool isExpanded = false;
 
   Reparacija() {}

@@ -14,7 +14,8 @@ Reparacija _$ReparacijaFromJson(Map<String, dynamic> json) => Reparacija()
   ..servisirao = json['servisirao'] as String?
   ..napomena = json['napomena'] as String?;
 
-Map<String, dynamic> _$ReparacijaToJson(Reparacija instance) => <String, dynamic>{
+Map<String, dynamic> _$ReparacijaToJson(Reparacija instance) =>
+    <String, dynamic>{
       'uredjajId': instance.uredjajId,
       'datum': instance.datum,
       'datumString': instance.datumString,

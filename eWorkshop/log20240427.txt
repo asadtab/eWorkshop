@@ -1,0 +1,180 @@
+2024-04-27 06:59:35.345 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json -
+2024-04-27 06:59:35.355 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json -
+2024-04-27 06:59:36.388 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json -
+2024-04-27 06:59:36.447 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json -
+2024-04-27 06:59:36.637 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json -
+2024-04-27 06:59:36.837 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json -
+2024-04-27 06:59:36.844 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-04-27 06:59:36.845 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json -
+2024-04-27 06:59:36.849 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatak?StateMachine=active application/json -
+2024-04-27 06:59:36.851 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Korisnici application/json -
+2024-04-27 06:59:36.893 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/ApiResource application/json -
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:38.624 +02:00 [INF] Route matched with {action = "UredjajiStatistika", controller = "Statistika"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.StatistikaVM] UredjajiStatistika() on controller eWorkshop.Controllers.StatistikaController (eWorkshop).
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.KorisniciController.Get (eWorkshop)'
+2024-04-27 06:59:38.609 +02:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-04-27 06:59:38.612 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-27 06:59:38.615 +02:00 [INF] Route matched with {action = "UredjajiStatistika", controller = "Statistika"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.StatistikaVM] UredjajiStatistika() on controller eWorkshop.Controllers.StatistikaController (eWorkshop).
+2024-04-27 06:59:38.621 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-27 06:59:38.585 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.ApiResourceController.Get (eWorkshop)'
+2024-04-27 06:59:38.638 +02:00 [INF] Route matched with {action = "Get", controller = "Uredjaj"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.UredjajVM] Get(eWorkshop.Model.SearchObject.UredjajSearchObject) on controller eWorkshop.Controllers.UredjajController (eWorkshop).
+2024-04-27 06:59:38.643 +02:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-04-27 06:59:38.645 +02:00 [INF] Route matched with {action = "UredjajiStatistika", controller = "Statistika"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.StatistikaVM] UredjajiStatistika() on controller eWorkshop.Controllers.StatistikaController (eWorkshop).
+2024-04-27 06:59:38.649 +02:00 [INF] Route matched with {action = "Get", controller = "RadniZadatak"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.RadniZadatakVM] Get(eWorkshop.Model.SearchObject.RadniZadatakSearchObject) on controller eWorkshop.Controllers.RadniZadatakController (eWorkshop).
+2024-04-27 06:59:38.653 +02:00 [INF] Route matched with {action = "Get", controller = "Korisnici"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.KorisniciVM] Get(eWorkshop.Model.SearchObject.KorisniciSearchObject) on controller eWorkshop.Controllers.KorisniciController (eWorkshop).
+2024-04-27 06:59:38.688 +02:00 [INF] Route matched with {action = "Get", controller = "ApiResource"}. Executing controller action with signature System.Collections.Generic.IEnumerable`1[eWorkshop.Model.ApiResourceVM] Get(eWorkshop.Model.SearchObject.ApiResourceSearchObject) on controller eWorkshop.Controllers.ApiResourceController (eWorkshop).
+2024-04-27 06:59:38.714 +02:00 [INF] Pozivam get radnog zadatka
+2024-04-27 06:59:38.723 +02:00 [INF] Pozivam get radnog zadatka
+2024-04-27 06:59:38.945 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-27 06:59:39.017 +02:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[UserId], [k].[RoleId], [k].[Discriminator], [k].[KorisniciId]
+FROM [KorisniciUloge] AS [k]
+2024-04-27 06:59:39.066 +02:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AllowedAccessTokenSigningAlgorithms], [a].[Created], [a].[Description], [a].[DisplayName], [a].[Enabled], [a].[LastAccessed], [a].[Name], [a].[NonEditable], [a].[RequireResourceIndicator], [a].[ShowInDiscoveryDocument], [a].[Updated]
+FROM [ApiResources] AS [a]
+2024-04-27 06:59:39.079 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.ApiResourceVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.094 +02:00 [INF] Executed action eWorkshop.Controllers.ApiResourceController.Get (eWorkshop) in 346.0428ms
+2024-04-27 06:59:39.095 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[@__search_Status_0='?' (Size = 255), @__search_isDeleted_1='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[Status] = @__search_Status_0 AND [u].[isDeleted] = @__search_isDeleted_1
+2024-04-27 06:59:39.095 +02:00 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-27 06:59:39.100 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.ApiResourceController.Get (eWorkshop)'
+2024-04-27 06:59:39.115 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.134 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/ApiResource application/json - - 200 - application/json;+charset=utf-8 2240.1272ms
+2024-04-27 06:59:39.137 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 441.1926ms
+2024-04-27 06:59:39.146 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-27 06:59:39.184 +02:00 [INF] Executed DbCommand (69ms) [Parameters=[@__search_Status_0='?' (Size = 255), @__search_isDeleted_1='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[Status] = @__search_Status_0 AND [u].[isDeleted] = @__search_isDeleted_1
+2024-04-27 06:59:39.186 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json - - 200 - application/json;+charset=utf-8 2348.7339ms
+2024-04-27 06:59:39.200 +02:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-27 06:59:39.201 +02:00 [INF] Executed DbCommand (75ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-04-27 06:59:39.330 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__search_Status_0='?' (Size = 255), @__search_isDeleted_1='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+WHERE [u].[Status] = @__search_Status_0 AND [u].[isDeleted] = @__search_isDeleted_1
+2024-04-27 06:59:39.416 +02:00 [INF] Executed DbCommand (12ms) [Parameters=[@__search_StateMachine_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+WHERE [r].[StateMachine] = @__search_StateMachine_0
+2024-04-27 06:59:39.416 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.434 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+2024-04-27 06:59:39.445 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.460 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.UredjajVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.475 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.481 +02:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+2024-04-27 06:59:39.482 +02:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+2024-04-27 06:59:39.483 +02:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[Id], [k].[AccessFailedCount], [k].[ConcurrencyStamp], [k].[Email], [k].[EmailConfirmed], [k].[Ime], [k].[LockoutEnabled], [k].[LockoutEnd], [k].[NormalizedEmail], [k].[NormalizedUserName], [k].[PasswordHash], [k].[PhoneNumber], [k].[PhoneNumberConfirmed], [k].[Prezime], [k].[SecurityStamp], [k].[Status], [k].[TwoFactorEnabled], [k].[UserName]
+FROM [Korisnici] AS [k]
+2024-04-27 06:59:39.515 +02:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-27 06:59:39.519 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 849.0033ms
+2024-04-27 06:59:39.525 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.StatistikaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.529 +02:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 807.9268ms
+2024-04-27 06:59:39.678 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-04-27 06:59:39.539 +02:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop) in 836.3932ms
+2024-04-27 06:59:39.546 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.StatistikaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.551 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.StatistikaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.578 +02:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [k].[UserId], [k].[RoleId], [k].[Discriminator], [k].[KorisniciId]
+FROM [KorisniciUloge] AS [k]
+2024-04-27 06:59:39.666 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.668 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-27 06:59:39.673 +02:00 [INF] Executed action eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop) in 1038.1589ms
+2024-04-27 06:59:39.534 +02:00 [INF] Executed action eWorkshop.Controllers.UredjajController.Get (eWorkshop) in 849.0535ms
+2024-04-27 06:59:39.691 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 2842.7284ms
+2024-04-27 06:59:39.694 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakController.Get (eWorkshop)'
+2024-04-27 06:59:39.698 +02:00 [INF] Executed action eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop) in 1019.5074ms
+2024-04-27 06:59:39.750 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:39.752 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json - - 200 - application/json;+charset=utf-8 3115.5772ms
+2024-04-27 06:59:39.730 +02:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 1071.2694ms
+2024-04-27 06:59:39.761 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-04-27 06:59:39.736 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:39.739 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.UredjajController.Get (eWorkshop)'
+2024-04-27 06:59:39.747 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatak?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 2902.2490ms
+2024-04-27 06:59:39.702 +02:00 [INF] Executed action eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop) in 992.3026ms
+2024-04-27 06:59:39.719 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[ConcurrencyStamp], [u].[Name], [u].[NormalizedName]
+FROM [Uloge] AS [u]
+2024-04-27 06:59:39.732 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json - - 200 - application/json;+charset=utf-8 4561.8551ms
+2024-04-27 06:59:39.764 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatakUredjaj/Flutter?StateMachine=active application/json - - 200 - application/json;+charset=utf-8 2919.4687ms
+2024-04-27 06:59:39.767 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json - - 200 - application/json;+charset=utf-8 4514.0194ms
+2024-04-27 06:59:39.770 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Uredjaj?Status=active application/json - - 200 - application/json;+charset=utf-8 3331.4987ms
+2024-04-27 06:59:39.780 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:39.820 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.KorisniciVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:39.839 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json - - 200 - application/json;+charset=utf-8 3451.6069ms
+2024-04-27 06:59:39.845 +02:00 [INF] Executed action eWorkshop.Controllers.KorisniciController.Get (eWorkshop) in 1112.1955ms
+2024-04-27 06:59:39.848 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.KorisniciController.Get (eWorkshop)'
+2024-04-27 06:59:39.937 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Korisnici application/json - - 200 - application/json;+charset=utf-8 3086.2160ms
+2024-04-27 06:59:40.340 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatakUredjaj/Flutter?search=active application/json -
+2024-04-27 06:59:40.344 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-04-27 06:59:40.346 +02:00 [INF] Route matched with {action = "RadniZadatakFlutter", controller = "RadniZadatakUredjaj"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.RadniZadatakFlutterVM] RadniZadatakFlutter(System.String, Int32, Int32) on controller eWorkshop.Controllers.RadniZadatakUredjajController (eWorkshop).
+2024-04-27 06:59:40.363 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakId], [r].[UredjajId], [r0].[Naziv] AS [RadniZadatakNaziv], [r0].[StateMachine] AS [RadniZadatakStatus], (((COALESCE(CONVERT(varchar(11), DATEPART(day, [r0].[Datum])), N'') + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(month, [r0].[Datum])), N'')) + N'.') + COALESCE(CONVERT(varchar(11), DATEPART(year, [r0].[Datum])), N'') AS [RadniZadatakDatum], [u].[Koda], [u].[SerijskiBroj], [u].[Status] AS [UredjajStatus], [u].[GodinaIzvedbe] AS [UredjajDatumIzvedbe], [t].[Naziv] AS [TipNaziv], [t].[Opis] AS [TipOpis], [l].[Naziv] AS [Lokacija]
+FROM [RadniZadatakUredjaj] AS [r]
+INNER JOIN [RadniZadatak] AS [r0] ON [r].[RadniZadatakId] = [r0].[RadniZadatakID]
+INNER JOIN [Uredjaj] AS [u] ON [r].[UredjajId] = [u].[UredjajID]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-27 06:59:40.372 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.RadniZadatakFlutterVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:40.377 +02:00 [INF] Executed action eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop) in 24.9737ms
+2024-04-27 06:59:40.381 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.RadniZadatakUredjajController.RadniZadatakFlutter (eWorkshop)'
+2024-04-27 06:59:40.385 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/RadniZadatakUredjaj/Flutter?search=active application/json - - 200 - application/json;+charset=utf-8 45.3996ms
+2024-04-27 06:59:40.875 +02:00 [INF] Request starting HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json -
+2024-04-27 06:59:40.890 +02:00 [INF] Executing endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:40.952 +02:00 [INF] Route matched with {action = "UredjajiStatistika", controller = "Statistika"}. Executing controller action with signature System.Collections.Generic.List`1[eWorkshop.Model.StatistikaVM] UredjajiStatistika() on controller eWorkshop.Controllers.StatistikaController (eWorkshop).
+2024-04-27 06:59:41.022 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UredjajID], [u].[GodinaIzvedbe], [u].[isDeleted], [u].[Koda], [u].[LokacijaID], [u].[SerijskiBroj], [u].[Status], [u].[TipID], [t].[TipUredjajaID], [t].[Naziv], [t].[Opis], [l].[LokacijaID], [l].[Naziv], [l].[Opis]
+FROM [Uredjaj] AS [u]
+INNER JOIN [TipUredjaja] AS [t] ON [u].[TipID] = [t].[TipUredjajaID]
+LEFT JOIN [Lokacija] AS [l] ON [u].[LokacijaID] = [l].[LokacijaID]
+2024-04-27 06:59:41.036 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RadniZadatakID], [r].[Datum], [r].[Naziv], [r].[StateMachine]
+FROM [RadniZadatak] AS [r]
+2024-04-27 06:59:41.043 +02:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[eWorkshop.Model.StatistikaVM, eWorkshop.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-04-27 06:59:41.047 +02:00 [INF] Executed action eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop) in 34.838ms
+2024-04-27 06:59:41.050 +02:00 [INF] Executed endpoint 'eWorkshop.Controllers.StatistikaController.UredjajiStatistika (eWorkshop)'
+2024-04-27 06:59:41.053 +02:00 [INF] Request finished HTTP/1.1 GET https://2a9b-77-78-214-49.ngrok-free.app/Statistika/Uredjaji application/json - - 200 - application/json;+charset=utf-8 178.4629ms

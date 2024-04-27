@@ -76,7 +76,8 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
                 );
               } else if (state is DataLoadedState) {
                 var uredjaji = state.data;
-                var uredjajiDistinct = uredjaji.distinct((x) => x.radniZadatakId).toList();
+
+                var uredjajiDistinct = uredjaji.distinct((x) => x.radniZadatakId ?? 0).toList();
                 return Column(
                   children: [
                     Column(crossAxisAlignment: CrossAxisAlignment.center, children: [

@@ -86,7 +86,7 @@ class _LoginFormState extends State<LoginForm> {
                     );
                   }
                 } catch (e) {
-                  poruka("Login nije uspio" + e.toString() + " ");
+                  poruka("Login nije uspio " + e.toString() + " ");
                 }
               },
               child: Text('Login'),
