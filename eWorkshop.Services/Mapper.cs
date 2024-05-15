@@ -49,8 +49,7 @@ namespace eWorkshop.Services
             CreateMap<ClientScope, ClientScopeVM>();
             CreateMap<ApiResource, ApiResourceVM>();
             CreateMap<ApiScope, ScopesVM>();
-            CreateMap<AspNetUser, AspNetUserVM>();
-            CreateMap<AspNetRole, AspNetRoleVM>();
+
 
             CreateMap<IdentityUser, AspNetUserVM>();
             CreateMap<ClientScope, ClientScopeVM>();

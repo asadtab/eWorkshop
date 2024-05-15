@@ -76,10 +76,12 @@ namespace eWorkshop.Services
                 servis.KomponentaId = id;
                 servis.ServisId = entity.ServisId;
                 servis.Datum = entity.Datum;
-                servis.Servis.RadniZadatakId = insert.RadniZadatakId;
+                //servis.Servis.RadniZadatakId = insert.RadniZadatakId;
 
                 Context.Add(servis);
             }
+
+            
 
             Context.SaveChanges();
 

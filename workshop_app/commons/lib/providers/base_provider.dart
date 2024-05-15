@@ -12,12 +12,12 @@ abstract class BaseProvider<T> with ChangeNotifier {
   HttpClient client = new HttpClient();
   IOClient? http;
 
-  static final String? _ids = "https://ac98-77-78-214-49.ngrok-free.app/";
+  static final String? _ids = "https://localhost:5443/";
 
   final identifier = 'flutter';
 
   BaseProvider(String endpoint, [bool? ids]) {
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://2a9b-77-78-214-49.ngrok-free.app/");
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://localhost:7189/");
 
     if (_baseUrl!.endsWith("/") == false) {
       _baseUrl = _baseUrl! + "/";
@@ -51,12 +51,14 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
   }
 
-  Future<List<T>> get([dynamic search, String? endPoint]) async {
+  Future<List<T>> get([dynamic search, String? endPoint, bool? rst]) async {
     if (endPoint != null) {
       _endpoint = endPoint;
     }
 
-    //_baseUrl = "https://fa27-109-237-46-211.ngrok-free.app/";
+    if (rst != null && rst) {
+      _baseUrl = "https://localhost:7189/";
+    }
 
     var url = "$_baseUrl$_endpoint";
     String? moreThanOne;
@@ -127,6 +129,8 @@ abstract class BaseProvider<T> with ChangeNotifier {
     Map<String, String> headers = createHeaders();
 
     var response = await http!.put(uri, headers: headers, body: jsonEncode(request));
+
+    print(response.body);
 
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);

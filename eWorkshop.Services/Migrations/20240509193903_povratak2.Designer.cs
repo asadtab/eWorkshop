@@ -12,8 +12,8 @@ using eWorkshop.Services.Database;
 namespace eWorkshop.Services.Migrations
 {
     [DbContext(typeof(_190128Context))]
-    [Migration("20240101194405_korisniciuloge")]
-    partial class korisniciuloge
+    [Migration("20240509193903_povratak2")]
+    partial class povratak2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace eWorkshop.Services.Migrations
                     b.ToTable("AspNetUserRole");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,15 +54,15 @@ namespace eWorkshop.Services.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityRoleClaim<string>");
+                    b.ToTable("UlogeClaim");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,12 +76,12 @@ namespace eWorkshop.Services.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityUserClaim<string>");
+                    b.ToTable("KorisniciClaim");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -1590,9 +1590,6 @@ namespace eWorkshop.Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServisId"));
 
-                    b.Property<string>("AspNetUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
 
@@ -1613,8 +1610,6 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasKey("ServisId")
                         .HasName("PK_ServisID");
-
-                    b.HasIndex("AspNetUserId");
 
                     b.HasIndex("KorisnikId");
 
@@ -2074,10 +2069,6 @@ namespace eWorkshop.Services.Migrations
 
             modelBuilder.Entity("eWorkshop.Services.Database.Servi", b =>
                 {
-                    b.HasOne("eWorkshop.Services.Database.AspNetUser", null)
-                        .WithMany("Servis")
-                        .HasForeignKey("AspNetUserId");
-
                     b.HasOne("eWorkshop.Services.Database.Korisnici", "Korisnik")
                         .WithMany("Servis")
                         .HasForeignKey("KorisnikId")
@@ -2177,8 +2168,6 @@ namespace eWorkshop.Services.Migrations
                     b.Navigation("AspNetUserLogins");
 
                     b.Navigation("AspNetUserTokens");
-
-                    b.Navigation("Servis");
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Client", b =>

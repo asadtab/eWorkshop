@@ -1,5 +1,6 @@
 import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
 import 'package:admin/screens/dodaj_uredi_scope.dart';
+import 'package:commons/models/api_scopes.dart';
 import 'package:commons/models/korisnik.dart';
 import 'package:commons/providers/api_scopes_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -17,6 +18,7 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
   TextEditingController _nazivController = TextEditingController();
 
   List<Korisnik> korisnici = [];
+  List<ApiScopes> scopesLista = [];
 
   String _selected = "";
 
@@ -28,6 +30,15 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
 
     // TODO: implement initState
     super.initState();
+    _fetchData(null);
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    var scopes = await apiScopeProvider.get(map, "ApiScopes");
+
+    setState(() {
+      scopesLista = scopes;
+    });
   }
 
   @override
@@ -72,7 +83,7 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
                       onPressed: () async {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => DodajUrediScope(),
+                          builder: (BuildContext context) => DodajUrediScope(scopesLista: scopesLista),
                         ).then((value) {});
                       },
                       child: Text('Dodaj novi scope'),
@@ -113,6 +124,7 @@ class _ApiScopesScreenState extends State<ApiScopesScreen> {
                                         context: context,
                                         builder: (BuildContext context) => DodajUrediScope(
                                           apiScope: scope,
+                                          scopesLista: scopesLista,
                                         ),
                                       ).then((value) {})
                                     },

@@ -78,3 +78,79 @@ ORDER BY [a].[Id], [a0].[Id]
 2024-04-27 06:59:38.218 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - -
 2024-04-27 06:59:38.450 +02:00 [INF] Invoking IdentityServer endpoint: Duende.IdentityServer.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
 2024-04-27 06:59:38.471 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5443/.well-known/openid-configuration/jwks - - - 200 - application/json;+charset=UTF-8 253.0571ms
+2024-04-27 07:18:42.950 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-27 07:18:43.162 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-27 07:18:43.697 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-27 07:18:44.014 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-27 07:18:44.418 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-27 07:18:44.435 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-27 07:18:44.437 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-27 07:18:44.438 +02:00 [INF] Hosting environment: Development
+2024-04-27 07:18:44.440 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-27 07:18:46.997 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-04-27 07:18:51.637 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 4652.8346ms
+2024-04-27 07:18:52.336 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/swagger-ui.css - -
+2024-04-27 07:18:52.336 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/swagger-ui-bundle.js - -
+2024-04-27 07:18:52.377 +02:00 [INF] The file /swagger-ui.css was not modified
+2024-04-27 07:18:52.377 +02:00 [INF] The file /swagger-ui-bundle.js was not modified
+2024-04-27 07:18:52.399 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/swagger-ui.css - - - 304 - text/css 63.5802ms
+2024-04-27 07:18:52.412 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/swagger-ui-bundle.js - - - 304 - application/javascript 75.3576ms
+2024-04-27 07:18:52.452 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/swagger-ui-standalone-preset.js - -
+2024-04-27 07:18:52.459 +02:00 [INF] The file /swagger-ui-standalone-preset.js was not modified
+2024-04-27 07:18:52.462 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/swagger-ui-standalone-preset.js - - - 304 - application/javascript 10.0802ms
+2024-04-27 07:18:54.215 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-04-27 07:18:54.252 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 37.6942ms
+2024-04-27 07:18:55.550 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-04-27 07:18:55.607 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 56.8685ms
+2024-04-27 07:18:57.578 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-27 07:18:57.791 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 212.5351ms
+2024-04-27 07:18:59.947 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/favicon-32x32.png - -
+2024-04-27 07:18:59.964 +02:00 [INF] The file /favicon-32x32.png was not modified
+2024-04-27 07:18:59.967 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/favicon-32x32.png - - - 304 - image/png 19.6195ms
+2024-04-27 07:19:47.845 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-27 07:19:48.108 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-27 07:19:48.889 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-27 07:19:52.204 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-27 07:19:53.717 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-27 07:19:53.734 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-27 07:19:53.738 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-27 07:19:53.740 +02:00 [INF] Hosting environment: Development
+2024-04-27 07:19:53.742 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-27 08:41:02.763 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-27 08:41:04.071 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-27 08:41:12.248 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-27 08:41:13.214 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-27 08:41:26.966 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-27 08:41:26.974 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-27 08:41:26.976 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-27 08:41:26.978 +02:00 [INF] Hosting environment: Development
+2024-04-27 08:41:26.979 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-27 08:42:03.174 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-04-27 08:42:05.073 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 1925.4063ms
+2024-04-27 08:45:09.972 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-27 08:45:10.505 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-27 08:45:11.294 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-27 08:45:11.566 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-27 08:45:13.555 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-27 08:45:13.595 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-27 08:45:13.598 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-27 08:45:13.605 +02:00 [INF] Hosting environment: Development
+2024-04-27 08:45:13.607 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-27 09:00:58.081 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-27 09:00:58.306 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-27 09:00:58.928 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-27 09:00:59.325 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-27 09:01:00.013 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-27 09:01:00.027 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-27 09:01:00.033 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-27 09:01:00.093 +02:00 [INF] Hosting environment: Development
+2024-04-27 09:01:00.165 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-04-27 09:29:14.625 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-04-27 09:29:14.938 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-04-27 09:29:16.009 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-04-27 09:29:21.823 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-27 09:29:27.888 +02:00 [INF] Now listening on: https://localhost:5443
+2024-04-27 09:29:28.248 +02:00 [INF] Now listening on: http://localhost:5000
+2024-04-27 09:29:28.574 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-27 09:29:28.586 +02:00 [INF] Hosting environment: Development
+2024-04-27 09:29:28.588 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\

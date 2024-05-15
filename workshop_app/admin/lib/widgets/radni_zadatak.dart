@@ -1,3 +1,4 @@
+import 'package:admin/commons/navigation.dart';
 import 'package:commons/helpers/progres.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
@@ -38,13 +39,7 @@ class _RadniZadaciWidgetState extends State<RadniZadaciWidget> {
         child: SingleChildScrollView(
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             InkWell(
-                onTap: () {
-                  //var uredjaji = data.where((y) => y.radniZadatakId == x.radniZadatakId).toList();
-
-                  //MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaciUredjaji(uredjaji, x.radniZadatakId));
-
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadaciScreen.uredi(widget.radniZadatak!.radniZadatakId)));
-                },
+                onTap: () {},
                 child: Container(
                   width: 150,
                   height: 70,

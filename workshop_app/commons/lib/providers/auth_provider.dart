@@ -31,7 +31,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   AuthProvider() {
-    _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "https://ac98-77-78-214-49.ngrok-free.app/");
+    _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "https://localhost:5443/");
   }
 
   setUser(User user) {

@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DodajUrediResurs extends StatefulWidget {
   late ApiResources? apiResources;
+  List<ApiResources> resursi = [];
 
-  DodajUrediResurs({this.apiResources});
+  DodajUrediResurs({this.apiResources, required this.resursi});
 
   @override
   State<DodajUrediResurs> createState() => _DodajUrediResursState();
@@ -114,6 +115,26 @@ class _DodajUrediResursState extends State<DodajUrediResurs> {
                               return;
                             }
 
+                            for (var resurs in widget.resursi) {
+                              if (resurs.name == nameController.text) {
+                                return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Tip resursa već postoji u bazi.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+
                             var request = {
                               'name': nameController.text,
                               'displayName': displayNameController.text,
@@ -121,23 +142,21 @@ class _DodajUrediResursState extends State<DodajUrediResurs> {
                             };
 
                             if (widget.apiResources != null) {
-                              var result = await apiResursProvider.update(widget.apiResources!.id, widget.apiResources!, "ApiResource");
-
-                              if (result != null) {
-                                poruka("ApiResource je uspješno ažuriran");
+                              try {
+                                var result = await apiResursProvider.update(widget.apiResources!.id, widget.apiResources!, "ApiResource");
+                              } catch (e) {
+                                poruka(e.toString());
                               }
-
-                              poruka("Neuspješno ažuriranje");
 
                               Navigator.of(context).pop();
 
                               return;
                             }
 
-                            var result = await apiResursProvider.insert(request, "ApiResource");
-
-                            if (result != null) {
-                              poruka("ApiResource je uspješno dodan");
+                            try {
+                              var result = await apiResursProvider.insert(request, "ApiResource");
+                            } catch (e) {
+                              poruka(e.toString());
                             }
 
                             Navigator.of(context).pop();

@@ -1,6 +1,7 @@
 import 'package:admin/bloc/client_secret/client_secret_bloc.dart';
 import 'package:admin/bloc/klijenti/klijenti_bloc.dart';
 import 'package:admin/screens/dodaj_klijenta.dart';
+import 'package:commons/models/klijenti.dart';
 import 'package:commons/models/korisnik.dart';
 import 'package:commons/providers/klijenti_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -20,6 +21,7 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
   List<Korisnik> korisnici = [];
 
   late KlijentiProvider klijentProvider;
+  List<Klijenti> klijenti = [];
 
   String _selected = "";
 
@@ -28,6 +30,15 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
     klijentProvider = context.read<KlijentiProvider>();
     // TODO: implement initState
     super.initState();
+    _fetchData(null);
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    var client = await klijentProvider.get(map, "Client");
+
+    setState(() {
+      klijenti = client;
+    });
   }
 
   @override
@@ -42,7 +53,6 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Input fields and buttons in a Row
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -73,9 +83,9 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
                       onPressed: () async {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => AddClientDialog(),
+                          builder: (BuildContext context) => AddClientDialog(klijentiLista: klijenti),
                         ).then((value) {
-                          klijentiBloc.add(KlijentiInitialDataEvent());
+                          //klijentiBloc.add(KlijentiInitialDataEvent());
                         });
                       },
                       child: Text('Dodaj novog klijenta'),
@@ -116,9 +126,10 @@ class _KlijentiListScreenState extends State<KlijentiListScreen> {
                                         context: context,
                                         builder: (BuildContext context) => AddClientDialog(
                                           klijent: klijent,
+                                          klijentiLista: klijenti,
                                         ),
                                       ).then((value) {
-                                        klijentiBloc.add(KlijentiInitialDataEvent());
+                                        //klijentiBloc.add(KlijentiInitialDataEvent());
                                       })
                                     },
                                 },

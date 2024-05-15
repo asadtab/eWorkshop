@@ -8,7 +8,6 @@ import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commons/providers/ids_provider.dart';
-import 'package:oauth2/oauth2.dart' as oauth2;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -39,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  Future<List<Uredjaj>> getIds(oauth2.Client client) async {
+  /*Future<List<Uredjaj>> getIds(oauth2.Client client) async {
     String uri = "https://localhost:7189/Uredjaj";
 
     final response = await client.get(Uri.parse(uri));
@@ -50,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       throw Exception("Greska!");
     }
-  }
+  }*/
 
   Uredjaj fromJson(data) {
     throw Exception("Override method");
@@ -65,10 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          // Navigate to the home screen or perform other actions upon successful login
-          // Navigator.pushReplacementNamed(context, '/home');
         } else if (state is LoginFailure) {
-          // Show an error snackbar or dialog
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.error),

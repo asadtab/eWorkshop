@@ -33,12 +33,11 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 /*options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Protected API", Version = "v1" });
@@ -101,7 +100,7 @@ builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<IKomponenteService, KomponenteService>();
 builder.Services.AddTransient<IServisIzvrsenService, ServisIzvrsenService>();
-//builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
+builder.Services.AddTransient<IRadniZadatakService, RadniZadatakService>();
 builder.Services.AddTransient<ITipUredjajaService, TipUredjajaService>();
 builder.Services.AddTransient<IRadniZadatakUredjajService, RadniZadatakUredjajService>();
 builder.Services.AddTransient<ILokacijaService, LokacijaService>();
@@ -111,8 +110,7 @@ builder.Services.AddTransient<IStaniceUredjajService, StaniceUredjajService>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
 builder.Services.AddTransient<IScopesService, ScopesService>();
-builder.Services.AddTransient<IAspNetUserService, AspNetUserService>();
-builder.Services.AddTransient<IAspNetRoleService, AspNetRoleService>();
+
 builder.Services.AddTransient<IUlogeService, UlogeService>();
 builder.Services.AddTransient<IClientSecretService, ClientSecretService>();
 builder.Services.AddTransient<IClientScopeService, ClientScopeService>();

@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DodajUrediScope extends StatefulWidget {
   late ApiScopes? apiScope;
+  List<ApiScopes> scopesLista = [];
 
-  DodajUrediScope({this.apiScope});
+  DodajUrediScope({this.apiScope, required this.scopesLista});
 
   @override
   State<DodajUrediScope> createState() => _DodajUrediScopeState();
@@ -114,6 +115,43 @@ class _DodajUrediScopeState extends State<DodajUrediScope> {
                               return;
                             }
 
+                            for (var scope in widget.scopesLista) {
+                              if (scope.name == nameController.text && widget.apiScope == null) {
+                                return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Tip scope-a već postoji u bazi.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
+                              if (scope.displayName == displayNameController.text && widget.apiScope == null) {
+                                return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Naziv scope-a već postoji u bazi.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+
                             var request = {
                               'name': nameController.text,
                               'displayName': displayNameController.text,
@@ -121,29 +159,24 @@ class _DodajUrediScopeState extends State<DodajUrediScope> {
                             };
 
                             if (widget.apiScope != null) {
-                              var result = await apiScopesProvider.update(widget.apiScope!.id, request, "ApiScopes");
-
-                              if (result != null) {
-                                poruka("ApiScope je uspješno ažuriran");
-
-                                Navigator.of(context).pop();
-
-                                apiScopesBloc.add(ApiScopeLoadDataEvent());
-
-                                return;
+                              try {
+                                var result = await apiScopesProvider.update(widget.apiScope!.id, request, "ApiScopes");
+                                poruka("Uspješno ažuriranje.");
+                              } catch (e) {
+                                poruka(e.toString());
                               }
 
-                              poruka("Neuspješno ažuriranje");
-
                               Navigator.of(context).pop();
+
+                              apiScopesBloc.add(ApiScopeLoadDataEvent());
 
                               return;
                             }
 
-                            var result = await apiScopesProvider.insert(request, "ApiScopes");
-
-                            if (result != null) {
-                              poruka("ApiScope je uspješno dodan");
+                            try {
+                              var result = await apiScopesProvider.insert(request, "ApiScopes");
+                            } catch (e) {
+                              poruka(e.toString());
                             }
 
                             Navigator.of(context).pop();

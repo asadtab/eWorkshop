@@ -33,3 +33,4 @@ public partial class ApiScope
 
     public virtual ICollection<ApiScopeProperty> ApiScopeProperties { get; } = new List<ApiScopeProperty>();
 }
+

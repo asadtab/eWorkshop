@@ -17,8 +17,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AddClientDialog extends StatefulWidget {
   late Klijenti? klijent;
   late ClientSecret? clientSecret;
+  List<Klijenti> klijentiLista;
 
-  AddClientDialog({this.klijent, this.clientSecret});
+  AddClientDialog({this.klijent, this.clientSecret, required this.klijentiLista});
 
   @override
   _AddClientDialogState createState() => _AddClientDialogState();
@@ -222,6 +223,26 @@ class _AddClientDialogState extends State<AddClientDialog> {
                         'clientSecrets': clientSecretList
                       };
 
+                      for (var client in widget.klijentiLista) {
+                        if (client.clientId == clientIdController.text) {
+                          return showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Klijent sa ID-om već postoji u bazi.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+                      }
+
                       if (widget.klijent != null) {
                         /*widget.klijent!.clientId = clientIdController.text;
                           widget.klijent!.clientName = clientNameController.text;
@@ -231,15 +252,30 @@ class _AddClientDialogState extends State<AddClientDialog> {
                           widget.klijent!.clientId = clientIdController.text;*/
 
                         clientBloc.add(KlijentiUpdateEvent(klijent: request, klijentId: widget.klijent!.id!));
-                        clientBloc.add(KlijentiInitialDataEvent());
                         Navigator.of(context).pop();
-                        return;
+                        //clientBloc.add(KlijentiInitialDataEvent());
+                        return null;
                       }
 
                       clientBloc.add(KlijentiAddEvent(request: request));
-                      clientBloc.add(KlijentiInitialDataEvent());
-
                       Navigator.of(context).pop();
+                      return showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Uspješno dodan klijent.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          });
+
+                      //clientBloc.add(KlijentiInitialDataEvent());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Popunite obavezna polja!"));
                     }

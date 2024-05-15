@@ -31,7 +31,7 @@ class KorisniciBloc extends Bloc<KorisniciEvent, KorisniciState> {
   FutureOr<void> korisniciLoad(KorisniciLoad event, Emitter<KorisniciState> emit) async {
     emit(KorisniciLoadingState());
 
-    var korisnici = await korisniciProvider.get(null, "Korisnici");
+    var korisnici = await korisniciProvider.get(null, "Korisnici", true);
 
     emit(KorisniciRequest(data: korisnici));
   }

@@ -1,5 +1,6 @@
 import 'package:admin/bloc/api_resources/api_resources_bloc.dart';
 import 'package:admin/screens/dodaj_uredi_resurs.dart';
+import 'package:commons/models/api_resources.dart';
 import 'package:commons/models/korisnik.dart';
 import 'package:commons/providers/api_resources_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -17,6 +18,7 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
   TextEditingController _nazivController = TextEditingController();
 
   List<Korisnik> korisnici = [];
+  List<ApiResources> apiResursi = [];
 
   late ApiResourcesProvider apiResourcesProvider;
 
@@ -26,6 +28,15 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
 
     // TODO: implement initState
     super.initState();
+    _fetchData(null);
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    var resursi = await apiResourcesProvider.get(map, "ApiResource");
+
+    setState(() {
+      apiResursi = resursi;
+    });
   }
 
   String _selected = "";
@@ -72,7 +83,7 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                       onPressed: () async {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => DodajUrediResurs(),
+                          builder: (BuildContext context) => DodajUrediResurs(resursi: apiResursi),
                         ).then((value) {});
                       },
                       child: Text('Dodaj novi resurs'),
@@ -111,7 +122,7 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                                     {
                                       showDialog(
                                         context: context,
-                                        builder: (BuildContext context) => DodajUrediResurs(apiResources: resource),
+                                        builder: (BuildContext context) => DodajUrediResurs(apiResources: resource, resursi: apiResursi),
                                       )
                                     },
                                 },
@@ -121,14 +132,13 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
                                   DataCell(Text(resource.description ?? "")),
                                   DataCell(PopupMenuButton<String>(
                                     initialValue: _selected,
-                                    // Callback that sets the selected popup menu item.
                                     onSelected: (izbor) {
                                       if (izbor == "delete") {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                  title: Text("Da li želite izbrisati ApiScope"),
+                                                  title: Text("Da li želite izbrisati ApiResource"),
                                                   content: Container(
                                                       height: 170,
                                                       child: Row(children: [
@@ -141,6 +151,8 @@ class _ApiResourcesScreenState extends State<ApiResourcesScreen> {
 
                                                             ScaffoldMessenger.of(context)
                                                                 .showSnackBar(CustomNotification.infoSnack(result!["message"].toString()));
+
+                                                            Navigator.of(context).pop();
                                                           },
                                                           icons: Icon(
                                                             Icons.save,

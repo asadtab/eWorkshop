@@ -9,9 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class DodajKorisnikaDialog extends StatefulWidget {
+  List<Korisnik> korisnici = [];
   Korisnik? korisnik;
 
-  DodajKorisnikaDialog(this.korisnik);
+  DodajKorisnikaDialog(this.korisnik, this.korisnici);
 
   @override
   _DodajKorisnikaDialogState createState() => _DodajKorisnikaDialogState();
@@ -38,7 +39,7 @@ class _DodajKorisnikaDialogState extends State<DodajKorisnikaDialog> {
                 ),
               ],
             ),
-            SingleChildScrollView(child: AddUserForm(widget.korisnik)),
+            SingleChildScrollView(child: AddUserForm(widget.korisnik, widget.korisnici)),
 
             // Add more pages as needed
           ],
@@ -50,8 +51,9 @@ class _DodajKorisnikaDialogState extends State<DodajKorisnikaDialog> {
 
 class AddUserForm extends StatefulWidget {
   Korisnik? korisnik;
+  List<Korisnik> korisnici = [];
 
-  AddUserForm(this.korisnik);
+  AddUserForm(this.korisnik, this.korisnici);
   @override
   _AddUserFormState createState() => _AddUserFormState();
 }
@@ -66,6 +68,12 @@ class _AddUserFormState extends State<AddUserForm> {
   KorisniciProvider? korisniciProvider;
 
   List<String> uloge = [];
+
+  List<String> errors = [];
+
+  RegExp nonAlphanumericRegex = RegExp(r'[!@#$%^&*()\-_=+`~,.<>;:/?|\\{}\[\]]');
+  RegExp digitRegex = RegExp(r'[0-9]');
+  RegExp uppercaseRegex = RegExp(r'[A-Z]');
 
   @override
   void initState() {
@@ -194,38 +202,111 @@ class _AddUserFormState extends State<AddUserForm> {
 
           SizedBox(height: 16.0),
 
-          // Button to Submit Form
           MinimalisticButton(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                // Handle form submission here
-
-                var request = {
-                  "email": _emailController.text,
-                  "passwordHash": _passwordController.text,
-                  "ime": _imeController.text,
-                  "prezime": _prezimeController.text,
-                  "uloge": selectedRoles,
-                  "status": aktivan
-                };
-
-                try {
-                  await korisniciProvider!.insert(request, "Account", true);
-                  korisniciBloc.add(KorisniciLoad());
-
-                  emptyBox();
-                  setState(() {
-                    selectedRoles = [];
-                  });
-                  Navigator.pop(context);
-                } catch (e) {
-                  poruka(e.toString());
+              text: 'Submit',
+              onPressed: () async {
+                if (!nonAlphanumericRegex.hasMatch(_passwordController.text)) {
+                  errors.add("Password mora sadržavati barem jedan znakovni karakter.");
                 }
-                poruka("Korisnik je uspješno dodan");
-              }
-            },
-            text: 'Submit',
-          ),
+                if (!digitRegex.hasMatch(_passwordController.text)) {
+                  errors.add("Password mora sadržavati barem jedan karakter koji je broj.");
+                }
+                if (!uppercaseRegex.hasMatch(_passwordController.text)) {
+                  errors.add("Password mora sadržavati barem jedno veliko slovo.");
+                }
+
+                if (errors.isNotEmpty) {
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Password ne zadovoljava kriterij'),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: errors.map((error) => Text(error)).toList(),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                errors.clear();
+                                Navigator.pop(context);
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      });
+                }
+
+                if (_formKey.currentState!.validate()) {
+                  var request = {
+                    "email": _emailController.text,
+                    "passwordHash": _passwordController.text,
+                    "ime": _imeController.text,
+                    "prezime": _prezimeController.text,
+                    "uloge": selectedRoles,
+                    "status": aktivan
+                  };
+
+                  for (var users in widget.korisnici) {
+                    if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {
+                      return showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Korisničko ime je već u upotrebi'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    errors.clear();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          });
+                    }
+                  }
+
+                  try {
+                    await korisniciProvider!.insert(request, "Account", true);
+                    korisniciBloc.add(KorisniciLoad());
+
+                    emptyBox();
+                    setState(() {
+                      selectedRoles = [];
+                    });
+                    Navigator.pop(context);
+                  } catch (e) {
+                    if (e
+                        .toString()
+                        .contains("Username '${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' is already taken.")) {
+                      return showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Korisničko ime je već u upotrebi.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    errors.clear();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          });
+                    }
+
+                    poruka(e.toString());
+                    return;
+                  }
+                  poruka("Korisnik je uspješno dodan");
+                }
+              }),
         ],
       ),
     );

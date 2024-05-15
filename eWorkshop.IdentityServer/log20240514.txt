@@ -1,0 +1,23 @@
+2024-05-14 19:41:12.545 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-05-14 19:41:12.686 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-05-14 19:41:13.117 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-05-14 19:41:13.383 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-14 19:41:14.108 +02:00 [INF] Now listening on: https://localhost:5443
+2024-05-14 19:41:14.215 +02:00 [INF] Now listening on: http://localhost:5000
+2024-05-14 19:41:14.227 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-14 19:41:14.230 +02:00 [INF] Hosting environment: Development
+2024-05-14 19:41:14.243 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-05-14 19:41:15.684 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-05-14 19:41:16.487 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 815.7293ms
+2024-05-14 19:41:16.949 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-05-14 19:41:16.963 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-05-14 19:41:17.534 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 584.7401ms
+2024-05-14 19:41:17.732 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 769.4820ms
+2024-05-14 19:41:19.016 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-05-14 19:41:19.462 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 446.3109ms
+2024-05-14 22:09:33.228 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-05-14 22:09:33.228 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-05-14 22:09:33.246 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 21.0602ms
+2024-05-14 22:09:33.275 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 49.7933ms
+2024-05-14 22:09:34.151 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-05-14 22:09:34.188 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 37.3068ms

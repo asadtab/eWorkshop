@@ -3,6 +3,7 @@ import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
+import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:commons/models/lokacija.dart';
 import 'package:commons/models/tip_uredjaja.dart';
@@ -12,7 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class DodajUrediUredjaj extends StatefulWidget {
-  const DodajUrediUredjaj({super.key});
+  Uredjaj? editUredjaj;
+
+  DodajUrediUredjaj({this.editUredjaj});
 
   @override
   State<DodajUrediUredjaj> createState() => _DodajUrediUredjajState();
@@ -51,6 +54,11 @@ class _DodajUrediUredjajState extends State<DodajUrediUredjaj> {
     tipUredjajaProvider = context.read<TipUredjajaProvider>();
     lokacijaProvider = context.read<LokacijaProvider>();
     uredjajiProvider = context.read<UredjajProvider>();
+
+    kodaTextController.text = widget.editUredjaj?.koda ?? "";
+    izdanjeTextController.text = widget.editUredjaj?.godinaIzvedbe ?? "";
+    serijskiBrojTextController.text = widget.editUredjaj?.serijskiBroj ?? "";
+
     _fetchData(null);
 
     super.initState();
@@ -65,12 +73,20 @@ class _DodajUrediUredjajState extends State<DodajUrediUredjaj> {
         tipUredjajaList = items!;
         lokacijaList = lokacija!;
 
-        /*for (var i = 0; i < lokacijaList.length; i++) {
-          if (lokacijaList[i].naziv == uredjaj!.lokacijaNaziv) {
-            lokacijaDropdownValue = lokacijaList[i];
+        if (widget.editUredjaj != null) {
+          dropdownvalue = null;
+          lokacijaDropdownValue = null;
+
+          dropdownvalue = tipUredjajaList.where((element) => widget.editUredjaj!.tipNaziv == element.naziv).firstOrDefault();
+          //lokacijaDropdownValue = lokacijaList.where((element) => widget.editUredjaj!.lokacijaNaziv == element.naziv).firstOrDefault();
+
+          for (var i = 0; i < lokacijaList.length; i++) {
+            if (lokacijaList[i].naziv == widget.editUredjaj!.lokacijaNaziv) {
+              lokacijaDropdownValue = lokacijaList[i];
+            }
           }
         }
-
+/*
         for (var i = 0; i < tipUredjajaList.length; i++) {
           if (tipUredjajaList[i].naziv == uredjaj!.tipNaziv) {
             dropdownvalue = tipUredjajaList[i];
@@ -228,9 +244,7 @@ class _DodajUrediUredjajState extends State<DodajUrediUredjaj> {
                     ),
                     BlocConsumer<LokacijaBloc, LokacijaState>(
                       bloc: lokacijaBloc,
-                      listener: (context, state) {
-                        // TODO: implement listener
-                      },
+                      listener: (context, state) {},
                       builder: (context, state) {
                         if (state is LokacijaDataState) {
                           var lokacije = state.lokacije;

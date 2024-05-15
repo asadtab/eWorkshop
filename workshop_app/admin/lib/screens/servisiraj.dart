@@ -272,28 +272,11 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
 
                           try {
                             var temp = await uredjajProvider!.update(null, request, "Uredjaj/Servisiraj");
-                          } catch (e, stackTrace) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Alert'),
-                                  content: Text('${e.toString()} ${stackTrace}'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        // Close the AlertDialog
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
 
-                          poruka("Uređaj je uspješno servisiran.");
+                            poruka("Uređaj je uspješno servisiran.");
+                          } catch (e, stackTrace) {
+                            poruka(e.toString());
+                          }
 
                           setState(() {
                             komponenteList = [];

@@ -22,9 +22,14 @@ class UredjajBloc extends Bloc<UredjajEvent, UredjajState> {
     print("pozvan loaidng event");
     emit(UredjajLoadingState());
 
-    var data = await uredjajiProvider.get({'Status': 'active'}, "Uredjaj");
+    try {
+      var data = await uredjajiProvider.get({'Status': 'active'}, "Uredjaj");
 
-    emit(UredjajDataLoadedState(data));
+      emit(UredjajDataLoadedState(data));
+    } catch (e) {
+      var exeption = e.toString();
+      emit(UredjajLoadingState());
+    }
   }
 
   FutureOr<void> uredjajFilterEvent(UredjajFilterEvent event, Emitter<UredjajState> emit) async {

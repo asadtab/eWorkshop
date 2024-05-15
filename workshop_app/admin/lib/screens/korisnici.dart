@@ -29,6 +29,15 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
 
     // TODO: implement initState
     super.initState();
+    _fetchData(null);
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    var users = await korisniciProvider.get(map, "Korisnici");
+
+    setState(() {
+      korisnici = users;
+    });
   }
 
   @override
@@ -74,18 +83,10 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
                         korisniciBloc.add(KorisniciLoad());
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) => DodajKorisnikaDialog(null),
+                          builder: (BuildContext context) => DodajKorisnikaDialog(null, korisnici),
                         ).then((value) {
                           korisniciBloc.add(KorisniciLoad());
                         });
-
-                        /*async {
-                          var _korisnici = await korisniciProvider.get(null, "Korisnici");
-
-                          setState(() {
-                            korisnici = _korisnici;
-                          });
-                        });*/
                       },
                       child: Text('Dodaj novog korisnika'),
                     ),
@@ -130,7 +131,7 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
                                       if (izbor == "edit") {
                                         showDialog(
                                           context: context,
-                                          builder: (BuildContext context) => DodajKorisnikaDialog(user),
+                                          builder: (BuildContext context) => DodajKorisnikaDialog(user, state.data),
                                         ).then((value) {
                                           korisniciBloc.add(KorisniciLoad());
                                         });

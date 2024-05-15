@@ -23,7 +23,8 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
       _korisnik.prezime = User.name?.split(" ").last;
       _korisnik.userName = User.username;
       _korisnik.email = User.email;
-      //_korisnik.uloge = User.roles;
+      _korisnik.uloge = [];
+      _korisnik.uloge = User.roles;
     }
 
     super.initState();
@@ -58,8 +59,6 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                       children: [
                         CircleAvatar(
                           radius: 40.0,
-                          // You can use an image from the network or locally
-                          //backgroundImage: NetworkImage('https://example.com/user_profile_image.jpg'),
                         ),
                         SizedBox(width: 16.0),
                         Column(

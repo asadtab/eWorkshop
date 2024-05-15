@@ -1,4 +1,5 @@
 import 'package:admin/widgets/dodaj_ulogu.dart';
+import 'package:commons/models/uloge.dart';
 import 'package:commons/providers/uloge_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
@@ -20,12 +21,22 @@ class _UlogeScreenState extends State<UlogeScreen> {
   late UlogeProvider ulogeProvider;
 
   var userData = {'userName': 'asad', 'email': 'mail'};
+  List<Uloge> uloge = [];
 
   @override
   void initState() {
     ulogeProvider = context.read<UlogeProvider>();
 
     super.initState();
+    _fetchData(null);
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    var roles = await ulogeProvider.get(map, "Uloge");
+
+    setState(() {
+      uloge = roles;
+    });
   }
 
   @override
@@ -40,7 +51,6 @@ class _UlogeScreenState extends State<UlogeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Input fields and buttons in a Row
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -64,7 +74,7 @@ class _UlogeScreenState extends State<UlogeScreen> {
                         onPressed: () async {
                           showDialog(
                             context: context,
-                            builder: (BuildContext context) => DodajUlogu(),
+                            builder: (BuildContext context) => DodajUlogu(uloge),
                           ).then((value) {
                             ulogeBloc.add(UlogeRequest());
                           });
@@ -76,7 +86,6 @@ class _UlogeScreenState extends State<UlogeScreen> {
                 ),
               ),
               SizedBox(height: 20),
-
               Text("Lista uloga"),
               BlocConsumer<UlogeBloc, UlogeState>(
                 bloc: ulogeBloc,
@@ -109,7 +118,6 @@ class _UlogeScreenState extends State<UlogeScreen> {
                                     //DataCell(Text(user.email ?? "")),
                                     DataCell(PopupMenuButton<String>(
                                       initialValue: _selected,
-                                      // Callback that sets the selected popup menu item.
                                       onSelected: (izbor) {
                                         if (izbor == "delete") {
                                           showDialog(

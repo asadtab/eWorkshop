@@ -34,7 +34,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
 
-                    b.ToTable("AspNetUserRole");
+                    b.ToTable("AspNetUserRole", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -56,7 +56,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UlogeClaim");
+                    b.ToTable("UlogeClaim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
@@ -78,7 +78,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KorisniciClaim");
+                    b.ToTable("KorisniciClaim", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -95,7 +95,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasKey("UserId", "RoleId");
 
-                    b.ToTable("KorisniciUloge");
+                    b.ToTable("KorisniciUloge", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<int>");
 
@@ -153,7 +153,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_ApiResources_Name")
                         .IsUnique();
 
-                    b.ToTable("ApiResources");
+                    b.ToTable("ApiResources", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiResourceClaim", b =>
@@ -177,7 +177,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ApiResourceId", "Type" }, "IX_ApiResourceClaims_ApiResourceId_Type")
                         .IsUnique();
 
-                    b.ToTable("ApiResourceClaims");
+                    b.ToTable("ApiResourceClaims", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiResourceProperty", b =>
@@ -206,7 +206,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ApiResourceId", "Key" }, "IX_ApiResourceProperties_ApiResourceId_Key")
                         .IsUnique();
 
-                    b.ToTable("ApiResourceProperties");
+                    b.ToTable("ApiResourceProperties", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiResourceScope", b =>
@@ -230,7 +230,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ApiResourceId", "Scope" }, "IX_ApiResourceScopes_ApiResourceId_Scope")
                         .IsUnique();
 
-                    b.ToTable("ApiResourceScopes");
+                    b.ToTable("ApiResourceScopes", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiResourceSecret", b =>
@@ -268,7 +268,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "ApiResourceId" }, "IX_ApiResourceSecrets_ApiResourceId");
 
-                    b.ToTable("ApiResourceSecrets");
+                    b.ToTable("ApiResourceSecrets", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiScope", b =>
@@ -321,7 +321,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_ApiScopes_Name")
                         .IsUnique();
 
-                    b.ToTable("ApiScopes");
+                    b.ToTable("ApiScopes", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiScopeClaim", b =>
@@ -345,7 +345,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ScopeId", "Type" }, "IX_ApiScopeClaims_ScopeId_Type")
                         .IsUnique();
 
-                    b.ToTable("ApiScopeClaims");
+                    b.ToTable("ApiScopeClaims", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ApiScopeProperty", b =>
@@ -374,7 +374,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ScopeId", "Key" }, "IX_ApiScopeProperties_ScopeId_Key")
                         .IsUnique();
 
-                    b.ToTable("ApiScopeProperties");
+                    b.ToTable("ApiScopeProperties", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.AspNetRole", b =>
@@ -399,7 +399,7 @@ namespace eWorkshop.Services.Migrations
                         .IsUnique()
                         .HasFilter("([NormalizedName] IS NOT NULL)");
 
-                    b.ToTable("AspNetRole");
+                    b.ToTable("AspNetRole", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.AspNetRoleClaim", b =>
@@ -424,7 +424,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "RoleId" }, "IX_AspNetRoleClaims_RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.AspNetUser", b =>
@@ -486,7 +486,7 @@ namespace eWorkshop.Services.Migrations
                         .IsUnique()
                         .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.AspNetUserClaim", b =>
@@ -511,7 +511,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "UserId" }, "IX_AspNetUserClaims_UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.AspNetUserLogin", b =>
@@ -533,7 +533,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "UserId" }, "IX_AspNetUserLogins_UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.AspNetUserToken", b =>
@@ -552,7 +552,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Client", b =>
@@ -720,7 +720,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId" }, "IX_Clients_ClientId")
                         .IsUnique();
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientClaim", b =>
@@ -749,7 +749,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "Type", "Value" }, "IX_ClientClaims_ClientId_Type_Value")
                         .IsUnique();
 
-                    b.ToTable("ClientClaims");
+                    b.ToTable("ClientClaims", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientCorsOrigin", b =>
@@ -773,7 +773,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "Origin" }, "IX_ClientCorsOrigins_ClientId_Origin")
                         .IsUnique();
 
-                    b.ToTable("ClientCorsOrigins");
+                    b.ToTable("ClientCorsOrigins", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientGrantType", b =>
@@ -797,7 +797,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "GrantType" }, "IX_ClientGrantTypes_ClientId_GrantType")
                         .IsUnique();
 
-                    b.ToTable("ClientGrantTypes");
+                    b.ToTable("ClientGrantTypes", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientIdPrestriction", b =>
@@ -845,7 +845,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "PostLogoutRedirectUri" }, "IX_ClientPostLogoutRedirectUris_ClientId_PostLogoutRedirectUri")
                         .IsUnique();
 
-                    b.ToTable("ClientPostLogoutRedirectUris");
+                    b.ToTable("ClientPostLogoutRedirectUris", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientProperty", b =>
@@ -874,7 +874,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "Key" }, "IX_ClientProperties_ClientId_Key")
                         .IsUnique();
 
-                    b.ToTable("ClientProperties");
+                    b.ToTable("ClientProperties", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientRedirectUri", b =>
@@ -898,7 +898,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "RedirectUri" }, "IX_ClientRedirectUris_ClientId_RedirectUri")
                         .IsUnique();
 
-                    b.ToTable("ClientRedirectUris");
+                    b.ToTable("ClientRedirectUris", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientScope", b =>
@@ -922,7 +922,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "ClientId", "Scope" }, "IX_ClientScopes_ClientId_Scope")
                         .IsUnique();
 
-                    b.ToTable("ClientScopes");
+                    b.ToTable("ClientScopes", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.ClientSecret", b =>
@@ -960,7 +960,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "ClientId" }, "IX_ClientSecrets_ClientId");
 
-                    b.ToTable("ClientSecrets");
+                    b.ToTable("ClientSecrets", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.DeviceCode", b =>
@@ -1009,7 +1009,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "Expiration" }, "IX_DeviceCodes_Expiration");
 
-                    b.ToTable("DeviceCodes");
+                    b.ToTable("DeviceCodes", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.IdentityProvider", b =>
@@ -1057,7 +1057,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "Scheme" }, "IX_IdentityProviders_Scheme")
                         .IsUnique();
 
-                    b.ToTable("IdentityProviders");
+                    b.ToTable("IdentityProviders", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.IdentityResource", b =>
@@ -1107,7 +1107,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "Name" }, "IX_IdentityResources_Name")
                         .IsUnique();
 
-                    b.ToTable("IdentityResources");
+                    b.ToTable("IdentityResources", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.IdentityResourceClaim", b =>
@@ -1131,7 +1131,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "IdentityResourceId", "Type" }, "IX_IdentityResourceClaims_IdentityResourceId_Type")
                         .IsUnique();
 
-                    b.ToTable("IdentityResourceClaims");
+                    b.ToTable("IdentityResourceClaims", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.IdentityResourceProperty", b =>
@@ -1160,7 +1160,7 @@ namespace eWorkshop.Services.Migrations
                     b.HasIndex(new[] { "IdentityResourceId", "Key" }, "IX_IdentityResourceProperties_IdentityResourceId_Key")
                         .IsUnique();
 
-                    b.ToTable("IdentityResourceProperties");
+                    b.ToTable("IdentityResourceProperties", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.IzvrseniServi", b =>
@@ -1201,7 +1201,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex("ServisId");
 
-                    b.ToTable("IzvrseniServis");
+                    b.ToTable("IzvrseniServis", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Key", b =>
@@ -1238,7 +1238,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "Use" }, "IX_Keys_Use");
 
-                    b.ToTable("Keys");
+                    b.ToTable("Keys", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Komponente", b =>
@@ -1457,7 +1457,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "SubjectId", "SessionId", "Type" }, "IX_PersistedGrants_SubjectId_SessionId_Type");
 
-                    b.ToTable("PersistedGrants");
+                    b.ToTable("PersistedGrants", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.RadniZadatak", b =>
@@ -1575,7 +1575,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasIndex(new[] { "SubjectId" }, "IX_ServerSideSessions_SubjectId");
 
-                    b.ToTable("ServerSideSessions");
+                    b.ToTable("ServerSideSessions", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Servi", b =>
@@ -1586,9 +1586,6 @@ namespace eWorkshop.Services.Migrations
                         .HasColumnName("ServisID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServisId"));
-
-                    b.Property<string>("AspNetUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
@@ -1611,15 +1608,13 @@ namespace eWorkshop.Services.Migrations
                     b.HasKey("ServisId")
                         .HasName("PK_ServisID");
 
-                    b.HasIndex("AspNetUserId");
-
                     b.HasIndex("KorisnikId");
 
                     b.HasIndex("RadniZadatakId");
 
                     b.HasIndex("UredjajId");
 
-                    b.ToTable("Servis");
+                    b.ToTable("Servis", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Stanice", b =>
@@ -1707,7 +1702,7 @@ namespace eWorkshop.Services.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Uloge");
+                    b.ToTable("Uloge", (string)null);
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Uredjaj", b =>
@@ -2071,10 +2066,6 @@ namespace eWorkshop.Services.Migrations
 
             modelBuilder.Entity("eWorkshop.Services.Database.Servi", b =>
                 {
-                    b.HasOne("eWorkshop.Services.Database.AspNetUser", null)
-                        .WithMany("Servis")
-                        .HasForeignKey("AspNetUserId");
-
                     b.HasOne("eWorkshop.Services.Database.Korisnici", "Korisnik")
                         .WithMany("Servis")
                         .HasForeignKey("KorisnikId")
@@ -2174,8 +2165,6 @@ namespace eWorkshop.Services.Migrations
                     b.Navigation("AspNetUserLogins");
 
                     b.Navigation("AspNetUserTokens");
-
-                    b.Navigation("Servis");
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Client", b =>

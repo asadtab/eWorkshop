@@ -7,6 +7,7 @@ import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import "package:commons/providers/uredjaj_provider.dart";
 import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -88,11 +89,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => DodajUrediUredjaj(),
-                      ); /*.then((value) {
-                                          korisniciBloc.add(KorisniciLoad());
-                                        });*/
-
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => DodajUrediUredjaj()));
+                      );
                     },
                   ))
             ]),
@@ -103,36 +100,30 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                   child: TextField(
                       controller: idController,
                       decoration: InputDecoration(
-                        labelText: 'Id', // Placeholder text
-                        border: OutlineInputBorder(), // Border for the input field
+                        labelText: 'Id',
+                        border: OutlineInputBorder(),
                       ),
-                      onChanged: (text) {
-                        // Handle text input changes here
-                      })),
+                      onChanged: (text) {})),
               Container(
                   height: 40,
                   width: 200,
                   child: TextField(
                       controller: nazivController,
                       decoration: InputDecoration(
-                        labelText: 'Tip', // Placeholder text
-                        border: OutlineInputBorder(), // Border for the input field
+                        labelText: 'Tip',
+                        border: OutlineInputBorder(),
                       ),
-                      onChanged: (text) {
-                        // Handle text input changes here
-                      })),
+                      onChanged: (text) {})),
               Container(
                   height: 40,
                   width: 200,
                   child: TextField(
                       controller: opisController,
                       decoration: InputDecoration(
-                        labelText: 'Naziv', // Placeholder text
-                        border: OutlineInputBorder(), // Border for the input field
+                        labelText: 'Naziv',
+                        border: OutlineInputBorder(),
                       ),
-                      onChanged: (text) {
-                        // Handle text input changes here
-                      })),
+                      onChanged: (text) {})),
               Container(
                   height: 40,
                   width: 200,
@@ -159,9 +150,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
             ]),
             BlocConsumer<UredjajBloc, UredjajState>(
               bloc: uredjajBloc,
-              listener: (context, state) {
-                // TODO: implement listener
-              },
+              listener: (context, state) {},
               builder: (context, state) {
                 if (state is UredjajLoadingState) {
                   return Center(
@@ -212,12 +201,39 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                         DataCell(PopupMenuButton<String>(
                                           initialValue: selected,
                                           // Callback that sets the selected popup menu item.
-                                          onSelected: (izbor) {},
+                                          onSelected: (izbor) {
+                                            if (x.status == "idle") {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text("Da li želite izbrisati uređaj"),
+                                                      content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                                                        ElevatedButton(
+                                                            child: Text("Potvrdi"),
+                                                            style: ElevatedButton.styleFrom(
+                                                              elevation: 2,
+                                                            ),
+                                                            onPressed: () async {
+                                                              try {
+                                                                await _uredjajiProvider!.delete(x.uredjajId, x, "Uredjaj");
+                                                              } catch (e) {}
+                                                              uredjajBloc.add(UredjajFilterEvent(status: 'idle'));
+                                                              Navigator.pop(context);
+                                                            }),
+                                                        ElevatedButton(
+                                                            child: Text("Poništi"),
+                                                            style: ElevatedButton.styleFrom(elevation: 2, backgroundColor: Colors.redAccent),
+                                                            onPressed: () async {})
+                                                      ]),
+                                                    );
+                                                  });
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(CustomNotification.infoSnack("Samo neaktivni uređaji se mogu izbrisati."));
+                                            }
+                                          },
                                           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                            PopupMenuItem<String>(
-                                              child: Text('Uredi'),
-                                              value: 'edit',
-                                            ),
                                             PopupMenuItem<String>(
                                               child: Text('Izbriši'),
                                               value: 'delete',
