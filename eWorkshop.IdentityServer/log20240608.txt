@@ -1,0 +1,37 @@
+2024-06-08 06:26:23.710 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-08 06:26:24.016 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-08 06:26:24.565 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-08 06:26:24.953 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-08 06:39:48.561 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-08 06:39:48.793 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-08 06:39:49.414 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-08 06:39:49.755 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-08 06:44:10.522 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-08 06:44:10.804 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-08 06:44:11.361 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-08 06:44:11.816 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-08 07:03:33.876 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-08 07:03:34.116 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-08 07:03:35.195 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-08 07:03:36.333 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-08 07:10:50.310 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-08 07:10:50.620 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-08 07:10:51.324 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-08 07:10:51.748 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-08 07:11:40.341 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-08 07:11:40.489 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-08 07:11:41.005 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-08 07:11:41.272 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-08 07:11:41.653 +02:00 [INF] Now listening on: https://localhost:5443
+2024-06-08 07:11:41.656 +02:00 [INF] Now listening on: http://localhost:5000
+2024-06-08 07:11:41.658 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-06-08 07:11:41.659 +02:00 [INF] Hosting environment: Development
+2024-06-08 07:11:41.661 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop.IdentityServer\
+2024-06-08 07:11:43.344 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/index.html - -
+2024-06-08 07:11:44.220 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/index.html - - - 200 - text/html;charset=utf-8 882.8177ms
+2024-06-08 07:11:44.287 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - -
+2024-06-08 07:11:44.784 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/_vs/browserLink - -
+2024-06-08 07:11:45.391 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_framework/aspnetcore-browser-refresh.js - - - 200 12018 application/javascript;+charset=utf-8 1104.1809ms
+2024-06-08 07:11:45.941 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 1156.7587ms
+2024-06-08 07:11:46.995 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - -
+2024-06-08 07:11:47.456 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 460.8984ms

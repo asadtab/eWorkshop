@@ -16,7 +16,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using eWorkshop.Services.IDS;
 using Microsoft.AspNetCore.Identity;
-//using eWorkshop.IdentityServer.Database;
 using Serilog;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -26,10 +25,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .WriteTo.Console()
-            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 builder.Host.UseSerilog();
 
@@ -38,57 +38,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/*options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Protected API", Version = "v1" });
 
-    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
-    {
-        Name = JwtBearerDefaults.AuthenticationScheme,
-        Description = "Please insert JWT token.",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = JwtBearerDefaults.AuthenticationScheme
-    });
-
-
-    options.OperationFilter<AuthorizeCheckOperationFilter>();
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = JwtBearerDefaults.AuthenticationScheme
-                        },
-                        Name = JwtBearerDefaults.AuthenticationScheme,
-                        In = ParameterLocation.Header
-                    },
-                    new string[] { }
-                }
-            });
-});
-/*c =>
-{
-    c.AddSecurityDefinition("basicAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-        Scheme = "basic"
-    });
-
-    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-    {
-        {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference{ Type = ReferenceType.SecurityScheme, Id = "basicAuth"}
-        },
-        new string[]{}
-        }
-    });
-});*/
 
 
 
@@ -116,11 +66,6 @@ builder.Services.AddTransient<IClientSecretService, ClientSecretService>();
 builder.Services.AddTransient<IClientScopeService, ClientScopeService>();
 builder.Services.AddTransient<IClientGrantTypeService, ClientGrantTypeService>();
 
-/*builder.Services.AddScoped<UserManager<IdentityUser>>();
-builder.Services.AddScoped<UserManager<IdentityRole>>();*/
-
-
-/*builder.Services.AddScoped<UserManager<IdentityUser>>();*/
 
 
 
@@ -129,28 +74,7 @@ builder.Services.AddAutoMapper(typeof(UredjajService));
 
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
-//zakomentarisani dio koda ne vazi u slucaju api
-/*
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = "oidc";
-}).AddOpenIdConnect("oidc", options => 
-{
-    options.Authority = builder.Configuration["ApiSettings:IdentityAPI"]; 
-    options.GetClaimsFromUserInfoEndpoint = true;
-    options.ClientId = "m2m.client";
-    options.ClientSecret = "SuperSecretPassword";
-    options.ResponseType = "code";
 
-    options.TokenValidationParameters.NameClaimType = "name";
-    options.TokenValidationParameters.RoleClaimType = "role";
-
-    options.Scope.Add("weatherapi.read");
-    options.Scope.Add("weatherapi.write");
-    options.SaveTokens = true;
-});
-*/
 builder.Services.AddAuthentication(x => 
 { 
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
@@ -174,23 +98,6 @@ builder.Services.AddAuthentication(x =>
             ValidateAudience = false
         };
     });
-/*
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope");
-    })
-});
-*/
-
-/*builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<_190128Context>();*/
-
-
-/*builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);*/
 
 builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("IdentityServerSettings"));
 
@@ -215,7 +122,6 @@ builder.Services.AddTransient<ReadyDeviceState>();
 builder.Services.AddTransient<TaskDeviceState>();
 
 
-//builder.Services.AddTransient<UserManager<IdentityUser>>();
 
 
 
@@ -252,5 +158,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<_190128Context>();
+    dataContext.Database.Migrate();
+}
 
 app.Run();

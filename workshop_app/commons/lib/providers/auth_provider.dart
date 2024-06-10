@@ -31,7 +31,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   AuthProvider() {
-    _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "https://localhost:5443/");
+    _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "http://localhost:5443/");
   }
 
   setUser(User user) {
@@ -49,6 +49,8 @@ class AuthProvider extends ChangeNotifier {
 
     var response = await http.get(uri);
 
+    print(response.body);
+
     if (_isValidResponse(response)) {
       return response.body;
     } else {
@@ -60,6 +62,8 @@ class AuthProvider extends ChangeNotifier {
     var uri = Uri.parse('${_baseUrl}account/login?email=$email&password=$password');
 
     var response = await http.get(uri);
+
+    print(response.body);
 
     if (_isValidResponse(response)) {
       return response.body;

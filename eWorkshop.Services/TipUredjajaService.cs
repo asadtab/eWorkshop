@@ -2,7 +2,6 @@
 using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Services.Database;
-using eWorkshop.Services.MLService;
 using Microsoft.ML;
 using System;
 using System.Collections.Generic;

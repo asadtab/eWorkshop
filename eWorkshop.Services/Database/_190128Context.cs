@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using eWorkshop.Services.Database.Seed;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -108,7 +109,7 @@ public partial class _190128Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=localhost, 1434;Initial Catalog=190128; user=sa; Password=QWEasd123!; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=localhost, 1433;Initial Catalog=190128; user=sa; Password=QWElkj132!; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -120,7 +121,12 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Description).HasMaxLength(1000);
             entity.Property(e => e.DisplayName).HasMaxLength(200);
             entity.Property(e => e.Name).HasMaxLength(200);
-        });
+
+        }
+        
+        ) ;
+
+        modelBuilder.Entity<ApiResource>().SeedData();
 
         modelBuilder.Entity<ApiResourceClaim>(entity =>
         {
@@ -131,6 +137,8 @@ public partial class _190128Context : DbContext
             entity.HasOne(d => d.ApiResource).WithMany(p => p.ApiResourceClaims).HasForeignKey(d => d.ApiResourceId);
         });
 
+        
+
         modelBuilder.Entity<ApiResourceProperty>(entity =>
         {
             entity.HasIndex(e => new { e.ApiResourceId, e.Key }, "IX_ApiResourceProperties_ApiResourceId_Key").IsUnique();
@@ -139,6 +147,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Value).HasMaxLength(2000);
 
             entity.HasOne(d => d.ApiResource).WithMany(p => p.ApiResourceProperties).HasForeignKey(d => d.ApiResourceId);
+            
         });
 
         modelBuilder.Entity<ApiResourceScope>(entity =>
@@ -169,6 +178,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.DisplayName).HasMaxLength(200);
             entity.Property(e => e.Name).HasMaxLength(200);
         });
+        modelBuilder.Entity<ApiScope>().SeedData();
 
         modelBuilder.Entity<ApiScopeClaim>(entity =>
         {
@@ -278,6 +288,8 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.UserCodeType).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<Client>().SeedData();
+
         modelBuilder.Entity<ClientClaim>(entity =>
         {
             entity.HasIndex(e => new { e.ClientId, e.Type, e.Value }, "IX_ClientClaims_ClientId_Type_Value").IsUnique();
@@ -287,6 +299,7 @@ public partial class _190128Context : DbContext
 
             entity.HasOne(d => d.Client).WithMany(p => p.ClientClaims).HasForeignKey(d => d.ClientId);
         });
+        modelBuilder.Entity<ClientClaim>().SeedData();
 
         modelBuilder.Entity<ClientCorsOrigin>(entity =>
         {
@@ -305,6 +318,8 @@ public partial class _190128Context : DbContext
 
             entity.HasOne(d => d.Client).WithMany(p => p.ClientGrantTypes).HasForeignKey(d => d.ClientId);
         });
+
+        modelBuilder.Entity<ClientGrantType>().SeedData();
 
         modelBuilder.Entity<ClientIdPrestriction>(entity =>
         {
@@ -354,6 +369,8 @@ public partial class _190128Context : DbContext
             entity.HasOne(d => d.Client).WithMany(p => p.ClientScopes).HasForeignKey(d => d.ClientId);
         });
 
+        modelBuilder.Entity<ClientScope>().SeedData();
+
         modelBuilder.Entity<ClientSecret>(entity =>
         {
             entity.HasIndex(e => e.ClientId, "IX_ClientSecrets_ClientId");
@@ -364,6 +381,7 @@ public partial class _190128Context : DbContext
 
             entity.HasOne(d => d.Client).WithMany(p => p.ClientSecrets).HasForeignKey(d => d.ClientId);
         });
+        modelBuilder.Entity<ClientSecret>().SeedData();
 
         modelBuilder.Entity<DeviceCode>(entity =>
         {
@@ -441,6 +459,8 @@ public partial class _190128Context : DbContext
                 .HasConstraintName("FK_Servis");
         });
 
+        modelBuilder.Entity<IzvrseniServi>().SeedData();
+
         modelBuilder.Entity<Key>(entity =>
         {
             entity.HasIndex(e => e.Use, "IX_Keys_Use");
@@ -461,6 +481,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Tip).HasMaxLength(255);
             entity.Property(e => e.Vrijednost).HasMaxLength(255);
         });
+        modelBuilder.Entity<Komponente>().SeedData();
 
         modelBuilder.Entity<Korisnici>(entity =>
         {
@@ -477,8 +498,8 @@ public partial class _190128Context : DbContext
 
 
         });
+        modelBuilder.Entity<Korisnici>().SeedData();
 
-       
 
         modelBuilder.Entity<Lokacija>(entity =>
         {
@@ -488,6 +509,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Naziv).HasMaxLength(255);
             entity.Property(e => e.Opis).HasMaxLength(255);
         });
+        modelBuilder.Entity<Lokacija>().SeedData();
 
         modelBuilder.Entity<Magacin>(entity =>
         {
@@ -535,6 +557,8 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.StateMachine).HasMaxLength(255);
         });
 
+        modelBuilder.Entity<RadniZadatak>().SeedData();
+
         modelBuilder.Entity<RadniZadatakUredjaj>(entity =>
         {
             entity.ToTable("RadniZadatakUredjaj");
@@ -557,6 +581,8 @@ public partial class _190128Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Uredjaj");
         });
+
+        modelBuilder.Entity<RadniZadatakUredjaj>().SeedData();
 
         modelBuilder.Entity<ServerSideSession>(entity =>
         {
@@ -604,6 +630,8 @@ public partial class _190128Context : DbContext
                 .HasConstraintName("FK_UredjajID");
         });
 
+        modelBuilder.Entity<Servi>().SeedData();
+
         modelBuilder.Entity<Stanice>(entity =>
         {
             entity.ToTable("Stanice");
@@ -634,7 +662,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Opis).HasMaxLength(255);
         });
 
-        
+        modelBuilder.Entity<TipUredjaja>().SeedData();
 
         modelBuilder.Entity<Uredjaj>(entity =>
         {
@@ -657,27 +685,10 @@ public partial class _190128Context : DbContext
                 .HasForeignKey(d => d.TipId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UredjajTip");
+            
         });
 
-        /*modelBuilder.Entity<KorisniciUloge>(entity =>
-        {
-            entity.ToTable("KorisniciUloge");
-            entity.HasKey("Id");
-
-            entity.Property(e => e.UserId).HasColumnName("UserId");
-            entity.Property(e => e.RoleId).HasColumnName("RoleId");
-
-            modelBuilder.Entity<KorisniciUloge>()
-      .HasOne(ku => ku.Korisnici)
-      .WithMany(k => k.KorisniciUloge)
-      .HasForeignKey(ku => ku.UserId);
-
-            modelBuilder.Entity<KorisniciUloge>()
-                .HasOne(ku => ku.Uloge)
-                .WithMany(u => u.KorisniciUloge)
-                .HasForeignKey(ku => ku.RoleId);
-
-        });*/
+        modelBuilder.Entity<Uredjaj>().SeedData();
 
         modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUserRole<int>>(
 
@@ -688,8 +699,10 @@ public partial class _190128Context : DbContext
             }
             
             );
+        modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUserRole<int>>().SeedData();
+
         modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUserClaim<int>>().HasKey(p => new { p.Id });
-        modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>>().HasKey(p => new { p.Id });
+        modelBuilder.Entity<IdentityRoleClaim<int>>().HasKey(p => new { p.Id });
 
 
         OnModelCreatingPartial(modelBuilder);

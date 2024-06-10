@@ -29,3 +29,6 @@
 2024-05-15 07:43:19.701 +02:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
 2024-05-15 07:43:19.861 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/favicon-32x32.png - - - 200 628 image/png 674.8505ms
 2024-05-15 07:43:30.107 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5443/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 10928.0979ms
+2024-05-15 08:23:35.422 +02:00 [WRN] As of ""2024-05-15T06:23:32.8115876+00:00"", the heartbeat has been running for ""00:00:02.2615838"" which is longer than ""00:00:01"". This could be caused by thread pool starvation.
+2024-05-15 08:58:03.194 +02:00 [WRN] As of ""2024-05-15T06:58:01.3455548+00:00"", the heartbeat has been running for ""00:00:01.7905587"" which is longer than ""00:00:01"". This could be caused by thread pool starvation.
+2024-05-15 09:36:25.837 +02:00 [WRN] As of ""2024-05-15T07:36:24.5274331+00:00"", the heartbeat has been running for ""00:00:01.2373478"" which is longer than ""00:00:01"". This could be caused by thread pool starvation.

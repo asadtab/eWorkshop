@@ -1,0 +1,33 @@
+2024-05-25 09:26:36.812 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 09:26:41.381 +02:00 [INF] Now listening on: https://localhost:7189
+2024-05-25 09:26:41.741 +02:00 [INF] Now listening on: http://localhost:5189
+2024-05-25 09:26:41.771 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 09:26:42.022 +02:00 [INF] Hosting environment: Development
+2024-05-25 09:26:42.042 +02:00 [INF] Content root path: C:\Users\Asad\Desktop\Materijali\eWorkshop\eWorkshop\
+2024-05-25 09:26:45.066 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger - -
+2024-05-25 09:26:45.696 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger - - - 301 0 - 630.8509ms
+2024-05-25 09:26:45.702 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/index.html - -
+2024-05-25 09:26:46.828 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/index.html - - - 200 - text/html;charset=utf-8 1125.9780ms
+2024-05-25 09:26:48.217 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/swagger-ui-bundle.js - -
+2024-05-25 09:26:48.217 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/swagger-ui-standalone-preset.js - -
+2024-05-25 09:26:48.217 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/swagger-ui.css - -
+2024-05-25 09:26:48.283 +02:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-05-25 09:26:48.283 +02:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-05-25 09:26:48.288 +02:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-05-25 09:26:48.289 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/swagger-ui.css - - - 200 144929 text/css 71.6352ms
+2024-05-25 09:26:48.294 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/swagger-ui-standalone-preset.js - - - 200 312163 application/javascript 77.3415ms
+2024-05-25 09:26:48.297 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/swagger-ui-bundle.js - - - 200 1061536 application/javascript 79.8299ms
+2024-05-25 09:26:48.990 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - -
+2024-05-25 09:26:48.995 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_framework/aspnetcore-browser-refresh.js - - - 200 11988 application/javascript;+charset=utf-8 4.8541ms
+2024-05-25 09:26:50.997 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/_vs/browserLink - -
+2024-05-25 09:26:51.150 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 153.4105ms
+2024-05-25 09:26:54.379 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - -
+2024-05-25 09:26:54.856 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 477.0954ms
+2024-05-25 09:26:56.983 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/swagger/favicon-32x32.png - -
+2024-05-25 09:26:56.991 +02:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-05-25 09:26:56.999 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/swagger/favicon-32x32.png - - - 200 628 image/png 15.7906ms
+2024-05-25 09:28:01.020 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7189/Reparacija - -
+2024-05-25 09:28:01.052 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-05-25 09:28:01.065 +02:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-05-25 09:28:01.069 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7189/Reparacija - - - 401 0 - 49.1642ms

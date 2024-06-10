@@ -21,10 +21,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
 
 
 
@@ -32,6 +28,13 @@ Log.Logger = new LoggerConfiguration()
 var config = builder.Configuration;
 
 var connectionString = config.GetConnectionString("DefaultConnection");
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 
 builder.Host.UseSerilog();

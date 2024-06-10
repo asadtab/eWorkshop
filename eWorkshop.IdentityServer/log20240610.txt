@@ -1,0 +1,4 @@
+2024-06-10 19:23:26.272 +02:00 [INF] Starting Duende IdentityServer version 6.3.7+a23764bd8cc3f7585fdae63bd8a00f9123ed39d6 (.NET 6.0.15)
+2024-06-10 19:23:26.482 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
+2024-06-10 19:23:27.310 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
+2024-06-10 19:23:30.631 +02:00 [INF] User profile is available. Using 'C:\Users\Asad\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.

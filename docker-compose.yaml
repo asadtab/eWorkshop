@@ -9,22 +9,38 @@ services:
       - SA_PASSWORD=QWElkj132!
       - MSSQL_PID=Developer
     ports:
-      - 1401:1433
+      - 1433:1433
     expose:
       - 1433
     networks:
       - eworkshop
 
+  eworkshop-ids:
+    build:
+      context: .
+      dockerfile: ./eWorkshop.IdentityServer/Dockerfile
+    environment:
+        - ConnectionStrings:DefaultConnection=Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;ConnectRetryCount=0; TrustServerCertificate=True
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5443:5443
+    depends_on:
+      - eworkshop-sql
+    networks:
+      - eworkshop
+      
   eworkshop-api:
     restart: unless-stopped
     build:
       context: .
       dockerfile: ./eWorkshop/Dockerfile
     environment:
-      - ConnectionStrings:DefaultConnection=Server=eprodaja-sql,1433;Database=190128;User=sa;Password=QWElkj132!;ConnectRetryCount=0; TrustServerCertificate=True
+      - IdentityServerUrl=https://eworkshop-ids
+      - IdentityServerMetaDataUrl=http://eworkshop-ids/.well-known/openid-configuration
+      - ConnectionStrings:DefaultConnection=Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;ConnectRetryCount=0; TrustServerCertificate=True
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - 7114:7114
+      - 7189:7189
     networks:
       - eworkshop
     links:
@@ -33,19 +49,7 @@ services:
     depends_on:
       - eworkshop-sql
       - eworkshop-ids
-      
 
-  eworkshop-ids:
-    image: youridentityserverimage
-    build:
-      context: .
-      dockerfile: ./eWorkshop.IdentityServer/Dockerfile
-    ports:
-      - "5443:80"
-    depends_on:
-      - eworkshop-sql
-    environment:
-      -  ConnectionStrings:DefaultConnection=Server=eprodaja-sql,1433;Database=190128;User=sa;Password=QWElkj132!;ConnectRetryCount=0; TrustServerCertificate=True
 networks:
   eworkshop:
     driver: bridge 
