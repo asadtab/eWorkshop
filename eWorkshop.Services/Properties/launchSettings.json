@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "eWorkshop.Services": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:65262;http://localhost:65263"
+    }
+  }
+}

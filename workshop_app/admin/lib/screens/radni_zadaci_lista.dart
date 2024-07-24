@@ -1,0 +1,284 @@
+import 'package:admin/screens/radni_zadaci.dart';
+import 'package:commons/helpers/state_helper.dart';
+import 'package:commons/models/radni_zadatak.dart';
+import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/providers/radniZadaci_provider.dart';
+import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
+import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/notification.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class RadniZadaciLista extends StatefulWidget {
+  const RadniZadaciLista({super.key});
+
+  @override
+  State<RadniZadaciLista> createState() => _RadniZadaciListaState();
+}
+
+class _RadniZadaciListaState extends State<RadniZadaciLista> {
+  String dropdownvalue = "Aktivni";
+  List<RadniZadatak> radniZadatakData = [];
+  String selected = "";
+
+  bool rowSelected = false;
+  int? selectedRowIndex;
+
+  List<RadniZadatakUredjaj> radniZadatakUredjaj = [];
+  List<RadniZadatak> radniZadatak = [];
+
+  RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
+  RadniZadaciProvider? radniZadaciProvider = null;
+
+  final _formKeyZadatak = GlobalKey<FormState>();
+
+  final zadatakTextController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    radniZadaciProvider = context.read<RadniZadaciProvider>();
+    radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
+
+    var map = {'StateMachine': 'active'};
+
+    _fetchData(map);
+  }
+
+  Future<void> _fetchData(Map<String, String>? map) async {
+    final zadatak = await radniZadaciProvider!.get(map, "RadniZadatak");
+
+    setState(() {
+      radniZadatak = zadatak;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Lista radnih zadataka"),
+        ),
+        body: SingleChildScrollView(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Padding(
+                padding: EdgeInsets.all(20),
+                child: DropdownButton<String>(
+                  value: dropdownvalue,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  hint: Container(child: Text("Odaberi status")),
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.blueGrey,
+                  ),
+                  onChanged: (String? value) {
+                    _fetchData({'StateMachine': StateHelper.nizZadatakStateSearch(value!)});
+
+                    setState(() {
+                      dropdownvalue = value;
+                    });
+                  },
+                  items: StateHelper.nizZadatakStateOpis.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                )),
+            Container(
+                height: 40,
+                width: 200,
+                child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Pretraga', // Placeholder text
+                      border: OutlineInputBorder(), // Border for the input field
+                    ),
+                    onChanged: (text) {
+                      // Handle text input changes here
+                    })),
+            Padding(
+                padding: EdgeInsets.all(20),
+                child: MinimalisticButton(
+                  icons: Icon(
+                    Icons.add,
+                    color: Colors.black,
+                  ),
+                  text: "Dodaj novi radni zadatak",
+                  onPressed: () {
+                    noviRadniZadatak();
+                  },
+                ))
+          ]),
+          SingleChildScrollView(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Card(
+                child: DataTable(
+                  showCheckboxColumn: false,
+                  columnSpacing: 21,
+                  columns: [
+                    DataColumn(label: Text('Id')),
+                    DataColumn(label: Text('Naziv')),
+                    DataColumn(label: Text('Stanje')),
+                    DataColumn(label: Text('Datum')),
+                    DataColumn(label: Text('Opcije')),
+                  ],
+                  rows: radniZadatak
+                      .map((x) => DataRow(
+                            color: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                              if (selectedRowIndex == x.radniZadatakId) {
+                                // Color when the row is selected
+                                return Colors.blueGrey;
+                              }
+                              return Colors.transparent;
+                            }),
+                            onSelectChanged: (isSelected) async {
+                              if (isSelected != null && isSelected) {
+                                final _radniZadatakUredjaj =
+                                    await radniZadaciUredjajProvider!.get({'RadniZadatakId': '${x.radniZadatakId}'}, "RadniZadatakUredjaj/Flutter");
+
+                                setState(() {
+                                  selectedRowIndex = x.radniZadatakId; // Update the selected row index
+                                  this.radniZadatakUredjaj = _radniZadatakUredjaj;
+                                });
+                              }
+                            },
+                            cells: [
+                              DataCell(Text(x.radniZadatakId.toString())),
+                              DataCell(Text(x.naziv.toString())),
+                              DataCell(Text(x.stateMachine ?? "")),
+                              DataCell(Text(x.datum ?? "")),
+                              DataCell(PopupMenuButton<String>(
+                                initialValue: selected,
+                                onSelected: (izbor) {
+                                  switch (izbor) {
+                                    case 'edit':
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => RadniZadaciScreen.uredi(radniZadatakId: x.radniZadatakId)));
+                                  }
+                                },
+                                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                  PopupMenuItem<String>(
+                                    child: Text('Uredi'),
+                                    value: 'edit',
+                                  ),
+                                  PopupMenuItem<String>(
+                                    child: Text('Izbriši'),
+                                    value: 'delete',
+                                  ),
+                                ],
+                              )),
+                            ],
+                          ))
+                      .toList(),
+                ),
+              ),
+              Card(
+                child: DataTable(
+                  columnSpacing: 21,
+                  columns: [
+                    DataColumn(label: Text('Id')),
+                    DataColumn(label: Text('Tip')),
+                    DataColumn(label: Text('Koda')),
+                    DataColumn(label: Text('Serijski broj')),
+                  ],
+                  // Replace the following rows with your data
+                  rows: radniZadatakUredjaj
+                      .map((x) => DataRow(
+                            cells: [
+                              DataCell(Text(x.uredjajId.toString())),
+                              DataCell(Text(x.tipNaziv ?? "")),
+                              DataCell(Text(x.koda ?? "")),
+                              DataCell(Text(x.serijskiBroj ?? ""))
+                            ],
+                          ))
+                      .toList(),
+
+                  // Add more rows as needed
+                ),
+              ),
+            ],
+          ))
+        ])));
+  }
+
+  void noviRadniZadatak() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Dodaj novi radni zadatak"),
+            content: Container(
+                height: 170,
+                child: Column(children: [
+                  Form(
+                      key: _formKeyZadatak,
+                      child: Column(children: [
+                        TextFormField(
+                          controller: zadatakTextController,
+                          decoration: InputDecoration(
+                            labelText: 'Naziv',
+                          ),
+                          //initialValue: _koda,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Unesite naziv radnog zadatka';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {},
+                        ),
+                      ])),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(0, 29, 0, 0),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                        ElevatedButton(
+                            child: Text("Potvrdi"),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 2,
+                            ),
+                            onPressed: () async {
+                              var request = {'naziv': zadatakTextController.text, 'datum': DateTime.now().toIso8601String()};
+
+                              if (_formKeyZadatak.currentState!.validate()) {
+                                _formKeyZadatak.currentState!.save();
+
+                                try {
+                                  await radniZadaciProvider!.insert(request, "RadniZadatak");
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(e.toString()));
+                                  Navigator.pop(context);
+                                  return;
+                                }
+
+                                ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Uspješno je dodan novi radni zadatak"));
+
+                                zadatakTextController.clear();
+                                _fetchData(null);
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(CustomNotification.infoSnack("Aktiviraj radni zadatak dodavanjem aktivnog uređeja"));
+                              }
+                            }),
+                        ElevatedButton(
+                            child: Text("Poništi"),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 170, 70, 63),
+                              elevation: 2,
+                            ),
+                            onPressed: () {
+                              zadatakTextController.clear();
+                              Navigator.pop(context);
+                            })
+                      ]))
+                ])),
+          );
+        });
+  }
+}

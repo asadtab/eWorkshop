@@ -1,0 +1,52 @@
+services:
+#mssql docker
+  eworkshop-sql:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=QWElkj132!
+      - MSSQL_PID=Developer
+    ports:
+      - 1433:1433
+    networks:
+      - eworkshop
+
+  eworkshop-ids:
+    build:
+      context: .
+      dockerfile: ./eWorkshop.IdentityServer/Dockerfile
+    environment:
+        - ConnectionStrings__DefaultConnection=Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5443:5443
+    depends_on:
+      - eworkshop-sql
+    networks:
+      - eworkshop
+      
+  eworkshop-api:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./eWorkshop/Dockerfile
+    environment:
+      - IdentityServerUrl=http://eworkshop-ids:5443
+      - IdentityServerMetaDataUrl=http://eworkshop-ids:5443/.well-known/openid-configuration
+      - ConnectionStrings__DefaultConnection=Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True;
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7189:7189
+    networks:
+      - eworkshop
+    links:
+      - eworkshop-sql
+      - eworkshop-ids
+    depends_on:
+      - eworkshop-sql
+      - eworkshop-ids
+
+networks:
+  eworkshop:
+    driver: bridge 
