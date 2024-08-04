@@ -16,6 +16,11 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
 
   @override
   void initState() {
+
+    _korisnik.uloge = [];
+
+    print(User.roles);
+
     if (widget.korisnik != null) {
       _korisnik = widget.korisnik!;
     } else {
@@ -111,7 +116,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                     ),
                     ListTile(
                         title: Text('Uloge'),
-                        subtitle: Text(widget.korisnik != null ? widget.korisnik!.uloge.join(', ') : _korisnik.uloge.join(', '))),
+                        subtitle: Text(_korisnik.uloge.join(', '))),
                     //subtitle: Text(User.roles.join(', ')))
                   ],
                 ),

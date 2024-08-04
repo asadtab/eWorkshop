@@ -1,6 +1,10 @@
 import 'package:commons/models/user.dart';
+import 'package:commons/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workshop_app/screens/end-user/home_screen.dart';
 import 'package:workshop_app/screens/komponente/komponente_list.dart';
+import 'package:workshop_app/screens/login_screen.dart';
 import 'package:workshop_app/screens/user_screen.dart';
 
 import '../screens/home_screen.dart';
@@ -17,6 +21,17 @@ class DrawerWidget extends StatelessWidget {
     this.userName,
     this.userEmail,
   }) : super(key: key);
+
+    void logout(BuildContext context) {
+    User.name = null;
+    User.email = null;
+    User.token = null;
+
+    context.read<AuthProvider>().setLoggedIn(false);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginForm()));
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +132,27 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           CommonWidget.divider(),
+          
+          ListTile(
+            title: Text(
+              'Logout',
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              logout(context);
+
+            },
+          ),
+          ListTile(
+            title: Text(
+              'EndHomeScreen',
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => EndHomeScreen()));
+
+            },
+          )
         ],
       ),
     );

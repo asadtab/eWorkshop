@@ -192,7 +192,7 @@ class CommonWidget {
             content: ElevatedButton(
                 child: Text("Ok"),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blueAccent,
+                  backgroundColor: Colors.blueAccent,
                   elevation: 2,
                 ),
                 onPressed: () {

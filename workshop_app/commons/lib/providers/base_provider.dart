@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:io' as io;
 import 'package:commons/models/user.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
@@ -16,8 +18,20 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   final identifier = 'flutter';
 
+  bool isMobile(){
+    return !kIsWeb && (io.Platform.isAndroid || io.Platform.isIOS); //dodatio za IOS poslije
+  }
+
+  bool isDesktop() {
+  return !kIsWeb && (io.Platform.isWindows || io.Platform.isLinux || io.Platform.isMacOS);
+}
+
   BaseProvider(String endpoint, [bool? ids]) {
+    if(isDesktop()){
     _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:7189/");
+    } else if (isMobile()){
+      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:7189/");
+    }
 
     if (_baseUrl!.endsWith("/") == false) {
       _baseUrl = _baseUrl! + "/";

@@ -175,7 +175,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                           ElevatedButton(
                               child: Text("Poništi"),
                               style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 170, 70, 63),
+                                backgroundColor: Color.fromARGB(255, 170, 70, 63),
                                 elevation: 0,
                               ),
                               onPressed: () {
@@ -351,7 +351,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                         ElevatedButton(
                                             child: Text("Potvrdi"),
                                             style: ElevatedButton.styleFrom(
-                                              primary: Colors.blueAccent,
+                                              backgroundColor: Colors.blueAccent,
                                               elevation: 0,
                                             ),
                                             onPressed: () async {
@@ -391,7 +391,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                         ElevatedButton(
                                             child: Text("Poništi"),
                                             style: ElevatedButton.styleFrom(
-                                              primary: Colors.red,
+                                              backgroundColor: Colors.red,
                                               elevation: 0,
                                             ),
                                             onPressed: () {
@@ -416,7 +416,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                     ElevatedButton(
                                         child: Text("Potvrdi"),
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.blueAccent,
+                                          backgroundColor: Colors.blueAccent,
                                           elevation: 0,
                                         ),
                                         onPressed: () {
@@ -428,7 +428,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                     ElevatedButton(
                                         child: Text("Poništi"),
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.red,
+                                          backgroundColor: Colors.red,
                                           elevation: 0,
                                         ),
                                         onPressed: () {

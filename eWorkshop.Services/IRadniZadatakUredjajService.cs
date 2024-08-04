@@ -14,7 +14,7 @@ namespace eWorkshop.Services
     {
         RadniZadatakUredjajBasicVM Dodaj(RadniZadatakUredjajUpsertRequest request);
         int Progres(int id);
-        List<RadniZadatakFlutterVM> RadniZadatakFlutter( int RadniZadatakId, int UredjajId, string status);
+        List<RadniZadatakFlutterVM> RadniZadatakFlutter(int RadniZadatakId, int UredjajId, string status, string lokacija);
     }
 
 }

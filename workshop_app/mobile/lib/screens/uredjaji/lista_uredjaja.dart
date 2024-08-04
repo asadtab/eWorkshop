@@ -165,9 +165,10 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
                           height: MediaQuery.of(context).size.height - 250,
                           child: GridView(
                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 1.5, mainAxisSpacing: 10, crossAxisSpacing: 10),
+                                  crossAxisCount: 2, childAspectRatio: 1.3, mainAxisSpacing: 10, crossAxisSpacing: 10),
                               children: data
                                   .map((x) => Card(
+                                    
                                       color: x.isSelected ? Color(0xFF579BB1) : Color(0xFFCBE4DE),
                                       child: InkWell(
                                           onTap: () {
@@ -215,7 +216,7 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
                                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                                     CommonWidget.infoSnack("Samo se neaktivni uređaji mogu izbrisati."));
                                                               }
-
+                                          
                                                               break;
                                                           }
                                                         },

@@ -70,7 +70,7 @@ class RadniZadatakCommon {
                         },
                         child: Container(
                           width: 150,
-                          height: 50,
+                          height: 60,
                           child: Column(children: [
                             Card(
                                 child: Center(

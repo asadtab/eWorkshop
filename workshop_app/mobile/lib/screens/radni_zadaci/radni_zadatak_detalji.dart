@@ -226,10 +226,10 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
             Container(padding: EdgeInsets.fromLTRB(20, 10, 0, 10), child: Text("Uređaji:", style: TextStyle(fontSize: 20))),
             Container(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 50),
-                height: 500,
+                height: 470,
                 child: GridView(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, childAspectRatio: 1.5, mainAxisSpacing: 10, crossAxisSpacing: 10),
+                        crossAxisCount: 2, childAspectRatio: 1.3, mainAxisSpacing: 10, crossAxisSpacing: 10),
                     children: CommonWidget.list(context, uredjaji, uredjajProvider, radniZadatakId))),
           ]))),
         ));

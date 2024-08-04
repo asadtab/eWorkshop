@@ -110,7 +110,7 @@ class _StatistikaScreenState extends State<StatistikaScreen> {
               title,
               style: TextStyle(
                 fontSize: 16,
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: Theme.of(context).textTheme.bodyMedium!.color
               ),
             ),
           ),

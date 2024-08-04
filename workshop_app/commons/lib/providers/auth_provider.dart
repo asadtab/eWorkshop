@@ -1,7 +1,8 @@
 import 'dart:convert';
-
+import 'dart:io' as io;
 import 'package:commons/models/constants/claims.dart';
 import 'package:commons/models/user.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,8 +31,20 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+    bool isMobile(){
+    return !kIsWeb && (io.Platform.isAndroid || io.Platform.isIOS);
+  }
+
+  bool isDesktop() {
+  return !kIsWeb && (io.Platform.isWindows || io.Platform.isLinux || io.Platform.isMacOS);
+}
+
   AuthProvider() {
+    if(isDesktop()){
     _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "http://localhost:5443/");
+    }else if (isMobile()){
+      _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "http://10.0.2.2:5443/");
+      }
   }
 
   setUser(User user) {
@@ -97,6 +110,7 @@ class AuthProvider extends ChangeNotifier {
     User.username = decodedToken[Claims.username] as String?;
 
     var role = decodedToken[Claims.role];
+    User.roles.clear();
 
     if (role is List<dynamic>) {
       User.roles = List<String>.from(decodedToken[Claims.role]);

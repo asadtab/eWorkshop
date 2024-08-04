@@ -407,7 +407,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                         ElevatedButton(
                             child: Text("Poništi"),
                             style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 170, 70, 63),
+                              backgroundColor: Color.fromARGB(255, 170, 70, 63),
                               elevation: 2,
                             ),
                             onPressed: () {
@@ -477,7 +477,7 @@ class _DodajUrediUredjajScreen extends State<DodajUrediUredjajScreen> {
                         ElevatedButton(
                             child: Text("Poništi"),
                             style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 170, 70, 63),
+                              backgroundColor: Color.fromARGB(255, 170, 70, 63),
                               elevation: 2,
                             ),
                             onPressed: () {

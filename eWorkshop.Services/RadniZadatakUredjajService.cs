@@ -107,12 +107,13 @@ namespace eWorkshop.Services
             return (int)(procenat * 100);
         }
 
-        public List<RadniZadatakFlutterVM> RadniZadatakFlutter(int RadniZadatakId, int UredjajId, string status = null)
+        public List<RadniZadatakFlutterVM> RadniZadatakFlutter(int RadniZadatakId, int UredjajId, string status = null, string lokacija = null)
         {
             RadniZadatakUredjajSearchObject search = new RadniZadatakUredjajSearchObject();
             search.RadniZadatakState = status;
             search.RadniZadatakId = RadniZadatakId;
             search.UredjajId = UredjajId;
+            search.Lokacija = lokacija;
 
             var radniZadatakUredjaj = Context.RadniZadatakUredjajs
                 .Include("Uredjaj").Include("RadniZadatak")
@@ -141,6 +142,11 @@ namespace eWorkshop.Services
             if (!string.IsNullOrEmpty(status))
             {
                 radniZadatakUredjaj = radniZadatakUredjaj.Where(x => x.RadniZadatakStatus == status).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(lokacija))
+            {
+                radniZadatakUredjaj = radniZadatakUredjaj.Where(x => x.Lokacija==lokacija).ToList();
             }
 
             if (RadniZadatakId != 0)
