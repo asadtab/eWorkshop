@@ -1,7 +1,9 @@
+import 'package:commons/models/user.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:commons/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:workshop_app/screens/end-user/home_screen.dart';
 import 'package:workshop_app/screens/home_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -81,12 +83,42 @@ class _LoginFormState extends State<LoginForm> {
                         });
               
                         if (context.read<AuthProvider>().isLoggedIn!) {
-                          Navigator.pushReplacement(
+String role = User.roles.first;
+                              switch (role) {
+      case 'Serviser':
+      Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomeScreen(),
                             ),
                           );
+                          break;
+      case 'Administrator':
+        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ),
+                          );
+                          break;
+      case 'Pretplatnik':
+        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EndHomeScreen(),
+                            ),
+                          );
+                          break;
+      default:
+      return;
+    }
+
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => HomeScreen(),
+                          //   ),
+                          // );
                         }
                       } catch (e) {
                         poruka("Login nije uspio " + e.toString() + " ");

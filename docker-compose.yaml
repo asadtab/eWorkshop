@@ -25,6 +25,29 @@ services:
       - eworkshop-sql
     networks:
       - eworkshop
+
+  eworkshop-rabbitmq:
+    container_name: eworkshop-rabbitmq
+    image: rabbitmq:3.12.1-management
+    restart: unless-stopped
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - eworkshop
+
+  eworkshop-smtp:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./eWorkshop.SMTP/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 7339:7339
+    networks:
+      - eworkshop 
+
       
   eworkshop-api:
     restart: unless-stopped

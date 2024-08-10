@@ -2,6 +2,7 @@ import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workshop_app/screens/end-user/prijavi_smetnju.dart';
 import 'package:workshop_app/screens/end-user/uredjaji.dart';
 import 'package:workshop_app/screens/radni_zadaci/radni_zadatak_detalji.dart';
 
@@ -55,7 +56,7 @@ class _EndHomeScreenState extends State<EndHomeScreen> {
                 title: 'Prijavi smetnju',
                 icon: Icons.send,
                 onTap: () {
-                  // Handle tap for this menu item
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PrijaviSmetnju()));
                 },
               ),
             ],

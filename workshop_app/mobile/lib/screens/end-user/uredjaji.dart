@@ -13,7 +13,7 @@ class EndUredjaji extends StatefulWidget {
 class _EndUredjajiState extends State<EndUredjaji> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Radna jedinica: Sarajevo"), automaticallyImplyLeading: false,backgroundColor: Color(0xFF4592AF), ), body: SafeArea(child: 
+    return Scaffold(appBar: AppBar(title: Text("Radna jedinica: Sarajevo"), backgroundColor: Color(0xFF4592AF), ), body: SafeArea(child: 
     SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(

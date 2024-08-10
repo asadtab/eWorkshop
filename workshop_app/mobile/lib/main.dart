@@ -14,6 +14,7 @@ import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 
 import 'package:commons/providers/tip_uredjaja_provider.dart';
+import 'package:workshop_app/screens/end-user/home_screen.dart';
 import 'package:workshop_app/screens/home_screen.dart';
 import 'package:workshop_app/screens/login_screen.dart';
 import 'package:workshop_app/screens/radni_zadaci/dodaj_uredi_zadatak.dart';
@@ -139,6 +140,33 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+   
+
+
+Widget getRoleBasedWidget() {
+String role = "";
+
+
+if(!isLoggedIn!){
+  return LoginForm();
+} else {
+  role = User.roles.first;
+}
+print(role);
+    switch (role) {
+      case 'Serviser':
+      return HomeScreen();
+      case 'Administrator':
+        return HomeScreen();
+      case 'Pretplatnik':
+        return EndHomeScreen();
+      default:
+      return LoginForm();
+    }
+
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -164,8 +192,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       alignment: Alignment.center,
                       child: Padding(
                         padding: EdgeInsets.all(16.0),
-                        child: !isLoggedIn! ? LoginForm() : HomeScreen(),
+                        child: getRoleBasedWidget()
                       ),
                     )))));
   }
+
 }
