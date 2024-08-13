@@ -1,49 +1,59 @@
-﻿    using RabbitMQ.Client.Events;
-    using RabbitMQ.Client;
-    using System.Text;
-    using eWorkshop.SMTP.Services;
+﻿using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using eWorkshop.SMTP.Services;
 
-    var factory = new ConnectionFactory
+var factory = new ConnectionFactory
+{
+    HostName = "eworkshop-rabbitmq",
+    Port = 5672,
+    UserName = "guest",
+    Password = "guest",
+    ClientProvidedName = "Rabbit Test Consumer"
+};
+
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
+
+string exchangeName = "EmailExchange";
+string routingKey = "email_queue";
+string queueName = "test";
+
+// Declare exchange and queue
+channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
+channel.QueueDeclare(queueName, true, false, false, null);
+channel.QueueBind(queueName, exchangeName, routingKey, null);
+
+var consumer = new EventingBasicConsumer(channel);
+
+consumer.Received += async (model, eventArgs) =>
+{
+    var body = eventArgs.Body.ToArray();
+    string message = Encoding.UTF8.GetString(body);
+
+    try
     {
-        HostName = "eworkshop-rabbitmq",
-        Port = 5672,
-        UserName = "guest",
-        Password = "guest",
-    };
-    factory.ClientProvidedName = "Rabbit Test Consumer";
-    IConnection connection = factory.CreateConnection();
-    IModel channel = connection.CreateModel();
+        EmailService emailService = new EmailService();
+        await emailService.SendMailGmail(message);
 
-    string exchangeName = "EmailExchange";
-    string routingKey = "email_queue";
-    string queueName = "test";
-
-    channel.ExchangeDeclare(exchangeName, ExchangeType.Direct);
-    channel.QueueDeclare(queueName, true, false, false, null);
-    channel.QueueBind(queueName, exchangeName, routingKey, null);
-
-    var consumer = new EventingBasicConsumer(channel);
-
-    consumer.Received += (sender, args) =>
+        // Acknowledge the message after successful processing
+        channel.BasicAck(deliveryTag: eventArgs.DeliveryTag, multiple: false);
+    }
+    catch (Exception ex)
     {
-        //Task.Delay(TimeSpan.FromSeconds(2)).Wait();
-        var body = args.Body.ToArray();
-        string message = Encoding.UTF8.GetString(body);
+        Console.WriteLine($"Failed to send email: {ex.Message}");
+        // Optionally: Reject and requeue or discard the message
+        // channel.BasicNack(deliveryTag: eventArgs.DeliveryTag, multiple: false, requeue: true);
+    }
+};
 
-        Console.WriteLine($"Message received: {message}");
-        //EmailService emailService = new EmailService();
-        //emailService.SendMessage(message);  
+channel.BasicConsume(queueName, autoAck: false, consumer);
 
-        //channel.BasicAck(args.DeliveryTag, false);
-    };
+Console.WriteLine("Waiting for messages. Press Q to quit.");
+while (Console.ReadKey().Key != ConsoleKey.Q) { }
 
-    channel.BasicConsume(queueName, false, consumer);
-
-    Console.WriteLine("Waiting for messages. Press Q to quit.");
-
-    // Sleep for a long time to keep the application running
-    Thread.Sleep(Timeout.Infinite);
-
-    // Close resources before exiting
-    channel.Close();
-    connection.Close();
+channel.Close();
+connection.Close();

@@ -22,7 +22,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Logging;
 using System.Net;
-
+using eWorkshop.MailPublisher.Services;
+using eWorkshop.SMTP.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +69,9 @@ builder.Services.AddTransient<IUlogeService, UlogeService>();
 builder.Services.AddTransient<IClientSecretService, ClientSecretService>();
 builder.Services.AddTransient<IClientScopeService, ClientScopeService>();
 builder.Services.AddTransient<IClientGrantTypeService, ClientGrantTypeService>();
+
+builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddSingleton<IMailSenderService, MailSenderService>();
 
 
 

@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.Model", "eWorksho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.IdentityServer", "eWorkshop.IdentityServer\eWorkshop.IdentityServer.csproj", "{D314E50F-AD89-4F4C-9735-7C84695738E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWorkshop.Subscriber", "eWorkshop.Subscriber\eWorkshop.Subscriber.csproj", "{1C5F030B-794E-45D5-A623-3A71427087EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.Subscriber", "eWorkshop.Subscriber\eWorkshop.Subscriber.csproj", "{1C5F030B-794E-45D5-A623-3A71427087EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eWorkshop.SMTP", "eWorkshop.SMTP\eWorkshop.SMTP.csproj", "{B91CA1F6-DE38-41DE-98D5-C8D61ADCB9DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.SMTP", "eWorkshop.SMTP\eWorkshop.SMTP.csproj", "{B91CA1F6-DE38-41DE-98D5-C8D61ADCB9DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.MailPublisher", "eWorkshop.MailPublisher\eWorkshop.MailPublisher.csproj", "{06569AB9-037A-4EB3-8EFB-4AF852A761F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,14 @@ Global
 		{B91CA1F6-DE38-41DE-98D5-C8D61ADCB9DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B91CA1F6-DE38-41DE-98D5-C8D61ADCB9DB}.Release|x86.ActiveCfg = Release|Any CPU
 		{B91CA1F6-DE38-41DE-98D5-C8D61ADCB9DB}.Release|x86.Build.0 = Release|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|x86.Build.0 = Debug|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
