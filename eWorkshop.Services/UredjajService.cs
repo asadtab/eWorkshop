@@ -177,6 +177,9 @@ namespace eWorkshop.Services
             if (search != null && !string.IsNullOrEmpty(search.Opis))
                 filter = filter.Where(x => x.Tip.Opis.Contains(search.Opis));
 
+            if (search != null && !string.IsNullOrEmpty(search.LokacijaNaziv))
+                filter = filter.Where(x => x.Lokacija.Naziv.Contains(search.LokacijaNaziv));
+
             if (search != null)
                 filter = filter.Where(x => x.IsDeleted == search.isDeleted);
 

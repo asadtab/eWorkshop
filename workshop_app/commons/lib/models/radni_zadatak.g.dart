@@ -7,7 +7,7 @@ part of 'radni_zadatak.dart';
 // **************************************************************************
 
 RadniZadatak _$RadniZadatakFromJson(Map<String, dynamic> json) => RadniZadatak()
-  ..radniZadatakId = json['radniZadatakId'] as int
+  ..radniZadatakId = (json['radniZadatakId'] as num).toInt()
   ..naziv = json['naziv'] as String?
   ..datum = json['datum'] as String?
   ..stateMachine = json['stateMachine'] as String?;

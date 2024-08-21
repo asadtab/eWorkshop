@@ -7,7 +7,7 @@ part of 'tip_uredjaja.dart';
 // **************************************************************************
 
 TipUredjaja _$TipUredjajaFromJson(Map<String, dynamic> json) => TipUredjaja()
-  ..tipUredjajaId = json['tipUredjajaId'] as int
+  ..tipUredjajaId = (json['tipUredjajaId'] as num).toInt()
   ..naziv = json['naziv'] as String?
   ..opis = json['opis'] as String?
   ..opisNaziv = json['opisNaziv'] as String?;

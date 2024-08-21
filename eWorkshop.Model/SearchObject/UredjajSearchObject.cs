@@ -21,6 +21,7 @@ namespace eWorkshop.Model.SearchObject
         public bool isDeleted { get; set; }
 
         public int Lokacija { get; set; }
+        public string LokacijaNaziv { get; set; }
         public bool GetNajveciEvBroj { get; set; } = false;
     }
 }

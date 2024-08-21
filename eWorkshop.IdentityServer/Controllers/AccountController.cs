@@ -77,6 +77,7 @@ namespace eWorkshop.IdentityServer.Controllers
             user.LockoutEnabled = false;
             user.AccessFailedCount = 100;
             user.Status = request.Status;
+            user.RadnaJedinica = request.RadnaJedinica; 
 
             
             

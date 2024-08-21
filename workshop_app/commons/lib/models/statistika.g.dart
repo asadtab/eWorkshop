@@ -7,20 +7,21 @@ part of 'statistika.dart';
 // **************************************************************************
 
 Statistika _$StatistikaFromJson(Map<String, dynamic> json) => Statistika()
-  ..aktivniRadniZadaci = json['aktivniRadniZadaci'] as int?
-  ..radniZadaciUkupno = json['radniZadaciUkupno'] as int?
-  ..fakturisaniRadniZadaci = json['fakturisaniRadniZadaci'] as int?
-  ..zavrseniRadniZadaci = json['zavrseniRadniZadaci'] as int?
-  ..neaktivniRadniZadaci = json['neaktivniRadniZadaci'] as int?
-  ..servisiraniUredjaji = json['servisiraniUredjaji'] as int?
-  ..aktivniUredjaji = json['aktivniUredjaji'] as int?
-  ..neaktivniUredjaji = json['neaktivniUredjaji'] as int?
-  ..poslaniUredjaji = json['poslaniUredjaji'] as int?
-  ..uredjajiUkupno = json['uredjajiUkupno'] as int?
-  ..spremniUredjaji = json['spremniUredjaji'] as int?
-  ..rezervniDijeloviUredjaji = json['rezervniDijeloviUredjaji'] as int?
-  ..radniZadaciUredjaji = json['radniZadaciUredjaji'] as int?
-  ..korisniciUkupno = json['korisniciUkupno'] as int?;
+  ..aktivniRadniZadaci = (json['aktivniRadniZadaci'] as num?)?.toInt()
+  ..radniZadaciUkupno = (json['radniZadaciUkupno'] as num?)?.toInt()
+  ..fakturisaniRadniZadaci = (json['fakturisaniRadniZadaci'] as num?)?.toInt()
+  ..zavrseniRadniZadaci = (json['zavrseniRadniZadaci'] as num?)?.toInt()
+  ..neaktivniRadniZadaci = (json['neaktivniRadniZadaci'] as num?)?.toInt()
+  ..servisiraniUredjaji = (json['servisiraniUredjaji'] as num?)?.toInt()
+  ..aktivniUredjaji = (json['aktivniUredjaji'] as num?)?.toInt()
+  ..neaktivniUredjaji = (json['neaktivniUredjaji'] as num?)?.toInt()
+  ..poslaniUredjaji = (json['poslaniUredjaji'] as num?)?.toInt()
+  ..uredjajiUkupno = (json['uredjajiUkupno'] as num?)?.toInt()
+  ..spremniUredjaji = (json['spremniUredjaji'] as num?)?.toInt()
+  ..rezervniDijeloviUredjaji =
+      (json['rezervniDijeloviUredjaji'] as num?)?.toInt()
+  ..radniZadaciUredjaji = (json['radniZadaciUredjaji'] as num?)?.toInt()
+  ..korisniciUkupno = (json['korisniciUkupno'] as num?)?.toInt();
 
 Map<String, dynamic> _$StatistikaToJson(Statistika instance) =>
     <String, dynamic>{

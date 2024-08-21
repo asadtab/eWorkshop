@@ -63,6 +63,7 @@ class _AddUserFormState extends State<AddUserForm> {
   final TextEditingController _prezimeController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nazivRadneJediniceController = TextEditingController();
 
   UlogeProvider? ulogeProvider;
   KorisniciProvider? korisniciProvider;
@@ -83,6 +84,7 @@ class _AddUserFormState extends State<AddUserForm> {
     _imeController.text = widget.korisnik?.ime ?? "";
     _prezimeController.text = widget.korisnik?.prezime ?? "";
     _emailController.text = widget.korisnik?.email ?? "";
+    _nazivRadneJediniceController.text = widget.korisnik?.radnaJedinica ?? "";
 
     _fetchData(null);
 
@@ -194,7 +196,7 @@ class _AddUserFormState extends State<AddUserForm> {
                   setState(() {
                     isSelected = value!;
 
-                    if (value!) {
+                    if (value) {
                             selectedRoles.add("Pretplatnik");
                           } else {
                             selectedRoles.remove("Pretplatnik");
@@ -203,6 +205,17 @@ class _AddUserFormState extends State<AddUserForm> {
                 },
               ),
             ],
+          ),
+          if(isSelected)
+          TextFormField(
+            controller: _nazivRadneJediniceController,
+            decoration: InputDecoration(labelText: 'Radna jedinica'),
+            validator: (value) {
+              if (value!.isEmpty && isSelected) {
+                return 'Obavezno polje';
+              }
+              return null;
+            },
           ),
 
           SizedBox(height: 16.0),
@@ -267,7 +280,8 @@ class _AddUserFormState extends State<AddUserForm> {
                     "ime": _imeController.text,
                     "prezime": _prezimeController.text,
                     "uloge": selectedRoles,
-                    "status": aktivan
+                    "status": aktivan,
+                    "radnaJedinica": _nazivRadneJediniceController.text
                   };
 
                   for (var users in widget.korisnici) {

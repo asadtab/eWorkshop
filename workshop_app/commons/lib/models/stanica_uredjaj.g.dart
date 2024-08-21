@@ -8,9 +8,9 @@ part of 'stanica_uredjaj.dart';
 
 StanicaUredjaj _$StanicaUredjajFromJson(Map<String, dynamic> json) =>
     StanicaUredjaj()
-      ..id = json['id'] as int
+      ..id = (json['id'] as num).toInt()
       ..naziv = json['naziv'] as String?
-      ..uredjajId = json['uredjajId'] as int
+      ..uredjajId = (json['uredjajId'] as num).toInt()
       ..koda = json['koda'] as String?
       ..uredjajNaziv = json['uredjajNaziv'] as String?
       ..uredjajTip = json['uredjajTip'] as String?;

@@ -10,6 +10,8 @@ public partial class Korisnici : IdentityUser<int>
 
     public bool? Status { get; set; }
 
+    public string? RadnaJedinica { get; set; }
+
 
     public virtual ICollection<RadniZadatakUredjaj> RadniZadatakUredjajs { get; } = new List<RadniZadatakUredjaj>();
     public virtual ICollection<Servi> Servis { get; } = new List<Servi>();

@@ -14,5 +14,7 @@ namespace eWorkshop.Model.Requests
 
         public string Telefon { get; set; }
 
+        public string RadnaJedinica { get; set; }
+
     }
 }

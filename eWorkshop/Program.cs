@@ -10,7 +10,6 @@ using Duende.IdentityServer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using eWorkshop;
 using Microsoft.Extensions.Configuration;
-using eWorkshop.WinUI.Service;
 using Microsoft.AspNetCore.Builder;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -23,7 +22,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Logging;
 using System.Net;
 using eWorkshop.MailPublisher.Services;
-using eWorkshop.SMTP.Services;
+using eWorkshop.WinUI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +70,6 @@ builder.Services.AddTransient<IClientScopeService, ClientScopeService>();
 builder.Services.AddTransient<IClientGrantTypeService, ClientGrantTypeService>();
 
 builder.Services.AddSingleton<IEmailService, EmailService>();
-builder.Services.AddSingleton<IMailSenderService, MailSenderService>();
 
 
 
@@ -112,7 +110,7 @@ builder.Services.AddAuthentication(x =>
         };
     });
 
-builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("ApiSettings:IdentityServerMetaDataUrl"));
+//builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("ApiSettings:IdentityServerMetaDataUrl"));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

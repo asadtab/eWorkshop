@@ -171,28 +171,6 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                                   content: Container(
                                     height: 150,
                                     child: Column(children: [
-                                      /* DropdownButton<Lokacija>(
-                                        value: lokacijaDropdownValue,
-                                        icon: const Icon(Icons.arrow_downward),
-                                        elevation: 16,
-                                        hint: Container(child: Text("Odaberi lokaciju")),
-                                        style: const TextStyle(color: Colors.deepPurple),
-                                        underline: Container(
-                                          height: 2,
-                                          color: Colors.blueGrey,
-                                        ),
-                                        onChanged: (Lokacija? valueSet) {
-                                          setState(() {
-                                            lokacijaDropdownValue = valueSet;
-                                          });
-                                        },
-                                        items: lokacijaList.map<DropdownMenuItem<Lokacija>>((Lokacija value) {
-                                          return DropdownMenuItem<Lokacija>(
-                                            value: value,
-                                            child: Text(value.naziv.toString()),
-                                          );
-                                        }).toList(),
-                                      )*/
                                       Container(
                                           padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                                           child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -244,7 +222,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
 
                         isDialOpen.value = false;
                       }),
-                if (uredjaj.status == "active" || uredjaj.status == "fix")
+                if (uredjaj.status == "active")
                   SpeedDialChild(
                       child: Icon(Icons.not_interested),
                       label: 'Deaktiviraj',
@@ -287,7 +265,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
   }
 
   List<Widget> historijaServisa() {
-    if (izvrseniServis.length == 0) {
+    if (this.reparacija.length == 0) {
       return [Text("Uređaj nije servisiran.")];
     }
 

@@ -7,7 +7,7 @@ part of 'uredjaj.dart';
 // **************************************************************************
 
 Uredjaj _$UredjajFromJson(Map<String, dynamic> json) => Uredjaj()
-  ..uredjajId = json['uredjajId'] as int?
+  ..uredjajId = (json['uredjajId'] as num?)?.toInt()
   ..koda = json['koda'] as String?
   ..serijskiBroj = json['serijskiBroj'] as String?
   ..godinaIzvedbe = json['godinaIzvedbe'] as String?

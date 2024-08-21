@@ -14,6 +14,7 @@ namespace eWorkshop.Model.Requests
         public string Ime { get; set; } = null;
 
         public string Prezime { get; set; } = null;
+        public string RadnaJedinica { get; set; }
 
         public List<string> Uloge { get; set; }
 

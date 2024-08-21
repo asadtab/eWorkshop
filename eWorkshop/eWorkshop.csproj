@@ -36,7 +36,6 @@
     <ProjectReference Include="..\eWorkshop.IdentityServer\eWorkshop.IdentityServer.csproj" />
     <ProjectReference Include="..\eWorkshop.MailPublisher\eWorkshop.MailPublisher.csproj" />
     <ProjectReference Include="..\eWorkshop.Services\eWorkshop.Services.csproj" />
-    <ProjectReference Include="..\eWorkshop.SMTP\eWorkshop.SMTP.csproj" />
   </ItemGroup>
 
 </Project>

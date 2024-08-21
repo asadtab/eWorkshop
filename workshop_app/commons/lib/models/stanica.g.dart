@@ -7,7 +7,7 @@ part of 'stanica.dart';
 // **************************************************************************
 
 Stanica _$StanicaFromJson(Map<String, dynamic> json) => Stanica()
-  ..id = json['id'] as int
+  ..id = (json['id'] as num).toInt()
   ..naziv = json['naziv'] as String?;
 
 Map<String, dynamic> _$StanicaToJson(Stanica instance) => <String, dynamic>{

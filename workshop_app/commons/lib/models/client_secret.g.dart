@@ -12,7 +12,7 @@ ClientSecret _$ClientSecretFromJson(Map<String, dynamic> json) => ClientSecret(
       description: json['description'] as String?,
       expiration: json['expiration'] as String?,
       type: json['type'] as String?,
-    )..id = json['id'] as int?;
+    )..id = (json['id'] as num?)?.toInt();
 
 Map<String, dynamic> _$ClientSecretToJson(ClientSecret instance) =>
     <String, dynamic>{

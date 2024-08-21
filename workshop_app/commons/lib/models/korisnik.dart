@@ -10,6 +10,7 @@ class Korisnik {
   String? email;
   String? userName;
   bool? status;
+  String? radnaJedinica;
   List<String> uloge = [];
 
   Korisnik();

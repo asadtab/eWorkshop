@@ -7,7 +7,7 @@ part of 'api_resources.dart';
 // **************************************************************************
 
 ApiResources _$ApiResourcesFromJson(Map<String, dynamic> json) => ApiResources()
-  ..id = json['id'] as int?
+  ..id = (json['id'] as num?)?.toInt()
   ..name = json['name'] as String?
   ..displayName = json['displayName'] as String?
   ..description = json['description'] as String?;

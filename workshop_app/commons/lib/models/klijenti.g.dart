@@ -7,7 +7,7 @@ part of 'klijenti.dart';
 // **************************************************************************
 
 Klijenti _$KlijentiFromJson(Map<String, dynamic> json) => Klijenti()
-  ..id = json['id'] as int?
+  ..id = (json['id'] as num?)?.toInt()
   ..clientId = json['clientId'] as String?
   ..clientName = json['clientName'] as String?
   ..clientUri = json['clientUri'] as String?

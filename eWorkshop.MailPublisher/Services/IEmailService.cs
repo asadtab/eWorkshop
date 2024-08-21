@@ -8,6 +8,6 @@ namespace eWorkshop.MailPublisher.Services
 {
     public interface IEmailService
     {
-        Task SendMessage(string message);
+        Task SendMessage(string message, List<string> sendTo);
     }
 }

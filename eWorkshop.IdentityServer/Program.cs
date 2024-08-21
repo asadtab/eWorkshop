@@ -16,18 +16,11 @@ using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System.Reflection;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
-
-
-
-
 
 var config = builder.Configuration;
 
-var connectionString = config.GetConnectionString("DefaultConnection");
+var connectionString = "Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True";
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
@@ -52,9 +45,6 @@ var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
 
 //builder.Services.AddAutoMapper(typeof(eWorkshop.IdentityServer.Data.Mapper).Assembly);
 
-
-
-
 builder.Services.AddDbContext<_190128Context>(options =>
 {
     options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(migrationsAssembly));
@@ -63,9 +53,7 @@ builder.Services.AddDbContext<_190128Context>(options =>
 
 builder.Services.AddIdentity<Korisnici, Uloge>().AddUserManager<Microsoft.AspNetCore.Identity.UserManager<Korisnici>>()
     .AddRoleManager<Microsoft.AspNetCore.Identity.RoleManager<Uloge>>()
-            .AddEntityFrameworkStores<_190128Context>();
-
-//builder.Services.AddScoped<Microsoft.AspNetCore.Identity.IUserRoleStore<KorisniciUloge>>();
+            .AddEntityFrameworkStores<_190128Context>().AddDefaultTokenProviders();
 
 
 builder.Services.AddIdentityServer(options =>
@@ -77,10 +65,13 @@ builder.Services.AddIdentityServer(options =>
 
     options.EmitStaticAudienceClaim = true;
 })//.AddTestUsers(Config.Users)
+    .AddDeveloperSigningCredential()
 .AddAspNetIdentity<Korisnici>()
+
     //.AddInMemoryClients(Config.Clients)
     //.AddInMemoryApiResources(Config.ApiResources)
     //.AddInMemoryApiScopes(Config.ApiScopes)
+    
     .AddConfigurationStore(options =>
     {
         options.ConfigureDbContext = builder =>

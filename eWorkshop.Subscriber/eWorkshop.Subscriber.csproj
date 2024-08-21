@@ -14,8 +14,4 @@
 		<PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\eWorkshop.SMTP\eWorkshop.SMTP.csproj" />
-	</ItemGroup>
-
 </Project>

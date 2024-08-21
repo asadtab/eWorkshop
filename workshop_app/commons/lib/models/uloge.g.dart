@@ -7,7 +7,7 @@ part of 'uloge.dart';
 // **************************************************************************
 
 Uloge _$UlogeFromJson(Map<String, dynamic> json) => Uloge()
-  ..id = json['id'] as int?
+  ..id = (json['id'] as num?)?.toInt()
   ..name = json['name'] as String?;
 
 Map<String, dynamic> _$UlogeToJson(Uloge instance) => <String, dynamic>{

@@ -11,7 +11,7 @@ namespace eWorkshop.MailPublisher.Services
     public class EmailService: IEmailService
     {
 
-        public Task SendMessage(string message)
+        public Task SendMessage(string message, List<string> sendTo)
         {
 
             try
@@ -36,7 +36,12 @@ namespace eWorkshop.MailPublisher.Services
                 channel.QueueDeclare(queueName, true, false, false, null);
                 channel.QueueBind(queueName, exchangeName, routingKey, null);
 
-                string emailModelJson = JsonConvert.SerializeObject(message);
+                var jsonObj = new {
+                Body = message,
+                ToSend = sendTo.ToArray()
+                };
+
+                string emailModelJson = JsonConvert.SerializeObject(jsonObj);
                 byte[] messageBodyBytes = Encoding.UTF8.GetBytes(emailModelJson);
                 channel.BasicPublish(exchangeName, routingKey, null, messageBodyBytes);
                 return Task.CompletedTask;

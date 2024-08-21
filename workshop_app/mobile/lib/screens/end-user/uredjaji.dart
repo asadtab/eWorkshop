@@ -1,10 +1,14 @@
+import 'package:commons/models/korisnik.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/uredjaj.dart';
+import 'package:commons/models/user.dart';
 import 'package:flutter/material.dart';
 
 class EndUredjaji extends StatefulWidget {
-  late List<RadniZadatakUredjaj> uredjaji;
+  late List<Uredjaj> uredjaji;
+  late Korisnik korisnik;
 
-  EndUredjaji({required this.uredjaji});
+  EndUredjaji({required this.uredjaji, required this.korisnik});
 
   @override
   State<EndUredjaji> createState() => _EndUredjajiState();
@@ -13,7 +17,7 @@ class EndUredjaji extends StatefulWidget {
 class _EndUredjajiState extends State<EndUredjaji> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Radna jedinica: Sarajevo"), backgroundColor: Color(0xFF4592AF), ), body: SafeArea(child: 
+    return Scaffold(appBar: AppBar(title: Text("Radna jedinica: ${widget.korisnik.radnaJedinica}"), backgroundColor: Color(0xFF4592AF), ), body: SafeArea(child: 
     SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
@@ -54,7 +58,7 @@ class _EndUredjajiState extends State<EndUredjaji> {
               return DataRow(
               color: WidgetStateProperty.resolveWith<Color?>(
   (Set<WidgetState> states) {
-    return x.uredjajStatus == 'fix'|| x.uredjajStatus == 'ready' || x.uredjajStatus == 'out' ? Colors.lightGreenAccent : Colors.redAccent;
+    return x.status == 'fix'|| x.status == 'ready' || x.status == 'out' ? Colors.lightGreenAccent : Colors.redAccent;
   },
 ),
                 cells: <DataCell>[

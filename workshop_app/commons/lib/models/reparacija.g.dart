@@ -7,10 +7,10 @@ part of 'reparacija.dart';
 // **************************************************************************
 
 Reparacija _$ReparacijaFromJson(Map<String, dynamic> json) => Reparacija()
-  ..uredjajId = json['uredjajId'] as int
+  ..uredjajId = (json['uredjajId'] as num).toInt()
   ..datum = json['datum'] as String?
   ..datumString = json['datumString'] as String?
-  ..servisId = json['servisId'] as int
+  ..servisId = (json['servisId'] as num).toInt()
   ..servisirao = json['servisirao'] as String?
   ..napomena = json['napomena'] as String?;
 

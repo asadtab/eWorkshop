@@ -1,0 +1,2 @@
+2024-08-13 12:21:20.911 +00:00 [INF] MailSenderService initialized.
+2024-08-13 12:21:20.911 +00:00 [INF] MailSenderService initialized.

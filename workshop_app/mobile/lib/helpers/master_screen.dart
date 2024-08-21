@@ -143,6 +143,7 @@ class DrawerWidget extends StatelessWidget {
 
             },
           ),
+          if(User.roles.contains("pretplatnik"))
           ListTile(
             title: Text(
               'EndHomeScreen',

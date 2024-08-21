@@ -7,7 +7,7 @@ part of 'lokacija.dart';
 // **************************************************************************
 
 Lokacija _$LokacijaFromJson(Map<String, dynamic> json) => Lokacija()
-  ..lokacijaId = json['lokacijaId'] as int
+  ..lokacijaId = (json['lokacijaId'] as num).toInt()
   ..naziv = json['naziv'] as String?
   ..opis = json['opis'] as String?;
 

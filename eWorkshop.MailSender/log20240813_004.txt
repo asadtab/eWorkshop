@@ -1,0 +1,4 @@
+2024-08-13 14:29:06.066 +02:00 [INF] MailSenderService initialized.
+2024-08-13 14:32:53.959 +02:00 [INF] MailSenderService initialized.
+2024-08-13 14:33:34.906 +02:00 [INF] Sending email with message: poruka test
+2024-08-13 14:33:36.614 +02:00 [INF] Email sent successfully.

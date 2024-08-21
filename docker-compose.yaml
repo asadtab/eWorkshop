@@ -16,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: ./eWorkshop.IdentityServer/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
     environment:
         - ConnectionStrings__DefaultConnection=Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True
         - ASPNETCORE_ENVIRONMENT=Development
@@ -30,23 +32,35 @@ services:
     container_name: eworkshop-rabbitmq
     image: rabbitmq:3.12.1-management
     restart: unless-stopped
+    networks:
+      - eworkshop
     ports:
       - 5672:5672
       - 15672:15672
-    networks:
-      - eworkshop
+
+
 
   eworkshop-smtp:
     restart: unless-stopped
     build:
       context: .
-      dockerfile: ./eWorkshop.SMTP/Dockerfile
+      dockerfile: ./eWorkshop.MailSender/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - 7339:7339
+      - ASPNETCORE_URLS=https://+;http://+
+      - ASPNETCORE_HTTPS_PORT=7439
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=asad
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certifikat.pfx
     networks:
       - eworkshop 
+    ports:
+      - 7339:80
+      - 7439:443
+      - 7539:587
+    depends_on:
+      - eworkshop-rabbitmq
 
       
   eworkshop-api:
@@ -54,6 +68,8 @@ services:
     build:
       context: .
       dockerfile: ./eWorkshop/Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
     environment:
       - IdentityServerUrl=http://eworkshop-ids:5443
       - IdentityServerMetaDataUrl=http://eworkshop-ids:5443/.well-known/openid-configuration
@@ -72,4 +88,4 @@ services:
 
 networks:
   eworkshop:
-    driver: bridge 
+    driver: bridge

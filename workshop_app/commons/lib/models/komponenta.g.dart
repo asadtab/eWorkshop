@@ -7,7 +7,7 @@ part of 'komponenta.dart';
 // **************************************************************************
 
 Komponenta _$KomponentaFromJson(Map<String, dynamic> json) => Komponenta()
-  ..komponentaId = json['komponentaId'] as int
+  ..komponentaId = (json['komponentaId'] as num).toInt()
   ..naziv = json['naziv'] as String?
   ..vrijednost = json['vrijednost'] as String?
   ..opis = json['opis'] as String?

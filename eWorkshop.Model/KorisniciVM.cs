@@ -20,6 +20,8 @@ namespace eWorkshop.Model
 
         public bool Status { get; set; }
 
+        public string RadnaJedinica { get; set; }
+
         public List<string> Uloge { get; set; } = new List<string>();
 
     }
