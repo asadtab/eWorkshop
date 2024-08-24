@@ -2,6 +2,7 @@ import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workshop_app/main.dart';
 import 'package:workshop_app/screens/end-user/home_screen.dart';
 import 'package:workshop_app/screens/komponente/komponente_list.dart';
 import 'package:workshop_app/screens/login_screen.dart';
@@ -29,7 +30,7 @@ class DrawerWidget extends StatelessWidget {
 
     context.read<AuthProvider>().setLoggedIn(false);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginForm()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: "SS-TK",)));
     
   }
 

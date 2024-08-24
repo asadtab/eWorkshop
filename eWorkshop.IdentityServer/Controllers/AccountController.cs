@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication;
 using Duende.IdentityServer;
 using eWorkshop.Services.Database;
 using Duende.IdentityServer.Stores;
+using static Duende.IdentityServer.Models.IdentityResources;
 
 namespace eWorkshop.IdentityServer.Controllers
 {
@@ -72,12 +73,19 @@ namespace eWorkshop.IdentityServer.Controllers
             user.LockoutEnabled = false;
             user.AccessFailedCount = 100;
             user.Status = request.Status;
-            user.RadnaJedinica = request.RadnaJedinica; 
+            user.RadnaJedinica = request.RadnaJedinica;
 
-            
-            
+            var email = await _userManager.FindByEmailAsync(user.Email);
+
+            if(email != null)
+            {
+                return BadRequest("Email adresa nije dostupna");
+            }
+
             var result = await _userManager.CreateAsync(user, request.PasswordHash);
             
+            
+
 
             var cancToken = CancellationToken.None;
 
@@ -146,9 +154,6 @@ namespace eWorkshop.IdentityServer.Controllers
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-
-        
-       
 
         [HttpGet]
         public async Task<IEnumerable<KorisniciVM>> GetUsersAsync()

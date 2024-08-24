@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Logging;
 using System.Net;
 using eWorkshop.MailPublisher.Services;
+using eWorkshop.MailPublisher.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

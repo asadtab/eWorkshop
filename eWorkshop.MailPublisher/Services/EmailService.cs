@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using eWorkshop.MailPublisher.Config;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,15 @@ namespace eWorkshop.MailPublisher.Services
 {
     public class EmailService: IEmailService
     {
+        private readonly RabbitConfiguration _RabbitConfiguration;
+        IOptions<RabbitConfiguration> rabbitConf;
+
+        public EmailService(
+            IOptions<RabbitConfiguration> rabbitConfiguration)
+        {
+            rabbitConf = rabbitConfiguration;
+            _RabbitConfiguration = rabbitConfiguration.Value;
+        }
 
         public Task SendMessage(string message, List<string> sendTo)
         {
@@ -18,10 +29,10 @@ namespace eWorkshop.MailPublisher.Services
             {
                 var factory = new ConnectionFactory
                 {
-                    HostName = "eworkshop-rabbitmq",
-                    Port = 5672,
-                    UserName = "guest",
-                    Password = "guest",
+                    HostName = _RabbitConfiguration.Host,
+                    Port = _RabbitConfiguration.Port,
+                    UserName = _RabbitConfiguration.User,
+                    Password = _RabbitConfiguration.Password,
                 };
                 factory.ClientProvidedName = "Rabbit Test";
 
@@ -51,10 +62,6 @@ namespace eWorkshop.MailPublisher.Services
                 return Task.FromException(e);
                 throw;
             }
-            
-            
-
-
-        }
+        } 
     }
 }

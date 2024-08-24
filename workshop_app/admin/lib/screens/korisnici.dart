@@ -128,20 +128,12 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
                                   DataCell(PopupMenuButton<String>(
                                     initialValue: _selected,
                                     onSelected: (izbor) {
-                                      if (izbor == "edit") {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) => DodajKorisnikaDialog(user, state.data),
-                                        ).then((value) {
-                                          korisniciBloc.add(KorisniciLoad());
-                                        });
-                                      }
                                       if (izbor == "delete") {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                  title: Text("Da li želite izbrisati ulogu?"),
+                                                  title: Text("Da li želite izbrisati korisnika?"),
                                                   content: Container(
                                                       height: 170,
                                                       child: Row(children: [
@@ -173,10 +165,6 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
                                       }
                                     },
                                     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                      PopupMenuItem<String>(
-                                        child: Text('Uredi'),
-                                        value: 'edit',
-                                      ),
                                       PopupMenuItem<String>(
                                         child: Text('Izbriši'),
                                         value: 'delete',

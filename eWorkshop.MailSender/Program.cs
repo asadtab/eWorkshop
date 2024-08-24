@@ -1,4 +1,6 @@
+using eWorkshop.MailPublisher.Config;
 using eWorkshop.MailPublisher.Services;
+using eWorkshop.MailSender.Model;
 using eWorkshop.MailSender.Services;
 using Serilog;
 
@@ -11,10 +13,10 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// Add services to the container.
+builder.Services.Configure<SMTPConfiguration>(builder.Configuration.GetSection("Mail"));
+builder.Services.Configure<RabbitConfiguration>(builder.Configuration.GetSection("RabbitMQ"));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -8,6 +8,8 @@ using RabbitMQ.Client.Events;
 using eWorkshop.MailPublisher.Services;
 using Newtonsoft.Json;
 using eWorkshop.MailSender.Model;
+using Microsoft.Extensions.Options;
+using eWorkshop.MailPublisher.Config;
 
 namespace eWorkshop.MailSender.Services
 {
@@ -16,9 +18,17 @@ namespace eWorkshop.MailSender.Services
         private readonly ILogger<MailSenderService> _logger;
         private IConnection? connection;
         private IModel? channel;
+        private readonly SMTPConfiguration _SMTPConfiguration;
+        private readonly RabbitConfiguration _RabbitConfiguration;
 
-        public MailSenderService(ILogger<MailSenderService> logger)
+        public MailSenderService(
+            ILogger<MailSenderService> logger,
+            IOptions<SMTPConfiguration> smtpConfiguration,
+            IOptions<RabbitConfiguration> rabbitConfiguration
+            )
         {
+            _SMTPConfiguration = smtpConfiguration.Value;
+            _RabbitConfiguration = rabbitConfiguration.Value;
             _logger = logger;
             _logger.LogInformation("MailSenderService initialized.");
             Connect();
@@ -34,10 +44,10 @@ namespace eWorkshop.MailSender.Services
 
                     var factory = new ConnectionFactory
                     {
-                        HostName = "eworkshop-rabbitmq",
-                        Port = 5672,
-                        UserName = "guest",
-                        Password = "guest",
+                        HostName = _RabbitConfiguration.Host,
+                        Port = _RabbitConfiguration.Port,
+                        UserName = _RabbitConfiguration.User,
+                        Password = _RabbitConfiguration.Password,
                     };
 
                     connection = factory.CreateConnection();
@@ -69,7 +79,7 @@ namespace eWorkshop.MailSender.Services
 
                     channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
 
-                    break; // Exit loop if connection succeeds
+                    break; 
                 }
                 catch (Exception ex)
                 {
@@ -86,14 +96,12 @@ namespace eWorkshop.MailSender.Services
             {
                 _logger.LogInformation($"Šaljem email sa porukom {message}");
 
-                string smtpServer = "smtp.gmail.com";
-                int smtpPort = 587;
-                string fromMail = "asad1tabak@gmail.com";
-                string password = "rsjlcokdmnytlqem";
-
+                string smtpServer = _SMTPConfiguration.Server;
+                int smtpPort = _SMTPConfiguration.Port;
+                string fromMail = _SMTPConfiguration.FromMail;
+                string password = _SMTPConfiguration.AppPassword;
 
                 var emailData = JsonConvert.DeserializeObject<EmailModel>(message);
-                
                 
                 var content = emailData.Body;
 
