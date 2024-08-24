@@ -96,8 +96,6 @@ public partial class _190128Context : DbContext
 
     public virtual DbSet<ServerSideSession> ServerSideSessions { get; set; }
     public virtual DbSet<Servi> Servis { get; set; }
-    public virtual DbSet<Stanice> Stanices { get; set; }
-    public virtual DbSet<StaniceUredjaj> StaniceUredjajs { get; set; }
     public virtual DbSet<TipUredjaja> TipUredjajas { get; set; }
     public virtual DbSet<Uloge> Uloge { get; set; }
     public virtual DbSet<Microsoft.AspNetCore.Identity.IdentityUserRole<int>> KorisniciUloge { get; set; }
@@ -122,7 +120,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Name).HasMaxLength(200);
 
         }
-        
         ) ;
 
         modelBuilder.Entity<ApiResource>().SeedData();
@@ -648,26 +645,8 @@ public partial class _190128Context : DbContext
 
         modelBuilder.Entity<Servi>().SeedData();
 
-        modelBuilder.Entity<Stanice>(entity =>
-        {
-            entity.ToTable("Stanice");
-        });
 
-        modelBuilder.Entity<StaniceUredjaj>(entity =>
-        {
-            entity.ToTable("StaniceUredjaj");
 
-            entity.HasIndex(e => e.StanicaId, "IX_StaniceUredjaj_StanicaID");
-
-            entity.HasIndex(e => e.UredjajId, "IX_StaniceUredjaj_UredjajID");
-
-            entity.Property(e => e.StanicaId).HasColumnName("StanicaID");
-            entity.Property(e => e.UredjajId).HasColumnName("UredjajID");
-
-            entity.HasOne(d => d.Stanica).WithMany(p => p.StaniceUredjajs).HasForeignKey(d => d.StanicaId);
-
-            entity.HasOne(d => d.Uredjaj).WithMany(p => p.StaniceUredjajs).HasForeignKey(d => d.UredjajId);
-        });
 
         modelBuilder.Entity<TipUredjaja>(entity =>
         {

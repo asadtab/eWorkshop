@@ -300,7 +300,7 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
             title: Text("Da li želite izbrisati uređaj"),
             content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               ElevatedButton(
-                  child: Text("Potvrdi"),
+                  child: Text("Potvrdi", style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     elevation: 2,
                   ),
@@ -317,7 +317,7 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
                     _fetchData({'Status': 'idle'});
                   }),
               ElevatedButton(
-                  child: Text("Poništi"), style: ElevatedButton.styleFrom(elevation: 2, backgroundColor: Colors.redAccent), onPressed: () async {})
+                  child: Text("Poništi",  style: TextStyle(color: Colors.white)), style: ElevatedButton.styleFrom(elevation: 2, backgroundColor: Colors.redAccent), onPressed: () async {Navigator.pop(context);})
             ]),
           );
         });

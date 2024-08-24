@@ -62,10 +62,6 @@ class AuthProvider extends ChangeNotifier {
 
     var response = await http.get(uri);
 
-    print(response.body);
-    print(uri);
-    
-
     if (_isValidResponse(response)) {
       return response.body;
     } else {
@@ -74,7 +70,13 @@ class AuthProvider extends ChangeNotifier {
   }
 
   bool _isValidResponse(http.Response response) {
-    if (response.statusCode < 299) {
+    getUser(response.body);
+
+
+    if(isDesktop() && User.roles.first == "Pretplatnik"){
+      throw Exception("Neispravni kredencijali za prijavu");
+    }
+    else if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
       throw Exception("Neispravni kredencijali za prijavu.");
@@ -117,5 +119,6 @@ class AuthProvider extends ChangeNotifier {
     } else {
       User.roles.add(role);
     }
+
   }
 }

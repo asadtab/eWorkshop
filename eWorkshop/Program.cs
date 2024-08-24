@@ -22,7 +22,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Logging;
 using System.Net;
 using eWorkshop.MailPublisher.Services;
-using eWorkshop.WinUI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,8 +57,6 @@ builder.Services.AddTransient<ITipUredjajaService, TipUredjajaService>();
 builder.Services.AddTransient<IRadniZadatakUredjajService, RadniZadatakUredjajService>();
 builder.Services.AddTransient<ILokacijaService, LokacijaService>();
 builder.Services.AddTransient<IServisAdapter, ServisAdapter>();
-builder.Services.AddTransient<IStaniceService, StaniceService>();
-builder.Services.AddTransient<IStaniceUredjajService, StaniceUredjajService>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<IApiResourceService, ApiResourceService>();
 builder.Services.AddTransient<IScopesService, ScopesService>();

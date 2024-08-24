@@ -1,1 +1,0 @@
-2024-08-14 07:53:00.101 +02:00 [INF] MailSenderService initialized.

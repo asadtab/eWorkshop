@@ -148,7 +148,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                       label: 'Servisiraj',
                       onTap: () {
                         isDialOpen.value = false;
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen.servis(uredjaj)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ServisirajScreen.servis(uredjaj))).then((context){_fetchData(null);});
                       }),
                 if (uredjaj.status == "fix")
                   SpeedDialChild(

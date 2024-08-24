@@ -8,8 +8,6 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
@@ -30,7 +28,6 @@ namespace eWorkshop.IdentityServer.Controllers
         private readonly IUserStore<Korisnici> _userStore;
         private readonly IUserRoleStore<KorisniciUloge> _userRoleStore;
         private readonly IRoleStore<Uloge> _roleStore;
-        //private readonly IUserRoleStore<Korisnici> _userRoleStore;
         private readonly IUserEmailStore<Korisnici> _emailStore;
         private readonly IdentityServerTools _tools;
         private readonly IClientStore _clientStore;
@@ -53,10 +50,8 @@ namespace eWorkshop.IdentityServer.Controllers
             Context = context;
             _clientStore = clientStore;
              _roleStore = roleStore;
-            //_userRoleStore = userRoleStore;
             _userManager = userManager;
             _userStore = userStore;
-            //_emailStore = GetEmailStore();
             _signInManager = signInManager;
             Configuration = configuration;
             Logger = logger;
@@ -184,6 +179,8 @@ namespace eWorkshop.IdentityServer.Controllers
             var uloge = await _userManager.GetRolesAsync(user);
 
 
+
+
             var claims = new List<Claim>
              {
               new Claim(JwtClaimTypes.PreferredUserName, user.UserName),
@@ -201,9 +198,7 @@ namespace eWorkshop.IdentityServer.Controllers
             var scopes = Context.ClientScopes.Where(x => x.ClientId == client.Id).Select(x => x.Scope).ToList();
 
 
-
             var token = await _tools.IssueClientJwtAsync(clientId: client.ClientId, lifetime: 3600, scopes: scopes, audiences: new[] { "api" }, additionalClaims: claims);
-
            
             return Ok(token);
         }

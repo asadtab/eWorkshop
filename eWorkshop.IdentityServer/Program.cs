@@ -2,7 +2,6 @@ using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Test;
 using eWorkshop.IdentityServer;
 using eWorkshop.IdentityServer.Data;
-using eWorkshop.IdentityServer.Database;
 using eWorkshop.Model;
 using eWorkshop.Services;
 using eWorkshop.Services.Database;
@@ -20,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 
-var connectionString = "Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
@@ -32,18 +31,12 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var migrationsAssembly = typeof(Config).Assembly.GetName().Name;
+var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
 
-
-//builder.Services.AddAutoMapper(typeof(eWorkshop.IdentityServer.Data.Mapper).Assembly);
 
 builder.Services.AddDbContext<_190128Context>(options =>
 {
@@ -64,24 +57,14 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseSuccessEvents = true;
 
     options.EmitStaticAudienceClaim = true;
-})//.AddTestUsers(Config.Users)
+})
     .AddDeveloperSigningCredential()
 .AddAspNetIdentity<Korisnici>()
-
-    //.AddInMemoryClients(Config.Clients)
-    //.AddInMemoryApiResources(Config.ApiResources)
-    //.AddInMemoryApiScopes(Config.ApiScopes)
-    
     .AddConfigurationStore(options =>
     {
         options.ConfigureDbContext = builder =>
             builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
     })
-    .AddInMemoryIdentityResources(Config.IdentityResources).AddConfigurationStore(options =>
-  {
-      options.ConfigureDbContext = builder =>
-          builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
-  })
     .AddOperationalStore(options =>
     {
         options.ConfigureDbContext = builder =>
@@ -104,7 +87,6 @@ app.UseIdentityServer();
 
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-//app.//UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();

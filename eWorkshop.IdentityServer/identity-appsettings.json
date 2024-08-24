@@ -1,5 +1,7 @@
 {
-
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True"
+  },
   "IdentityServerSettings": {
     "DiscoveryUrl": "http://localhost:5443",
     "ClientName": "m2m.client",

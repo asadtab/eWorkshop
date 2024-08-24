@@ -1,7 +1,5 @@
 import 'package:commons/models/korisnik.dart';
-import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/models/uredjaj.dart';
-import 'package:commons/models/user.dart';
 import 'package:flutter/material.dart';
 
 class EndUredjaji extends StatefulWidget {

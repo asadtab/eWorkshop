@@ -164,7 +164,7 @@ class CommonWidget {
             title: Text(Info.toString()),
             content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               ElevatedButton(
-                  child: Text("Potvrdi"),
+                  child: Text("Potvrdi",  style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     elevation: 2,
                   ),
@@ -173,7 +173,7 @@ class CommonWidget {
                     Navigator.pop(context);
                   }),
               ElevatedButton(
-                  child: Text("Poništi"),
+                  child: Text("Poništi", style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(elevation: 2, backgroundColor: Colors.redAccent),
                   onPressed: () {
                     Navigator.pop(context);

@@ -141,7 +141,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                         title: Text("Da li želite servisirati uređaj?"),
                         content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                           ElevatedButton(
-                              child: Text("Potvrdi"),
+                              child: Text("Potvrdi",  style: TextStyle(color: Colors.white)),
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
                               ),
@@ -165,7 +165,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                       return AlertDialog(
                                         title: Text("Uređaj je uspješno servisiran"),
                                         content: ElevatedButton(
-                                            child: Text("Ok"),
+                                            child: Text("Ok",  style: TextStyle(color: Colors.white)),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             }),
@@ -173,7 +173,7 @@ class _ServisirajScreenState extends State<ServisirajScreen> {
                                     });
                               }),
                           ElevatedButton(
-                              child: Text("Poništi"),
+                              child: Text("Poništi",  style: TextStyle(color: Colors.white)),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color.fromARGB(255, 170, 70, 63),
                                 elevation: 0,

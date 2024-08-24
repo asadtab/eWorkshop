@@ -20,7 +20,6 @@ namespace eWorkshop.MailSender.Controllers
             try
             {
                await EmailService.SendMessage(poruka, sendTo);
-               //await MailSender.SendEmail("poruka test");
             }
             catch (Exception ex)
             {

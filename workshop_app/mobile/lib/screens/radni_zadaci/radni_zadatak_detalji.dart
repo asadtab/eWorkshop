@@ -157,6 +157,7 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
                     label: 'Završi',
                     onTap: () {
                       zavrsiZadatak();
+                      isDialOpen.value = false;
                     }),
               if (radniZadatakDetalji != null && radniZadatakDetalji!.stateMachine == "done" && radniZadatakDetalji!.stateMachine != "invoice")
                 SpeedDialChild(

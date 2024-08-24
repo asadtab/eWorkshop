@@ -2,14 +2,15 @@ import 'package:commons/models/korisnik.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/models/user.dart';
+import 'package:commons/providers/auth_provider.dart';
 import 'package:commons/providers/korisnici_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
-import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workshop_app/screens/end-user/prijavi_smetnju.dart';
 import 'package:workshop_app/screens/end-user/uredjaji.dart';
+import 'package:workshop_app/screens/login_screen.dart';
 
 class EndHomeScreen extends StatefulWidget {
 static const String routeName = "/endHomeScreen";
@@ -54,39 +55,54 @@ class _EndHomeScreenState extends State<EndHomeScreen> {
     });
   }
 
+      void logout(BuildContext context) {
+    User.name = null;
+    User.email = null;
+    User.token = null;
+
+    context.read<AuthProvider>().setLoggedIn(false);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginForm()));
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(title: Text("Radna jedinica:  ${korisnik?.radnaJedinica ?? ""}"), automaticallyImplyLeading: false,backgroundColor: Color(0xFF4592AF), ), body:
      SafeArea(child:
        
-           Column(
-             children: [
-               Center(
-                 child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MenuItem(
-                          title: 'Status relejnih uređaja na servisiranju',
-                          icon: Icons.devices,
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => EndUredjaji(uredjaji: uredjaji, korisnik:korisnik!)));
-                          },
-                        ),
-                        SizedBox(height: 16),
-                        MenuItem(
-                          title: 'Prijavi smetnju',
-                          icon: Icons.send,
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => PrijaviSmetnju(korisnik: korisnik!)));
-                          },
-                        ),
-                      ],
+           Center(
+             child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MenuItem(
+                      title: 'Status relejnih uređaja na servisiranju',
+                      icon: Icons.devices,
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EndUredjaji(uredjaji: uredjaji, korisnik:korisnik!)));
+                      },
                     ),
-                  ),
-               ),
-             ],
+                    SizedBox(height: 16),
+                    MenuItem(
+                      title: 'Prijavi smetnju',
+                      icon: Icons.send,
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => PrijaviSmetnju(korisnik: korisnik!)));
+                      },
+                    ),
+                    SizedBox(height: 16),
+                    MenuItem(
+                      title: 'Logout',
+                      icon: Icons.logout,
+                      onTap: () {
+                        logout(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
            ),
          
      ),);

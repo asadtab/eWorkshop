@@ -29,7 +29,6 @@ public partial class Uredjaj
 
     public virtual ICollection<Servi> Servis { get; } = new List<Servi>();
 
-    public virtual ICollection<StaniceUredjaj> StaniceUredjajs { get; } = new List<StaniceUredjaj>();
 
     public virtual TipUredjaja Tip { get; set; } = null!;
 }
