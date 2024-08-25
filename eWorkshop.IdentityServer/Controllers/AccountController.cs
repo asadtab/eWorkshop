@@ -200,7 +200,7 @@ namespace eWorkshop.IdentityServer.Controllers
             var scopes = Context.ClientScopes.Where(x => x.ClientId == client.Id).Select(x => x.Scope).ToList();
 
 
-            var token = await _tools.IssueClientJwtAsync(clientId: client.ClientId, lifetime: 3600, scopes: scopes, audiences: new[] { "api" }, additionalClaims: claims);
+            var token = await _tools.IssueClientJwtAsync(clientId: client.ClientId, lifetime: 2592000, scopes: scopes, audiences: new[] { "api" }, additionalClaims: claims);
            
             return Ok(token);
         }

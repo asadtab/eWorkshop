@@ -1,6 +1,7 @@
 import 'package:commons/models/korisnik.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:workshop_app/helpers/common_widget.dart';
 
 class PrijaviSmetnju extends StatefulWidget {
   late Korisnik korisnik;
@@ -24,7 +25,6 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Unesite email adrese za slanje (opcionalno)"),
                  Padding(
@@ -120,14 +120,17 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
 
     var response = await http.get(uri);
 
-    print(response.body);
-    print(uri);
+
     
 
     if (_isValidResponse(response)) {
+      _controller.text = "";
+      CommonWidget.infoSnack("Uspješno slanje maila");
       return response.body;
+      
     } else {
-      throw Exception("Response is not valid");
+      CommonWidget.infoSnack("Neuspjelo slanje maila");
+      return "";
     }
   }
 

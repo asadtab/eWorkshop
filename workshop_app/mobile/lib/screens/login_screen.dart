@@ -23,8 +23,7 @@ class _LoginFormState extends State<LoginForm> {
   void initState() {
     authProvider = context.read<AuthProvider>();
 
-    usernameController.text = "asad.admin@tab.ba";
-    passwordController.text = "Asad123!";
+
 
     // TODO: implement initState
     super.initState();

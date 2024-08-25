@@ -57,7 +57,6 @@ class CommonWidget {
                               )))),
                     ),
 
-                    //CommonWidget.dividerLista(),
                   ]),
                 ),
               )),
@@ -214,7 +213,6 @@ class CommonWidget {
         color: Colors.blueGrey,
       ),
       onChanged: (dynamic valueSet) {
-        // This is called when the user selects an item.
         context.setState(() {
           objekat = valueSet;
         });
@@ -229,7 +227,6 @@ class CommonWidget {
   }
 
   static List<Widget> list(BuildContext context, List<Uredjaj> dataResult, UredjajProvider? provider, int? radniZadatakId) {
-    //final dataResult = data;
 
     String selected = "";
 

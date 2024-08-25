@@ -8,6 +8,7 @@ import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workshop_app/main.dart';
 import 'package:workshop_app/screens/end-user/prijavi_smetnju.dart';
 import 'package:workshop_app/screens/end-user/uredjaji.dart';
 import 'package:workshop_app/screens/login_screen.dart';
@@ -62,7 +63,7 @@ class _EndHomeScreenState extends State<EndHomeScreen> {
 
     context.read<AuthProvider>().setLoggedIn(false);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginForm()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: "SS-TK",)));
     
   }
 
