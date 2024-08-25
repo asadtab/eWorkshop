@@ -11,7 +11,7 @@ namespace eWorkshop.Services.Database.Seed
     {
         public static void SeedData(this EntityTypeBuilder<Uloge> entity)
         {
-            entity.HasData(new Uloge { Id = 1, Name = "Administrator", NormalizedName = "ADMINISTRATOR" }, new Uloge {Id =2, Name = "Serviser", NormalizedName = "SERVISER" });
+            entity.HasData(new Uloge { Id = 1, Name = "Administrator", NormalizedName = "ADMINISTRATOR" }, new Uloge {Id =2, Name = "Serviser", NormalizedName = "SERVISER" }, new Uloge { Id = 3, Name = "Pretplatnik", NormalizedName = "PRETPLATNIK" });
         }
     }
 }
