@@ -172,7 +172,6 @@ namespace eWorkshop.IdentityServer.Controllers
         [HttpGet("Login")]
         public async Task<IActionResult> Login(string userName, string password)
         {
-            //var user = await _userManager.FindByEmailAsync(email);
             var user = await _userManager.FindByNameAsync(userName);
 
             var login = await _signInManager.PasswordSignInAsync(user, password, false, false);

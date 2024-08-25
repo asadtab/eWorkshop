@@ -244,16 +244,10 @@ class _AddClientDialogState extends State<AddClientDialog> {
                       }
 
                       if (widget.klijent != null) {
-                        /*widget.klijent!.clientId = clientIdController.text;
-                          widget.klijent!.clientName = clientNameController.text;
-                          widget.klijent!.clientUri = clientUriController.text;
-                          widget.klijent!.protocolType = protocolTypeController.text;
-                          //widget.klijent!. = addClientScopesMap;
-                          widget.klijent!.clientId = clientIdController.text;*/
+                       
 
                         clientBloc.add(KlijentiUpdateEvent(klijent: request, klijentId: widget.klijent!.id!));
                         Navigator.of(context).pop();
-                        //clientBloc.add(KlijentiInitialDataEvent());
                         return null;
                       }
 
@@ -275,7 +269,6 @@ class _AddClientDialogState extends State<AddClientDialog> {
                             );
                           });
 
-                      //clientBloc.add(KlijentiInitialDataEvent());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Popunite obavezna polja!"));
                     }

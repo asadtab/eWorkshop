@@ -128,11 +128,6 @@ namespace eWorkshop.Services
                 return GetById(id);
             }
 
-            /*if (uredjaj.Status == "ready")
-            {
-                state.Posalji();
-                return GetById(id);
-            }
 */
             if (uredjaj.Status == "out")
             {

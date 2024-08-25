@@ -19,28 +19,11 @@ class RadniZadatakCommon {
       return data.where((x) => x.radniZadatakId == id).toList();
     }
 
-    //CustomProgres.postotak(getUredjaj(id))
-
-    /*double postotak(int id) {
-      var uredjaji = getUredjaj(id);
-      int brojac = 0;
-
-      for (var i = 0; i < uredjaji.length; i++) {
-        if (uredjaji[i].uredjajStatus == "fix" || uredjaji[i].uredjajStatus == "ready" || uredjaji[i].uredjajStatus == "out") {
-          brojac++;
-        }
-
-        progres = brojac / uredjaji.length;
-      }
-
-      return progres;
-    }*/
 
     List<Widget> items(int id) {
       if (data.length == 0) {
         return [Text("Uređaji ne postoje!")];
       }
-      //postotak(id);
 
       List<Widget> list = getUredjaj(id)
           .map((x) => Container(
@@ -66,12 +49,7 @@ class RadniZadatakCommon {
                   child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                     InkWell(
                         onTap: () {
-                          //var uredjaji = data.where((y) => y.radniZadatakId == x.radniZadatakId).toList();
-
-                          //MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaciUredjaji(uredjaji, x.radniZadatakId));
-
-                          //Navigator.push(
-                          //context, MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaciUredjaji(uredjaji, x.radniZadatakId)));
+                          
                         },
                         child: Container(
                           width: 150,

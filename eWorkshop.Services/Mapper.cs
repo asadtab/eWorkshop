@@ -18,7 +18,7 @@ namespace eWorkshop.Services
             CreateMap<Uredjaj, UredjajVM>();
             CreateMap<Servi, ServisVM>();
             CreateMap<RadniZadatak, RadniZadatakVM>();
-            CreateMap<Korisnici, KorisniciVM>();//.ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
+            CreateMap<Korisnici, KorisniciVM>();
             CreateMap<Komponente, KomponenteVM>();
             CreateMap<Uloge, UlogeVM>();
 

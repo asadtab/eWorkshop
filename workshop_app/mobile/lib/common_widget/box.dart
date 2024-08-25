@@ -6,21 +6,7 @@ class Box {
     if (data.length == 0) {
       return [Text("Podaci ne postoje")];
     }
-
-    //postotak(id);
-
-    /*    List<Widget> list = getUredjaj(id)
-          .map((x) => Container(
-              padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-              width: 150,
-              height: 30,
-              child: Text(x.uredjajId.toString() + " - " + x.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold))))
-          .cast<Widget>()
-          .toList();
-
-      return list;
-    }*/
-
+    
     List<Widget> list = data
         .map((x) => Column(children: [
               Card(

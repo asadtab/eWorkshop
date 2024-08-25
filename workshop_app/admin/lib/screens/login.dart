@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:admin/bloc/login/bloc/login_bloc.dart';
 import 'package:admin/main.dart';
 import 'package:commons/models/uredjaj.dart';
@@ -31,25 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     idsProvider = context.read<IdsProvider>();
 
-    usernameController.text = "asad.admin@tab.ba";
-    passwordController.text = "Asad123!";
-
-    //uredjajiList = idsProvider.createClient().then((value) => getIds(value));
     super.initState();
   }
 
-  /*Future<List<Uredjaj>> getIds(oauth2.Client client) async {
-    String uri = "https://localhost:7189/Uredjaj";
-
-    final response = await client.get(Uri.parse(uri));
-
-    if (response.statusCode < 400) {
-      var data = jsonDecode(response.body);
-      return data.map((x) => fromJson(x)).cast<Uredjaj>().toList();
-    } else {
-      throw Exception("Greska!");
-    }
-  }*/
 
   Uredjaj fromJson(data) {
     throw Exception("Override method");

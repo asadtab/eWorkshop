@@ -119,8 +119,8 @@ class GenerisiPdf {
       ),
       headers: ['', 'Ime i prezime', 'Datum', 'Potpis'],
       data: [
-        ['Predao', '', ''], // Replace '100' with your data
-        ['Preuzeo', '', ''], // Replace 'Warehouse A' with your data
+        ['Predao', '', ''],
+        ['Preuzeo', '', ''],
       ],
     );
   }

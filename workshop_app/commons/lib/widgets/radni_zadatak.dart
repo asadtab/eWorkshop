@@ -34,11 +34,7 @@ class _RadniZadaciWidgetState extends State<RadniZadaciWidget> {
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             InkWell(
                 onTap: () {
-                  //var uredjaji = data.where((y) => y.radniZadatakId == x.radniZadatakId).toList();
-
-                  //MaterialPageRoute(builder: (context) => RadniZadatakDetaljiScreen.zadaciUredjaji(uredjaji, x.radniZadatakId));
-
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => RadniZadaciScreen.uredi(widget.radniZadatak!.radniZadatakId)));
+                  
                 },
                 child: Container(
                   width: 150,

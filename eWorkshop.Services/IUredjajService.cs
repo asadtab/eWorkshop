@@ -13,7 +13,6 @@ namespace eWorkshop.Services
     {
         UredjajVM Aktiviraj(int id);
         UredjajVM VratiIzTaska(int id);
-        //ServisVM Servisiraj(ServisInsertRequest request);
         void Posalji(int id);
         UredjajVM Parts(int id);
         UredjajVM Deaktiviraj(int id);

@@ -113,12 +113,6 @@ String role = User.roles.first;
       return;
     }
 
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => HomeScreen(),
-                          //   ),
-                          // );
                         }
                       } catch (e) {
                         poruka("Login nije uspio " + e.toString() + " ");

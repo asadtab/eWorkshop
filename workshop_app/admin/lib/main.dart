@@ -12,7 +12,6 @@ import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/screens/login_screen.dart';
 import 'package:commons/providers/client_grant_type_provider.dart';
 import 'package:commons/providers/ids_provider.dart';
-//import 'package:admin/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/providers/klijenti_provider.dart';
 import 'package:commons/providers/komponente_provider.dart';

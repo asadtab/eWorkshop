@@ -31,7 +31,6 @@ namespace eWorkshop.Services
             foreach (var item in servis)
             {
                 item.Servisirao = item.Korisnik.Ime + " " + item.Korisnik.Prezime;
-                //item.DatumString = DatumHelper.DatumFormat(item.Datum);
             }
 
             return servis;

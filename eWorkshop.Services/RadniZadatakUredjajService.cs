@@ -43,9 +43,7 @@ namespace eWorkshop.Services
             if (search.UredjajId != null && search.UredjajId != 0)
                 filter = filter.Where(x => x.UredjajId == search.UredjajId);
 
-            /*if (search.KorisnikId != null && search.KorisnikId != 0)
-                filter = filter.Where(x => x.KorisnikId == search.KorisnikId);*/
-
+            
             if (!string.IsNullOrEmpty(search.UredjajState))
                 filter = filter.Where(x => x.Uredjaj.Status == search.UredjajState);
 
@@ -54,12 +52,9 @@ namespace eWorkshop.Services
 
             if (search.ZadatakState.Length > 0)
             {
-                /*for (int i = 0; i < search.ZadatakState.Length; i++)
-                    filter = filter.Where(x => x.RadniZadatak.StateMachine == search.ZadatakState[i]);
-*/
+              
                 filter = filter.Where(x => x.RadniZadatak.StateMachine == search.ZadatakState[0] 
                 || x.RadniZadatak.StateMachine == search.ZadatakState[1]);
-               // filter = filter.Where(x => x.RadniZadatak.StateMachine == search.ZadatakState[1]);
             }
 
             return filter;
@@ -87,7 +82,6 @@ namespace eWorkshop.Services
 
             return base.Insert(request);
 
-            //return Mapper.Map<RadniZadatakUredjajVM>(request);
         }
 
         public int Progres(int id)

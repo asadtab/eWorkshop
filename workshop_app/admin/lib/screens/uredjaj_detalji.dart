@@ -438,20 +438,16 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
           rows: komp.isEmpty
               ? [
                   const DataRow(cells: [
-                    //DataCell(Text((komp.indexWhere((element) => element. == e.komponentaId) + 1).toString())),
                     DataCell(Text("")),
                     DataCell(Text("")),
                     DataCell(Text("")),
-                    //DataCell(Text(e.komponentaId.toString())),
                   ])
                 ]
               : komp
                   .map((e) => DataRow(cells: [
-                        //DataCell(Text((komp.indexWhere((element) => element. == e.komponentaId) + 1).toString())),
                         DataCell(Text(e.naziv ?? "")),
                         DataCell(Text(e.vrijednost ?? "")),
                         DataCell(Text(e.tip ?? "")),
-                        //DataCell(Text(e.komponentaId.toString())),
                       ]))
                   .toList(),
         )

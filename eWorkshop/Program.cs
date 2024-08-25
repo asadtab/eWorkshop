@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Logging;
 using System.Net;
 using eWorkshop.MailPublisher.Services;
 using eWorkshop.MailPublisher.Config;
+using eWorkshop.WinUI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,7 +109,6 @@ builder.Services.AddAuthentication(x =>
         };
     });
 
-//builder.Services.Configure<IdentityServerSettings>(builder.Configuration.GetSection("ApiSettings:IdentityServerMetaDataUrl"));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

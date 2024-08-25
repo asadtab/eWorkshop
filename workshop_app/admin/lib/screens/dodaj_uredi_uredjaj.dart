@@ -78,7 +78,6 @@ class _DodajUrediUredjajState extends State<DodajUrediUredjaj> {
           lokacijaDropdownValue = null;
 
           dropdownvalue = tipUredjajaList.where((element) => widget.editUredjaj!.tipNaziv == element.naziv).firstOrDefault();
-          //lokacijaDropdownValue = lokacijaList.where((element) => widget.editUredjaj!.lokacijaNaziv == element.naziv).firstOrDefault();
 
           for (var i = 0; i < lokacijaList.length; i++) {
             if (lokacijaList[i].naziv == widget.editUredjaj!.lokacijaNaziv) {
@@ -86,12 +85,6 @@ class _DodajUrediUredjajState extends State<DodajUrediUredjaj> {
             }
           }
         }
-/*
-        for (var i = 0; i < tipUredjajaList.length; i++) {
-          if (tipUredjajaList[i].naziv == uredjaj!.tipNaziv) {
-            dropdownvalue = tipUredjajaList[i];
-          }
-        }*/
 
         if (uredjaji!.isNotEmpty) {
           uredjaji.sort((a, b) => b.uredjajId!.compareTo(a.uredjajId!));
@@ -154,7 +147,6 @@ dropdownValueNull();
                                 if (_formKeyLokacija.currentState!.validate()) {
                                   _formKeyLokacija.currentState!.save();
 
-                                  //lokacijaBloc.add(LokacijaAddEvent(naziv: lokacijaTextController.text));
 
                                   try {
                                   await lokacijaProvider!.insert(request, "Lokacija");
@@ -251,12 +243,7 @@ dropdownValueNull();
                         ],
                       ),
                     ),
-                   /* BlocConsumer<LokacijaBloc, LokacijaState>(
-                      bloc: lokacijaBloc,
-                      listener: (context, state) {},
-                      builder: (context, state) {
-                        if (state is LokacijaDataState) {
-                          var lokacije = state.lokacije;*/
+                   
 
                            Container(
                               child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [

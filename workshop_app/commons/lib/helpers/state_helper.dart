@@ -1,6 +1,5 @@
 class StateHelper {
   static const List<String> nizNaziv = <String>["idle", "active", "fix", "ready", "out", "parts", "task"];
-  //const List<String> listButton = <String>['One', 'Two', 'Three', 'Four'];
   static const List<String> nizOpis = <String>["Neaktivni", "Aktivni", "Servisirani", "Spremni", "Poslani", "Rezervni", "Radni zadatak"];
 
   static const List<String> nizZadatakState = <String>["idle", "active", "done", "invoice"];

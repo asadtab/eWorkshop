@@ -569,13 +569,9 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
 
                                           var zadatakUredjaj = await radniZadaciUredjajProvider!
                                               .get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
-                                          //var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
-                                          // var odabraniZadatakTemp =
-                                          // await radniZadaciProvider!.get({'RadniZadatakId': odabraniZadatakId}, 'RadniZadatak');
-
+                                        
                                           setState(() {
                                             radniZadatakUredjaj = zadatakUredjaj;
-                                            //aktivniUredjaji = uredjajiTemp!;
                                           });
                                         },
                                         icon: Icon(Icons.cancel),
@@ -630,18 +626,15 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Uspješno je dodan uredjaj u radni zadatak."));
 
-      //zadatakUredjajBloc!.eventSink.add(UredjajAction.Refresh);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(e.toString()));
     }
 
     var zadatakUredjaj = await radniZadaciUredjajProvider!.get({'RadniZadatakId': odabraniZadatakId}, "RadniZadatakUredjaj/Flutter");
-    //var uredjajiTemp = await uredjajiProvider?.get({'Status': 'active'}, "Uredjaj");
     var odabraniZadatakTemp = await radniZadaciProvider!.get({'RadniZadatakId': odabraniZadatakId}, 'RadniZadatak');
 
     setState(() {
       radniZadatakUredjaj = zadatakUredjaj;
-      //aktivniUredjaji = uredjajiTemp!;
       odabraniRadniZadatak = odabraniZadatakTemp.first;
     });
   }
