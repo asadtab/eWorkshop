@@ -128,7 +128,7 @@ namespace eWorkshop.Services
                 return GetById(id);
             }
 
-*/
+
             if (uredjaj.Status == "out")
             {
                 state.Vrati();

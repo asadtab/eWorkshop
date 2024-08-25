@@ -23,7 +23,6 @@ using Microsoft.IdentityModel.Logging;
 using System.Net;
 using eWorkshop.MailPublisher.Services;
 using eWorkshop.MailPublisher.Config;
-using eWorkshop.WinUI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
