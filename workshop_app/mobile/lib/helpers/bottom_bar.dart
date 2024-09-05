@@ -20,21 +20,9 @@ class _MyBottomBarState extends State<MyBottomBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                /*IconButton(
-                  tooltip: 'Open navigation menu',
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                )*/
+                
                 const Spacer(),
-                // IconButton(
-                //   tooltip: 'Open navigation menu',
-                //   icon: const Icon(Icons.arrow_back),
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                // ),
+            
               ],
             )));
   }
