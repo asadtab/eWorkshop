@@ -132,7 +132,7 @@ class CommonWidget {
     ]);
   }
 
-  static SnackBar infoSnack(String? poruka) {
+  static SnackBar infoSnack(String poruka) {
     return SnackBar(
       content: Text(poruka.toString()),
       action: SnackBarAction(
