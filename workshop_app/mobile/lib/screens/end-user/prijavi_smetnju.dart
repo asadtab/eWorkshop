@@ -17,6 +17,7 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final List<String> _emailAddresses = [];
+  final _formKeyTip = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,19 +49,29 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
                                    ],
                                  ),
                  ),
-              TextField(
-                controller: _controller,
-                maxLines: 10,
-                decoration: InputDecoration(
-                  hintText: 'Unesite opis smetnje',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              Form(
+                key: _formKeyTip,
+                child: TextFormField(
+                  validator: (value) { if (value == null || value.isEmpty) {
+                      return 'Unesite opis smetnje'; }
+                      return null;
+                    },
+                  controller: _controller,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                    hintText: 'Unesite opis smetnje',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
+if (_formKeyTip.currentState!.validate()) {
+                                _formKeyTip.currentState!.save();}
+
                   String text = _controller.text;
                   posaljiEmail(text, _emailAddresses);
                 },
@@ -109,6 +120,8 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
   }
   
   Future<String> posaljiEmail(String text, List<String> adrese)async {
+
+    
 
     String link = "https://10.0.2.2:7439/MailPublisher?poruka=$text";
     
