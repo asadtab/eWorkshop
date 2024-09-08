@@ -114,7 +114,7 @@ String role = User.roles.first;
 
                         }
                       } catch (e) {
-                        poruka("Login nije uspio " + e.toString() + " ");
+                        poruka("Login nije uspio " + e.toString() );
                       }
                     },
                     child: Text('Login'),
