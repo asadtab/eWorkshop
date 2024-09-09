@@ -63,7 +63,7 @@ class _EndHomeScreenState extends State<EndHomeScreen> {
 
     context.read<AuthProvider>().setLoggedIn(false);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: "SS-TK",)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage(title: "SS-TK",)));
     
   }
 

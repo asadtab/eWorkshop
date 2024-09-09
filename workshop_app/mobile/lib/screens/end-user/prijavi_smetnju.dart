@@ -92,13 +92,25 @@ if (_formKeyTip.currentState!.validate()) {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                            Text("Email adrese za slanje", style: TextStyle(fontSize: 20),),
-                ..._emailAddresses.map((email) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    email,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                 DataTable(
+              columns: [
+                DataColumn(label: Text('Adresa')),  // Address column
+                DataColumn(label: Text('Ukloni')),  // Remove button column
+              ],
+              rows: _emailAddresses.asMap().entries.map((entry) {
+                int index = entry.key;
+                String email = entry.value;
+                return DataRow(cells: [
+                  DataCell(Text(email)),  // Display email address
+                  DataCell(
+                    IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => removeEmail(index) // Remove email
+                    ),
                   ),
-                )),
+                ]);
+              }).toList(),
+            ),
                 
                             ],
                           ),
@@ -155,6 +167,12 @@ if (_formKeyTip.currentState!.validate()) {
     } else {
       throw Exception("Serverska greška.");
     }
+  }
+  
+  removeEmail(int index) {
+    setState(() {
+    _emailAddresses.removeAt(index);
+  });
   }
   
   

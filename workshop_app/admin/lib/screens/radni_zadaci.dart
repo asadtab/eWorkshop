@@ -122,9 +122,12 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
               height: 50,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("Status radnog zadatka:"),
+                SizedBox(width: 20,),
                 DropdownButton<String>(
+
                   value: dropdownvalueStatus,
                   icon: const Icon(Icons.arrow_downward),
                   elevation: 16,
@@ -171,6 +174,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                     );
                   }).toList(),
                 ),
+                SizedBox(width: 50,),
                 MinimalisticButton(
                   icons: Icon(
                     Icons.exit_to_app,
@@ -183,6 +187,7 @@ class _RadniZadaciScreenState extends State<RadniZadaciScreen> {
                 ),
               ],
             ),
+            Text("Prevucite uređaj iz aktivnih uređaja u odabrani aktivni ili neaktivni radni zadatak"),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
