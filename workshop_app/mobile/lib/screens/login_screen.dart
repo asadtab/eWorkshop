@@ -47,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
                     controller: usernameController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: 'Username',
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
