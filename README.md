@@ -13,4 +13,6 @@ password: Test123!</br></br>
 
 Pretplatnik</br>
 username: user.pretplatnik</br>
-password: Test123!</br>
+password: Test123!</br></br>
+
+Sve uloge imaju pristup mobilnoj aplikaciji dok uloge Administrator i Serviser imaju pristup desktop aplikaciji.
