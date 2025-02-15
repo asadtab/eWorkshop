@@ -1,3 +1,4 @@
+import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/radni_zadaci.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';
@@ -57,8 +58,8 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Lista radnih zadataka"),
+        appBar: BarrApp(
+          naslov: "Lista radnih zadataka",
         ),
         body: SingleChildScrollView(
             child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -92,6 +93,7 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
             Container(
                 height: 40,
                 width: 200,
+
                 child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Pretraga', // Placeholder text
@@ -188,7 +190,6 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                     DataColumn(label: Text('Koda')),
                     DataColumn(label: Text('Serijski broj')),
                   ],
-                  // Replace the following rows with your data
                   rows: radniZadatakUredjaj
                       .map((x) => DataRow(
                             cells: [
@@ -260,8 +261,13 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                                 ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Uspješno je dodan novi radni zadatak"));
 
                                 zadatakTextController.clear();
-                                _fetchData(null);
+                                _fetchData({'StateMachine': 'idle'});
+                                setState(() {
+                                  dropdownvalue = "Neaktivni";
+                                });
                                 Navigator.pop(context);
+                                showCustomNotification(context, "Uspješno je dodan novi radni zadatak", isSuccess: true);
+
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(CustomNotification.infoSnack("Aktiviraj radni zadatak dodavanjem aktivnog uređeja"));
                               }
@@ -281,4 +287,59 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
           );
         });
   }
+  void showCustomNotification(BuildContext context, String message, {bool isSuccess = true}) {
+  showDialog(
+    context: context,
+    barrierDismissible: true, // Allows the user to tap outside to close
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Rounded edges
+        elevation: 10,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                isSuccess ? Icons.check_circle : Icons.error, 
+                size: 60, 
+                color: isSuccess ? Colors.green : Colors.red,
+              ),
+              SizedBox(height: 15),
+              Text(
+                isSuccess ? "Success" : "Error",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                ),
+                child: Text("OK", style: TextStyle(fontSize: 16)),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
 }

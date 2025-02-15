@@ -1,6 +1,8 @@
 import 'package:admin/screens/acc.dart';
 import 'package:admin/screens/login_screen.dart';
 import 'package:admin/screens/radni_zadaci.dart';
+import 'package:admin/screens/radni_zadaci_lista.dart';
+import 'package:admin/screens/raspored_uredjaja.dart';
 import 'package:admin/screens/uredjaji.dart';
 import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
@@ -96,6 +98,10 @@ class _CommonNavigationState extends State<CommonNavigation> {
               icon: Icon(Icons.task),
               label: Text('Radni zadaci'),
             ),
+            NavigationRailDestination(
+              icon: Icon(Icons.table_chart),
+              label: Text('Raspored uređaja'),
+            ),
             if (User.roles.contains("Administrator"))
               NavigationRailDestination(
                 icon: Icon(Icons.settings),
@@ -107,7 +113,7 @@ class _CommonNavigationState extends State<CommonNavigation> {
         Expanded(
           child: IndexedStack(
             index: selectedIndex,
-            children: [KonzolaScreen(), UredjajiScreen(), RadniZadaciScreen(), AdministratorScreen()],
+            children: [KonzolaScreen(), UredjajiScreen(), RadniZadaciLista(),RasporedUredjaja(), AdministratorScreen()],
           ),
         ),
       ],

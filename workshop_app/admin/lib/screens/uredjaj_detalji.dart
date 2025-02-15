@@ -15,8 +15,7 @@ import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:timeline_list/timeline.dart';
-import 'package:timeline_list/timeline_model.dart';
+import 'package:timeline_list/timeline_list.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:commons/models/reparacija.dart';
 
@@ -337,22 +336,29 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                     Container(
                         width: 600,
                         height: 800,
-                        padding: EdgeInsets.all(50),
-                        child: Timeline(
-                          children: reparacija
-                              .map((e) => TimelineModel(
-                                    position: TimelineItemPosition.right,
-                                    Container(
+                        padding: EdgeInsets.fromLTRB(70, 60, 0, 0),
+                        child: Timeline(children: reparacija
+                              .map((e) =>Marker(
+                                
+                                iconAlignment: MarkerIconAlignment.top,
+                                icon:Icon(
+                                  
+                                      Icons.build,
+                                      color: Colors.black,
+                                      size: 15,
+                                    ),child:  Column(children: [
+                                Container(
                                       decoration: BoxDecoration(
                                         border: e.isExpanded? Border.all(
                                           color: Colors.black12, // Border color
                                           width: 2.0, // Border width
                                         ):null,
                                       ),
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context).size.width * 0.2,
                                       height: 200,
                                       child: ListView(
                                         children: <Widget>[
+
                                           ExpansionPanelList(
                                               elevation: 4,
                                               expandedHeaderPadding: EdgeInsets.all(8),
@@ -371,6 +377,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                                     },
                                                     body: ListTile(
                                                       title: Column(
+                                                        mainAxisSize: MainAxisSize.min,
                                                         children: [
                                                           _buildDataTable(servis.where((element) => element.servisId == e.servisId).toList()),
                                                           Text("Servisirao: " +
@@ -388,17 +395,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                         ],
                                       ),
                                     ),
-                                    icon: Icon(
-                                      Icons.build,
-                                      color: Colors.white,
-                                    ),
-                                    iconBackground: Colors.blue,
-                                  ))
-                              .toList(),
-                          position: TimelinePosition.Right,
-                          iconSize: 30,
-                          lineColor: Colors.blueGrey,
-                        )),
+                              ],))).toList())),
                   ],
                 );
               } else {
@@ -426,6 +423,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
 
   Widget _buildDataTable(List<IzvrseniServis> komp) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         DataTable(
           columns: [
