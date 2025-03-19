@@ -34,10 +34,6 @@ import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/providers/korisnici_provider.dart';
 import 'commons/navigation.dart';
 
-/*void main() {
-  runApp(const MyApp());
-}*/
-
 void main() {
   // Set the maximum size
   runApp(MultiProvider(

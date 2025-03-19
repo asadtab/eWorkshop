@@ -49,13 +49,7 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
     });
   }
 
-  int _selectedIndex = 3;
-
-  void _onItemSelected(int index) {
-    setState(() {
-      _selectedIndex = 3;
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {

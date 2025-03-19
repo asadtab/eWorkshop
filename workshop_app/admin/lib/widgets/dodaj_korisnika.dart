@@ -1,5 +1,6 @@
 import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:commons/models/korisnik.dart';
+import 'package:commons/models/user.dart';
 import 'package:commons/providers/korisnici_provider.dart';
 import 'package:commons/providers/uloge_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -12,7 +13,7 @@ class DodajKorisnikaDialog extends StatefulWidget {
   List<Korisnik> korisnici = [];
   Korisnik? korisnik;
 
-  DodajKorisnikaDialog(this.korisnik, this.korisnici);
+    DodajKorisnikaDialog(this.korisnik, this.korisnici);
 
   @override
   _DodajKorisnikaDialogState createState() => _DodajKorisnikaDialogState();
@@ -40,8 +41,6 @@ class _DodajKorisnikaDialogState extends State<DodajKorisnikaDialog> {
               ],
             ),
             SingleChildScrollView(child: AddUserForm(widget.korisnik, widget.korisnici)),
-
-            // Add more pages as needed
           ],
         ),
       ),
@@ -148,6 +147,7 @@ class _AddUserFormState extends State<AddUserForm> {
               return null;
             },
           ),
+          if(widget.korisnik == null)
           TextFormField(
             controller: _passwordController,
             decoration: InputDecoration(labelText: 'Password'),
@@ -249,7 +249,7 @@ class _AddUserFormState extends State<AddUserForm> {
                   errors.add("Password mora sadržavati barem jedno veliko slovo.");
                 }
 
-                if (errors.isNotEmpty) {
+                if (errors.isNotEmpty && widget.korisnik == null) {
                   return showDialog(
                       context: context,
                       builder: (context) {
@@ -283,6 +283,72 @@ class _AddUserFormState extends State<AddUserForm> {
                     "status": aktivan,
                     "radnaJedinica": _nazivRadneJediniceController.text
                   };
+
+                  if(widget.korisnik != null) {  
+                    widget.korisnici.remove(widget.korisnik);
+
+                    for (var users in widget.korisnici) {
+                    if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {
+                      return showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Korisničko ime je već u upotrebi'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    errors.clear();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          });
+                    }
+                  }
+
+                   try {
+                    await korisniciProvider!.update(int.parse(User.id!), request, 'Korisnici');
+                    korisniciBloc.add(KorisniciLoad());
+
+                    emptyBox();
+                    setState(() {
+                      selectedRoles = [];
+                    });
+                    Navigator.pop(context);
+                  } catch (e) {
+                    print(e.toString());
+                    if (e
+                        .toString()
+                        .contains("Username '${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' is already taken.")) {
+                      return showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Korisničko ime je već u upotrebi.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    errors.clear();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          });
+                    }
+
+                    poruka(e.toString());
+                    return;
+                  }
+                  poruka("Korisnik je uspješno dodan");
+
+
+                  }
+
+                  
 
                   for (var users in widget.korisnici) {
                     if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {

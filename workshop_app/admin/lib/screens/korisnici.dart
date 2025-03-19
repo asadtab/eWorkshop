@@ -99,7 +99,6 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
             BlocConsumer<KorisniciBloc, KorisniciState>(
               bloc: korisniciBloc,
               listener: (context, state) {},
-              //buildWhen: (previous, current) => current is KorisniciRequest,
               builder: (context, state) {
                 if (state is KorisniciLoadingState) {
                   return Center(child: CircularProgressIndicator());

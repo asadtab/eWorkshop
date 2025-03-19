@@ -7,6 +7,7 @@ import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import "package:commons/providers/uredjaj_provider.dart";
 import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/dialog_notification.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,7 +90,16 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => DodajUrediUredjaj(),
-                      );
+                      ).then((uslov){
+                        if(uslov){
+                          setState(() {
+                            dropdownvalue = 'Neaktivni';
+                          });
+                          DialogNotifikacija.showCustomNotification(context, "Uspješno je dodan novi uređaj");
+                          uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch('Neaktivni')));
+                          
+                        }
+                      });
                     },
                   ))
             ]),

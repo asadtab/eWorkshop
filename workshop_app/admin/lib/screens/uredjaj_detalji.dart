@@ -4,6 +4,7 @@ import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadat
 import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
 import 'package:admin/screens/servisiraj.dart';
 import 'package:commons/helpers/change_state_helper.dart';
+import 'package:commons/helpers/format_datuma.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/models/izvrseni_servis.dart';
@@ -372,8 +373,8 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                                     canTapOnHeader: true,
                                                     headerBuilder: (BuildContext context, bool isExpanded) {
                                                       return ListTile(
-                                                        title: Text(vrijemeFormat(e.datum.toString()) ?? "Datum nepoznat"),
-                                                      );
+                                                        title: Text(FormatirajDatum.formatiraj(DateTime.parse(e.datum.toString())),
+                                                      ));
                                                     },
                                                     body: ListTile(
                                                       title: Column(
@@ -415,11 +416,6 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
     ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack(msg));
   }
 
-  String vrijemeFormat(String datumTekst) {
-    var datum = DateTime.parse(datumTekst);
-
-    return datum.day.toString() + "." + datum.month.toString() + "." + datum.year.toString();
-  }
 
   Widget _buildDataTable(List<IzvrseniServis> komp) {
     return Column(

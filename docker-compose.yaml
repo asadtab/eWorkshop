@@ -83,7 +83,7 @@ services:
       - IdentityServerUrl=http://eworkshop-ids:5443
       - IdentityServerMetaDataUrl=http://eworkshop-ids:5443/.well-known/openid-configuration
       - ConnectionStrings__DefaultConnection=Server=eworkshop-sql,${SQL_PORT};Database=${SQL_DATABASE};User=${SQL_USER};Password=${SA_PASSWORD};TrustServerCertificate=True
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - ${API_PORT}:7189
     networks:

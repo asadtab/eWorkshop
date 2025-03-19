@@ -178,7 +178,8 @@ class _RasporedUredjajaState extends State<RasporedUredjaja> {
                 
               ],
             ),
-            Text("Prevucite uređaj iz aktivnih uređaja u odabrani aktivni ili neaktivni radni zadatak"),
+            Card(color: Color(0xFFCBE4DE),child: Container(padding: EdgeInsets.fromLTRB(50, 10, 50, 10), child: 
+                Text("Prevucite uređaj iz aktivnih uređaja u odabrani aktivni ili neaktivni radni zadatak", style: TextStyle(fontWeight: FontWeight.bold),))),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,11 +201,10 @@ class _RasporedUredjajaState extends State<RasporedUredjaja> {
                           return Card(
                             child: Column(
                               children: [
-                                // Header for the left Card
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Aktivni uređaji", // Your header text
+                                    "Aktivni uređaji", 
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -510,12 +510,12 @@ class _RasporedUredjajaState extends State<RasporedUredjaja> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            radniZadatak.naziv ?? "",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: Text.rich(TextSpan(children: [
+            TextSpan(text: "Odabrani radni zadatak: "),
+            TextSpan(text: radniZadatak.naziv ?? "", style: TextStyle(fontWeight: FontWeight.bold))
+          ])),
+            
+          
         ),
         DragTarget<Uredjaj>(
           onAccept: (data) async {

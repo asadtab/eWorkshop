@@ -77,7 +77,7 @@ builder.Services.AddAutoMapper(typeof(UredjajService));
 
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
-builder.Services.AddIdentityServer(x =>
+/*builder.Services.AddIdentityServer(x =>
 {
     x.IssuerUri = "foo";
 });
@@ -106,7 +106,7 @@ builder.Services.AddAuthentication(x =>
             ValidateIssuer = false,
             ValidateAudience = false
         };
-    });
+    });*/
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -156,12 +156,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");  
 
     // Configure Swagger to use Identity Server authorization endpoint
-    options.OAuthClientId("swagger"); // Client ID registered in Identity Server
-    options.OAuthAppName("Swagger UI");
-    options.OAuthUsePkce();
+    //options.OAuthClientId("swagger"); // Client ID registered in Identity Server
+    //options.OAuthAppName("Swagger UI");
+    //options.OAuthUsePkce();
     });
 }
 

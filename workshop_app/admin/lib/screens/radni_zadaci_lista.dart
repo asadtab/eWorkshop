@@ -1,11 +1,13 @@
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/radni_zadaci.dart';
+import 'package:commons/helpers/format_datuma.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
+import 'package:commons/widgets/dialog_notification.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,29 +68,49 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Padding(
                 padding: EdgeInsets.all(20),
-                child: DropdownButton<String>(
-                  value: dropdownvalue,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 16,
-                  hint: Container(child: Text("Odaberi status")),
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.blueGrey,
+                child: Container(
+                  
+                  child: Card(
+                    color: Color(0xFFCBE4DE),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Odaberi status radnog zadatka"),
+                          ),
+                          DropdownButton<String>(
+                            value: dropdownvalue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            hint: Container(child: Text("Odaberi status")),
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.blueGrey,
+                            ),
+                            onChanged: (String? value) {
+                              _fetchData({'StateMachine': StateHelper.nizZadatakStateSearch(value!)});
+                          
+                              setState(() {
+                                dropdownvalue = value;
+                          
+                                selectedRowIndex = null; 
+                                            this.radniZadatakUredjaj = [];
+                              });
+                            },
+                            items: StateHelper.nizZadatakStateOpis.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  onChanged: (String? value) {
-                    _fetchData({'StateMachine': StateHelper.nizZadatakStateSearch(value!)});
-
-                    setState(() {
-                      dropdownvalue = value;
-                    });
-                  },
-                  items: StateHelper.nizZadatakStateOpis.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 )),
             Container(
                 height: 40,
@@ -120,11 +142,17 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:[
+                  Card(color: Color(0xFFCBE4DE), child: Container(padding: EdgeInsets.fromLTRB(50, 10, 50, 10), child: 
+                Text("Radni zadaci", style: TextStyle(fontWeight: FontWeight.bold),))),
               Card(
                 child: DataTable(
                   showCheckboxColumn: false,
                   columnSpacing: 21,
                   columns: [
+                    
                     DataColumn(label: Text('Id')),
                     DataColumn(label: Text('Naziv')),
                     DataColumn(label: Text('Stanje')),
@@ -146,7 +174,7 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                                     await radniZadaciUredjajProvider!.get({'RadniZadatakId': '${x.radniZadatakId}'}, "RadniZadatakUredjaj/Flutter");
 
                                 setState(() {
-                                  selectedRowIndex = x.radniZadatakId; // Update the selected row index
+                                  selectedRowIndex = x.radniZadatakId; 
                                   this.radniZadatakUredjaj = _radniZadatakUredjaj;
                                 });
                               }
@@ -155,7 +183,7 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                               DataCell(Text(x.radniZadatakId.toString())),
                               DataCell(Text(x.naziv.toString())),
                               DataCell(Text(x.stateMachine ?? "")),
-                              DataCell(Text(x.datum ?? "")),
+                              DataCell(Text(FormatirajDatum.formatiraj(DateTime.parse(x.datum.toString())))),
                               DataCell(PopupMenuButton<String>(
                                 initialValue: selected,
                                 onSelected: (izbor) {
@@ -180,7 +208,12 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                           ))
                       .toList(),
                 ),
-              ),
+              )]),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:[
+                Card(color: Color(0xFFCBE4DE),child: Container(padding: EdgeInsets.fromLTRB(50, 10, 50, 10), child: 
+                Text("Uređaji u odabranom radnom zadatku", style: TextStyle(fontWeight: FontWeight.bold),))),
               Card(
                 child: DataTable(
                   columnSpacing: 21,
@@ -201,9 +234,8 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                           ))
                       .toList(),
 
-                  // Add more rows as needed
                 ),
-              ),
+              )]),
             ],
           ))
         ])));
@@ -266,6 +298,7 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                                   dropdownvalue = "Neaktivni";
                                 });
                                 Navigator.pop(context);
+                                DialogNotifikacija.showCustomNotification(context, "Uspješno je dodan novi radni zadatak");
                                 showCustomNotification(context, "Uspješno je dodan novi radni zadatak", isSuccess: true);
 
                                 ScaffoldMessenger.of(context)
@@ -273,7 +306,7 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                               }
                             }),
                         ElevatedButton(
-                            child: Text("Poništi"),
+                            child: Text("Poništi", style: TextStyle(color: Colors.white),),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 170, 70, 63),
                               elevation: 2,
@@ -290,10 +323,10 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
   void showCustomNotification(BuildContext context, String message, {bool isSuccess = true}) {
   showDialog(
     context: context,
-    barrierDismissible: true, // Allows the user to tap outside to close
+    barrierDismissible: true, 
     builder: (BuildContext context) {
       return Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Rounded edges
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), 
         elevation: 10,
         child: Container(
           padding: EdgeInsets.all(20),

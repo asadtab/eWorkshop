@@ -421,7 +421,7 @@ dropdownValueNull();
     }
 
     ScaffoldMessenger.of(context).showSnackBar(CustomNotification.infoSnack("Uspješno!"));
-
+    Navigator.of(context).pop(true);
     clear();
   }
 
