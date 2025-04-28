@@ -87,10 +87,10 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
             if (_formKey.currentState!.validate()) {
               setState(() => _isLoading = true);
               try {
-                await korisniciProvider.update(widget.userId, {
-                  "oldPassword": _oldPasswordController.text,
+                await korisniciProvider.insert({"userId": widget.userId,
+                  "currentPassword": _oldPasswordController.text,
                   "newPassword": _newPasswordController.text,
-                }, "Account/ChangePassword");
+                }, "Korisnici/PromijeniPassword");
 
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(

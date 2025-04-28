@@ -372,7 +372,7 @@ class _AddUserFormState extends State<AddUserForm> {
                   }
 
                   try {
-                    await korisniciProvider!.insert(request, "Account", true);
+                    await korisniciProvider!.insert(request, "Korisnici/Registracija");
                     korisniciBloc.add(KorisniciLoad());
 
                     emptyBox();

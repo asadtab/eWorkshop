@@ -20,6 +20,48 @@ namespace eWorkshop.Controllers
             KorisniciService = service;
         }
 
-       
+        [HttpPost("Registracija")]
+        public async Task<IActionResult> Registracija(KorisniciInsertRequest request)
+        {
+            try
+            {
+                var korisnikVM = await KorisniciService.Register(request);
+                return Ok(korisnikVM); // Return the KorisniciVM data
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("PromijeniPassword")]
+        public async Task<IActionResult> PromijeniPassword(PromjeniPasswordRequest request)
+        {
+            try
+            {
+                var userVM = await KorisniciService.UpdatePassword(request);
+
+                if (userVM == null)
+                    return NotFound(new { message = "Korisnik nije pronađen." });
+
+                return Ok(userVM);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = $"Greška prilikom promjene lozinke: {ex.Message}" });
+            }
+        }
+
+
+
+
     }
 }

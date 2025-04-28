@@ -77,16 +77,16 @@ builder.Services.AddAutoMapper(typeof(UredjajService));
 
 var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
-/*builder.Services.AddIdentityServer(x =>
+builder.Services.AddIdentityServer(x =>
 {
     x.IssuerUri = "foo";
 });
 
 
-builder.Services.AddAuthentication(x => 
-{ 
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; 
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
     .AddJwtBearer(options =>
     {
@@ -94,8 +94,8 @@ builder.Services.AddAuthentication(x =>
         options.SaveToken = true;
         options.RequireHttpsMetadata = false;
         options.Audience = "api";
-        //options.Audience = "SuperSecretPassword";
-        
+        options.Audience = "SuperSecretPassword";
+
 
         options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
 
@@ -106,7 +106,7 @@ builder.Services.AddAuthentication(x =>
             ValidateIssuer = false,
             ValidateAudience = false
         };
-    });*/
+    });
 
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -115,6 +115,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<_190128Context>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<Korisnici, Uloge>().AddUserManager<Microsoft.AspNetCore.Identity.UserManager<Korisnici>>()
+    .AddRoleManager<Microsoft.AspNetCore.Identity.RoleManager<Uloge>>()
+            .AddEntityFrameworkStores<_190128Context>().AddDefaultTokenProviders();
 
 
 
@@ -143,7 +147,7 @@ builder.Services.AddTransient<eWorkshop.Services.RadniZadatakStateMachine.Invoic
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
+
 
 
 app.UseHttpsRedirection();
@@ -156,12 +160,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");  
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
 
-    // Configure Swagger to use Identity Server authorization endpoint
-    //options.OAuthClientId("swagger"); // Client ID registered in Identity Server
-    //options.OAuthAppName("Swagger UI");
-    //options.OAuthUsePkce();
+        // Configure Swagger to use Identity Server authorization endpoint
+        //options.OAuthClientId("swagger"); // Client ID registered in Identity Server
+        //options.OAuthAppName("Swagger UI");
+        //options.OAuthUsePkce();
     });
 }
 

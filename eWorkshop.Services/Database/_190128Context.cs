@@ -32,20 +32,7 @@ public partial class _190128Context : DbContext
 
     public virtual DbSet<ApiScopeProperty> ApiScopeProperties { get; set; }
 
-    public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-
-    public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-
-    public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-
-    public virtual DbSet<AspNetRole> AspNetUserRoles { get; set; }
-
-    public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-
-    public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-
-    public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
-
+    
     public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<ClientClaim> ClientClaims { get; set; }
@@ -106,8 +93,11 @@ public partial class _190128Context : DbContext
     public virtual DbSet<Uredjaj> Uredjajs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection"));
+        => optionsBuilder.UseSqlServer("Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True");
     //"Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True"
+    //"ConnectionStrings__DefaultConnection"
+    //Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+    //"Server=localhost,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True"
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ApiResource>(entity =>
@@ -120,7 +110,7 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Name).HasMaxLength(200);
 
         }
-        ) ;
+        );
 
         modelBuilder.Entity<ApiResource>().SeedData();
 
@@ -195,94 +185,7 @@ public partial class _190128Context : DbContext
             entity.HasOne(d => d.Scope).WithMany(p => p.ApiScopeProperties).HasForeignKey(d => d.ScopeId);
         });
 
-        modelBuilder.Entity<AspNetRole>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedName] IS NOT NULL)");
-
-            entity.Property(e => e.Name).HasMaxLength(256);
-            entity.Property(e => e.NormalizedName).HasMaxLength(256);
-        });
-
-        modelBuilder.Entity<AspNetRoleClaim>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
-        });
-
-        modelBuilder.Entity<AspNetUser>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
-
-            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-            entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-            entity.Property(e => e.UserName).HasMaxLength(256);
-
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "AspNetUserRole",
-                    r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
-                    l => l.HasOne<AspNetUser>().WithMany().HasForeignKey("UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "RoleId");
-                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
-                    });
-        });
-
-        modelBuilder.Entity<AspNetUserClaim>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-
-            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
-
-            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<AspNetUserLogin>(entity =>
-        {
-            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-
-            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
-
-            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<AspNetUserToken>(entity =>
-        {
-            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<Client>(entity =>
-        {
-            entity.HasIndex(e => e.ClientId, "IX_Clients_ClientId").IsUnique();
-
-            entity.Property(e => e.AllowedIdentityTokenSigningAlgorithms).HasMaxLength(100);
-            entity.Property(e => e.BackChannelLogoutUri).HasMaxLength(2000);
-            entity.Property(e => e.ClientClaimsPrefix).HasMaxLength(200);
-            entity.Property(e => e.ClientId).HasMaxLength(200);
-            entity.Property(e => e.ClientName).HasMaxLength(200);
-            entity.Property(e => e.ClientUri).HasMaxLength(2000);
-            entity.Property(e => e.Description).HasMaxLength(1000);
-            entity.Property(e => e.FrontChannelLogoutUri).HasMaxLength(2000);
-            entity.Property(e => e.LogoUri).HasMaxLength(2000);
-            entity.Property(e => e.PairWiseSubjectSalt).HasMaxLength(200);
-            entity.Property(e => e.ProtocolType).HasMaxLength(200);
-            entity.Property(e => e.UserCodeType).HasMaxLength(100);
-        });
+        
 
         modelBuilder.Entity<Client>().SeedData();
 

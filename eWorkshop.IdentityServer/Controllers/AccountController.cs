@@ -15,6 +15,7 @@ using Duende.IdentityServer;
 using eWorkshop.Services.Database;
 using Duende.IdentityServer.Stores;
 using static Duende.IdentityServer.Models.IdentityResources;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eWorkshop.IdentityServer.Controllers
 {
@@ -38,7 +39,7 @@ namespace eWorkshop.IdentityServer.Controllers
 
         public AccountController(
             _190128Context context,
-            IClientStore clientStore,
+            //IClientStore clientStore,
             IRoleStore<Uloge> roleStore,
             UserManager<Korisnici> userManager,
             IUserStore<Korisnici> userStore,
@@ -49,7 +50,7 @@ namespace eWorkshop.IdentityServer.Controllers
             )
         {
             Context = context;
-            _clientStore = clientStore;
+            //_clientStore = clientStore;
              _roleStore = roleStore;
             _userManager = userManager;
             _userStore = userStore;
@@ -59,120 +60,17 @@ namespace eWorkshop.IdentityServer.Controllers
             _tools = tools;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Register(KorisniciInsertRequest request)
-        {
-            var user = CreateUser();
-
-            user.UserName = request.Ime.ToLower() + "." + request.Prezime.ToLower();
-            user.Email = request.Email;
-            user.Ime = request.Ime;
-            user.Prezime = request.Prezime;
-            user.TwoFactorEnabled = false;
-            user.PhoneNumberConfirmed = false;
-            user.LockoutEnabled = false;
-            user.AccessFailedCount = 100;
-            user.Status = request.Status;
-            user.RadnaJedinica = request.RadnaJedinica;
-
-            var email = await _userManager.FindByEmailAsync(user.Email);
-
-            if(email != null)
-            {
-                return BadRequest("Email adresa nije dostupna");
-            }
-
-            var result = await _userManager.CreateAsync(user, request.PasswordHash);
-            
-            
-
-
-            var cancToken = CancellationToken.None;
-
-            if (result.Succeeded)
-            {
-                user.EmailConfirmed = true;
-
-                if (user == null)
-                {
-                    return BadRequest("User je null");
-                }
-
-                if (request.Uloge == null)
-                {
-                    return BadRequest("Uloga je null");
-                }
-
-                var uloge = await _userManager.GetRolesAsync(user);
-
-                
-
-                var ulogetemp =  await _userManager?.AddToRolesAsync(user, request.Uloge);
-  
-
-                var claims = new List<Claim>
-             {
-              new Claim(JwtClaimTypes.PreferredUserName, user.UserName),
-              new Claim(JwtClaimTypes.Name, user.Ime + " " + user.Prezime),
-              new Claim(JwtClaimTypes.Email, user.Email),
-              new Claim(JwtClaimTypes.Id, user.Id.ToString()),
-            };
-
-                foreach (var x in uloge)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, x));
-                }
-                 
-
-                await _userManager.AddClaimsAsync(user, claims);
-                
-            }
-
-            if (result.Errors.ToList().Count > 0)
-            {
-                var errorMsg = string.Join(" ", result.Errors.Select(x => x.Description));
-
-                throw new Exception(errorMsg);
-
-            }
-
-            var korisnik = new KorisniciVM();
-            
-            return Ok();
-        }
-
-        private Korisnici CreateUser()
-        {
-            try
-            {
-                return Activator.CreateInstance<Korisnici>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(Korisnici)}'. " +
-                    $"Ensure that '{nameof(Korisnici)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
-        }
-
-        [HttpGet]
-        public async Task<IEnumerable<KorisniciVM>> GetUsersAsync()
-        {
-            IQueryable<Korisnici> query = _userManager.Users;
-
-            var users = await query.ToListAsync();
-            
-
-            var model = Mapper.Map<List<KorisniciVM>>(users);
-
-            return model;
-        }
-
-
+        
         [HttpGet("Login")]
         public async Task<IActionResult> Login(string userName, string password)
         {
             var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Korisnik ne postoji.");
+                return BadRequest("Korisnik ne postoji.");
+            }
 
             var login = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
@@ -197,6 +95,12 @@ namespace eWorkshop.IdentityServer.Controllers
             }
 
             var client = Context.Clients.Where(x => x.ClientId == "flutter").FirstOrDefault();
+
+            if (client == null)
+            {
+                return BadRequest("Klijent 'flutter' ne postoji u bazi.");
+            }
+
             var scopes = Context.ClientScopes.Where(x => x.ClientId == client.Id).Select(x => x.Scope).ToList();
 
 

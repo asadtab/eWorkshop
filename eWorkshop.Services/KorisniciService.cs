@@ -17,14 +17,133 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Security.Principal;
 using IdentityModel;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace eWorkshop.Services
 {
     public class KorisniciService : BaseCRUDService<KorisniciVM, KorisniciSearchObject, Korisnici, KorisniciInsertRequest, KorisniciUpdateRequest>, IKorisniciService
     {
-        public KorisniciService(_190128Context context, IMapper mapper) : base(context, mapper)
+        private readonly UserManager<Korisnici> _userManager;
+        private readonly RoleManager<Uloge> _roleManager;
+        public KorisniciService(_190128Context context, IMapper mapper, RoleManager<Uloge> roleManager, UserManager<Korisnici> userManager) : base(context, mapper)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
 
+        public async Task<KorisniciVM> Register(KorisniciInsertRequest request)
+        {
+            if (request == null)
+                throw new ArgumentException("Zahtjev ne može biti prazan.");
+
+            var existingUser = await _userManager.FindByEmailAsync(request.Email);
+            if (existingUser != null)
+                throw new InvalidOperationException("Korisnik sa ovom email adresom već postoji.");
+
+            var user = CreateUser();
+
+            user.UserName = request.Ime.ToLower() + "." + request.Prezime.ToLower();
+            user.Email = request.Email;
+            user.Ime = request.Ime;
+            user.Prezime = request.Prezime;
+            user.TwoFactorEnabled = false;
+            user.PhoneNumberConfirmed = false;
+            user.LockoutEnabled = false;
+            user.AccessFailedCount = 100;
+            user.Status = request.Status;
+            user.RadnaJedinica = request.RadnaJedinica;
+            user.EmailConfirmed = true;
+
+            if (request.Uloge == null || !request.Uloge.Any())
+                throw new ArgumentException("Lista uloga ne smije biti prazna.");
+
+            foreach (var uloga in request.Uloge)
+            {
+                var exists = await _roleManager.RoleExistsAsync(uloga);
+                if (!exists)
+                    throw new ArgumentException($"Uloga '{uloga}' ne postoji u bazi podataka.");
+            }
+
+            var result = await _userManager.CreateAsync(user, request.PasswordHash);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(" ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Greška prilikom kreiranja korisnika: {errors}");
+            }
+
+            var roleResult = await _userManager.AddToRolesAsync(user, request.Uloge);
+            if (!roleResult.Succeeded)
+            {
+                await _userManager.DeleteAsync(user);
+
+                var errors = string.Join(" ", roleResult.Errors.Select(e => e.Description));
+                throw new Exception($"Greška pri dodavanju uloga: {errors}");
+            }
+
+            var claims = new List<Claim>
+    {
+        new Claim(JwtClaimTypes.PreferredUserName, user.UserName),
+        new Claim(JwtClaimTypes.Name, $"{user.Ime} {user.Prezime}"),
+        new Claim(JwtClaimTypes.Email, user.Email),
+        new Claim(JwtClaimTypes.Id, user.Id.ToString())
+    };
+
+            foreach (var uloga in request.Uloge)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, uloga));
+            }
+
+            await _userManager.AddClaimsAsync(user, claims);
+
+            // Creating a view model to return
+            var korisnikVM = new KorisniciVM
+            {
+                UserName = user.UserName,
+                Ime = user.Ime,
+                Prezime = user.Prezime,
+                Email = user.Email,
+                Status = true,
+                RadnaJedinica = user.RadnaJedinica,
+                Uloge = request.Uloge
+            };
+
+            return korisnikVM;
+        }
+
+
+        public async Task<KorisniciVM?> UpdatePassword(PromjeniPasswordRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            if (user == null)
+                return null; // just return null for not found
+
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception(string.Join(" ", result.Errors.Select(e => e.Description)));
+            }
+
+            var userVM = Get(new KorisniciSearchObject { KorisnikID = user.Id });
+            return userVM.FirstOrDefault();
+        }
+
+
+        private Korisnici CreateUser()
+        {
+            try
+            {
+                return Activator.CreateInstance<Korisnici>();
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(Korisnici)}'. " +
+                    $"Ensure that '{nameof(Korisnici)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            }
         }
 
         public override IQueryable<Korisnici> AddInclude(IQueryable<Korisnici> query, KorisniciSearchObject search = null)
