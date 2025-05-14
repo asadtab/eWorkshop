@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:commons/models/uredjaj.dart';
 import 'package:flutter/material.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
-import 'package:uni_links/uni_links.dart';
+//import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class IdsProvider extends ChangeNotifier {
@@ -17,7 +17,7 @@ class IdsProvider extends ChangeNotifier {
 
   final credentialsFile = File('~/.myapp/credentials.json');
 
-  Future<oauth2.Client> createClient() async {
+ /* Future<oauth2.Client> createClient() async {
     var exists = await credentialsFile.exists();
 
     if (exists) {
@@ -35,7 +35,7 @@ class IdsProvider extends ChangeNotifier {
     var responseUrl = await listen(redirectUrl);
 
     return await grant.handleAuthorizationResponse(responseUrl.queryParameters);
-  }
+  }*/
 
   redirect(Uri authorizationUrl) async {
     if (await canLaunchUrl(authorizationUrl)) {
@@ -45,13 +45,13 @@ class IdsProvider extends ChangeNotifier {
     }
   }
 
-  listen(Uri redirectUrl) async {
+ /* listen(Uri redirectUrl) async {
     return await uriLinkStream.firstWhere(
       (element) => element.toString().startsWith(
             redirectUrl.toString(),
           ),
     );
-  }
+  }*/
 
   Future<List<Uredjaj>> getIds(oauth2.Client client) async {
     String uri = "https://localhost:7189/Uredjaj";

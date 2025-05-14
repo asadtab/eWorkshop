@@ -85,6 +85,14 @@ class _AddUserFormState extends State<AddUserForm> {
     _emailController.text = widget.korisnik?.email ?? "";
     _nazivRadneJediniceController.text = widget.korisnik?.radnaJedinica ?? "";
 
+    if(widget.korisnik != null) {
+setState(() {
+  selectedRoles = widget.korisnik!.uloge;
+
+});
+     
+         }
+
     _fetchData(null);
 
     super.initState();
@@ -161,7 +169,6 @@ class _AddUserFormState extends State<AddUserForm> {
           ),
           SizedBox(height: 16.0),
 
-          // List Tiles for Roles
           Text('Uloge', style: Theme.of(context).textTheme.bodyMedium),
           if (!isSelected)
             Container(
@@ -273,8 +280,7 @@ class _AddUserFormState extends State<AddUserForm> {
                       });
                 }
 
-                if (_formKey.currentState!.validate()) {
-                  var request = {
+                var request = {
                     "email": _emailController.text,
                     "passwordHash": _passwordController.text,
                     "ime": _imeController.text,
@@ -283,6 +289,12 @@ class _AddUserFormState extends State<AddUserForm> {
                     "status": aktivan,
                     "radnaJedinica": _nazivRadneJediniceController.text
                   };
+
+                if (!_formKey.currentState!.validate()) {
+                  return;
+                }
+                  
+                  
 
                   if(widget.korisnik != null) {  
                     widget.korisnici.remove(widget.korisnik);
@@ -309,11 +321,17 @@ class _AddUserFormState extends State<AddUserForm> {
                   }
 
                    try {
-                    await korisniciProvider!.update(int.parse(User.id!), request, 'Korisnici');
+                    var korisnik = await korisniciProvider!.update(int.parse(User.id!), request, 'Korisnici');
                     korisniciBloc.add(KorisniciLoad());
 
                     emptyBox();
                     setState(() {
+                      User.id = korisnik!.id.toString();
+                      User.name = '${korisnik.ime} ${korisnik.prezime.toString()}' ;
+                      User.roles = korisnik.uloge;
+                      User.email = korisnik.email;
+                      User.username = korisnik.userName;
+
                       selectedRoles = [];
                     });
                     Navigator.pop(context);
@@ -343,7 +361,8 @@ class _AddUserFormState extends State<AddUserForm> {
                     poruka(e.toString());
                     return;
                   }
-                  poruka("Korisnik je uspješno dodan");
+                  poruka("Informacije o korisniku su uspješno izmijenjene ");
+                  return;
 
 
                   }
@@ -406,7 +425,7 @@ class _AddUserFormState extends State<AddUserForm> {
                     return;
                   }
                   poruka("Korisnik je uspješno dodan");
-                }
+                
               }),
         ],
       ),

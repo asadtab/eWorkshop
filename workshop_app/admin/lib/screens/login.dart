@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   String? ime;
   AuthProvider? authProvider;
@@ -57,66 +58,88 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       builder: (context, state) {
-        return Center(
-          child: Card(
-            child: Container(
-              width: 500,
-              height: 500,
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(height: 20.0),
-                    TextField(
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        labelText: 'Username',
-                        border: OutlineInputBorder(),
+        return Form(
+          key: _formKey,
+          child: Center(
+            child: Card(
+              child: Container(
+                width: 500,
+                height: 500,
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+              return 'Unesite korisničko ime';
+            }
+            return null;
+                        },
+                        controller: usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Korisničko ime',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10.0),
-                    TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder(),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+              return 'Unesite lozinku';
+            }
+            return null;
+                        },
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                         
+                          labelText: 'Lozinka',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 20.0),
-                    MinimalisticButton(
-                      icons: Icon(
-                        Icons.login,
-                        color: Colors.black,
-                      ),
-                      text: "Login",
-                      onPressed: () async {
-                        try {
-                          var token = await authProvider!.login(usernameController.text, passwordController.text);
-
-                          context.read<AuthProvider>().setLoggedIn(true);
-
-                          setState(() {
-                            authProvider!.getUser(token);
-                          });
-
-                          if (context.read<AuthProvider>().isLoggedIn!) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyHomePage(title: "Informacioni sistem za podršku rada servisne radionice"),
-                              ),
-                            );
+                      SizedBox(height: 20.0),
+                      MinimalisticButton(
+                        icons: Icon(
+                          Icons.login,
+                          color: Colors.black,
+                        ),
+                        text: "Login",
+                        onPressed: () async {
+                          try {
+          
+                            if (!_formKey.currentState!.validate()) {
+            return;
+          }
+        
+          
+                            var token = await authProvider!.login(usernameController.text, passwordController.text);
+          
+                            context.read<AuthProvider>().setLoggedIn(true);
+          
+                            setState(() {
+                              authProvider!.getUser(token);
+                            });
+          
+                            if (context.read<AuthProvider>().isLoggedIn!) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyHomePage(title: "Informacioni sistem za podršku rada servisne radionice"),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            poruka("Lozinka ili korisničko ime su pogrešni.");
                           }
-                        } catch (e) {
-                          poruka("Login nije uspio" + e.toString());
-                        }
-                      },
-                    ),
-                    if (state is LoginLoading) CircularProgressIndicator(),
-                  ],
+                        },
+                      ),
+                      if (state is LoginLoading) CircularProgressIndicator(),
+                    ],
+                  ),
                 ),
               ),
             ),

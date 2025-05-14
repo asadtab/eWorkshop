@@ -109,21 +109,27 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                         GestureDetector(
            onTap: urediInformacije,
            
-          child: Text(
-            "Uredi račun",
-            style: TextStyle(
-              color: Colors.blue,
-              decoration: TextDecoration.underline,
-              fontSize: 18,))),
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Text(
+              "Uredi račun",
+              style: TextStyle(
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
+                fontSize: 18,)),
+          )),
               GestureDetector(
            onTap: promijeni_password,
            
-          child: Text(
-            "Promjeni korisničku lozinku",
-            style: TextStyle(
-              color: Colors.blue,
-              decoration: TextDecoration.underline,
-              fontSize: 18,)))
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Text(
+              "Promjeni korisničku lozinku",
+              style: TextStyle(
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
+                fontSize: 18,)),
+          ))
                       ],
                     ),
                   ],
