@@ -29,4 +29,5 @@ Tekstualno:</br>
   -"out" - Poslan - uređaj je poslan i može se vratiti i njegovo stanje će biti "active"</br></br>
  
 Slikovno:</br>
-![image](https://github.com/user-attachments/assets/74c44653-411f-4fcb-a7a7-2c88a70f9f30)
+![image](https://github.com/user-attachments/assets/29feff40-ad1c-4259-a92a-35eed9f0075f)
+
