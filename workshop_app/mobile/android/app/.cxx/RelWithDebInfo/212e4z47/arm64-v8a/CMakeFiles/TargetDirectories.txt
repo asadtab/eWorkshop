@@ -1,0 +1,2 @@
+C:/Users/asad.tabak/Desktop/Materijali/dev/eWorkshop/workshop_app/mobile/android/app/.cxx/RelWithDebInfo/212e4z47/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/asad.tabak/Desktop/Materijali/dev/eWorkshop/workshop_app/mobile/android/app/.cxx/RelWithDebInfo/212e4z47/arm64-v8a/CMakeFiles/rebuild_cache.dir
