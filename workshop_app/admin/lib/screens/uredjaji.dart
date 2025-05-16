@@ -219,22 +219,22 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                                     return AlertDialog(
                                                       title: Text("Da li želite izbrisati uređaj"),
                                                       content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                                                        ElevatedButton(
-                                                            child: Text("Potvrdi"),
-                                                            style: ElevatedButton.styleFrom(
-                                                              elevation: 2,
-                                                            ),
+                                                        MinimalisticButton(
+                                                            text: "Potvrdi",
+                                                            icons: Icon(Icons.save, color: Colors.blueAccent,),
                                                             onPressed: () async {
                                                               try {
                                                                 await _uredjajiProvider!.delete(x.uredjajId, x, "Uredjaj");
                                                               } catch (e) {}
                                                               uredjajBloc.add(UredjajFilterEvent(status: 'idle'));
                                                               Navigator.pop(context);
+                                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(CustomNotification.infoSnack("Uređaj je uspješno izbrisan"));
                                                             }),
-                                                        ElevatedButton(
-                                                            child: Text("Poništi"),
-                                                            style: ElevatedButton.styleFrom(elevation: 2, backgroundColor: Colors.redAccent),
-                                                            onPressed: () async {})
+                                                        MinimalisticButton(
+                                                          text: "Poništi",
+                                                          icons: Icon(Icons.cancel, color: Colors.redAccent,),
+                                                            onPressed: () async {Navigator.pop(context);})
                                                       ]),
                                                     );
                                                   });

@@ -188,16 +188,46 @@ class _RadniZadaciListaState extends State<RadniZadaciLista> {
                                 initialValue: selected,
                                 onSelected: (izbor) {
                                   switch (izbor) {
-                                    case 'edit':
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => RadniZadaciScreen.uredi(radniZadatakId: x.radniZadatakId)));
+                                    case 'delete':
+                                    if(x.stateMachine != 'idle'){
+                                      ScaffoldMessenger.of(context)
+                                                  .showSnackBar(CustomNotification.infoSnack("Samo neaktivni radni zadaci se mogu izbrisati."));
+                                                  return;
+                                    }
+                                    showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text("Da li želite izbrisati radni zadatak"),
+                                                      content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                                                        MinimalisticButton(
+                                                            text: "Potvrdi",
+                                                            icons: Icon(Icons.save, color: Colors.blueAccent,),
+                                                            onPressed: () async {
+                                                              try {
+                                                                await radniZadaciProvider!.delete(x.radniZadatakId, x, "RadniZadatak");
+                                                              } catch (e) {
+                                                                ScaffoldMessenger.of(context)
+                                                  .showSnackBar(CustomNotification.infoSnack('Neuspješna akcija. Poruka: ' + e.toString()));
+                                                              }
+                                                              Navigator.pop(context);
+                                                              
+                                                                _fetchData({'StateMachine': 'idle'});
+                                                            
+                                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(CustomNotification.infoSnack("Radni zadatak je uspješno izbrisan"));
+                                                            }),
+                                                        MinimalisticButton(
+                                                          text: "Poništi",
+                                                          icons: Icon(Icons.cancel, color: Colors.redAccent,),
+                                                            onPressed: () async {Navigator.pop(context);})
+                                                      ]),
+                                                    );
+                                                  });
                                   }
                                 },
                                 itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                  PopupMenuItem<String>(
-                                    child: Text('Uredi'),
-                                    value: 'edit',
-                                  ),
+                                
                                   PopupMenuItem<String>(
                                     child: Text('Izbriši'),
                                     value: 'delete',

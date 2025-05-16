@@ -110,7 +110,7 @@ class _KonzolaScreenState extends State<KonzolaScreen> {
                                   ? Center(
                                       child: Column(children: [
                                         Text(
-                                            "Trenutno nema aktivnih radnih zadataka. Aktiviraj radni zadatak dodavanjem uređaja u sekciji Radni zadaci."),
+                                            "Trenutno nema aktivnih radnih zadataka. Aktiviraj radni zadatak dodavanjem uređaja u sekciji Raspored uređaja."),
                                       ]),
                                     )
                                   : Row(

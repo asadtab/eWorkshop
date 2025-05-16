@@ -31,6 +31,7 @@ class RasporedUredjaja extends StatefulWidget {
 
 class _RasporedUredjajaState extends State<RasporedUredjaja> {
   List<Uredjaj> targetList = [];
+  
 
   List<Uredjaj> aktivniUredjaji = [];
   List<RadniZadatakUredjaj> radniZadatakUredjaj = [];
@@ -63,7 +64,8 @@ class _RasporedUredjajaState extends State<RasporedUredjaja> {
 
     uredjajBloc = BlocProvider.of<RadniZadatakUredjajBloc>(context);
 
-    //uredjajBloc!.add(RadniZadatakIdEvent(id: 1));
+
+    uredjajBloc!.add(RadniZadatakIdEvent(id: widget.radniZadatakId ?? 0));
 
     uredjajBlocActive!.add(UredjajiLoadZadatakEvent());
 
@@ -452,15 +454,13 @@ class _RasporedUredjajaState extends State<RasporedUredjaja> {
           return AlertDialog(
               title: Text("Da li želite označiti zadatak završenim"),
               content: Container(
-                  height: 50,
+                  height: 100,
                   child: Container(
                       padding: EdgeInsets.fromLTRB(0, 29, 0, 0),
                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                        ElevatedButton(
-                            child: Text("Potvrdi"),
-                            style: ElevatedButton.styleFrom(
-                              elevation: 2,
-                            ),
+                        MinimalisticButton(
+                            text: "Potvrdi",
+                            
                             onPressed: () async {
                               var temp;
 
@@ -491,7 +491,7 @@ class _RasporedUredjajaState extends State<RasporedUredjaja> {
                               });
                             }),
                         ElevatedButton(
-                            child: Text("Poništi"),
+                            child: Text(style: TextStyle(color: Colors.white),"Poništi"),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 170, 70, 63),
                               elevation: 2,

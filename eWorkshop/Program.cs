@@ -161,11 +161,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-
-        // Configure Swagger to use Identity Server authorization endpoint
-        //options.OAuthClientId("swagger"); // Client ID registered in Identity Server
-        //options.OAuthAppName("Swagger UI");
-        //options.OAuthUsePkce();
     });
 }
 

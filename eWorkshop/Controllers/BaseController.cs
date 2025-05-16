@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eWorkshop.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     
