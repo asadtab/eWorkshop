@@ -18,6 +18,11 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
   final TextEditingController _emailController = TextEditingController();
   final List<String> _emailAddresses = [];
   final _formKeyTip = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
+  final RegExp emailRegex = RegExp(
+  r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+);
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +35,35 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
               Text("Unesite email adrese za slanje (opcionalno)"),
                  Padding(
                    padding: const EdgeInsets.all(8.0),
-                   child: Row(
-                                   children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'neko.primjer@adr.email',
-                          border: OutlineInputBorder(),
+                   child: Form(
+                    key: _formKey,
+                     child: Row(
+                                     children: [
+                      Expanded(
+                        child: TextFormField(
+                          validator:  (value) {
+                         if (value == null || value.isEmpty) {
+                           return 'Unesite email adresu';
+                         } else if (!emailRegex.hasMatch(value)) {
+                           return 'Unesite ispravnu email adresu';
+                         }
+                         return null;
+                       },
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'neko.primjer@adr.email',
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
                         ),
-                        keyboardType: TextInputType.emailAddress,
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: _onIconPressed,
-                    ),
-                                   ],
-                                 ),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: _onIconPressed,
+                      ),
+                                     ],
+                                   ),
+                   ),
                  ),
               Form(
                 key: _formKeyTip,
@@ -123,7 +139,7 @@ if (_formKeyTip.currentState!.validate()) {
   }
   
   void _onIconPressed() {
-    if (_emailController.text.isNotEmpty) {
+    if (_emailController.text.isNotEmpty && _formKey.currentState!.validate()) {
       setState(() {
         _emailAddresses.add(_emailController.text);
         _emailController.clear();
