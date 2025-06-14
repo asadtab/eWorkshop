@@ -29,5 +29,13 @@ Tekstualno:</br>
   -"out" - Poslan - uređaj je poslan i može se vratiti i njegovo stanje će biti "active"</br></br>
  
 Slikovno:</br>
-![image](https://github.com/user-attachments/assets/29feff40-ad1c-4259-a92a-35eed9f0075f)
+![image](https://github.com/user-attachments/assets/29feff40-ad1c-4259-a92a-35eed9f0075f)</br></br>
+
+Prilikom dodavanja uređaja, novi uređaj će imati status "Neaktivan" tj. idle i nalazit će se u Neaktivnim uređajima kojima se može pristupiti odabirom na dropdown-u. </br></br>
+
+Radni zadaci se mogu označiti završenim a uređaji koji nisu servisirani će se izbrisati iz radnog zadatka i izvještaj se može generisati. </br></br>
+
+Administrator dodaje korisnike sistema, a korisnici sistema mogu da izmjene pristupnu lozinku.
+
+
 
