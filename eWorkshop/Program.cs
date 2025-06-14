@@ -1,4 +1,4 @@
-using eWorkshop.Services;
+﻿using eWorkshop.Services;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using eWorkshop.Services.Database;
@@ -23,6 +23,8 @@ using Microsoft.IdentityModel.Logging;
 using System.Net;
 using eWorkshop.MailPublisher.Services;
 using eWorkshop.MailPublisher.Config;
+using DotNetEnv;
+using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,6 +110,8 @@ builder.Services.AddAuthentication(x =>
         };
     });
 
+DotNetEnv.Env.Load();
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -165,6 +169,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+
+
 
 
 using (var scope = app.Services.CreateScope())

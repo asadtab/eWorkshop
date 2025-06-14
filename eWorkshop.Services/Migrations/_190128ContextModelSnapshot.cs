@@ -161,7 +161,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2025, 4, 6, 7, 53, 32, 504, DateTimeKind.Local).AddTicks(9778),
+                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 50, DateTimeKind.Local).AddTicks(8005),
                             Description = "Api",
                             DisplayName = "api",
                             Enabled = true,
@@ -343,7 +343,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2025, 4, 6, 7, 53, 32, 505, DateTimeKind.Local).AddTicks(4589),
+                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 51, DateTimeKind.Local).AddTicks(2979),
                             Description = "Pristup informacijama o korisniku",
                             DisplayName = "Pristup",
                             Emphasize = false,
@@ -356,7 +356,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2025, 4, 6, 7, 53, 32, 505, DateTimeKind.Local).AddTicks(4608),
+                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 51, DateTimeKind.Local).AddTicks(2997),
                             Description = "Pristup e-mail adresama korisnika",
                             DisplayName = "Email",
                             Emphasize = false,
@@ -369,7 +369,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2025, 4, 6, 7, 53, 32, 505, DateTimeKind.Local).AddTicks(4611),
+                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 51, DateTimeKind.Local).AddTicks(3000),
                             Description = "Potreban je OpenID Connect, zahtijeva osnovne informacije o korisniku",
                             DisplayName = "OpenID",
                             Emphasize = false,
@@ -920,7 +920,7 @@ namespace eWorkshop.Services.Migrations
                         {
                             Id = 1,
                             ClientId = 1,
-                            Created = new DateTime(2025, 4, 6, 7, 53, 32, 506, DateTimeKind.Local).AddTicks(6665),
+                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 52, DateTimeKind.Local).AddTicks(2628),
                             Description = "Aplikacija",
                             Expiration = new DateTime(2025, 2, 4, 9, 39, 35, 109, DateTimeKind.Unspecified),
                             Type = "app",
@@ -1172,35 +1172,35 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             IzvrseniServisId = 1,
-                            Datum = new DateTime(2025, 4, 6, 5, 53, 32, 507, DateTimeKind.Utc).AddTicks(2693),
+                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7767),
                             KomponentaId = 1,
                             ServisId = 1
                         },
                         new
                         {
                             IzvrseniServisId = 2,
-                            Datum = new DateTime(2025, 4, 6, 5, 53, 32, 507, DateTimeKind.Utc).AddTicks(2695),
+                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7769),
                             KomponentaId = 2,
                             ServisId = 1
                         },
                         new
                         {
                             IzvrseniServisId = 5,
-                            Datum = new DateTime(2025, 4, 6, 5, 53, 32, 507, DateTimeKind.Utc).AddTicks(2697),
+                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7770),
                             KomponentaId = 3,
                             ServisId = 1
                         },
                         new
                         {
                             IzvrseniServisId = 3,
-                            Datum = new DateTime(2025, 4, 6, 5, 53, 32, 507, DateTimeKind.Utc).AddTicks(2698),
+                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7771),
                             KomponentaId = 1,
                             ServisId = 2
                         },
                         new
                         {
                             IzvrseniServisId = 4,
-                            Datum = new DateTime(2025, 4, 6, 5, 53, 32, 507, DateTimeKind.Utc).AddTicks(2699),
+                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7772),
                             KomponentaId = 3,
                             ServisId = 2
                         });
@@ -1596,21 +1596,21 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             RadniZadatakId = 1,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 507, DateTimeKind.Local).AddTicks(6571),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(1033),
                             Naziv = "Mostar",
                             StateMachine = "active"
                         },
                         new
                         {
                             RadniZadatakId = 2,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 507, DateTimeKind.Local).AddTicks(6589),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(1075),
                             Naziv = "Sarajevo",
                             StateMachine = "idle"
                         },
                         new
                         {
                             RadniZadatakId = 3,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 507, DateTimeKind.Local).AddTicks(6592),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(1078),
                             Naziv = "Zenica",
                             StateMachine = "idle"
                         });
@@ -1788,7 +1788,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 1,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 508, DateTimeKind.Local).AddTicks(2642),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6057),
                             KorisnikId = 1,
                             RadniZadatakId = 1,
                             UredjajId = 189
@@ -1796,7 +1796,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 2,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 508, DateTimeKind.Local).AddTicks(2659),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6071),
                             KorisnikId = 1,
                             RadniZadatakId = 1,
                             UredjajId = 190
@@ -1804,7 +1804,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 3,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 508, DateTimeKind.Local).AddTicks(2662),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6073),
                             KorisnikId = 2,
                             RadniZadatakId = 1,
                             UredjajId = 191
@@ -1812,7 +1812,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 4,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 508, DateTimeKind.Local).AddTicks(2664),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6075),
                             KorisnikId = 2,
                             RadniZadatakId = 1,
                             UredjajId = 192
@@ -1820,7 +1820,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 5,
-                            Datum = new DateTime(2025, 4, 6, 7, 53, 32, 508, DateTimeKind.Local).AddTicks(2666),
+                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6077),
                             KorisnikId = 1,
                             RadniZadatakId = 1,
                             UredjajId = 193
@@ -1901,21 +1901,21 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "f8e8bedc-0670-44e1-b6fc-880ffae50060",
+                            ConcurrencyStamp = "7e4cfe1e-8374-4f73-9eae-001950af72a8",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "746047ee-b836-495e-b722-02608d2ef484",
+                            ConcurrencyStamp = "5313ce61-726c-4b01-b021-282125380370",
                             Name = "Serviser",
                             NormalizedName = "SERVISER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "8226aece-476f-47a3-a6ea-5d9638e3bd8e",
+                            ConcurrencyStamp = "73710dab-5cc5-49c0-9f7e-db554d272845",
                             Name = "Pretplatnik",
                             NormalizedName = "PRETPLATNIK"
                         });

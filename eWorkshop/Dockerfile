@@ -14,6 +14,7 @@ WORKDIR "/src/eWorkshop"
 RUN dotnet build "eWorkshop.csproj" -c Release -o /app/build
 
 FROM build AS publish
+COPY eWorkshop/appsettings.json /app/publish/
 RUN dotnet publish "eWorkshop.csproj" -c Release -o /app/publish
 
 FROM base AS final

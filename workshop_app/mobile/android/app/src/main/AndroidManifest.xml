@@ -23,9 +23,12 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+              <intent-filter>
+              <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+              </intent-filter>
+            <intent-filter>
+                
                 <data
           android:scheme="https://ee5e-109-237-44-2.ngrok-free.app"
           android:host="swagger/oauth2-redirect.html" />

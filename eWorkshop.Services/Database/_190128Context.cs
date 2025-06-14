@@ -7,9 +7,7 @@ namespace eWorkshop.Services.Database;
 
 public partial class _190128Context : DbContext
 {
-    public _190128Context()
-    {
-    }
+
 
     public _190128Context(DbContextOptions<_190128Context> options)
         : base(options)
@@ -91,13 +89,10 @@ public partial class _190128Context : DbContext
 
 
     public virtual DbSet<Uredjaj> Uredjajs { get; set; }
-
+/*
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True");
-    //"Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True"
-    //"ConnectionStrings__DefaultConnection"
-    //Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
-    //"Server=localhost,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True"
+        => optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("Server=eworkshop-sql,1433;Database=190128;User=sa;Password=QWElkj132!;TrustServerCertificate=True"));
+ */
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ApiResource>(entity =>

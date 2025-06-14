@@ -72,11 +72,17 @@ namespace eWorkshop.IdentityServer.Controllers
                 return BadRequest("Korisnik ne postoji.");
             }
 
-            var login = await _signInManager.PasswordSignInAsync(user, password, false, false);
+            /*var login = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
             if (!login.Succeeded)
             {
                 throw new Exception("Logiranje nije uspjelo");
+            }*/
+
+            var passwordValid = await _userManager.CheckPasswordAsync(user, password);
+            if (!passwordValid)
+            {
+                return BadRequest("Pogrešno korisničko ime ili lozinka.");
             }
 
             var uloge = await _userManager.GetRolesAsync(user);
@@ -86,8 +92,10 @@ namespace eWorkshop.IdentityServer.Controllers
               new Claim(JwtClaimTypes.PreferredUserName, user.UserName),
               new Claim(JwtClaimTypes.Name, user.Ime + " " + user.Prezime),
               new Claim(JwtClaimTypes.Email, user.Email),
-              new Claim(JwtClaimTypes.Id, user.Id.ToString()),
+              new Claim(JwtClaimTypes.Id, user.Id.ToString()), 
+
             };
+
 
             foreach (var x in uloge)
             {

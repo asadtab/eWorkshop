@@ -60,6 +60,14 @@ class AuthProvider extends ChangeNotifier {
   Future<String> login(String userName, String password) async {
     var uri = Uri.parse('${_baseUrl}account/login?userName=$userName&password=$password');
 
+
+/*    final response = await http.get(
+  Uri.parse('${_baseUrl}account/login'),
+  headers: {'Content-Type': 'application/json'},
+  body: jsonEncode({'userName': userName, 'password': password}),
+);*/
+
+
     var response = await http.get(uri);
 
     if (_isValidResponse(response)) {
