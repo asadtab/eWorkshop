@@ -22,7 +22,7 @@ class _AdministratorScreenState extends State<AdministratorScreen> {
         appBar: BarrApp(
           naslov: 'Administrator Screen',
           bottom: TabBar(
-            labelColor: Colors.grey ,
+            labelColor: Colors.white ,
             unselectedLabelColor: Colors.white,
             tabs: [
               Tab(text: 'Korisnici'),

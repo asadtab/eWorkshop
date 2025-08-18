@@ -1,6 +1,8 @@
 import 'package:admin/bloc/login/bloc/login_bloc.dart';
+import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/main.dart';
 import 'package:commons/models/uredjaj.dart';
+import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/notification.dart';
@@ -45,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final KorisniciBloc korisniciBloc = BlocProvider.of<KorisniciBloc>(context);
+
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
@@ -122,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
           
                             setState(() {
                               authProvider!.getUser(token);
+                              korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
                             });
           
                             if (context.read<AuthProvider>().isLoggedIn!) {

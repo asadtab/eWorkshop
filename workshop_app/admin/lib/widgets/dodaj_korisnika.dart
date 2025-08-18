@@ -25,7 +25,7 @@ class _DodajKorisnikaDialogState extends State<DodajKorisnikaDialog> {
     return SingleChildScrollView(
         child: AlertDialog(
       content: Container(
-        width: double.maxFinite,
+        width: 350,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -121,313 +121,305 @@ setState(() {
 
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TextFormField(
-            controller: _imeController,
-            decoration: InputDecoration(labelText: 'Ime'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Obavezno polje';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _prezimeController,
-            decoration: InputDecoration(labelText: 'Prezime'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Obavezno polje';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Obavezno polje';
-              }
-              return null;
-            },
-          ),
-          if(widget.korisnik == null)
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Obavezno polje';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 16.0),
+      
+      child: Container(
+        width: 350,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              controller: _imeController,
+              decoration: InputDecoration(labelText: 'Ime'),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Obavezno polje';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _prezimeController,
+              decoration: InputDecoration(labelText: 'Prezime'),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Obavezno polje';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Obavezno polje';
+                }
+                return null;
+              },
+            ),
+            if(widget.korisnik == null)
+            TextFormField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Obavezno polje';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16.0),
+            Text('Uloge', style: Theme.of(context).textTheme.bodyMedium),
+            
+              Card(  
+                child: Container(
+                    width: 350,
+                    child: Column(
+                      children: uloge.map((role) {
+                        return CheckboxListTile(
+  enabled: role == 'Pretplatnik' || !selectedRoles.contains('Pretplatnik'),
+  title: Text(role),
+  value: selectedRoles.contains(role),
+  onChanged: (bool? value) {
+    setState(() {
+      if (value!) {
+        
+        if (role == 'Pretplatnik') {
+          selectedRoles.clear();
+          isSelected = value;
+        }
+        selectedRoles.add(role);
+      } else {
+        selectedRoles.remove(role);
+        isSelected = false;
+      }
+    });
+  },
+);
 
-          Text('Uloge', style: Theme.of(context).textTheme.bodyMedium),
-          if (!isSelected)
-            Container(
-                width: 300,
-                child: Column(
-                  children: uloge.map((role) {
-                    return CheckboxListTile(
-                      title: Text(role),
-                      value: selectedRoles.contains(role),
-                      onChanged: (bool? value) {
-                        setState(() {
-                          if (value!) {
-                            selectedRoles.add(role);
-                          } else {
-                            selectedRoles.remove(role);
-                          }
-                        });
-                      },
-                    );
-                  }).toList(),
-                )),
-
-          SizedBox(height: 16.0),
-
-          Row(
-            children: [
-              Text("Uposlenik ŽFBiH"),
-              Checkbox(
-                value: isSelected,
-                semanticLabel: "Asad",
-                onChanged: (bool? value) {
-                  setState(() {
-                    isSelected = value!;
-
-                    if (value) {
-                            selectedRoles.add("Pretplatnik");
-                          } else {
-                            selectedRoles.remove("Pretplatnik");
-                          }
-                  });
-                },
+                      }).toList(),
+                    )),
               ),
-            ],
-          ),
-          if(isSelected)
-          TextFormField(
-            controller: _nazivRadneJediniceController,
-            decoration: InputDecoration(labelText: 'Radna jedinica'),
-            validator: (value) {
-              if (value!.isEmpty && isSelected) {
-                return 'Obavezno polje';
-              }
-              return null;
-            },
-          ),
-
-          SizedBox(height: 16.0),
-          Row(
-            children: [
-              Text("Aktivan"),
-              Checkbox(
-                value: aktivan,
-                semanticLabel: "Asad",
-                onChanged: (bool? value) {
-                  setState(() {
-                    aktivan = value!;
-                  });
-                },
-              ),
-            ],
-          ),
-
-          SizedBox(height: 16.0),
-
-          MinimalisticButton(
-              text: 'Submit',
-              onPressed: () async {
-                if (!nonAlphanumericRegex.hasMatch(_passwordController.text)) {
-                  errors.add("Password mora sadržavati barem jedan znakovni karakter.");
+        
+            SizedBox(height: 16.0),
+            if(isSelected)
+            TextFormField(
+              controller: _nazivRadneJediniceController,
+              decoration: InputDecoration(labelText: 'Radna jedinica'),
+              validator: (value) {
+                if (value!.isEmpty && isSelected) {
+                  return 'Obavezno polje';
                 }
-                if (!digitRegex.hasMatch(_passwordController.text)) {
-                  errors.add("Password mora sadržavati barem jedan karakter koji je broj.");
-                }
-                if (!uppercaseRegex.hasMatch(_passwordController.text)) {
-                  errors.add("Password mora sadržavati barem jedno veliko slovo.");
-                }
-
-                if (errors.isNotEmpty && widget.korisnik == null) {
-                  return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Password ne zadovoljava kriterij'),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: errors.map((error) => Text(error)).toList(),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                errors.clear();
-                                Navigator.pop(context);
-                              },
-                              child: Text('OK'),
+                return null;
+              },
+            ),
+        
+            SizedBox(height: 16.0),
+            Row(
+              children: [
+                Text("Aktivan"),
+                Checkbox(
+                  value: aktivan,
+                  semanticLabel: "Asad",
+                  onChanged: (bool? value) {
+                    setState(() {
+                      aktivan = value!;
+                    });
+                  },
+                ),
+              ],
+            ),
+        
+            SizedBox(height: 16.0),
+        
+            MinimalisticButton(
+                text: 'Submit',
+                onPressed: () async {
+                  if (!nonAlphanumericRegex.hasMatch(_passwordController.text)) {
+                    errors.add("Password mora sadržavati barem jedan znakovni karakter.");
+                  }
+                  if (!digitRegex.hasMatch(_passwordController.text)) {
+                    errors.add("Password mora sadržavati barem jedan karakter koji je broj.");
+                  }
+                  if (!uppercaseRegex.hasMatch(_passwordController.text)) {
+                    errors.add("Password mora sadržavati barem jedno veliko slovo.");
+                  }
+        
+                  if (errors.isNotEmpty && widget.korisnik == null) {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Password ne zadovoljava kriterij'),
+                            content: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: errors.map((error) => Text(error)).toList(),
                             ),
-                          ],
-                        );
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  errors.clear();
+                                  Navigator.pop(context);
+                                },
+                                child: Text('OK'),
+                              ),
+                            ],
+                          );
+                        });
+                  }
+        
+                  var request = {
+                      "email": _emailController.text,
+                      "passwordHash": _passwordController.text,
+                      "ime": _imeController.text,
+                      "prezime": _prezimeController.text,
+                      "uloge": selectedRoles,
+                      "status": aktivan,
+                      "radnaJedinica": _nazivRadneJediniceController.text
+                    };
+        
+                  if (!_formKey.currentState!.validate()) {
+                    return;
+                  }
+                    
+                    
+        
+                    if(widget.korisnik != null) {  
+                      widget.korisnici.remove(widget.korisnik);
+        
+                      for (var users in widget.korisnici) {
+                      if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {
+                        return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Korisničko ime je već u upotrebi'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      errors.clear();
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+                    }
+        
+                     try {
+                      var korisnik = await korisniciProvider!.update(int.parse(User.id!), request, 'Korisnici');
+                      korisniciBloc.add(KorisniciLoad());
+        
+                      emptyBox();
+                      setState(() {
+                        User.id = korisnik!.id.toString();
+                        User.name = '${korisnik.ime} ${korisnik.prezime.toString()}' ;
+                        User.roles = korisnik.uloge;
+                        User.email = korisnik.email;
+                        User.username = korisnik.userName;
+        
+                        selectedRoles = [];
                       });
-                }
-
-                var request = {
-                    "email": _emailController.text,
-                    "passwordHash": _passwordController.text,
-                    "ime": _imeController.text,
-                    "prezime": _prezimeController.text,
-                    "uloge": selectedRoles,
-                    "status": aktivan,
-                    "radnaJedinica": _nazivRadneJediniceController.text
-                  };
-
-                if (!_formKey.currentState!.validate()) {
-                  return;
-                }
-                  
-                  
-
-                  if(widget.korisnik != null) {  
-                    widget.korisnici.remove(widget.korisnik);
-
+                      Navigator.pop(context);
+                    } catch (e) {
+                      print(e.toString());
+                      if (e
+                          .toString()
+                          .contains("Username '${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' is already taken.")) {
+                        return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Korisničko ime je već u upotrebi.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      errors.clear();
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+        
+                      poruka(e.toString());
+                      return;
+                    }
+                    poruka("Informacije o korisniku su uspješno izmijenjene ");
+                    return;
+        
+        
+                    }
+        
+                    
+        
                     for (var users in widget.korisnici) {
-                    if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {
-                      return showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Korisničko ime je već u upotrebi'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    errors.clear();
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            );
-                          });
+                      if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {
+                        return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Korisničko ime je već u upotrebi'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      errors.clear();
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
                     }
-                  }
-
-                   try {
-                    var korisnik = await korisniciProvider!.update(int.parse(User.id!), request, 'Korisnici');
-                    korisniciBloc.add(KorisniciLoad());
-
-                    emptyBox();
-                    setState(() {
-                      User.id = korisnik!.id.toString();
-                      User.name = '${korisnik.ime} ${korisnik.prezime.toString()}' ;
-                      User.roles = korisnik.uloge;
-                      User.email = korisnik.email;
-                      User.username = korisnik.userName;
-
-                      selectedRoles = [];
-                    });
-                    Navigator.pop(context);
-                  } catch (e) {
-                    print(e.toString());
-                    if (e
-                        .toString()
-                        .contains("Username '${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' is already taken.")) {
-                      return showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Korisničko ime je već u upotrebi.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    errors.clear();
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            );
-                          });
+        
+                    try {
+                      await korisniciProvider!.insert(request, "Korisnici/Registracija");
+                      korisniciBloc.add(KorisniciLoad());
+        
+                      emptyBox();
+                      setState(() {
+                        selectedRoles = [];
+                      });
+                      Navigator.pop(context);
+                    } catch (e) {
+                      if (e
+                          .toString()
+                          .contains("Username '${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' is already taken.")) {
+                        return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Korisničko ime je već u upotrebi.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      errors.clear();
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+        
+                      poruka(e.toString());
+                      return;
                     }
-
-                    poruka(e.toString());
-                    return;
-                  }
-                  poruka("Informacije o korisniku su uspješno izmijenjene ");
-                  return;
-
-
-                  }
-
+                    poruka("Korisnik je uspješno dodan");
                   
-
-                  for (var users in widget.korisnici) {
-                    if ('${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' == users.userName.toString()) {
-                      return showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Korisničko ime je već u upotrebi'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    errors.clear();
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            );
-                          });
-                    }
-                  }
-
-                  try {
-                    await korisniciProvider!.insert(request, "Korisnici/Registracija");
-                    korisniciBloc.add(KorisniciLoad());
-
-                    emptyBox();
-                    setState(() {
-                      selectedRoles = [];
-                    });
-                    Navigator.pop(context);
-                  } catch (e) {
-                    if (e
-                        .toString()
-                        .contains("Username '${_imeController.text.toLowerCase()}.${_prezimeController.text.toLowerCase()}' is already taken.")) {
-                      return showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Korisničko ime je već u upotrebi.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    errors.clear();
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            );
-                          });
-                    }
-
-                    poruka(e.toString());
-                    return;
-                  }
-                  poruka("Korisnik je uspješno dodan");
-                
-              }),
-        ],
+                }),
+          ],
+        ),
       ),
     );
   }

@@ -15,7 +15,8 @@ IzvrseniServis _$IzvrseniServisFromJson(Map<String, dynamic> json) =>
       ..tip = json['tip'] as String?
       ..datum = json['datum'] as String?
       ..servisirao = json['servisirao'] as String?
-      ..komponentaId = (json['komponentaId'] as num).toInt();
+      ..komponentaId = (json['komponentaId'] as num).toInt()
+      ..isExpanded = json['isExpanded'] as bool;
 
 Map<String, dynamic> _$IzvrseniServisToJson(IzvrseniServis instance) =>
     <String, dynamic>{

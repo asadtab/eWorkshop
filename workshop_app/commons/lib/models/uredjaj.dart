@@ -16,7 +16,11 @@ class Uredjaj {
   @JsonKey(includeToJson: false, includeFromJson: false)
   bool isSelected = false;
 
-  Uredjaj() {}
+  //Uredjaj() {}
+
+  Uredjaj({this.uredjajId, this.godinaIzvedbe, this.koda, this.lokacijaNaziv, this.serijskiBroj, this.status, this.tipNaziv, this.tipOpis}) {
+
+  }
 
   factory Uredjaj.fromJson(Map<String, dynamic> json) => _$UredjajFromJson(json);
 

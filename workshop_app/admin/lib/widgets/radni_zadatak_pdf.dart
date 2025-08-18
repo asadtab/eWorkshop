@@ -9,7 +9,7 @@ class GenerisiPdf {
     List<RadniZadatakUredjaj> uredjaji = [];
 
     for (var uredjaj in data) {
-      if (uredjaj.uredjajStatus == "fix" || uredjaj.uredjajStatus == "done" || uredjaj.uredjajStatus == "ready") {
+      if (uredjaj.uredjajStatus == "fix" || uredjaj.uredjajStatus == "done" || uredjaj.uredjajStatus == "ready"|| uredjaj.uredjajStatus == "out") {
         uredjaji.add(uredjaj);
       }
     }

@@ -16,14 +16,14 @@ class BarrApp extends StatelessWidget implements PreferredSizeWidget {
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
                 naslov ?? "",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
               ),
             ]),
             if (bottom != null) SizedBox(height: 50)
           ],
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFF1D64AF),
+        backgroundColor: Color(0xFF80abbc),
         elevation: 0);
   }
 

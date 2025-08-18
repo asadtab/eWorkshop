@@ -1,3 +1,4 @@
+import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/screens/acc.dart';
 import 'package:admin/screens/login_screen.dart';
 import 'package:admin/screens/radni_zadaci.dart';
@@ -8,6 +9,7 @@ import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/administrator.dart';
@@ -17,7 +19,8 @@ class CommonNavigation extends StatefulWidget {
   final int initialSelectedIndex;
   final Function(int) onItemSelected;
 
-  CommonNavigation({required this.onItemSelected, required this.initialSelectedIndex});
+  CommonNavigation(
+      {required this.onItemSelected, required this.initialSelectedIndex});
 
   @override
   _CommonNavigationState createState() => _CommonNavigationState();
@@ -49,7 +52,8 @@ class _CommonNavigationState extends State<CommonNavigation> {
             child: Column(
               children: [
                 PopupMenuButton(
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
                     PopupMenuItem<String>(
                       child: Text('Profil'),
                       value: 'profile',
@@ -63,7 +67,10 @@ class _CommonNavigationState extends State<CommonNavigation> {
                   onSelected: (izbor) {
                     switch (izbor) {
                       case 'profile':
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => UserAccountScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserAccountScreen()));
                         break;
                       case 'logout':
                         logout(context);
@@ -72,7 +79,19 @@ class _CommonNavigationState extends State<CommonNavigation> {
                     }
                   },
                 ),
-                Text(User.name ?? ""),
+                BlocConsumer<KorisniciBloc, KorisniciState>(
+                  listenWhen:(previous, current) => current is KorisniciByIdState,
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    if(state is KorisniciByIdState){
+                    return Text(state.korisnik.userName.toString());
+                    } else {
+                      return Text("");
+                    }
+                  },
+                ),
               ],
             ),
           ),
@@ -113,7 +132,13 @@ class _CommonNavigationState extends State<CommonNavigation> {
         Expanded(
           child: IndexedStack(
             index: selectedIndex,
-            children: [KonzolaScreen(), UredjajiScreen(), RadniZadaciLista(),RasporedUredjaja(), AdministratorScreen()],
+            children: [
+              KonzolaScreen(),
+              UredjajiScreen(),
+              RadniZadaciLista(),
+              RasporedUredjaja(),
+              AdministratorScreen()
+            ],
           ),
         ),
       ],

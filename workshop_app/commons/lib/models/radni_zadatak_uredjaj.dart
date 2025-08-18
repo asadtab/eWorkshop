@@ -1,3 +1,4 @@
+import 'package:commons/models/uredjaj.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'radni_zadatak_uredjaj.g.dart';
@@ -22,4 +23,20 @@ class RadniZadatakUredjaj {
   factory RadniZadatakUredjaj.fromJson(Map<String, dynamic> json) => _$RadniZadatakUredjajFromJson(json);
 
   Map<String, dynamic> toJson() => _$RadniZadatakUredjajToJson(this);
+
+  
+}
+extension RadniZadatakUredjajMapper on RadniZadatakUredjaj {
+  Uredjaj toUredjaj() {
+    return Uredjaj(
+      uredjajId: uredjajId,
+      koda: koda,
+      serijskiBroj: serijskiBroj,
+      godinaIzvedbe: uredjajDatumIzvedbe,
+      status: uredjajStatus,
+      tipNaziv: tipNaziv,
+      tipOpis: tipOpis,
+      lokacijaNaziv: lokacija,
+    );
+  }
 }

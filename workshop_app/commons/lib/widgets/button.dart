@@ -4,9 +4,11 @@ class MinimalisticButton extends StatelessWidget {
   final String text;
   final Function onPressed;
   final Icon? icons;
+  final Color? color;
+  final Color? textColor;
 
   void opcija() {}
-  const MinimalisticButton({required this.text, required this.onPressed, this.icons});
+  const MinimalisticButton({required this.text, required this.onPressed, this.icons, this.color, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class MinimalisticButton extends StatelessWidget {
           onPressed();
         },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
+          backgroundColor: color == null ? MaterialStateProperty.all(Colors.grey[300]): MaterialStateProperty.all(color),
           padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0)),
         ),
         child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -29,7 +31,7 @@ class MinimalisticButton extends StatelessWidget {
             text,
             style: TextStyle(
               fontSize: 16.0,
-              color: Colors.black,
+              color: textColor == null ? Colors.black: textColor,
             ),
           )
         ]),

@@ -3,6 +3,7 @@ import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
 import 'package:admin/bloc/client_secret/client_secret_bloc.dart';
 import 'package:admin/bloc/klijenti/klijenti_bloc.dart';
 import 'package:admin/bloc/lokacija/lokacija_bloc.dart';
+import 'package:admin/bloc/radni_zadatak/radni_zadatak_bloc.dart';
 import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/bloc/statistika_bloc/statistika_bloc.dart';
 import 'package:admin/bloc/uloge/uloge_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/screens/login_screen.dart';
+import 'package:admin/screens/radniZadatak_detalji.dart';
 import 'package:commons/providers/client_grant_type_provider.dart';
 import 'package:commons/providers/ids_provider.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
@@ -26,6 +28,7 @@ import 'package:commons/providers/uloge_provider.dart';
 import 'package:commons/providers/api_scopes_provider.dart';
 import 'package:commons/providers/api_resources_provider.dart';
 import 'package:commons/providers/client_scope_provider.dart';
+import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +61,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => ClientScopeProvider()),
       ChangeNotifierProvider(create: (_) => ClientGrantTypeProvider()),
       ChangeNotifierProvider(create: (_) => StatistikaProvider()),
+      
     ],
     child: const MyApp(),
   ));
@@ -66,7 +70,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     RadniZadaciUredjajProvider radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
@@ -79,6 +82,7 @@ class MyApp extends StatelessWidget {
     ApiResourcesProvider apiResourcesProvider = context.read<ApiResourcesProvider>();
     ClientSecretProvider clientSecretProvider = context.read<ClientSecretProvider>();
     StatistikaProvider statistikaProvider = context.read<StatistikaProvider>();
+    RadniZadaciProvider radniZadaciProvider = context.read<RadniZadaciProvider>();
 
     return MultiBlocProvider(
         providers: [
@@ -97,6 +101,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<ClientSecretBloc>(
               create: (context) => ClientSecretBloc(clientSecretProvider: clientSecretProvider)..add(ClientSecretLoadDataEvent())),
           BlocProvider<StatistikaBloc>(create: (context) => StatistikaBloc(statistikaProvider: statistikaProvider)..add(StatistikaRefreshEvent())),
+          BlocProvider<RadniZadatakBloc>(create: (context) => RadniZadatakBloc(radniZadatakProvider: radniZadaciProvider)),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

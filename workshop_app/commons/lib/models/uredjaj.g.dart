@@ -6,15 +6,16 @@ part of 'uredjaj.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Uredjaj _$UredjajFromJson(Map<String, dynamic> json) => Uredjaj()
-  ..uredjajId = (json['uredjajId'] as num?)?.toInt()
-  ..koda = json['koda'] as String?
-  ..serijskiBroj = json['serijskiBroj'] as String?
-  ..godinaIzvedbe = json['godinaIzvedbe'] as String?
-  ..status = json['status'] as String?
-  ..tipNaziv = json['tipNaziv'] as String?
-  ..tipOpis = json['tipOpis'] as String?
-  ..lokacijaNaziv = json['lokacijaNaziv'] as String?;
+Uredjaj _$UredjajFromJson(Map<String, dynamic> json) => Uredjaj(
+      uredjajId: (json['uredjajId'] as num?)?.toInt(),
+      godinaIzvedbe: json['godinaIzvedbe'] as String?,
+      koda: json['koda'] as String?,
+      lokacijaNaziv: json['lokacijaNaziv'] as String?,
+      serijskiBroj: json['serijskiBroj'] as String?,
+      status: json['status'] as String?,
+      tipNaziv: json['tipNaziv'] as String?,
+      tipOpis: json['tipOpis'] as String?,
+    );
 
 Map<String, dynamic> _$UredjajToJson(Uredjaj instance) => <String, dynamic>{
       'uredjajId': instance.uredjajId,
