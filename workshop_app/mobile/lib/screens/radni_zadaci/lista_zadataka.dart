@@ -71,7 +71,7 @@ class _ListaZadatakaState extends State<ListaZadataka> {
         appBar: AppBar(
           title: Text(
             "Radni zadaci",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
         bottomNavigationBar: MyBottomBar(),

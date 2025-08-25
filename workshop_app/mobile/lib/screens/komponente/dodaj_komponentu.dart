@@ -43,7 +43,7 @@ class _DodajKomponentuState extends State<DodajKomponentu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dodaj Komponentu'),
+        title: Text('Dodaj Komponentu', style: TextStyle(color: Colors.white)),
       ),
       bottomNavigationBar: MyBottomBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

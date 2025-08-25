@@ -26,110 +26,141 @@ class _PrijaviSmetnjuState extends State<PrijaviSmetnju> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Radna jedinica: ${widget.korisnik.radnaJedinica}"), backgroundColor: Color(0xFF4592AF), ), body:
+    return Scaffold(appBar: AppBar(title: Text("Radna jedinica: ${widget.korisnik.radnaJedinica}" ,style: TextStyle(color: Colors.white),), backgroundColor: Color(0xFF4592AF), ), body:
      SafeArea(child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text("Unesite email adrese za slanje (opcionalno)"),
-                 Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Form(
-                    key: _formKey,
-                     child: Row(
-                                     children: [
-                      Expanded(
-                        child: TextFormField(
-                          validator:  (value) {
-                         if (value == null || value.isEmpty) {
-                           return 'Unesite email adresu';
-                         } else if (!emailRegex.hasMatch(value)) {
-                           return 'Unesite ispravnu email adresu';
-                         }
-                         return null;
-                       },
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: 'neko.primjer@adr.email',
-                            border: OutlineInputBorder(),
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8, 8, 0),
+                  child: Text("Unesite email adrese za slanje (opcionalno)", style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: Form(
+                      key: _formKey,
+                       child: Row(
+                                       children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator:  (value) {
+                           if (value == null || value.isEmpty) {
+                             return 'Unesite email adresu';
+                           } else if (!emailRegex.hasMatch(value)) {
+                             return 'Unesite ispravnu email adresu';
+                           }
+                           return null;
+                         },
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: 'neko.primjer@adr.email',
+                              border: OutlineInputBorder(),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
                           ),
-                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: _onIconPressed,
+                        ),
+                                       ],
+                                     ),
+                     ),
+                   )]),
+              ),
+              SizedBox(height: 10,),
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 8, 8, 0),
+                    child: Text("Unesite opis smetnje", style: TextStyle(fontWeight: FontWeight.bold),),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    key: _formKeyTip,
+                    child: TextFormField(
+                      validator: (value) { if (value == null || value.isEmpty) {
+                          return 'Unesite opis smetnje'; }
+                          return null;
+                        },
+                      controller: _controller,
+                      maxLines: 10,
+                      decoration: InputDecoration(
+                        hintText: 'Opis smetnje',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: _onIconPressed,
-                      ),
-                                     ],
-                                   ),
-                   ),
-                 ),
-              Form(
-                key: _formKeyTip,
-                child: TextFormField(
-                  validator: (value) { if (value == null || value.isEmpty) {
-                      return 'Unesite opis smetnje'; }
-                      return null;
-                    },
-                  controller: _controller,
-                  maxLines: 10,
-                  decoration: InputDecoration(
-                    hintText: 'Unesite opis smetnje',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
-                  ),
-                ),
-              ),
+                  )),
+                
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-if (_formKeyTip.currentState!.validate()) {
-                                _formKeyTip.currentState!.save();}
-
-                  String text = _controller.text;
-                  posaljiEmail(text, _emailAddresses);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  textStyle: TextStyle(fontSize: 18, color: Colors.white),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                  if (_formKeyTip.currentState!.validate()) {
+                                    _formKeyTip.currentState!.save();}
+                  
+                      String text = _controller.text;
+                      
+                      posaljiEmail(text, _emailAddresses).toString();
+                  
+                      
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      textStyle: TextStyle(fontSize: 18, color: Colors.white),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    child: Text('Potvrdi', style: TextStyle(color: Colors.white),),
                   ),
                 ),
-                child: Text('Potvrdi', style: TextStyle(color: Colors.white),),
+              )]),
               )
               ,
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column( 
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                           Text("Email adrese za slanje", style: TextStyle(fontSize: 20),),
-                 DataTable(
-              columns: [
-                DataColumn(label: Text('Adresa')),  // Address column
-                DataColumn(label: Text('Ukloni')),  // Remove button column
-              ],
-              rows: _emailAddresses.asMap().entries.map((entry) {
-                int index = entry.key;
-                String email = entry.value;
-                return DataRow(cells: [
-                  DataCell(Text(email)),  // Display email address
-                  DataCell(
-                    IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => removeEmail(index) // Remove email
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column( 
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                             Text("Email adrese za slanje", style: TextStyle(fontSize: 20),),
+                   DataTable(
+                columns: [
+                  DataColumn(label: Text('Adresa')),  // Address column
+                  DataColumn(label: Text('Ukloni')),  // Remove button column
+                ],
+                rows: _emailAddresses.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  String email = entry.value;
+                  return DataRow(cells: [
+                    DataCell(Text(email)),  
+                    DataCell(
+                      IconButton(
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () => removeEmail(index) // Remove email
+                      ),
                     ),
-                  ),
-                ]);
-              }).toList(),
-            ),
-                
-                            ],
-                          ),
+                  ]);
+                }).toList(),
+                            ),
+                  
+                              ],
+                            ),
+                ),
               ),
             ],
           ),
@@ -166,12 +197,28 @@ if (_formKeyTip.currentState!.validate()) {
 
     if (_isValidResponse(response)) {
       _controller.text = "";
-      CommonWidget.infoSnack("Uspješno slanje maila");
-      return response.body;
+      ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Row(
+      children: [
+        Icon(Icons.check_circle, color: Colors.white),
+        SizedBox(width: 8),
+        Expanded(child: Text('Uspješno prijavljena smetnja!')),
+      ],
+    )));
+      return "Uspješno slanje maila";
       
     } else {
-      CommonWidget.infoSnack("Neuspjelo slanje maila");
-      return "";
+     ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Row(
+      children: [
+        Icon(Icons.check_circle, color: Colors.white),
+        SizedBox(width: 8),
+        Expanded(child: Text('Neuspješno slanje maila')),
+      ],
+    )));
+      return "Neuspjelo slanje maila";
     }
   }
 

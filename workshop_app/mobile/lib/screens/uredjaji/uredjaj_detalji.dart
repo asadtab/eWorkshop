@@ -2,6 +2,7 @@ import 'package:commons/models/izvrseni_servis.dart';
 import 'package:commons/models/lokacija.dart';
 import 'package:commons/models/reparacija.dart';
 import 'package:commons/models/uredjaj.dart';
+import 'package:commons/models/user.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
 import 'package:commons/providers/komponente_provider.dart';
 import 'package:commons/providers/lokacija_provider.dart';
@@ -121,10 +122,10 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
           }
         },
         child: Scaffold(
-            drawer: DrawerWidget(),
-            bottomNavigationBar: MyBottomBar(),
+            drawer: User.roles.first == "Pretplatnik" ? null :DrawerWidget(),
+            bottomNavigationBar: User.roles.first == "Pretplatnik" ? null :MyBottomBar(),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: SpeedDial(
+            floatingActionButton:User.roles.first == "Pretplatnik" ? null : SpeedDial(
               animatedIcon: AnimatedIcons.view_list,
               openCloseDial: isDialOpen,
               overlayColor: Colors.grey,
@@ -241,7 +242,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                       })
               ],
             ),
-            appBar: AppBar(title: Text("Uređaj")),
+            appBar: AppBar(title: Text("Detalji o uređaju"), backgroundColor: Color(0xFF4592AF), ),
             body: SafeArea(
                 child: SingleChildScrollView(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -260,7 +261,7 @@ class _UredjajDetaljiState extends State<UredjajDetaljiScreen> {
                     "Historija servisiranja:",
                     style: TextStyle(fontSize: 20),
                   )),
-              Padding(padding: EdgeInsets.all(10), child: Column(children: historijaServisa())),
+              Center(child: Padding(padding: EdgeInsets.all(10), child: Column( children: historijaServisa()))),
             ])))));
   }
 

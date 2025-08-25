@@ -69,7 +69,7 @@ class _EndHomeScreenState extends State<EndHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Radna jedinica:  ${korisnik?.radnaJedinica ?? ""}"), automaticallyImplyLeading: false,backgroundColor: Color(0xFF4592AF), ), body:
+    return Scaffold(appBar: AppBar(title: Text("Radna jedinica:  ${korisnik?.radnaJedinica ?? ""}",style: TextStyle(color: Colors.white)), automaticallyImplyLeading: false,backgroundColor: Color(0xFF4592AF), ), body:
      SafeArea(child:
        
            Center(

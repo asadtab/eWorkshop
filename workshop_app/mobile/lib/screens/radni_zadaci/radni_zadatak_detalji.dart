@@ -179,7 +179,7 @@ class _RadniZadatakDetaljiScreenState extends State<RadniZadatakDetaljiScreen> {
                     })
             ],
           ),
-          appBar: AppBar(title: (Text("Radni zadatak"))),
+          appBar: AppBar(title: (Text("Radni zadatak",style: TextStyle(color: Colors.white)))),
           body: SafeArea(
               child: SingleChildScrollView(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

@@ -181,10 +181,12 @@ setState(() {
                         return CheckboxListTile(
   enabled: role == 'Pretplatnik' || !selectedRoles.contains('Pretplatnik'),
   title: Text(role),
-  value: selectedRoles.contains(role),
+  value: selectedRoles.contains(role) ,
   onChanged: (bool? value) {
     setState(() {
       if (value!) {
+
+       
         
         if (role == 'Pretplatnik') {
           selectedRoles.clear();
@@ -314,6 +316,7 @@ setState(() {
                      try {
                       var korisnik = await korisniciProvider!.update(int.parse(User.id!), request, 'Korisnici');
                       korisniciBloc.add(KorisniciLoad());
+                      korisniciBloc.add(KorisniciByIdEvent(id: int.parse( User.id.toString())));
         
                       emptyBox();
                       setState(() {
@@ -322,7 +325,7 @@ setState(() {
                         User.roles = korisnik.uloge;
                         User.email = korisnik.email;
                         User.username = korisnik.userName;
-        
+
                         selectedRoles = [];
                       });
                       Navigator.pop(context);
@@ -384,6 +387,7 @@ setState(() {
                     try {
                       await korisniciProvider!.insert(request, "Korisnici/Registracija");
                       korisniciBloc.add(KorisniciLoad());
+                      korisniciBloc.add(KorisniciByIdEvent(id: int.parse( User.id.toString())));
         
                       emptyBox();
                       setState(() {

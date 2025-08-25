@@ -43,6 +43,7 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
   @override
   Widget build(BuildContext context) {
     final KorisniciBloc korisniciBloc = BlocProvider.of<KorisniciBloc>(context);
+    korisniciBloc.add(KorisniciLoad());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -51,7 +52,6 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Input fields and buttons in a Row
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -98,6 +98,7 @@ class _KorisniciListScreenState extends State<KorisniciListScreen> {
             Text("Lista korisnika"),
             BlocConsumer<KorisniciBloc, KorisniciState>(
               bloc: korisniciBloc,
+              listenWhen: (previous, current) => current is KorisniciRequest,
               listener: (context, state) {},
               builder: (context, state) {
                 if (state is KorisniciLoadingState) {

@@ -44,7 +44,7 @@ class _KomponenteListState extends State<KomponenteList> {
     return Scaffold(
       drawer: DrawerWidget(),
       appBar: AppBar(
-        title: Text("Komponente"),
+        title: Text("Komponente", style: TextStyle(color: Colors.white)),
       ),
       bottomNavigationBar: MyBottomBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

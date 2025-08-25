@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             var token = await authProvider!.login(usernameController.text, passwordController.text);
           
                             context.read<AuthProvider>().setLoggedIn(true);
-          
+                            korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
                             setState(() {
                               authProvider!.getUser(token);
                               korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));

@@ -34,7 +34,7 @@ class _RadniZadatakDodajUrediState extends State<RadniZadatakDodajUredi> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: DrawerWidget(),
-        appBar: AppBar(title: (Text("Novi radni zadatak"))),
+        appBar: AppBar(title: (Text("Novi radni zadatak", style: TextStyle(color: Colors.white)))),
         bottomNavigationBar: MyBottomBar(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(

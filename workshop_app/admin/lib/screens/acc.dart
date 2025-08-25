@@ -1,3 +1,4 @@
+import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/widgets/dodaj_korisnika.dart';
 import 'package:admin/widgets/promjeni_password.dart';
 import 'package:commons/models/korisnik.dart';
@@ -22,7 +23,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
 
   late KorisniciProvider korisniciProvider;
 
-    Future<void> _fetchData(Map<String, String>? map) async {
+  Future<void> _fetchData(Map<String, String>? map) async {
     var users = await korisniciProvider.get(map, "Korisnici");
 
     setState(() {
@@ -32,7 +33,6 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
 
   @override
   void initState() {
-
     _korisnik.uloge = [];
 
     print(User.roles);
@@ -58,137 +58,189 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
         title: Text('Korisnički račun'),
       ),
       body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ListView(
-                children: [
-                  Card(
-                    elevation: 4.0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              Card(
+                elevation: 4.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Korisnik',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Korisnik',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 10.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 40.0,
-                                  ),
-                                  SizedBox(width: 16.0),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.korisnik != null
-                                            ? '${widget.korisnik!.ime} ${widget.korisnik!.prezime}'
-                                            : '${_korisnik.ime} ${_korisnik.prezime}',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        widget.korisnik != null ? widget.korisnik!.email! : _korisnik.email!,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              CircleAvatar(
+                                radius: 40.0,
                               ),
-                              GestureDetector(
-                 onTap: urediInformacije,
-                 
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "Uredi račun",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                      fontSize: 18,)),
-                )),
-                    GestureDetector(
-                 onTap: promijeni_password,
-                 
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Text(
-                    "Promjeni korisničku lozinku",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                      fontSize: 18,)),
-                ))
+                              SizedBox(width: 16.0),
+                              BlocConsumer<KorisniciBloc, KorisniciState>(
+                                listenWhen: (previous, current) =>
+                                    current is KorisniciByIdState,
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (state is KorisniciByIdState)
+                                        Text(
+                                 "${state.korisnik.ime} ${state.korisnik.prezime}",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      else
+                                        Text(
+                                            widget.korisnik != null
+                                                ? '${widget.korisnik!.ime} ${widget.korisnik!.prezime}'
+                                                : '${_korisnik.ime} ${_korisnik.prezime}',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      if (state is KorisniciByIdState)
+                                        Text(
+                                          state.korisnik.email.toString(),
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        )
+                                      else
+                                        Text(
+                                          widget.korisnik != null
+                                              ? widget.korisnik!.email!
+                                              : _korisnik.email!,
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                    ],
+                                  );
+                                },
+                              ),
                             ],
                           ),
+                          GestureDetector(
+                              onTap: urediInformacije,
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: Text("Uredi račun",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 18,
+                                    )),
+                              )),
+                          GestureDetector(
+                              onTap: promijeni_password,
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: Text("Promjeni korisničku lozinku",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 18,
+                                    )),
+                              ))
                         ],
                       ),
-                    ),
+                    ],
                   ),
-                  SizedBox(height: 16.0),
-                  Card(
-                    elevation: 4.0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Korisnički račun',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 10.0),
-                          ListTile(
-                            title: Text('Username'),
-                            subtitle: Text(
-                              widget.korisnik != null ? widget.korisnik!.userName! : _korisnik.userName ?? "",
-                            ),
-                          ),
-                          ListTile(
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Card(
+                elevation: 4.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Korisnički račun',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      BlocConsumer<KorisniciBloc, KorisniciState>(
+                        listenWhen: (previous, current) =>
+                            current is KorisniciByIdState,
+                        listener: (context, state) {
+                          // TODO: implement listener
+                        },
+                        builder: (context, state) {
+                          if (state is KorisniciByIdState)
+                            return ListTile(
+                              title: Text('Username'),
+                              subtitle:
+                                  Text(state.korisnik.userName.toString()),
+                            );
+                          else
+                            return ListTile(
+                              title: Text('Username'),
+                              subtitle: Text(
+                                widget.korisnik != null
+                                    ? widget.korisnik!.userName!
+                                    : _korisnik.userName ?? "",
+                              ),
+                            );
+                        },
+                      ),
+                      BlocConsumer<KorisniciBloc, KorisniciState>(
+                        listenWhen: (previous, current) => current is KorisniciByIdState,
+                        listener: (context, state) {
+                          // TODO: implement listener
+                        },
+                        builder: (context, state) {
+                          if (state is KorisniciByIdState)
+                          return ListTile(
                               title: Text('Uloge'),
-                              subtitle: Text(_korisnik.uloge.join(', '))),
-                          //subtitle: Text(User.roles.join(', ')))
-                        ],
+                              subtitle: Text(state.korisnik.uloge.join(', ')));
+
+                              else return ListTile(
+                              title: Text('Uloge'),
+                              subtitle: Text(_korisnik.uloge.join(', ')));
+                        },
                       ),
-                    ),
+                      //subtitle: Text(User.roles.join(', ')))
+                    ],
                   ),
-                ],
-              )
-        
-      ),
-      );
-    
-  }
-  void urediInformacije(){
-    showDialog(
-                          context: context,
-                          builder: (BuildContext context) => DodajKorisnikaDialog(_korisnik, korisnici),
-                        ).then((onValue){
-                          setState(() {
-                            
-                          });
-                        });
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
-  void promijeni_password(){
+  void urediInformacije() {
     showDialog(
-  context: context,
-  builder: (context) => ChangePasswordDialog(userId: int.parse( User.id!)),
-);
+      context: context,
+      builder: (BuildContext context) =>
+          DodajKorisnikaDialog(_korisnik, korisnici),
+    ).then((onValue) {
+      setState(() {});
+    });
+  }
+
+  void promijeni_password() {
+    showDialog(
+      context: context,
+      builder: (context) => ChangePasswordDialog(userId: int.parse(User.id!)),
+    );
   }
 }

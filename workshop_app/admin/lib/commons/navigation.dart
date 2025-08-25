@@ -88,7 +88,7 @@ class _CommonNavigationState extends State<CommonNavigation> {
                     if(state is KorisniciByIdState){
                     return Text(state.korisnik.userName.toString());
                     } else {
-                      return Text("");
+                      return Text(User.name.toString());
                     }
                   },
                 ),

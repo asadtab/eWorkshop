@@ -98,7 +98,6 @@ namespace eWorkshop.Services
 
             await _userManager.AddClaimsAsync(user, claims);
 
-            // Creating a view model to return
             var korisnikVM = new KorisniciVM
             {
                 UserName = user.UserName,
@@ -113,12 +112,24 @@ namespace eWorkshop.Services
             return korisnikVM;
         }
 
+        public override KorisniciVM Update(int id, KorisniciUpdateRequest update)
+        {
+            
+
+            update.UserName = update.Ime.ToLower() + "." + update.Prezime.ToLower();
+            update.NormalizedUserName = update.UserName.ToUpper();
+
+
+            
+            return base.Update(id, update);
+        }
+
 
         public async Task<KorisniciVM?> UpdatePassword(PromjeniPasswordRequest request)
         {
             var user = await _userManager.FindByIdAsync(request.UserId.ToString());
             if (user == null)
-                return null; // just return null for not found
+                return null; 
 
             var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
 

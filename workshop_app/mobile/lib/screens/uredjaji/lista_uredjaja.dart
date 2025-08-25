@@ -57,7 +57,7 @@ class _UredjajiListScreenState extends State<UredjajiListScreen> {
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
 
     var map = {'Status': 'active'};
-
+    
     _fetchData(map);
   }
 
