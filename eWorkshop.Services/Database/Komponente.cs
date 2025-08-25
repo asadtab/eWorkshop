@@ -19,5 +19,4 @@ public partial class Komponente
 
     public virtual ICollection<IzvrseniServi> IzvrseniServis { get; } = new List<IzvrseniServi>();
 
-    public virtual ICollection<Magacin> Magacins { get; } = new List<Magacin>();
 }

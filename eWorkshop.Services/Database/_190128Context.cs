@@ -71,7 +71,6 @@ public partial class _190128Context : DbContext
 
     public virtual DbSet<Lokacija> Lokacijas { get; set; }
 
-    public virtual DbSet<Magacin> Magacins { get; set; }
 
     public virtual DbSet<PersistedGrant> PersistedGrants { get; set; }
 
@@ -418,20 +417,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Opis).HasMaxLength(255);
         });
         modelBuilder.Entity<Lokacija>().SeedData();
-
-        modelBuilder.Entity<Magacin>(entity =>
-        {
-            entity.ToTable("Magacin");
-
-            entity.Property(e => e.MagacinId).HasColumnName("MagacinID");
-            entity.Property(e => e.KomponentaId).HasColumnName("KomponentaID");
-            entity.Property(e => e.Naziv).HasMaxLength(255);
-            entity.Property(e => e.Opis).HasMaxLength(255);
-
-            entity.HasOne(d => d.Komponenta).WithMany(p => p.Magacins)
-                .HasForeignKey(d => d.KomponentaId)
-                .HasConstraintName("FK_Komponenta");
-        });
 
         modelBuilder.Entity<PersistedGrant>(entity =>
         {

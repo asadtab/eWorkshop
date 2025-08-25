@@ -161,7 +161,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 50, DateTimeKind.Local).AddTicks(8005),
+                            Created = new DateTime(2025, 8, 25, 20, 30, 44, 520, DateTimeKind.Local).AddTicks(8469),
                             Description = "Api",
                             DisplayName = "api",
                             Enabled = true,
@@ -343,7 +343,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 51, DateTimeKind.Local).AddTicks(2979),
+                            Created = new DateTime(2025, 8, 25, 20, 30, 44, 521, DateTimeKind.Local).AddTicks(1424),
                             Description = "Pristup informacijama o korisniku",
                             DisplayName = "Pristup",
                             Emphasize = false,
@@ -356,7 +356,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 51, DateTimeKind.Local).AddTicks(2997),
+                            Created = new DateTime(2025, 8, 25, 20, 30, 44, 521, DateTimeKind.Local).AddTicks(1434),
                             Description = "Pristup e-mail adresama korisnika",
                             DisplayName = "Email",
                             Emphasize = false,
@@ -369,7 +369,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 51, DateTimeKind.Local).AddTicks(3000),
+                            Created = new DateTime(2025, 8, 25, 20, 30, 44, 521, DateTimeKind.Local).AddTicks(1436),
                             Description = "Potreban je OpenID Connect, zahtijeva osnovne informacije o korisniku",
                             DisplayName = "OpenID",
                             Emphasize = false,
@@ -920,7 +920,7 @@ namespace eWorkshop.Services.Migrations
                         {
                             Id = 1,
                             ClientId = 1,
-                            Created = new DateTime(2025, 6, 13, 21, 48, 15, 52, DateTimeKind.Local).AddTicks(2628),
+                            Created = new DateTime(2025, 8, 25, 20, 30, 44, 521, DateTimeKind.Local).AddTicks(8472),
                             Description = "Aplikacija",
                             Expiration = new DateTime(2025, 2, 4, 9, 39, 35, 109, DateTimeKind.Unspecified),
                             Type = "app",
@@ -1172,35 +1172,35 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             IzvrseniServisId = 1,
-                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7767),
+                            Datum = new DateTime(2025, 8, 25, 18, 30, 44, 522, DateTimeKind.Utc).AddTicks(1817),
                             KomponentaId = 1,
                             ServisId = 1
                         },
                         new
                         {
                             IzvrseniServisId = 2,
-                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7769),
+                            Datum = new DateTime(2025, 8, 25, 18, 30, 44, 522, DateTimeKind.Utc).AddTicks(1819),
                             KomponentaId = 2,
                             ServisId = 1
                         },
                         new
                         {
                             IzvrseniServisId = 5,
-                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7770),
+                            Datum = new DateTime(2025, 8, 25, 18, 30, 44, 522, DateTimeKind.Utc).AddTicks(1820),
                             KomponentaId = 3,
                             ServisId = 1
                         },
                         new
                         {
                             IzvrseniServisId = 3,
-                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7771),
+                            Datum = new DateTime(2025, 8, 25, 18, 30, 44, 522, DateTimeKind.Utc).AddTicks(1820),
                             KomponentaId = 1,
                             ServisId = 2
                         },
                         new
                         {
                             IzvrseniServisId = 4,
-                            Datum = new DateTime(2025, 6, 13, 19, 48, 15, 52, DateTimeKind.Utc).AddTicks(7772),
+                            Datum = new DateTime(2025, 8, 25, 18, 30, 44, 522, DateTimeKind.Utc).AddTicks(1821),
                             KomponentaId = 3,
                             ServisId = 2
                         });
@@ -1473,37 +1473,6 @@ namespace eWorkshop.Services.Migrations
                         });
                 });
 
-            modelBuilder.Entity("eWorkshop.Services.Database.Magacin", b =>
-                {
-                    b.Property<int>("MagacinId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("MagacinID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MagacinId"));
-
-                    b.Property<int?>("Kolicina")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KomponentaId")
-                        .HasColumnType("int")
-                        .HasColumnName("KomponentaID");
-
-                    b.Property<string>("Naziv")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Opis")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("MagacinId");
-
-                    b.HasIndex("KomponentaId");
-
-                    b.ToTable("Magacin", (string)null);
-                });
-
             modelBuilder.Entity("eWorkshop.Services.Database.PersistedGrant", b =>
                 {
                     b.Property<long>("Id")
@@ -1596,21 +1565,21 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             RadniZadatakId = 1,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(1033),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(3870),
                             Naziv = "Mostar",
                             StateMachine = "active"
                         },
                         new
                         {
                             RadniZadatakId = 2,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(1075),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(3882),
                             Naziv = "Sarajevo",
                             StateMachine = "idle"
                         },
                         new
                         {
                             RadniZadatakId = 3,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(1078),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(3884),
                             Naziv = "Zenica",
                             StateMachine = "idle"
                         });
@@ -1788,7 +1757,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 1,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6057),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(8113),
                             KorisnikId = 1,
                             RadniZadatakId = 1,
                             UredjajId = 189
@@ -1796,7 +1765,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 2,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6071),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(8127),
                             KorisnikId = 1,
                             RadniZadatakId = 1,
                             UredjajId = 190
@@ -1804,7 +1773,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 3,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6073),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(8129),
                             KorisnikId = 2,
                             RadniZadatakId = 1,
                             UredjajId = 191
@@ -1812,7 +1781,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 4,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6075),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(8130),
                             KorisnikId = 2,
                             RadniZadatakId = 1,
                             UredjajId = 192
@@ -1820,7 +1789,7 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             ServisId = 5,
-                            Datum = new DateTime(2025, 6, 13, 21, 48, 15, 53, DateTimeKind.Local).AddTicks(6077),
+                            Datum = new DateTime(2025, 8, 25, 20, 30, 44, 522, DateTimeKind.Local).AddTicks(8132),
                             KorisnikId = 1,
                             RadniZadatakId = 1,
                             UredjajId = 193
@@ -1901,21 +1870,21 @@ namespace eWorkshop.Services.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "7e4cfe1e-8374-4f73-9eae-001950af72a8",
+                            ConcurrencyStamp = "1180205a-3bb6-4f1a-949b-c27f2999965e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "5313ce61-726c-4b01-b021-282125380370",
+                            ConcurrencyStamp = "b118f256-6216-4caa-9924-d7b134976bbd",
                             Name = "Serviser",
                             NormalizedName = "SERVISER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "73710dab-5cc5-49c0-9f7e-db554d272845",
+                            ConcurrencyStamp = "b7388536-06cc-4b40-a65d-bf072b9c0f08",
                             Name = "Pretplatnik",
                             NormalizedName = "PRETPLATNIK"
                         });
@@ -2407,16 +2376,6 @@ namespace eWorkshop.Services.Migrations
                     b.Navigation("Servis");
                 });
 
-            modelBuilder.Entity("eWorkshop.Services.Database.Magacin", b =>
-                {
-                    b.HasOne("eWorkshop.Services.Database.Komponente", "Komponenta")
-                        .WithMany("Magacins")
-                        .HasForeignKey("KomponentaId")
-                        .HasConstraintName("FK_Komponenta");
-
-                    b.Navigation("Komponenta");
-                });
-
             modelBuilder.Entity("eWorkshop.Services.Database.RadniZadatakUredjaj", b =>
                 {
                     b.HasOne("eWorkshop.Services.Database.Korisnici", "Korisnik")
@@ -2544,8 +2503,6 @@ namespace eWorkshop.Services.Migrations
             modelBuilder.Entity("eWorkshop.Services.Database.Komponente", b =>
                 {
                     b.Navigation("IzvrseniServis");
-
-                    b.Navigation("Magacins");
                 });
 
             modelBuilder.Entity("eWorkshop.Services.Database.Korisnici", b =>
