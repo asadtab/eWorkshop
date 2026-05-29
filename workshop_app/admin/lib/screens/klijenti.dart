@@ -1,6 +1,6 @@
-import 'package:admin/bloc/client_secret/client_secret_bloc.dart';
-import 'package:admin/bloc/klijenti/klijenti_bloc.dart';
 import 'package:admin/screens/dodaj_klijenta.dart';
+import 'package:commons/bloc/client_secret/client_secret_bloc.dart';
+import 'package:commons/bloc/klijenti/klijenti_bloc.dart';
 import 'package:commons/models/klijenti.dart';
 import 'package:commons/models/korisnik.dart';
 import 'package:commons/providers/klijenti_provider.dart';

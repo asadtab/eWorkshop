@@ -29,6 +29,9 @@ dependencies:
   openid_client: ^0.4.8
   device_info_plus: ^10.1.0
   app_links: ^6.3.3
+  flutter_bloc: ^8.1.3
+  bloc:
+  equatable:
 
 dev_dependencies:
   flutter_test:

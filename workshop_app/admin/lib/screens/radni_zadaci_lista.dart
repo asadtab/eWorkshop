@@ -1,7 +1,7 @@
-import 'package:admin/bloc/radni_zadatak/radni_zadatak_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/radniZadatak_detalji.dart';
 import 'package:admin/screens/radni_zadaci.dart';
+import 'package:commons/bloc/radni_zadatak/radni_zadatak_bloc.dart';
 import 'package:commons/helpers/format_datuma.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';

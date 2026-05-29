@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\User\dev\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\User\Downloads\eWorkshop-main\eWorkshop-main\workshop_app\commons"
+export "FLUTTER_ROOT=C:\dev\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\asad.tabak\Desktop\Materijali\dev\eWorkshop\workshop_app\commons"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"

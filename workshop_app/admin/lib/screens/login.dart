@@ -1,6 +1,6 @@
-import 'package:admin/bloc/login/bloc/login_bloc.dart';
-import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/main.dart';
+import 'package:commons/bloc/login/bloc/login_bloc.dart';
+import 'package:commons/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';

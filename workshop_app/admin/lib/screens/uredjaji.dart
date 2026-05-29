@@ -1,14 +1,15 @@
-import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
 import 'package:admin/screens/uredjaj_detalji.dart';
 import 'package:admin/widgets/status_icons.dart';
+import 'package:commons/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import "package:commons/providers/uredjaj_provider.dart";
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/dialog_notification.dart';
+import 'package:commons/widgets/dropdown_uredjaj.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -81,32 +82,12 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 4),
-                  DropdownButton<String>(
-                    value: dropdownvalue,
-                    isExpanded: true,
-                    elevation: 16,
-                    padding: EdgeInsets.all(8),
-                    hint: Text("Odaberi status"),
-                    style: const TextStyle(color: Colors.black),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    underline: Container(
-                      height: 5,
-                      color: Color(0xFFa2cdbc),
-                    ),
-                    onChanged: (String? value) {
-                      uredjajBloc.add(
-                          UredjajFilterEvent(status: StateHelper.nizSearch(value!)));
-                      setState(() {
-                        dropdownvalue = value;
-                      });
-                    },
-                    items: StateHelper.nizOpis.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
+                  DropdownUredjaj(opcije: StateHelper.nizOpis, value: dropdownvalue, onChanged: (val) { 
+              setState(() {
+                dropdownvalue = val;
+                uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch(val)));
+              });
+            },),
                 ],
               ),
             ),

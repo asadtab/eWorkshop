@@ -1,10 +1,11 @@
-import 'package:admin/bloc/radni_zadatak/radni_zadatak_bloc.dart';
-import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
-import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
 import 'package:admin/screens/uredjaj_detalji.dart';
-import 'package:admin/widgets/radni_zadatak_pdf.dart';
+
 import 'package:admin/widgets/status_icons.dart';
+import 'package:admin/widgets/uredjaj_pdf.dart';
+import 'package:commons/bloc/radni_zadatak/radni_zadatak_bloc.dart';
+import 'package:commons/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:commons/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:commons/helpers/format_datuma.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/radni_zadatak.dart';
@@ -75,7 +76,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
 
     return Scaffold(
         appBar: BarrApp(naslov: "Informacije o radnom zadatku"),
-        body: BlocConsumer<RadniZadatakBloc, RadniZadatakState>(
+         body: BlocConsumer<RadniZadatakBloc, RadniZadatakState>(
           listenWhen: (previous, current) => current is ZadatakDataLoadedState,
           listener: (context, state) {
           },

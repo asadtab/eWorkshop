@@ -1,4 +1,4 @@
-import 'package:admin/bloc/lokacija/lokacija_bloc.dart';
+import 'package:commons/bloc/lokacija/lokacija_bloc.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';

@@ -1,8 +1,8 @@
-import 'package:admin/bloc/statistika_bloc/statistika_bloc.dart';
-import 'package:admin/bloc/uredjaji/bloc/uredjaj_bloc.dart';
-import 'package:admin/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:admin/screens/dodaj_uredi_uredjaj.dart';
 import 'package:admin/screens/servisiraj.dart';
+import 'package:commons/bloc/statistika_bloc/statistika_bloc.dart';
+import 'package:commons/bloc/uredjaji/bloc/uredjaj_bloc.dart';
+import 'package:commons/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:commons/helpers/change_state_helper.dart';
 import 'package:commons/helpers/format_datuma.dart';
 import 'package:commons/helpers/state_helper.dart';

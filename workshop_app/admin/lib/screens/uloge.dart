@@ -1,4 +1,5 @@
 import 'package:admin/widgets/dodaj_ulogu.dart';
+import 'package:commons/bloc/uloge/uloge_bloc.dart';
 import 'package:commons/models/uloge.dart';
 import 'package:commons/providers/uloge_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -6,7 +7,6 @@ import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/uloge/uloge_bloc.dart';
 
 class UlogeScreen extends StatefulWidget {
   const UlogeScreen({super.key});

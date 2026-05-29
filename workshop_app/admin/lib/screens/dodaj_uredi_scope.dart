@@ -1,4 +1,4 @@
-import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
+import 'package:commons/bloc/api_scopes/api_scopes_bloc.dart';
 import 'package:commons/models/api_scopes.dart';
 import 'package:commons/providers/api_scopes_provider.dart';
 import 'package:commons/widgets/button.dart';

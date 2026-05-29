@@ -1,10 +1,11 @@
-import 'package:admin/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:admin/screens/acc.dart';
 import 'package:admin/screens/login_screen.dart';
 import 'package:admin/screens/radni_zadaci.dart';
 import 'package:admin/screens/radni_zadaci_lista.dart';
 import 'package:admin/screens/raspored_uredjaja.dart';
+import 'package:admin/screens/reports.dart';
 import 'package:admin/screens/uredjaji.dart';
+import 'package:commons/bloc/user/bloc/korisnici_bloc.dart';
 import 'package:commons/models/user.dart';
 import 'package:commons/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +122,10 @@ class _CommonNavigationState extends State<CommonNavigation> {
               icon: Icon(Icons.table_chart),
               label: Text('Raspored uređaja'),
             ),
+          NavigationRailDestination(
+              icon: Icon(Icons.print),
+              label: Text('Izvještaji'),
+            ),
             if (User.roles.contains("Administrator"))
               NavigationRailDestination(
                 icon: Icon(Icons.settings),
@@ -137,6 +142,7 @@ class _CommonNavigationState extends State<CommonNavigation> {
               UredjajiScreen(),
               RadniZadaciLista(),
               RasporedUredjaja(),
+              ReportsScreen(),
               AdministratorScreen()
             ],
           ),

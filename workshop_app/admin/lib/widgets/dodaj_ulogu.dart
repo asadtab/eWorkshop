@@ -1,4 +1,4 @@
-import 'package:admin/bloc/uloge/uloge_bloc.dart';
+import 'package:commons/bloc/uloge/uloge_bloc.dart';
 import 'package:commons/models/uloge.dart';
 import 'package:commons/widgets/notification.dart';
 import 'package:flutter/material.dart';

@@ -173,12 +173,12 @@ app.MapControllers();
 
 
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<_190128Context>();
     dataContext.Database.Migrate();
 }
 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-IdentityModelEventSource.ShowPII = true;
+IdentityModelEventSource.ShowPII = true;*/
 
 app.Run();

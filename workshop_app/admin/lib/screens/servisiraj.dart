@@ -1,5 +1,5 @@
-import 'package:admin/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:admin/commons/app_bar.dart';
+import 'package:commons/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
 import 'package:commons/helpers/state_helper.dart';
 import 'package:commons/models/uredjaj.dart';
 import 'package:commons/models/user.dart';

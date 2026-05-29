@@ -1,5 +1,5 @@
-import 'package:admin/bloc/api_scopes/api_scopes_bloc.dart';
 import 'package:admin/screens/dodaj_uredi_scope.dart';
+import 'package:commons/bloc/api_scopes/api_scopes_bloc.dart';
 import 'package:commons/models/api_scopes.dart';
 import 'package:commons/models/korisnik.dart';
 import 'package:commons/providers/api_scopes_provider.dart';
