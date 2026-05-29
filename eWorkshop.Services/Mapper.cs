@@ -31,17 +31,10 @@ namespace eWorkshop.Services
             CreateMap<Lokacija, LokacijaVM>();
        
 
-            CreateMap<Client, ClientVM>();
-            CreateMap<ClientScope, ClientScopeVM>();
-            CreateMap<ApiResource, ApiResourceVM>();
-            CreateMap<ApiScope, ScopesVM>();
 
 
             CreateMap<IdentityUser, AspNetUserVM>();
-            CreateMap<ClientScope, ClientScopeVM>();
-            CreateMap<ClientClaim, ClientClaimVM>();
-            CreateMap<ClientGrantType, ClientGrantTypeVM>();
-            CreateMap<ClientSecret, ClientSecretsVM>();
+           
 
 
             CreateMap<UredjajUpsertRequest, Uredjaj>();
@@ -56,21 +49,11 @@ namespace eWorkshop.Services
             CreateMap<RadniZadatakUredjajUpsertRequest, RadniZadatakUredjaj>(); 
             CreateMap<LokacijaUpsertRequest, Lokacija>(); 
 
-            CreateMap<ClientInsertRequest, Client>(); 
-            CreateMap<ApiResourceUpsertRequest, ApiResource>(); 
-            CreateMap<ScopesUpsertRequest, ApiScope>(); 
-            CreateMap<ClientScopeUpsertRequest, ClientScope>(); 
-
-            CreateMap<ClientSecretUpsertRequest, ClientSecret>(); 
-            CreateMap<ClientClaimUpsertRequest, ClientClaim>(); 
-            CreateMap<UlogeUpsertRequest, Uloge>(); 
-            CreateMap<ClientGrantTypeUpsertRequest, ClientGrantType>(); 
-            CreateMap<ClientSecretUpsertRequest, ClientSecret>(); 
+           
 
             CreateMap<AspNetUserInsertRequest, IdentityUser>(); 
 
 
-            CreateMap<ClientUpsertRequest, Client>(); 
         }
     }
 }

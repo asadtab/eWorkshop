@@ -1,5 +1,4 @@
-﻿using eWorkshop.IdentityServer.Controllers;
-using eWorkshop.Model;
+﻿using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services;

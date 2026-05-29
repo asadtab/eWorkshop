@@ -1,5 +1,4 @@
-﻿using eWorkshop.IdentityServer.Controllers;
-using eWorkshop.Services;
+﻿using eWorkshop.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 

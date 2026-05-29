@@ -9,12 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.Services", "eWork
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.Model", "eWorkshop.Model\eWorkshop.Model.csproj", "{94C5C17D-71F8-428B-97B1-FDFEC2D85400}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.IdentityServer", "eWorkshop.IdentityServer\eWorkshop.IdentityServer.csproj", "{D314E50F-AD89-4F4C-9735-7C84695738E6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.MailPublisher", "eWorkshop.MailPublisher\eWorkshop.MailPublisher.csproj", "{06569AB9-037A-4EB3-8EFB-4AF852A761F6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eWorkshop.MailSender", "eWorkshop.MailSender\eWorkshop.MailSender.csproj", "{E477C0CA-7D77-4A6C-9175-75B7CA52541F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CE625E8-47B4-424A-B92A-3951A238B349}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yaml = docker-compose.yaml
@@ -52,30 +46,6 @@ Global
 		{94C5C17D-71F8-428B-97B1-FDFEC2D85400}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94C5C17D-71F8-428B-97B1-FDFEC2D85400}.Release|x86.ActiveCfg = Release|Any CPU
 		{94C5C17D-71F8-428B-97B1-FDFEC2D85400}.Release|x86.Build.0 = Release|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Debug|x86.Build.0 = Debug|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Release|x86.ActiveCfg = Release|Any CPU
-		{D314E50F-AD89-4F4C-9735-7C84695738E6}.Release|x86.Build.0 = Release|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Debug|x86.Build.0 = Debug|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|x86.ActiveCfg = Release|Any CPU
-		{06569AB9-037A-4EB3-8EFB-4AF852A761F6}.Release|x86.Build.0 = Release|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Debug|x86.Build.0 = Debug|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Release|x86.ActiveCfg = Release|Any CPU
-		{E477C0CA-7D77-4A6C-9175-75B7CA52541F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,18 +6,17 @@ using eWorkshop.Services.UredjajiStateMachine;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
-using eWorkshop.MailPublisher.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Logger = new LoggerConfiguration()
+/*Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-builder.Host.UseSerilog();
+builder.Host.UseSerilog();*/
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -35,7 +34,6 @@ builder.Services.AddTransient<ILokacijaService, LokacijaService>();
 builder.Services.AddTransient<IServisAdapter, ServisAdapter>();
 builder.Services.AddTransient<IUlogeService, UlogeService>();
 
-builder.Services.AddSingleton<IEmailService, EmailService>();
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
 
