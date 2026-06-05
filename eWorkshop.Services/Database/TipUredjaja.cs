@@ -11,7 +11,7 @@ public partial class TipUredjaja
 
     public string Naziv { get; set; } = null!;
 
-    public string Opis { get; set; } = null!;
+    public string Opis { get; set; }    
 
     public virtual ICollection<Uredjaj> Uredjajs { get; } = new List<Uredjaj>();
 }

@@ -12,6 +12,7 @@ public partial class _190128Context : DbContext
     }
 
     public virtual DbSet<IzvrseniServi> IzvrseniServis { get; set; }
+    public virtual DbSet<Prijem> Prijem { get; set; }
     public virtual DbSet<Komponente> Komponentes { get; set; }
     public virtual DbSet<Korisnici> Korisnicis { get; set; }
     public virtual DbSet<Lokacija> Lokacijas { get; set; }
@@ -46,7 +47,6 @@ public partial class _190128Context : DbContext
                 .HasForeignKey(d => d.ServisId)
                 .HasConstraintName("FK_Servis");
         });
-        modelBuilder.Entity<IzvrseniServi>().SeedData();
 
         modelBuilder.Entity<Komponente>(entity =>
         {
@@ -59,7 +59,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Tip).HasMaxLength(255);
             entity.Property(e => e.Vrijednost).HasMaxLength(255);
         });
-        modelBuilder.Entity<Komponente>().SeedData();
 
         modelBuilder.Entity<Korisnici>(entity =>
         {
@@ -73,7 +72,6 @@ public partial class _190128Context : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });
-        modelBuilder.Entity<Korisnici>().SeedData();
 
         modelBuilder.Entity<Uloge>(entity =>
         {
@@ -87,7 +85,6 @@ public partial class _190128Context : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });
-        modelBuilder.Entity<Uloge>().SeedData();
 
         modelBuilder.Entity<Lokacija>(entity =>
         {
@@ -97,7 +94,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Naziv).HasMaxLength(255);
             entity.Property(e => e.Opis).HasMaxLength(255);
         });
-        modelBuilder.Entity<Lokacija>().SeedData();
 
         modelBuilder.Entity<RadniZadatak>(entity =>
         {
@@ -108,7 +104,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Naziv).HasMaxLength(255);
             entity.Property(e => e.StateMachine).HasMaxLength(255);
         });
-        modelBuilder.Entity<RadniZadatak>().SeedData();
 
         modelBuilder.Entity<RadniZadatakUredjaj>(entity =>
         {
@@ -132,7 +127,6 @@ public partial class _190128Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Uredjaj");
         });
-        modelBuilder.Entity<RadniZadatakUredjaj>().SeedData();
 
         modelBuilder.Entity<Servi>(entity =>
         {
@@ -141,7 +135,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.ServisId).HasColumnName("ServisID");
             entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
-            entity.Property(e => e.Napomena).HasColumnType("text");
             entity.Property(e => e.RadniZadatakId).HasColumnName("RadniZadatakID");
             entity.Property(e => e.UredjajId).HasColumnName("UredjajID");
 
@@ -160,7 +153,6 @@ public partial class _190128Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UredjajID");
         });
-        modelBuilder.Entity<Servi>().SeedData();
 
         modelBuilder.Entity<TipUredjaja>(entity =>
         {
@@ -170,7 +162,6 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.Naziv).HasMaxLength(255);
             entity.Property(e => e.Opis).HasMaxLength(255);
         });
-        modelBuilder.Entity<TipUredjaja>().SeedData();
 
         modelBuilder.Entity<Uredjaj>(entity =>
         {
@@ -194,13 +185,11 @@ public partial class _190128Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UredjajTip");
         });
-        modelBuilder.Entity<Uredjaj>().SeedData();
 
         modelBuilder.Entity<IdentityUserRole<int>>(entity =>
         {
             entity.HasKey(p => new { p.UserId, p.RoleId });
         });
-        modelBuilder.Entity<IdentityUserRole<int>>().SeedData();
 
         modelBuilder.Entity<IdentityUserClaim<int>>(entity =>
         {

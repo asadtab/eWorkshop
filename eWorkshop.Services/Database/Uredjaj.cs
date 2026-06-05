@@ -9,6 +9,10 @@ public partial class Uredjaj
     [Key]
     public int UredjajId { get; set; }
 
+    public int EvBroj { get; set; }
+
+    public string Kuciste { get; set; }
+
     public int TipId { get; set; }
 
     public string Koda { get; set; } = null!;

@@ -7,7 +7,7 @@ public partial class Servi
 {
     public int ServisId { get; set; }
 
-    public string? Napomena { get; set; }
+    public string? OpisServisa { get; set; }
 
     public int KorisnikId { get; set; }
 
