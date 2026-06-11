@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             context.read<AuthProvider>().setLoggedIn(true);
                             //korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
                             setState(() {
-                              //authProvider!.getUser(login!.token.toString());
+                              authProvider!.getUser(login!.token.toString());
                               //korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
                             });
           
@@ -139,9 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
                             }
-                          } catch (e, st) {
+                          } catch (e) {
                             poruka("Lozinka ili korisničko ime su pogrešni.");
-                            print(st);
                           }
                         },
                       ),

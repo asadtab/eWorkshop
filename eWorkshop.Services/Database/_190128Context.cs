@@ -189,6 +189,7 @@ public partial class _190128Context : DbContext
         modelBuilder.Entity<IdentityUserRole<int>>(entity =>
         {
             entity.HasKey(p => new { p.UserId, p.RoleId });
+            entity.ToTable("KorisniciUloge");
         });
 
         modelBuilder.Entity<IdentityUserClaim<int>>(entity =>

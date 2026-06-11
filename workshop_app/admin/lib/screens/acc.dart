@@ -122,7 +122,7 @@ class _UserAccountScreenState extends State<UserAccountScreen> {
                                         Text(
                                           widget.korisnik != null
                                               ? widget.korisnik!.email!
-                                              : _korisnik.email!,
+                                              : _korisnik.email ?? "",
                                           style: TextStyle(
                                             color: Colors.grey,
                                           ),

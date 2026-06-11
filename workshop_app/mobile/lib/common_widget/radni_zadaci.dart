@@ -44,7 +44,7 @@ class RadniZadatakCommon {
               padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
               width: 150,
               height: 30,
-              child: Text(x.uredjajId.toString() + " - " + x.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold))))
+              child: Text(x.evBroj.toString() + " - " + x.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold))))
           .cast<Widget>()
           .toList();
 

@@ -1,5 +1,5 @@
 class Claims {
-  static const String id = 'id';
+  static const String id = 'sub';
   static const String fullName = 'name';
   static const String username = 'preferred_username';
   static const String email = 'email';

@@ -1580,3 +1580,8 @@ inner join L l
 	on u.LokacijaID = l.LokacijaID
 inner join R r
 	on r.Naziv = l.Naziv
+
+	use eWorkshopDb
+
+	INSERT INTO Uloge (Name, NormalizedName, ConcurrencyStamp)
+VALUES ('Serviser', 'SERVISER', NEWID())

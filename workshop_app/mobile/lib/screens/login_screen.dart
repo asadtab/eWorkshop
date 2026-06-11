@@ -78,7 +78,7 @@ class _LoginFormState extends State<LoginForm> {
                         context.read<AuthProvider>().setLoggedIn(true);
               
                         setState(() {
-                          authProvider.getUser(token);
+                          authProvider.getUser(token!.token.toString());
                         });
               
                         if (context.read<AuthProvider>().isLoggedIn!) {
@@ -92,7 +92,7 @@ String role = User.roles.first;
                             ),
                           );
                           break;
-      case 'Administrator':
+      case 'Admin':
         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

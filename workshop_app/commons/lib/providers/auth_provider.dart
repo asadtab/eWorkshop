@@ -9,14 +9,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthProvider extends BaseProvider<TokenModel> {
-  late String _baseUrl = 'http://localhost:8080';
+  late String _baseUrl;
   bool _isLoggedIn = false;
+
 
   bool? get isLoggedIn => _isLoggedIn;
 
   User? _user;
 
-  AuthProvider():super("Korisnici/Login");
+  AuthProvider():super("Korisnici/Login"){
+         if(isDesktop()){
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080/");
+    } else if (isMobile()){
+      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:8080");
+    }
+
+
+  }
 
     @override
     TokenModel fromJson(data) {

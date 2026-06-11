@@ -30,7 +30,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     if(isDesktop()){
     _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080/");
     } else if (isMobile()){
-      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:7189/");
+      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:8080/");
     }
 
     if (_baseUrl!.endsWith("/") == false) {
