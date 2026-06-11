@@ -90,48 +90,50 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(children: [
-                        Card(
-                                  color: Color(0xFFf3f5fb),
-                                  elevation: 4.0,
-                                  margin: EdgeInsets.all(16.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Radni zadatak',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(height: 20),
-                                        DataTable(
-                                          columns: const [
-                                            DataColumn(label: Text('ID')),
-                                            DataColumn(label: Text('Naziv')),
-                                            DataColumn(label: Text('Status')),
-                                            DataColumn(label: Text('Datum kreiranja')),
-                                            
-                                          ],
-                                          rows: [
-                                            DataRow(
-                                              cells: [
-                                                DataCell(tekstInfo(zadatak.radniZadatakId.toString())),
-                                                DataCell(
-                                                    tekstInfo(zadatak.naziv ?? "")),
-                                                DataCell(buildIcon.buildStatusCellZadatak(zadatak.stateMachine)),
-                                                DataCell(tekstInfo(FormatirajDatum.formatiraj(DateTime.parse(zadatak.datum.toString())))),
-                                               
-                                              ],
+                        Container(
+                          child: Card(
+                                    color: Color(0xFFf3f5fb),
+                                    elevation: 4.0,
+                                    margin: EdgeInsets.all(16.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Radni zadatak',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        )
-                                      ],
+                                          ),
+                                          SizedBox(height: 20),
+                                          DataTable(
+                                            columns: const [
+                                              DataColumn(label: Text('ID')),
+                                              DataColumn(label: Text('Naziv')),
+                                              DataColumn(label: Text('Status')),
+                                              DataColumn(label: Text('Datum kreiranja')),
+                                              
+                                            ],
+                                            rows: [
+                                              DataRow(
+                                                cells: [
+                                                  DataCell(tekstInfo(zadatak.radniZadatakId.toString())),
+                                                  DataCell(
+                                                      tekstInfo(zadatak.naziv ?? "")),
+                                                  DataCell(buildIcon.buildStatusCellZadatak(zadatak.stateMachine)),
+                                                  DataCell(tekstInfo(FormatirajDatum.formatiraj(DateTime.parse(zadatak.datum.toString())))),
+                                                 
+                                                ],
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
+                        ),
                                 Container(
                                   width: 350,
                                   child: Card(
@@ -158,7 +160,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                                           var uredjaji = radniZadatakUredjaj;
                               //.where((uredjaj) => uredjaj.radniZadatakStatus == "done" || uredjaj.radniZadatakStatus == "fix")
                               //.toList();
-
+         
                               try {
                                 GenerisiPdf.generisiPdf(uredjaji);
                               } catch (e) {
@@ -188,7 +190,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                                         textColor: Colors.black,
                                         onPressed: ()async {
                                          await fakturisiZadatak(zadatak);
-   
+            
                                         },
                                       )],),
                                     ),
@@ -215,89 +217,97 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                                             fontWeight: FontWeight.bold,
                                           ) ,),
                                 ),
-                                DataTable(
-                            showCheckboxColumn: false,
-                            columns: [
-                              DataColumn(label: Text('Id')),
-                              DataColumn(label: Text('Tip')),
-                              DataColumn(label: Text('Naziv')),
-                              DataColumn(label: Text('Koda')),
-                              DataColumn(label: Text('Ser. broj')),
-                              DataColumn(label: Text('Status')),
-                              DataColumn(label: Text('Lokacija')),
-                              DataColumn(label: Text('Opcije')),
-                            ],
-                            rows: radniZadatakUredjaj
-                                .map((x) => DataRow(
-                                        onSelectChanged: (isSelected) async {
-                                          
-                                              if (isSelected!)
-                                                {
-                                                   Uredjaj noviUredjaj = x.toUredjaj();
-                            
-                                                  await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) => UredjajDetaljiScreen(
-                                                                uredjaj: noviUredjaj,
-                                                                context: context,
-                                                              )));
-                                                      //.then((value) => uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch(dropdownvalue))))
-                                                };
-                                            },
-                                        cells: [
-                                          DataCell( Text(x.uredjajId.toString())),
-                                          DataCell(Text(x.tipNaziv ?? "")),
-                                          DataCell(Text(x.tipOpis ?? "")),
-                                          DataCell(Text(x.koda ?? "")),
-                                          DataCell(Text(x.serijskiBroj ?? "")),
-                                          DataCell(buildIcon.buildStatusCellUredjaj(x.uredjajStatus)),
-                            
-                                          DataCell(Text(x.lokacija ?? "")),
-                                          DataCell(PopupMenuButton<String>(
-                                            //initialValue: selected,
-                                            // Callback that sets the selected popup menu item.
-                                            onSelected: (izbor) {
-                                              if (x.uredjajStatus == "idle") {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext context) {
-                                                      return AlertDialog(
-                                                        title: Text("Da li želite ukloniti uređaj iz radnog zadatka"),
-                                                        content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                                                          MinimalisticButton(
-                                                              text: "Potvrdi",
-                                                              icons: Icon(Icons.save, color: Colors.blueAccent,),
-                                                              onPressed: () async {
-                                                                /*try {
-                                                                  await _uredjajiProvider!.delete(x.uredjajId, x, "Uredjaj");
-                                                                } catch (e) {}
-                                                                uredjajBloc.add(UredjajFilterEvent(status: 'idle'));*/
-                                                                Navigator.pop(context);
-                                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(CustomNotification.infoSnack("Uređaj je uspješno izbrisan"));
-                                                              }),
-                                                          MinimalisticButton(
-                                                            text: "Poništi",
-                                                            icons: Icon(Icons.cancel, color: Colors.redAccent,),
-                                                              onPressed: () async {Navigator.pop(context);})
-                                                        ]),
-                                                      );
-                                                    });
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(CustomNotification.infoSnack("Samo neaktivni uređaji se mogu izbrisati."));
-                                              }
-                                            },
-                                            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                              PopupMenuItem<String>(
-                                                child: Text('Izbriši'),
-                                                value: 'delete',
-                                              ),
-                                            ],
-                                          )),
-                                        ]))
-                                .toList()),
+                                SingleChildScrollView(
+                                  child: DataTable(
+                                                              showCheckboxColumn: false,
+                                                              columns: [
+                                                                DataColumn(label: Text('Redni broj')),
+                                                                DataColumn(label: Text('Evidencijski broj')),
+                                                                DataColumn(label: Text('Tip')),
+                                                                DataColumn(label: Text('Naziv')),
+                                                                DataColumn(label: Text('Koda')),
+                                                                DataColumn(label: Text('Ser. broj')),
+                                                                DataColumn(label: Text('Status')),
+                                                                DataColumn(label: Text('Lokacija')),
+                                                                DataColumn(label: Text('Opcije')),
+                                                              ],
+                                                              rows: radniZadatakUredjaj
+             .asMap().entries.map((entry) {
+               final index = entry.key;
+               final x = entry.value;
+               
+               return DataRow(
+                 onSelectChanged: (isSelected) async {
+                   if (isSelected!) {
+          Uredjaj noviUredjaj = x.toUredjaj();
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UredjajDetaljiScreen(
+                uredjaj: noviUredjaj,
+                context: context,
+              ),
+            ),
+          );
+                   }
+                 },
+                 cells: [
+                   DataCell(Text('${index + 1}')),  // ← redni broj
+                   DataCell(Text(x.evBroj.toString())),
+                   DataCell(Text(x.tipNaziv ?? "")),
+                   DataCell(Text(x.tipOpis ?? "")),
+                   DataCell(Text(x.koda ?? "")),
+                   DataCell(Text(x.serijskiBroj ?? "")),
+                   DataCell(buildIcon.buildStatusCellUredjaj(x.uredjajStatus)),
+                   DataCell(Text(x.lokacija ?? "")),
+                   DataCell(PopupMenuButton<String>(
+          onSelected: (izbor) {
+            if (x.uredjajStatus == "idle") {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Da li želite ukloniti uređaj iz radnog zadatka"),
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MinimalisticButton(
+                          text: "Potvrdi",
+                          icons: Icon(Icons.save, color: Colors.blueAccent),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              CustomNotification.infoSnack("Uređaj je uspješno izbrisan")
+                            );
+                          },
+                        ),
+                        MinimalisticButton(
+                          text: "Poništi",
+                          icons: Icon(Icons.cancel, color: Colors.redAccent),
+                          onPressed: () async { Navigator.pop(context); },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                CustomNotification.infoSnack("Samo neaktivni uređaji se mogu izbrisati.")
+              );
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'delete',
+              child: Text('Izbriši'),
+            ),
+          ],
+                   )),
+                 ],
+               );
+             }).toList(),),
+                                ),
                               ],
                             ),
                           ),
@@ -312,7 +322,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                 
                 
           },
-        ));
+                 ));
   }
    Text tekstInfo(String uredjaj) => Text(
         uredjaj,

@@ -11,6 +11,7 @@ public partial class Korisnici : IdentityUser<int>
     public bool? Status { get; set; }
 
     public string? RadnaJedinica { get; set; }
+    override public string? Email { get; set; }
 
 
     public virtual ICollection<RadniZadatakUredjaj> RadniZadatakUredjajs { get; } = new List<RadniZadatakUredjaj>();

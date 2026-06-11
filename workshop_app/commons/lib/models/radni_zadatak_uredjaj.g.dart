@@ -9,6 +9,7 @@ part of 'radni_zadatak_uredjaj.dart';
 RadniZadatakUredjaj _$RadniZadatakUredjajFromJson(Map<String, dynamic> json) =>
     RadniZadatakUredjaj()
       ..uredjajId = (json['uredjajId'] as num?)?.toInt()
+      ..evBroj = (json['evBroj'] as num?)?.toInt()
       ..radniZadatakId = (json['radniZadatakId'] as num?)?.toInt()
       ..radniZadatakNaziv = json['radniZadatakNaziv'] as String?
       ..radniZadatakStatus = json['radniZadatakStatus'] as String?
@@ -25,6 +26,7 @@ Map<String, dynamic> _$RadniZadatakUredjajToJson(
         RadniZadatakUredjaj instance) =>
     <String, dynamic>{
       'uredjajId': instance.uredjajId,
+      'evBroj': instance.evBroj,
       'radniZadatakId': instance.radniZadatakId,
       'radniZadatakNaziv': instance.radniZadatakNaziv,
       'radniZadatakStatus': instance.radniZadatakStatus,

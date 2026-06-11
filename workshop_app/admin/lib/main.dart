@@ -87,6 +87,7 @@ class MyApp extends StatelessWidget {
     ClientSecretProvider clientSecretProvider = context.read<ClientSecretProvider>();
     StatistikaProvider statistikaProvider = context.read<StatistikaProvider>();
     RadniZadaciProvider radniZadaciProvider = context.read<RadniZadaciProvider>();
+    AuthProvider authProvider = context.read<AuthProvider>();
 
     return MultiBlocProvider(
         providers: [

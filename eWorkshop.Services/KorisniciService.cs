@@ -1,24 +1,34 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using eWorkshop.Model;
 using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services.Database;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Azure.Core;
-using System.Net.Http.Headers;
-using System.Web;
-using System.Security.Principal;
 using IdentityModel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
+
+//using System.IdentityModel.Tokens.Jwt;
+//using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Security.Principal;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 
 
 
@@ -28,11 +38,70 @@ namespace eWorkshop.Services
     {
         private readonly UserManager<Korisnici> _userManager;
         private readonly RoleManager<Uloge> _roleManager;
-        public KorisniciService(_190128Context context, IMapper mapper, RoleManager<Uloge> roleManager, UserManager<Korisnici> userManager) : base(context, mapper)
+        private readonly SignInManager<Korisnici> _signInManager;
+        private readonly IConfiguration _config;
+        ILogger<KorisniciVM> Logger;
+        public KorisniciService(ILogger<KorisniciVM> logger, IConfiguration configuration, SignInManager<Korisnici> signInManager, _190128Context context, IMapper mapper, RoleManager<Uloge> roleManager, UserManager<Korisnici> userManager) : base(context, mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
+            _config = configuration;
+            Logger = logger;    
         }
+
+        public async Task<string> Login(string username, string password)
+        {
+            const string invalidMsg = "Pogrešno korisničko ime ili lozinka.";
+
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+                throw new Exception(invalidMsg);
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure: true);
+            if (!result.Succeeded)
+            {
+                if (result.IsLockedOut)
+                    throw new Exception("Previše neuspjelih pokušaja. Pokušajte ponovo za nekoliko minuta.");
+                throw new Exception(invalidMsg);
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Name, $"{user.Ime} {user.Prezime}"),
+        new Claim("preferred_username", user.UserName!)
+    };
+
+            if (!string.IsNullOrEmpty(user.Email))
+                claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+
+            foreach (var role in roles)
+                claims.Add(new Claim(ClaimTypes.Role, role));
+
+
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:Secret"]);
+
+            Console.WriteLine("Secret: " + key);
+
+            Logger.LogInformation(key.ToString());
+            Console.WriteLine(key.ToString());
+
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
+        }
+
 
         public async Task<KorisniciVM> Register(KorisniciInsertRequest request)
         {

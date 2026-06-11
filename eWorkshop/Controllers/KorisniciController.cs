@@ -4,6 +4,7 @@ using eWorkshop.Model.Requests;
 using eWorkshop.Model.SearchObject;
 using eWorkshop.Services;
 using eWorkshop.Services.Database;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,25 @@ namespace eWorkshop.Controllers
     public class KorisniciController : BaseCRUDController<KorisniciVM, KorisniciSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
     {
         private IKorisniciService KorisniciService { get; set; }
+        ILogger<RadniZadatakController> Logger;
 
-        public KorisniciController(IKorisniciService service) : base(service)
+        public KorisniciController(ILogger<RadniZadatakController> logger, IKorisniciService service) : base(service)
         {
             KorisniciService = service;
+            Logger = logger;
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var user = await KorisniciService.Login(request.username, request.password);
+
+
+            if (user == null) {
+                return BadRequest("Pogrešan login");
+            }
+
+            return Ok(new {token = user});
         }
 
         [HttpPost("Registracija")]

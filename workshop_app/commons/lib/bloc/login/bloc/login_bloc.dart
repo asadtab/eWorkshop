@@ -22,7 +22,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoading();
 
       try {
-        // Replace this with your actual authentication logic
         await Future.delayed(Duration(seconds: 2));
 
         yield LoginSuccess();

@@ -11,6 +11,7 @@ import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/dialog_notification.dart';
 import 'package:commons/widgets/dropdown_uredjaj.dart';
 import 'package:commons/widgets/notification.dart';
+import 'package:darq/darq.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -164,7 +165,8 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                           child: DataTable(
                               showCheckboxColumn: false,
                               columns: [
-                                DataColumn(label: Text('Id')),
+                                DataColumn(label: Text('Redni broj')),
+                                DataColumn(label: Text('Evidencijski broj')),
                                 DataColumn(label: Text('Tip')),
                                 DataColumn(label: Text('Naziv')),
                                 DataColumn(label: Text('Koda')),
@@ -173,77 +175,90 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                                 DataColumn(label: Text('Lokacija')),
                                 DataColumn(label: Text('Opcije')),
                               ],
-                              rows: uredjajiData
-                                  .map((x) => DataRow(
-                                          onSelectChanged: (isSelected) async => {
-                                                if (isSelected!)
-                                                  {
-                                                    await Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) => UredjajDetaljiScreen(
-                                                                  uredjaj: x,
-                                                                  context: context,
-                                                                ))).then(
-                                                        (value) => uredjajBloc.add(UredjajFilterEvent(status: StateHelper.nizSearch(dropdownvalue))))
-                                                  },
-                                              },
-                                          cells: [
-                                            DataCell(Text(x.uredjajId.toString())),
-                                            DataCell(Text(x.tipNaziv ?? "")),
-                                            DataCell(Text(x.tipOpis ?? "")),
-                                            DataCell(Text(x.koda ?? "")),
-                                            DataCell(Text(x.serijskiBroj ?? "")),
-                                            DataCell(buildIcon.buildStatusCellUredjaj(x.status)),
-
-                                            DataCell(Text(x.lokacijaNaziv ?? "")),
-                                            DataCell(PopupMenuButton<String>(
-                                              initialValue: selected,
-                                              // Callback that sets the selected popup menu item.
-                                              onSelected: (izbor) {
-                                                if (x.status == "idle") {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext context) {
-                                                        return AlertDialog(
-                                                          title: Text("Da li želite izbrisati uređaj"),
-                                                          content: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                                                            MinimalisticButton(
-                                                                text: "Potvrdi",
-                                                                icons: Icon(Icons.save, color: Colors.blueAccent,),
-                                                                onPressed: () async {
-                                                                  try {
-                                                                    await _uredjajiProvider!.delete(x.uredjajId, x, "Uredjaj");
-                                                                  } catch (e) {}
-                                                                  uredjajBloc.add(UredjajFilterEvent(status: 'idle'));
-                                                                  Navigator.pop(context);
-                                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(CustomNotification.infoSnack("Uređaj je uspješno izbrisan"));
-                                                                }),
-                                                            MinimalisticButton(
-                                                              text: "Poništi",
-                                                              icons: Icon(Icons.cancel, color: Colors.redAccent,),
-                                                                onPressed: () async {Navigator.pop(context);})
-                                                          ]),
-                                                        );
-                                                      });
-                                                } else {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(CustomNotification.infoSnack("Samo neaktivni uređaji se mogu izbrisati."));
-                                                }
-                                              },
-                                              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                                                PopupMenuItem<String>(
-                                                  child: Text('Izbriši'),
-                                                  value: 'delete',
-                                                ),
-                                              ],
-                                            )),
-                                          ]))
-                                  .toList()),
+                             rows: uredjajiData.asMap().entries.map((x) {
+  final index = x.key;
+  final uredjaj = x.value;
+  
+  return DataRow(
+    onSelectChanged: (isSelected) async {
+      if (isSelected!) {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UredjajDetaljiScreen(
+              uredjaj: uredjaj,
+              context: context,
+            ),
+          ),
+        ).then((value) => uredjajBloc.add(
+          UredjajFilterEvent(status: StateHelper.nizSearch(dropdownvalue))
+        ));
+      }
+    },
+    cells: [
+      DataCell(Text('${index + 1}')),  // ← redni broj
+      DataCell(Text(uredjaj.evBroj.toString())),
+      DataCell(Text(uredjaj.tipNaziv ?? "")),
+      DataCell(Text(uredjaj.tipOpis ?? "")),
+      DataCell(Text(uredjaj.koda ?? "")),
+      DataCell(Text(uredjaj.serijskiBroj ?? "")),
+      DataCell(buildIcon.buildStatusCellUredjaj(uredjaj.status)),
+      DataCell(Text(uredjaj.lokacijaNaziv ?? "")),
+      DataCell(PopupMenuButton<String>(
+        initialValue: selected,
+        onSelected: (izbor) {
+          if (uredjaj.status == "idle") {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Da li želite izbrisati uređaj"),
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MinimalisticButton(
+                        text: "Potvrdi",
+                        icons: Icon(Icons.save, color: Colors.blueAccent),
+                        onPressed: () async {
+                          try {
+                            await _uredjajiProvider!.delete(uredjaj.uredjajId, uredjaj, "Uredjaj");
+                          } catch (e) {}
+                          uredjajBloc.add(UredjajFilterEvent(status: 'idle'));
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            CustomNotification.infoSnack("Uređaj je uspješno izbrisan")
+                          );
+                        },
+                      ),
+                      MinimalisticButton(
+                        text: "Poništi",
+                        icons: Icon(Icons.cancel, color: Colors.redAccent),
+                        onPressed: () async { Navigator.pop(context); },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              CustomNotification.infoSnack("Samo neaktivni uređaji se mogu izbrisati.")
+            );
+          }
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+          PopupMenuItem<String>(
+            value: 'delete',
+            child: Text('Izbriši'),
+          ),
+        ],
+      )),
+    ],
+  );
+}).toList(),
                         ),
                       )
-                    ],
+                  )],
                   );
                 } else {
                   return CircularProgressIndicator();

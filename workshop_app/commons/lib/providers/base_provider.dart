@@ -28,7 +28,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   BaseProvider(String endpoint, [bool? ids]) {
     if(isDesktop()){
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:7189/");
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080/");
     } else if (isMobile()){
       _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:7189/");
     }
@@ -71,7 +71,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     }
 
     if (rst != null && rst) {
-      _baseUrl = "http://localhost:7189/";
+      _baseUrl = "http://localhost:8080/";
     }
 
     var url = "$_baseUrl$_endpoint";

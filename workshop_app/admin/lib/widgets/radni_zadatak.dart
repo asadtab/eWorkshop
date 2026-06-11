@@ -69,7 +69,7 @@ class _RadniZadaciWidgetState extends State<RadniZadaciWidget> {
                   padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                   width: 150,
                   height: 30,
-                  child: Text(e.uredjajId.toString() + " - " + e.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold)));
+                  child: Text(e.evBroj.toString() + " - " + e.tipNaziv.toString(), style: TextStyle(fontWeight: FontWeight.bold)));
             }).toList()),
           ]),
         ),

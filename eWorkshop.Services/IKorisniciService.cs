@@ -14,5 +14,7 @@ namespace eWorkshop.Services
     {
         public Task<KorisniciVM> Register(KorisniciInsertRequest request);
         public Task<KorisniciVM?> UpdatePassword(PromjeniPasswordRequest request);
+
+        public Task<string> Login(string username, string password);
     }
 }

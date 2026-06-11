@@ -9,7 +9,7 @@ public partial class TipUredjaja
     [Key]
     public int TipUredjajaId { get; set; }
 
-    public string Naziv { get; set; } = null!;
+    public string? Naziv { get; set; }
 
     public string Opis { get; set; }    
 

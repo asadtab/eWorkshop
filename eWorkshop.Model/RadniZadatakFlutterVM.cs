@@ -19,5 +19,7 @@ namespace eWorkshop.Model
         public string TipOpis { get; set; }   
         public string Lokacija { get; set; }
         public double Progres { get; set; }
+
+        public int EvBroj { get; set; }
     }
 }

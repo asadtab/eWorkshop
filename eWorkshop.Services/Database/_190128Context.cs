@@ -34,9 +34,9 @@ public partial class _190128Context : DbContext
             entity.Property(e => e.IzvrseniServisId).HasColumnName("IzvrseniServisID");
             entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.KomponentaId).HasColumnName("KomponentaID");
-            entity.Property(e => e.KomponentaNaziv).HasMaxLength(50);
-            entity.Property(e => e.KomponentaTip).HasMaxLength(50);
-            entity.Property(e => e.KomponentaVrijednost).HasMaxLength(50);
+            entity.Property(e => e.KomponentaNaziv).HasMaxLength(50).IsRequired(false);
+            entity.Property(e => e.KomponentaTip).HasMaxLength(50).IsRequired(false);
+            entity.Property(e => e.KomponentaVrijednost).HasMaxLength(50).IsRequired(false);
             entity.Property(e => e.ServisId).HasColumnName("ServisID");
 
             entity.HasOne(d => d.Komponenta).WithMany(p => p.IzvrseniServis)
@@ -54,34 +54,34 @@ public partial class _190128Context : DbContext
             entity.ToTable("Komponente");
 
             entity.Property(e => e.KomponentaId).HasColumnName("KomponentaID");
-            entity.Property(e => e.Naziv).HasMaxLength(255);
-            entity.Property(e => e.Opis).HasMaxLength(255);
-            entity.Property(e => e.Tip).HasMaxLength(255);
-            entity.Property(e => e.Vrijednost).HasMaxLength(255);
+            entity.Property(e => e.Naziv).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.Opis).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.Tip).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.Vrijednost).HasMaxLength(255).IsRequired(false);
         });
 
         modelBuilder.Entity<Korisnici>(entity =>
         {
             entity.ToTable("Korisnici");
 
-            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Email).HasMaxLength(255).IsRequired(false);
             entity.Property(e => e.Ime)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsUnicode(false).IsRequired(false);
             entity.Property(e => e.Prezime)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsUnicode(false).IsRequired(false);
         });
 
         modelBuilder.Entity<Uloge>(entity =>
         {
             entity.ToTable("Uloge");
 
-            entity.Property(e => e.Name).HasMaxLength(255);
-            entity.Property(e => e.NormalizedName)
+            entity.Property(e => e.Name).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.NormalizedName).IsRequired(false)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ConcurrencyStamp)
+            entity.Property(e => e.ConcurrencyStamp).IsRequired(false)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });
@@ -91,8 +91,8 @@ public partial class _190128Context : DbContext
             entity.ToTable("Lokacija");
 
             entity.Property(e => e.LokacijaId).HasColumnName("LokacijaID");
-            entity.Property(e => e.Naziv).HasMaxLength(255);
-            entity.Property(e => e.Opis).HasMaxLength(255);
+            entity.Property(e => e.Naziv).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.Opis).HasMaxLength(255).IsRequired(false);
         });
 
         modelBuilder.Entity<RadniZadatak>(entity =>
@@ -101,8 +101,8 @@ public partial class _190128Context : DbContext
 
             entity.Property(e => e.RadniZadatakId).HasColumnName("RadniZadatakID");
             entity.Property(e => e.Datum).HasColumnType("date");
-            entity.Property(e => e.Naziv).HasMaxLength(255);
-            entity.Property(e => e.StateMachine).HasMaxLength(255);
+            entity.Property(e => e.Naziv).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.StateMachine).HasMaxLength(255).IsRequired(false);
         });
 
         modelBuilder.Entity<RadniZadatakUredjaj>(entity =>
@@ -111,7 +111,7 @@ public partial class _190128Context : DbContext
 
             entity.Property(e => e.Napomena)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsUnicode(false).IsRequired(false);
 
             entity.HasOne(d => d.Korisnik).WithMany(p => p.RadniZadatakUredjajs)
                 .HasForeignKey(d => d.KorisnikId)
@@ -159,8 +159,8 @@ public partial class _190128Context : DbContext
             entity.ToTable("TipUredjaja");
 
             entity.Property(e => e.TipUredjajaId).HasColumnName("TipUredjajaID");
-            entity.Property(e => e.Naziv).HasMaxLength(255);
-            entity.Property(e => e.Opis).HasMaxLength(255);
+            entity.Property(e => e.Naziv).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.Opis).HasMaxLength(255).IsRequired(false);
         });
 
         modelBuilder.Entity<Uredjaj>(entity =>
@@ -168,12 +168,12 @@ public partial class _190128Context : DbContext
             entity.ToTable("Uredjaj");
 
             entity.Property(e => e.UredjajId).HasColumnName("UredjajID");
-            entity.Property(e => e.GodinaIzvedbe).HasMaxLength(255);
+            entity.Property(e => e.GodinaIzvedbe).HasMaxLength(255).IsRequired(false);
             entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
-            entity.Property(e => e.Koda).HasMaxLength(255);
+            entity.Property(e => e.Koda).HasMaxLength(255).IsRequired(false);
             entity.Property(e => e.LokacijaId).HasColumnName("LokacijaID");
-            entity.Property(e => e.SerijskiBroj).HasMaxLength(255);
-            entity.Property(e => e.Status).HasMaxLength(255);
+            entity.Property(e => e.SerijskiBroj).HasMaxLength(255).IsRequired(false);
+            entity.Property(e => e.Status).HasMaxLength(255).IsRequired(false);
             entity.Property(e => e.TipId).HasColumnName("TipID");
 
             entity.HasOne(d => d.Lokacija).WithMany(p => p.Uredjajs)

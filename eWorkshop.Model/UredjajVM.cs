@@ -33,5 +33,7 @@ namespace eWorkshop.Model
 
         public string LokacijaNaziv { get { return Lokacija?.Naziv; } set { } }
 
+        public  int EvBroj { get; set; }
+
     }
 }

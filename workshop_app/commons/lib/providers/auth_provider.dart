@@ -1,24 +1,33 @@
 import 'dart:convert';
 import 'dart:io' as io;
 import 'package:commons/models/constants/claims.dart';
+import 'package:commons/models/token_model.dart';
 import 'package:commons/models/user.dart';
+import 'package:commons/providers/base_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class AuthProvider extends ChangeNotifier {
-  late String _baseUrl;
+class AuthProvider extends BaseProvider<TokenModel> {
+  late String _baseUrl = 'http://localhost:8080';
   bool _isLoggedIn = false;
 
   bool? get isLoggedIn => _isLoggedIn;
 
   User? _user;
 
+  AuthProvider():super("Korisnici/Login");
+
+    @override
+    TokenModel fromJson(data) {
+    return TokenModel.fromJson(data);
+  }
+
   User? get user => _user;
 
   void setLoggedIn(bool value) {
     _isLoggedIn = value;
-    notifyListeners();
+    //notifyListeners();
   }
 
   setLogout() {
@@ -28,7 +37,7 @@ class AuthProvider extends ChangeNotifier {
     User.email = null;
     User.token = null;
 
-    notifyListeners();
+    //notifyListeners();
   }
 
     bool isMobile(){
@@ -39,43 +48,45 @@ class AuthProvider extends ChangeNotifier {
   return !kIsWeb && (io.Platform.isWindows || io.Platform.isLinux || io.Platform.isMacOS);
 }
 
-  AuthProvider() {
+  /*AuthProvider(super.endpoint) {
     if(isDesktop()){
     _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "http://localhost:5443/");
     }else if (isMobile()){
       _baseUrl = const String.fromEnvironment("IdentityServerUrl", defaultValue: "http://10.0.2.2:5443/");
       }
-  }
+  }*/
 
   setUser(User user) {
     _user = user;
-    notifyListeners();
+    //notifyListeners();
   }
 
   clearUser() {
     _user = null;
-    notifyListeners();
+    //notifyListeners();
   }
 
-  Future<String> login(String userName, String password) async {
-    var uri = Uri.parse('${_baseUrl}account/login?userName=$userName&password=$password');
+Future<TokenModel?> login(String username, String password) async {
+  var url = "$_baseUrl/Korisnici/Login";
+  var uri = Uri.parse(url);
 
+  Map<String, String> headers = createHeaders();
+  var jsonRequest = jsonEncode({
+    'username': username,
+    'password': password,
+  });
 
-/*    final response = await http.get(
-  Uri.parse('${_baseUrl}account/login'),
-  headers: {'Content-Type': 'application/json'},
-  body: jsonEncode({'userName': userName, 'password': password}),
-);*/
+  var response = await http.post(uri, headers: headers, body: jsonRequest);
 
-
-    var response = await http.get(uri);
-
-    if (_isValidResponse(response)) {
-      return response.body;
-    } else {
-      throw Exception("Response is not valid");
-    }
+  if (isValidResponseCode(response)) {
+    print([response]);
+    var data = jsonDecode(response.body);
+    print(data);
+    return TokenModel.fromJson(data);
   }
+
+  return null;
+}
 
   bool _isValidResponse(http.Response response) {
     getUser(response.body);

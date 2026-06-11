@@ -6,6 +6,7 @@ part 'radni_zadatak_uredjaj.g.dart';
 @JsonSerializable()
 class RadniZadatakUredjaj {
   int? uredjajId;
+  int? evBroj;
   int? radniZadatakId;
   String? radniZadatakNaziv;
   String? radniZadatakStatus;
@@ -37,6 +38,7 @@ extension RadniZadatakUredjajMapper on RadniZadatakUredjaj {
       tipNaziv: tipNaziv,
       tipOpis: tipOpis,
       lokacijaNaziv: lokacija,
+      evBroj: evBroj
     );
   }
 }

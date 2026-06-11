@@ -129,7 +129,9 @@ namespace eWorkshop.Services
                     UredjajDatumIzvedbe = x.Uredjaj.GodinaIzvedbe,
                     TipNaziv = x.Uredjaj.Tip.Naziv,
                     TipOpis = x.Uredjaj.Tip.Opis,
-                    Lokacija = x.Uredjaj.Lokacija.Naziv
+                    Lokacija = x.Uredjaj.Lokacija.Naziv,
+                    EvBroj = x.Uredjaj.EvBroj
+
                 })
                 .ToList();
 

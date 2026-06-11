@@ -1493,3 +1493,90 @@ LEFT JOIN S1 s1
    AND s1.rn = 1
 WHERE r.rn = 1;
 GO
+--migracija aktivnih uređaja u radne zadatke
+with U as (
+	select * from Uredjaj
+	where Status = 'active'
+),
+R as (
+	select * from RadniZadatak
+),
+L as (
+	select * from Lokacija
+)
+insert into RadniZadatakUredjaj (
+	RadniZadatakId,
+	UredjajId,
+	Napomena,
+	KorisnikId
+)
+select
+r.RadniZadatakID,
+u.UredjajID,
+'Inicijalni radni zadatak kreiran migracijom na novi informacioni sistem podrške rada servisne radionice' as Napomena,
+1 as KorisnikId	
+from U u
+inner join L l
+	on u.LokacijaID = l.LokacijaID
+inner join R r
+	on r.Naziv = l.Naziv
+
+
+with U as (
+	select * from Uredjaj
+	where Status = 'fix'
+),
+R as (
+	select * from RadniZadatak
+),
+L as (
+	select * from Lokacija
+)
+insert into RadniZadatakUredjaj (
+	RadniZadatakId,
+	UredjajId,
+	Napomena,
+	KorisnikId
+)
+select
+r.RadniZadatakID,
+u.UredjajID,
+'Inicijalni radni zadatak kreiran migracijom na novi informacioni sistem podrške rada servisne radionice' as Napomena,
+1 as KorisnikId	
+from U u
+inner join L l
+	on u.LokacijaID = l.LokacijaID
+inner join R r
+	on r.Naziv = l.Naziv
+
+BACKUP DATABASE eWorkshop
+TO DISK = '/var/opt/mssql/backup/eWorkshop_full.bak'
+WITH INIT, COMPRESSION, STATS = 10;
+GO
+
+with U as (
+	select * from Uredjaj
+	where Status = 'out'
+),
+R as (
+	select * from RadniZadatak
+),
+L as (
+	select * from Lokacija
+)
+insert into RadniZadatakUredjaj (
+	RadniZadatakId,
+	UredjajId,
+	Napomena,
+	KorisnikId
+)
+select
+r.RadniZadatakID,
+u.UredjajID,
+'Inicijalni radni zadatak kreiran migracijom na novi informacioni sistem podrške rada servisne radionice' as Napomena,
+1 as KorisnikId	
+from U u
+inner join L l
+	on u.LokacijaID = l.LokacijaID
+inner join R r
+	on r.Naziv = l.Naziv

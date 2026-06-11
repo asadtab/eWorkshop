@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? ime;
-  AuthProvider? authProvider;
+  late AuthProvider? authProvider;
   late IdsProvider idsProvider;
   late Future<List<Uredjaj>> uredjajiList;
 
@@ -120,13 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         
           
-                            var token = await authProvider!.login(usernameController.text, passwordController.text);
+                            //var token = await authProvider!.login(usernameController.text, passwordController.text);
+
+                            var login = await authProvider!.login(usernameController.text,passwordController.text);
           
                             context.read<AuthProvider>().setLoggedIn(true);
-                            korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
+                            //korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
                             setState(() {
-                              authProvider!.getUser(token);
-                              korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
+                              //authProvider!.getUser(login!.token.toString());
+                              //korisniciBloc.add(KorisniciByIdEvent(id: int.parse(User.id.toString())));
                             });
           
                             if (context.read<AuthProvider>().isLoggedIn!) {
@@ -137,8 +139,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
                             }
-                          } catch (e) {
+                          } catch (e, st) {
                             poruka("Lozinka ili korisničko ime su pogrešni.");
+                            print(st);
                           }
                         },
                       ),
