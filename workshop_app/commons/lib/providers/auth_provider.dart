@@ -85,6 +85,8 @@ Future<TokenModel?> login(String username, String password) async {
     'password': password,
   });
 
+  print(jsonRequest);
+
   var response = await http.post(uri, headers: headers, body: jsonRequest);
 
   if (isValidResponseCode(response)) {

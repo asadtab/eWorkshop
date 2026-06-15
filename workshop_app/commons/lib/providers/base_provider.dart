@@ -69,6 +69,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
     if (endPoint != null) {
       _endpoint = endPoint;
     }
+    rst = false;
 
     if (rst != null && rst) {
       _baseUrl = "http://localhost:8080/";
