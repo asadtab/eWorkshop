@@ -19,9 +19,9 @@ class AuthProvider extends BaseProvider<TokenModel> {
 
   AuthProvider():super("Korisnici/Login"){
          if(isDesktop()){
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080/");
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://192.168.0.10:8080");
     } else if (isMobile()){
-      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://10.0.2.2:8080");
+      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://192.168.0.10:8080");
     }
 
 
@@ -77,7 +77,7 @@ class AuthProvider extends BaseProvider<TokenModel> {
 
 Future<TokenModel?> login(String username, String password) async {
   var url = "$_baseUrl/Korisnici/Login";
-  var uri = Uri.parse(url);
+  var uri = Uri.parse(url); 
 
   Map<String, String> headers = createHeaders();
   var jsonRequest = jsonEncode({

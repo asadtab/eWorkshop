@@ -1585,3 +1585,136 @@ inner join R r
 
 	INSERT INTO Uloge (Name, NormalizedName, ConcurrencyStamp)
 VALUES ('Serviser', 'SERVISER', NEWID())
+
+BACKUP DATABASE eWorkshop
+TO DISK = '/var/opt/mssql/backup/eWorkshop_full.bak'
+WITH INIT, COMPRESSION, STATS = 10;
+GO
+
+WITH TipCTE AS (
+    SELECT
+        TipUredjajaID,
+        LTRIM(RTRIM(Naziv)) AS Naziv,
+        ROW_NUMBER() OVER (
+            PARTITION BY LTRIM(RTRIM(Naziv))
+            ORDER BY TipUredjajaID
+        ) AS rn
+    FROM eWorkshop.dbo.TipUredjaja
+),
+LokacijaCTE AS (
+    SELECT
+        LokacijaID,
+        LTRIM(RTRIM(Naziv)) AS Naziv,
+        ROW_NUMBER() OVER (
+            PARTITION BY LTRIM(RTRIM(Naziv))
+            ORDER BY LokacijaID
+        ) AS rn
+    FROM eWorkshop.dbo.Lokacija
+)
+INSERT INTO eWorkshop.dbo.Uredjaj
+(
+    TipID,
+    Koda,
+    SerijskiBroj,
+    GodinaIzvedbe,
+    LokacijaID,
+    IsDeleted,
+    EvBroj,
+    Kuciste,
+	Status
+)
+SELECT
+    t.TipUredjajaID AS TipID,
+    NULLIF(LTRIM(RTRIM(v.koda)), '') AS Koda,
+    NULLIF(LTRIM(RTRIM(v.serbr)), '') AS SerijskiBroj,
+    CASE
+        WHEN TRY_CONVERT(int, v.izdanje) IS NOT NULL THEN TRY_CONVERT(int, v.izdanje)
+        ELSE NULL
+    END AS Godinalzvedbe,
+    
+    l.LokacijaID,
+    0 AS IsDeleted,
+    v.evbroj AS EvBroj,
+    NULLIF(LTRIM(RTRIM(v.kuciste)), '') AS Kuciste,
+	'active' as Status
+FROM step.dbo.vracene v
+LEFT JOIN TipCTE t
+    ON t.Naziv = LTRIM(RTRIM(v.tip))
+   AND t.rn = 1
+LEFT JOIN LokacijaCTE l
+    ON l.Naziv = LTRIM(RTRIM(v.lokacija))
+   AND l.rn = 1
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM eWorkshop.dbo.Uredjaj u
+    WHERE u.EvBroj = v.evbroj
+      AND ISNULL(u.Koda, '') = ISNULL(LTRIM(RTRIM(v.koda)), '')
+);
+GO
+
+WITH KorisnikCTE AS (
+    SELECT
+        Id,
+        LTRIM(RTRIM(Ime)) AS Ime,
+        LTRIM(RTRIM(Prezime)) AS Prezime,
+        ROW_NUMBER() OVER (
+            PARTITION BY LTRIM(RTRIM(Ime)), LTRIM(RTRIM(Prezime))
+            ORDER BY Id
+        ) AS rn
+    FROM eWorkshop.dbo.Korisnici
+)
+INSERT INTO eWorkshop.dbo.Prijem
+(
+    OpisStanja,
+    Datum,
+    UredjajId,
+    KorisnikId
+)
+SELECT
+    ISNULL(NULLIF(LTRIM(RTRIM(v.prijem)), ''), '') AS OpisStanja,
+    COALESCE(TRY_CONVERT(datetime2(7), v.datum), SYSDATETIME()) AS Datum,
+    u.UredjajID,
+	k.Id
+    
+FROM step.dbo.vracene v
+LEFT JOIN eWorkshop.dbo.Uredjaj u
+    ON u.EvBroj = v.evbroj
+OUTER APPLY (
+    SELECT TOP 1
+        k1.Id
+    FROM KorisnikCTE k1
+    WHERE k1.rn = 1
+      AND LTRIM(RTRIM(k1.Ime)) = LTRIM(RTRIM(LEFT(v.primio, CHARINDEX(' ', v.primio + ' ') - 1)))
+      AND LTRIM(RTRIM(k1.Prezime)) = LTRIM(RTRIM(SUBSTRING(v.primio, CHARINDEX(' ', v.primio + ' ') + 1, 255)))
+) k
+WHERE u.UredjajID IS NOT NULL;
+GO
+
+BACKUP DATABASE eWorkshop
+TO DISK = '/var/opt/mssql/backup/eWorkshop_full.bak'
+WITH INIT, COMPRESSION, STATS = 10;
+GO
+
+WITH UredjajCTE AS (
+    SELECT
+        UredjajID,
+        EvBroj,
+        ROW_NUMBER() OVER (
+            PARTITION BY EvBroj
+            ORDER BY UredjajID
+        ) AS rn
+    FROM eWorkshop.dbo.Uredjaj
+)
+SELECT
+    r.evbroj,
+    r.element,
+    v.evbroj AS vracene_evbroj,
+    u.UredjajID
+FROM step.dbo.rep r
+INNER JOIN step.dbo.vracene v
+    ON v.evbroj = r.evbroj
+LEFT JOIN UredjajCTE u
+    ON u.EvBroj = r.evbroj
+   AND u.rn = 1
+ORDER BY r.evbroj, r.element;
+GO
