@@ -44,6 +44,8 @@ builder.Services.AddAutoMapper(typeof(UredjajService));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+Console.WriteLine("CONNECTION STRING: " + connectionString);
+
 builder.Services.AddDbContext<_190128Context>(options =>
     options.UseSqlServer(connectionString));
 
@@ -113,7 +115,7 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 
 
