@@ -29,13 +29,8 @@ services:
       args:
         BUILDKIT_INLINE_CACHE: 1
     environment:
-<<<<<<< Updated upstream
-      ConnectionStrings__DefaultConnection: "Server=eworkshop-sql,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;TrustServerCertificate=True"
-      ASPNETCORE_ENVIRONMENT: "Development"
-=======
-      ConnectionStrings__DefaultConnection: "Server=172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;TrustServerCertificate=True"
+      ConnectionStrings__DefaultConnection: "Server=172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;Encrypt=True;TrustServerCertificate=True"
       ASPNETCORE_ENVIRONMENT: "Production"
->>>>>>> Stashed changes
       ASPNETCORE_URLS: "http://+:8080"
     ports:
       - "${API_PORT}:8080"
