@@ -30,7 +30,7 @@ namespace eWorkshop.Controllers
 
 
             if (user == null) {
-                return BadRequest("Pogrešan login");
+                return Unauthorized("Pogrešno korisničko ime ili lozinka.");
             }
 
             return Ok(new {token = user});

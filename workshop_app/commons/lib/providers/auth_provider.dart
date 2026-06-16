@@ -19,9 +19,9 @@ class AuthProvider extends BaseProvider<TokenModel> {
 
   AuthProvider():super("Korisnici/Login"){
          if(isDesktop()){
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://192.168.0.10:8080");
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080");
     } else if (isMobile()){
-      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://192.168.0.10:8080");
+      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080");
     }
 
 

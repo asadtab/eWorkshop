@@ -50,21 +50,15 @@ namespace eWorkshop.Services
             Logger = logger;    
         }
 
-        public async Task<string> Login(string username, string password)
+        public async Task<string?> Login(string username, string password)
         {
-            const string invalidMsg = "Pogrešno korisničko ime ili lozinka.";
-
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)
-                throw new Exception(invalidMsg);
+                return null;
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure: true);
             if (!result.Succeeded)
-            {
-                if (result.IsLockedOut)
-                    throw new Exception("Previše neuspjelih pokušaja. Pokušajte ponovo za nekoliko minuta.");
-                throw new Exception(invalidMsg);
-            }
+                return null;
 
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -75,31 +69,38 @@ namespace eWorkshop.Services
         new Claim("preferred_username", user.UserName!)
     };
 
-            if (!string.IsNullOrEmpty(user.Email))
+            if (!string.IsNullOrWhiteSpace(user.Email))
                 claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
 
             foreach (var role in roles)
                 claims.Add(new Claim(ClaimTypes.Role, role));
 
+            var secret = _config["Jwt:Secret"];
+            if (string.IsNullOrWhiteSpace(secret))
+                throw new InvalidOperationException("JWT secret nije postavljen.");
 
-            var key = Encoding.UTF8.GetBytes(_config["Jwt:Secret"]);
+            var issuer = _config["Jwt:Issuer"];
+            var audience = _config["Jwt:Audience"];
 
-            Console.WriteLine("Secret: " + key);
+            if (string.IsNullOrWhiteSpace(issuer))
+                throw new InvalidOperationException("JWT issuer nije postavljen.");
 
-            Logger.LogInformation(key.ToString());
-            Console.WriteLine(key.ToString());
+            if (string.IsNullOrWhiteSpace(audience))
+                throw new InvalidOperationException("JWT audience nije postavljen.");
 
+            var key = Encoding.UTF8.GetBytes(secret);
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
+                issuer: issuer,
+                audience: audience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256)
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-
         }
 
 
