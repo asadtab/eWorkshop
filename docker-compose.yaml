@@ -29,7 +29,7 @@ services:
       args:
         BUILDKIT_INLINE_CACHE: 1
     environment:
-      ConnectionStrings__DefaultConnection: "Server=172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;Encrypt=False;TrustServerCertificate=True"
+      ConnectionStrings__DefaultConnection: "Server=tcp:172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;Encrypt=False;TrustServerCertificate=True"
       Jwt__Secret: "QwjHLBbJJ4WPL74PzWtUbRouGIJJYvbPeuSb6MLx5CQ"
       Jwt__Issuer: "STEP-eWorkshop"
       Jwt__Audience: "eWorkshop-Clients"
