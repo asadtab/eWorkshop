@@ -45,6 +45,7 @@ builder.Services.AddAutoMapper(typeof(UredjajService));
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 Console.WriteLine("CONNECTION STRING: " + connectionString);
+Console.WriteLine("CONNECTION STRING: " + connectionString);
 
 builder.Services.AddDbContext<_190128Context>(options =>
     options.UseSqlServer(connectionString));
