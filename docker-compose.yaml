@@ -29,7 +29,7 @@ services:
       args:
         BUILDKIT_INLINE_CACHE: 1
     environment:
-      ConnectionStrings__DefaultConnection: "Server=172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;Encrypt=True;TrustServerCertificate=True"
+      ConnectionStrings__DefaultConnection: "Server=172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;Encrypt=False;TrustServerCertificate=True"
       ASPNETCORE_ENVIRONMENT: "Production"
       ASPNETCORE_URLS: "http://+:8080"
     ports:
