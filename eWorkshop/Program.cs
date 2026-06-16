@@ -42,14 +42,13 @@ builder.Services.AddTransient<IUlogeService, UlogeService>();
 
 builder.Services.AddAutoMapper(typeof(UredjajService));
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-Console.WriteLine("CONNECTION STRING: " + connectionString);
-Console.WriteLine("CONNECTION STRING: " + connectionString);
-Console.WriteLine("EF PROVIDER: Microsoft.Data.SqlClient");
 
+var connectionString = "Server=172.19.0.2,1433;Database=eWorkshop;User=sa;Password=nIcxa2eGxjk7vY;Encrypt=False;TrustServerCertificate=True";
 builder.Services.AddDbContext<_190128Context>(options =>
     options.UseSqlServer(connectionString));
+
 
 builder.Services.AddIdentity<Korisnici, Uloge>()
     .AddEntityFrameworkStores<_190128Context>()
