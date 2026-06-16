@@ -46,6 +46,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 Console.WriteLine("CONNECTION STRING: " + connectionString);
 Console.WriteLine("CONNECTION STRING: " + connectionString);
+Console.WriteLine("EF PROVIDER: Microsoft.Data.SqlClient");
 
 builder.Services.AddDbContext<_190128Context>(options =>
     options.UseSqlServer(connectionString));
