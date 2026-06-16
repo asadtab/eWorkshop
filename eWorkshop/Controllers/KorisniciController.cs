@@ -26,14 +26,24 @@ namespace eWorkshop.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var user = await KorisniciService.Login(request.username, request.password);
+            try
+            {
+                var user = await KorisniciService.Login(request.username, request.password);
 
+                if (user == null)
+                    return Unauthorized("Pogrešno korisničko ime ili lozinka.");
 
-            if (user == null) {
-                return Unauthorized("Pogrešno korisničko ime ili lozinka.");
+                return Ok(new { token = user });
             }
-
-            return Ok(new {token = user});
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = ex.Message,
+                    details = ex.InnerException?.Message,
+                    stack = ex.StackTrace
+                });
+            }
         }
 
         [HttpPost("Registracija")]
