@@ -28,9 +28,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
   BaseProvider(String endpoint, [bool? ids]) {
     if(isDesktop()){
-    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080/");
+    _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://192.168.0.10:8080/");
     } else if (isMobile()){
-      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://localhost:8080/");
+      _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "http://192.168.0.10:8080/");
     }
 
     if (_baseUrl!.endsWith("/") == false) {
