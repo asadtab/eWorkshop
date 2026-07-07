@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
 
@@ -22,33 +21,24 @@ class ReportsScreen extends StatefulWidget {
   State<ReportsScreen> createState() => _ReportsScreenState();
 }
 
-
 class _ReportsScreenState extends State<ReportsScreen> {
-
   UredjajProvider? uredjajProvider;
-
-
   String dropdownvalue = "Spremni";
 
   @override
   void initState() {
     uredjajProvider = context.read<UredjajProvider>();
-
     _fetchData(null);
-    // TODO: implement initState
     super.initState();
   }
 
-   Future<void> _fetchData(Map<String, String>? map) async {
-    
-    setState(() {
-    });
+  Future<void> _fetchData(Map<String, String>? map) async {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final uredjajBloc = BlocProvider.of<UredjajBloc>(context);
-    // Čitamo notifier — ne sluša rebuild jer 'read' ne subscribeuje
     final printQueue = context.read<PrintQueueNotifier>();
 
     return Scaffold(
@@ -57,7 +47,6 @@ class _ReportsScreenState extends State<ReportsScreen> {
         children: [
           Column(
             children: [
-
               // ─── Dugme za otvaranje dijaloga ───────────────
               SizedBox(
                 height: 70,
@@ -79,7 +68,6 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   return const CircularProgressIndicator();
                 },
               ),
-
             ],
           ),
         ],
@@ -87,64 +75,64 @@ class _ReportsScreenState extends State<ReportsScreen> {
     );
   }
 
-
   // ─── Dialog ──────────────────────────────────────────────────────────────
 
   void _openDialog(BuildContext context, UredjajBloc uredjajBloc) {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        // StatefulBuilder daje lokalni setState samo za sadržaj dijaloga.
-        // PrintQueueNotifier dolazi iz globalnog providera (iznad MyApp),
-        // pa Consumer unutar dialoga i dalje može slušati njegove promjene.
         return StatefulBuilder(
           builder: (context, dialogSetState) {
             return AlertDialog(
               title: const Text('Odabir servisiranih uređaja za printanje'),
               content: SizedBox(
-                width: 1100,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-
-                      // ─── Filter row ─────────────────────────
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          
-                          DropdownUredjaj(
-                            opcije: ["Spremni", "Poslani"],
-                            value: dropdownvalue,
-                            onChanged: (val) {
-                              // dialogSetState ažurira dropdown odmah
-                              dialogSetState(() => dropdownvalue = val);
-                              uredjajBloc.add(
-                                UredjajFilterEvent(
-                                  status: StateHelper.nizSearch(val),
+                width: 1400,
+                height: 650,
+                child: Column(
+                  children: [
+                    // ─── Filter row ─────────────────────────
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownUredjaj(
+                          opcije: ["Spremni", "Poslani"],
+                          value: dropdownvalue,
+                          onChanged: (val) {
+                            dialogSetState(() => dropdownvalue = val);
+                            uredjajBloc.add(
+                              UredjajFilterEvent(
+                                status: StateHelper.nizSearch(val),
+                              ),
+                            );
+                          },
+                        ),
+                        Consumer<PrintQueueNotifier>(
+                          builder: (context, queue, _) {
+                            return Row(
+                              children: [
+                                NotificationBadgeIcon(
+                                  icon: Icons.print,
+                                  count: queue.count,
+                                  onTap: () {},
                                 ),
-                              );
-                            },
-                          ),
-                          
+                                const SizedBox(width: 12),
+                                TextButton.icon(
+                                  onPressed:
+                                      queue.count == 0 ? null : queue.clear,
+                                  icon: const Icon(Icons.delete_sweep),
+                                  label: const Text('Obriši listu'),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
 
-                          // ─── Print badge ─────────────────────
-                          // Consumer sluša globalni PrintQueueNotifier;
-                          // rebuilda se samo ovaj mali widget kad se count promijeni.
-                          Consumer<PrintQueueNotifier>(
-                            builder: (context, queue, _) {
-                              return NotificationBadgeIcon(
-                                icon: Icons.print,
-                                count: queue.count,
-                                onTap: () {},
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-
-                      // ─── Tabela ────────────────────────────────
-                      BlocConsumer<UredjajBloc, UredjajState>(
+                    // ─── Dvije tabele (lijevo/desno) ────────
+                    Expanded(
+                      child: BlocConsumer<UredjajBloc, UredjajState>(
                         bloc: uredjajBloc,
                         listener: (context, state) {},
                         builder: (context, state) {
@@ -155,31 +143,26 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           }
 
                           if (state is UredjajDataLoadedState) {
-                            // Consumer ovdje sluša selekciju iz notifiera.
-                            // Kada se toggleSelection pozove, notifier javi
-                            // notifyListeners() i samo ovaj Consumer se rebuilda —
-                            // ne cijeli dialog, ne cijeli screen.
-                            
                             return Consumer<PrintQueueNotifier>(
                               builder: (context, queue, _) {
-                                return SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: DataTable(
-                                    showCheckboxColumn: true,
-                                    columns: const [
-                                      DataColumn(label: Text('Id')),
-                                      DataColumn(label: Text('Tip')),
-                                      DataColumn(label: Text('Naziv')),
-                                      DataColumn(label: Text('Koda')),
-                                      DataColumn(label: Text('Ser. broj')),
-                                      DataColumn(label: Text('Status')),
-                                      DataColumn(label: Text('Lokacija')),
-                                      DataColumn(label: Text('Opcije')),
-                                    ],
-                                    rows: state.data.map((x) {
-                                      return _buildRow(context, x, queue);
-                                    }).toList(),
-                                  ),
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: _buildAvailableDevicesTable(
+                                        context,
+                                        state.data,
+                                        queue,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: _buildSelectedDevicesTable(
+                                        context,
+                                        queue,
+                                      ),
+                                    ),
+                                  ],
                                 );
                               },
                             );
@@ -188,22 +171,35 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           return const SizedBox();
                         },
                       ),
-
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Navigator.pop(dialogContext),
                   child: const Text('Otkaži'),
                 ),
-                TextButton(
-                  onPressed: () {
-                 
-                    Navigator.pop(context);
+                Consumer<PrintQueueNotifier>(
+                  builder: (context, queue, _) {
+                    return TextButton(
+                      onPressed: queue.count == 0
+                          ? null
+                          : () async {
+                              final items = queue.selectedItems;
+
+                              // TODO: Ovdje pozovi svoj servis za print
+                              // await reportService.print(items);
+
+                              // Nakon uspješnog printa očisti listu
+                              queue.clear();
+
+                              // Zatvori dialog
+                              Navigator.pop(dialogContext);
+                            },
+                      child: const Text('Potvrdi'),
+                    );
                   },
-                  child: const Text('Potvrdi'),
                 ),
               ],
             );
@@ -213,34 +209,143 @@ class _ReportsScreenState extends State<ReportsScreen> {
     );
   }
 
+  // ─── Lijeva tabela: dostupni uređaji ─────────────────────────────────────
 
-  // ─── Izgradnja jednog DataRow-a ──────────────────────────────────────────
-
-  DataRow _buildRow(
+  Widget _buildAvailableDevicesTable(
     BuildContext context,
-    Uredjaj x,
+    List<Uredjaj> data,
     PrintQueueNotifier queue,
   ) {
-    final isSelected = queue.isSelected(x.uredjajId!);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const Text(
+              'Lista uređaja',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SingleChildScrollView(
+                  child: DataTable(
+                    showCheckboxColumn: true,
+                    columns: const [
+                      DataColumn(label: Text('Id')),
+                      DataColumn(label: Text('Tip')),
+                      DataColumn(label: Text('Naziv')),
+                      DataColumn(label: Text('Koda')),
+                      DataColumn(label: Text('Ser. broj')),
+                      DataColumn(label: Text('Status')),
+                      DataColumn(label: Text('Lokacija')),
+                      DataColumn(label: Text('Opcije')),
+                    ],
+                    rows: data.map((x) {
+                      final isSelected = queue.isSelected(x.uredjajId!);
 
-    return DataRow(
-      selected: isSelected,
-      // onSelectChanged poziva toggleSelection na notifieru.
-      // Notifier zove notifyListeners() koji osvježi Consumer iznad,
-      // pa se DataTable rebuilda sa novim isSelected vrijednostima.
-      onSelectChanged: (_) {
-        queue.toggleSelection(x);
-      },
-      cells: [
-        DataCell(Text(x.uredjajId.toString())),
-        DataCell(Text(x.tipNaziv ?? "")),
-        DataCell(Text(x.tipOpis ?? "")),
-        DataCell(Text(x.koda ?? "")),
-        DataCell(Text(x.serijskiBroj ?? "")),
-        DataCell(buildIcon.buildStatusCellUredjaj(x.status)),
-        DataCell(Text(x.lokacijaNaziv ?? "")),
-        DataCell(OpcijePupup(uredjaj: x)),
-      ],
+                      return DataRow(
+                        selected: isSelected,
+                        onSelectChanged: (_) => queue.toggleSelection(x),
+                        cells: [
+                          DataCell(Text(x.uredjajId.toString())),
+                          DataCell(Text(x.tipNaziv ?? "")),
+                          DataCell(Text(x.tipOpis ?? "")),
+                          DataCell(Text(x.koda ?? "")),
+                          DataCell(Text(x.serijskiBroj ?? "")),
+                          DataCell(buildIcon.buildStatusCellUredjaj(x.status)),
+                          DataCell(Text(x.lokacijaNaziv ?? "")),
+                          DataCell(OpcijePupup(uredjaj: x)),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  // ─── Desna tabela: odabrani za printanje ─────────────────────────────────
+
+  Widget _buildSelectedDevicesTable(
+    BuildContext context,
+    PrintQueueNotifier queue,
+  ) {
+    final selected = queue.selectedItems;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Odabrani za printanje',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text('Ukupno: ${selected.length}'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: selected.isEmpty
+                  ? const Center(
+                      child: Text('Nema odabranih uređaja'),
+                    )
+                  : SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: SingleChildScrollView(
+                        child: DataTable(
+                          columns: const [
+                            DataColumn(label: Text('Id')),
+                            DataColumn(label: Text('Tip')),
+                           
+                            
+                            DataColumn(label: Text('Ukloni')),
+                          ],
+                          rows: selected.map((x) {
+                            return DataRow(
+                              cells: [
+                                DataCell(Text(x.uredjajId.toString())),
+                                DataCell(Text(x.tipNaziv ?? "")),
+                               
+                               
+                                DataCell(
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                    onPressed: () {
+                                      queue.removeById(x.uredjajId!);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ─── Placeholder za print logiku (prilagodi svom servisu) ───────────────
+
+  Future<void> _printSelected(List<Uredjaj> items) async {
+    // TODO: Implementiraj stvarni poziv servisu za print
+    // await reportService.print(items);
+    await Future.delayed(const Duration(seconds: 1)); // simulacija
   }
 }
