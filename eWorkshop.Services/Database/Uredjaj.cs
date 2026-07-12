@@ -9,11 +9,11 @@ public partial class Uredjaj
     [Key]
     public int UredjajId { get; set; }
 
-    public int EvBroj { get; set; }
+    public int? EvBroj { get; set; }
 
-    public string Kuciste { get; set; }
+    public string? Kuciste { get; set; }
 
-    public int TipId { get; set; }
+    public int? TipId { get; set; }
 
     public string Koda { get; set; } = null!;
 
@@ -34,5 +34,5 @@ public partial class Uredjaj
     public virtual ICollection<Servi> Servis { get; } = new List<Servi>();
 
 
-    public virtual TipUredjaja Tip { get; set; } = null!;
+    public virtual TipUredjaja Tip { get; set; }
 }

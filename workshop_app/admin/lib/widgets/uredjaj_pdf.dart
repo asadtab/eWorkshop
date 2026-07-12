@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/providers/izvrseni_servis_provider.dart' show IzvrseniServisProvider;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as context;
 import 'package:open_file/open_file.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -59,6 +61,9 @@ class GenerisiPdf {
   static const PdfColor _labelGrey = PdfColor.fromInt(0xFF6B7280);
 
   static Future<void> generisiPdf(List<RadniZadatakUredjaj> data) async {
+    
+
+
     final filtrirani = data
         .where((u) =>
             ['fix', 'done', 'ready', 'out', 'invoice']

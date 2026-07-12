@@ -42,29 +42,40 @@ namespace eWorkshop.Services
 
             var zadatakUredjaj = Context.RadniZadatakUredjajs.Where(x => x.RadniZadatakId == zadatak.RadniZadatakId).ToList();
 
-            foreach (var item in zadatakUredjaj)
+            Console.WriteLine(zadatakUredjaj);
+            try
             {
-                var uredjaj = Context.Uredjajs.Find(item.UredjajId);
-
-                if (item.Uredjaj.Status == "active" || item.Uredjaj.Status == "task")
+                foreach (var item in zadatakUredjaj)
                 {
-                    Context.RadniZadatakUredjajs.Remove(item);
+                    Console.WriteLine(item.UredjajId);
+                    var uredjaj = Context.Uredjajs.Find(item.UredjajId);
+
+                    if (item.Uredjaj.Status == "active" || item.Uredjaj.Status == "task")
+                    {
+                        Context.RadniZadatakUredjajs.Remove(item);
+                        Context.SaveChanges();
+                    }
+
+                    if (uredjaj.Status == "task")
+                    {
+                        uredjaj.Status = "active";
+                        Context.SaveChanges();
+                    }
+
+                    if (uredjaj.Status != "out" && uredjaj.Status != "active")
+                    {
+                        uredjaj.Status = "ready";
+                    }
+
                     Context.SaveChanges();
                 }
-                
-                if(uredjaj.Status == "task")
-                {
-                    uredjaj.Status = "active";
-                    Context.SaveChanges();
-                }
-
-                if(uredjaj.Status != "out" && uredjaj.Status != "active")
-                {
-                    uredjaj.Status = "ready";
-                }
-
-                Context.SaveChanges();
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+
 
             var state = BaseState.CreateState("active");
             state.CurrentEntity = zadatak;

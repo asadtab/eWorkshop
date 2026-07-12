@@ -130,7 +130,7 @@ namespace eWorkshop.Services
                     TipNaziv = x.Uredjaj.Tip.Naziv,
                     TipOpis = x.Uredjaj.Tip.Opis,
                     Lokacija = x.Uredjaj.Lokacija.Naziv,
-                    EvBroj = x.Uredjaj.EvBroj
+                    EvBroj = x.Uredjaj.EvBroj ?? 0
 
                 })
                 .ToList();

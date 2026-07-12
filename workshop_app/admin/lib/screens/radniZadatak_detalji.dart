@@ -8,9 +8,11 @@ import 'package:commons/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_bl
 import 'package:commons/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:commons/helpers/format_datuma.dart';
 import 'package:commons/helpers/state_helper.dart';
+import 'package:commons/models/komponenta.dart';
 import 'package:commons/models/radni_zadatak.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
 import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/komponente_provider.dart';
 import 'package:commons/providers/radniZadaci_provider.dart';
 import 'package:commons/providers/radniZadaci_uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
@@ -35,6 +37,8 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
   RadniZadaciUredjajProvider? radniZadaciUredjajProvider = null;
   RadniZadaciProvider? radniZadaciProvider = null;
   List<RadniZadatakUredjaj> radniZadatakUredjaj = [];
+  List<Komponenta> komponente = [];
+  KomponenteProvider? komponenteProvider = null;
 
   RadniZadatakBloc? radniZadatakBloc;
   RadniZadatakUredjajBloc? uredjajBloc;
@@ -45,6 +49,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
   void initState() {
     radniZadaciUredjajProvider = context.read<RadniZadaciUredjajProvider>();
     radniZadaciProvider = context.read<RadniZadaciProvider>();
+    komponenteProvider = context.read<KomponenteProvider>();
 
 
     radniZadatakBloc = BlocProvider.of<RadniZadatakBloc>(context);
@@ -349,7 +354,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                             MinimalisticButton(
                                 text: "Potvrdi",
                                 onPressed: () async {
-                                  var temp;
+                                  RadniZadatak? temp;
                                   try {
                                     temp = await radniZadaciProvider!.update(
                                         widget.radniZadatak!.radniZadatakId,
@@ -359,7 +364,7 @@ class _RadnizadatakDetaljiScreenState extends State<RadnizadatakDetaljiScreen> {
                                     poruka(e.toString());
                                   }
                                   poruka(
-                                      "Radni zadatak '${(temp as RadniZadatak).naziv}' je završen. Uređaji koji nisu servisirani su ponovno aktivni.");
+                                      "Radni zadatak  je završen. Uređaji koji nisu servisirani su ponovno aktivni.");
                                   uredjajBlocActive!
                                       .add(UredjajiLoadZadatakEvent());
                                   uredjajBloc!.add(RadniZadatakIdEvent(id: zadatak.radniZadatakId));
