@@ -15,5 +15,7 @@ namespace eWorkshop.Model.SearchObject
         public string TipUredjajaNaziv { get; set; }
 
         public int KorisnikId { get; set; }
+
+        public string Status { get; set; }
     }
 }

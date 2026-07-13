@@ -20,5 +20,11 @@ namespace eWorkshop.Controllers
         {
             return ServisIzvrsenService.PreporuciKomponentu(TipUredjajaNaziv, UredjajId);
         }
+
+        [HttpGet("ServisIzvrsenIzvjestaj")]
+        public ActionResult<List<IzvrseniServisIzvjestajVM>> ServisIzvrsenIzvjestaj([FromQuery] ServisIzvrsenSearchObject search)
+        {
+            return ServisIzvrsenService.IzvrseniServisIzvjestaj(search);
+        }
     }
 }

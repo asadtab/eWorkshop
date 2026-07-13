@@ -12,5 +12,6 @@ namespace eWorkshop.Services
     public interface IServisIzvrsenService : ICRUDService<ServisIzvrsenVM, ServisIzvrsenSearchObject, ServisIzvrsenUpsertRequest, ServisIzvrsenUpsertRequest>
     {
         List<KomponenteVM> PreporuciKomponentu(string tip, int uredjajId);
+        List<IzvrseniServisIzvjestajVM> IzvrseniServisIzvjestaj(ServisIzvrsenSearchObject search);
     }
 }

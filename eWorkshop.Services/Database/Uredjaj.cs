@@ -35,4 +35,5 @@ public partial class Uredjaj
 
 
     public virtual TipUredjaja Tip { get; set; }
+    public virtual Prijem Prijem { get; set; }
 }
