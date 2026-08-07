@@ -20,8 +20,9 @@ class UredjajFilterEvent extends UredjajEvent {
   String? koda;
   String? opis;
   int? id;
+  int? evBroj;
 
-  UredjajFilterEvent({this.status, this.id, this.koda, this.naziv, this.tip, this.opis});
+  UredjajFilterEvent({this.status, this.id, this.koda, this.naziv, this.tip, this.opis, this.evBroj});
 }
 
 class UredjajRefreshEvent extends UredjajEvent {

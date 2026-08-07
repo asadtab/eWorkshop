@@ -164,7 +164,7 @@ namespace eWorkshop.Services
                 filter = filter.Where(x => x.Status == search.Status);
 
             if (search != null && !string.IsNullOrEmpty(search.Naziv))
-                filter = filter.Where(x => x.Tip.Naziv.ToLower().Contains(search.Naziv.ToLower()));
+                filter = filter.Where(x => x.Tip.Naziv.ToLower() == search.Naziv.ToLower());
 
             if (search != null && !string.IsNullOrEmpty(search.Koda))
                 filter = filter.Where(x => x.Koda.Contains(search.Koda));
@@ -183,7 +183,10 @@ namespace eWorkshop.Services
                 filter = filter.OrderByDescending(x => x.UredjajId);
             }
 
-                return filter;
+            if (search != null && search.EvBroj != 0)
+                filter = filter.Where(x => x.EvBroj == search.EvBroj);
+
+            return filter;
         }
 
         public UredjajVM Deaktiviraj(int id)

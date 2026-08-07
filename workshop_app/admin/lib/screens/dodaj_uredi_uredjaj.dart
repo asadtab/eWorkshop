@@ -341,7 +341,7 @@ dropdownValueNull();
                                                 onPressed: () {
                                                   serijskiBrojTextController.text = EvBroj.toString() + "/" + DateTime.now().year.toString();
                                                 },
-                                                child: Icon(
+                                                child: Icon(  
                                                   Icons.generating_tokens,
                                                   size: 30,
                                                 )))
@@ -368,7 +368,7 @@ dropdownValueNull();
                           text: "Poništi",
                           onPressed: () {
                             clear();
-                            Navigator.pop(context);
+                            Navigator.pop(context, false);
                           },
                         ),
                         MinimalisticButton(

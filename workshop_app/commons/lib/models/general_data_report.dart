@@ -13,7 +13,7 @@ class ReportGeneralData {
     this.rukovodilac = 'Enes Memić, dipl.eng.el.',
     this.brojRadnogNaloga = '',
     this.kontoBroj = '',
-    this.odobrio = '',
+    this.odobrio = 'Enes Memić, dipl.eng.el.',
     this.preuzeo = '',
   });
 

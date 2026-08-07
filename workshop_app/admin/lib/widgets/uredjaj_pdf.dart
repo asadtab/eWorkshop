@@ -214,7 +214,7 @@ final fontBold = pw.Font.ttf(
           crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
             pw.Text(
-              'BROJ: SS-TK-19/${s.evBroj} - ${s.brojServisa}',
+              'BROJ: SS-TK-${DateTime.now().year%100}/${s.evBroj} - ${s.brojServisa}',
               style: pw.TextStyle(fontSize: 8),
             ),
             pw.SizedBox(height: 10), 
@@ -260,7 +260,7 @@ static pw.Widget _buildNadzorRed(ReportGeneralData header, ServisReport podaciOU
           pw.TableRow(
             children: [
               _tdBold('Rukovodilac projekta:'),
-              _td(header.odobrio),
+              _td(header.rukovodilac),
             ],
           ),
         ],
@@ -277,7 +277,7 @@ static pw.Widget _buildNadzorRed(ReportGeneralData header, ServisReport podaciOU
         children: [
           pw.TableRow(
             children: [
-              _th('Početak radova:'),
+              _th('Prijem uređaja:'),
               _th('Završetak radova:'),]),
               pw.TableRow(
             children: [

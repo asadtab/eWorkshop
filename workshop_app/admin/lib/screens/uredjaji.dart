@@ -92,9 +92,8 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                 ],
               ),
             ),
-            _responsiveInputField("Id", idController),
-            _responsiveInputField("Tip", tipController),
-            _responsiveInputField("Naziv", nazivController),
+            _responsiveInputField("Ev. broj", idController),
+            _responsiveInputField("Tip", nazivController), //pretraga prema tipu uređaja, npr. KRS
             _responsiveInputField("Koda", kodaController),
             SizedBox(
               height: 70,
@@ -107,7 +106,6 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                   uredjajBloc.add(UredjajFilterEvent(
                     status: StateHelper.nizSearch(dropdownvalue),
                     id: idController.text.isEmpty ? null : int.tryParse(idController.text),
-                    tip: tipController.text,
                     naziv: nazivController.text,
                     koda: kodaController.text,
                     opis: opisController.text,
@@ -127,7 +125,7 @@ class _UredjajiScreenState extends State<UredjajiScreen> {
                       context: context,
                       builder: (BuildContext context) => DodajUrediUredjaj(),
                     ).then((uslov){
-                      if(uslov){
+                      if(uslov == true){
                         setState(() {
                           dropdownvalue = 'Neaktivni';
                         });

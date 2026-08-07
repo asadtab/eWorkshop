@@ -7,6 +7,7 @@ namespace eWorkshop.Model.SearchObject
     public class UredjajSearchObject
     {
         public int UredjajId { get; set; }
+        public int EvBroj { get; set; }
 
 
         public int Tip { get; set; }
