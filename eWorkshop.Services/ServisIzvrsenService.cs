@@ -81,36 +81,38 @@ namespace eWorkshop.Services
         {
             search ??= new ServisIzvrsenSearchObject();
 
-            var uredjajiReport = Context.IzvrseniServis
-                .Where(x =>
+            var uredjajiReport = Context.Servi.AsNoTracking()
+                .Where(s =>
                     string.IsNullOrWhiteSpace(search.Status) ||
-                    x.Servis.Uredjaj.Status == search.Status)
-                .Select(y => new IzvrseniServisIzvjestajVM()
+                    s.Uredjaj.Status == search.Status)
+                .Where(s => s.IzvrseniServis.Any()) // samo servisi koji imaju bar jednu komponentu, po potrebi
+                .Select(s => new IzvrseniServisIzvjestajVM()
                 {
-                    RadniZadatakId = y.Servis.RadniZadatakId,
-                    DatumPrijema = y.Servis.Uredjaj.Prijem == null
-                        ? default
-                        : y.Servis.Uredjaj.Prijem.Datum,
-                    DatumServisiranja = y.Servis.Datum ?? default,
+                    RadniZadatakId = s.RadniZadatakId,
+                    DatumPrijema = s.Uredjaj.Prijem == null
+                ? default
+                : s.Uredjaj.Prijem.Datum,
+                    DatumServisiranja = s.Datum ?? default,
                     BrojRadnogNaloga = "",
                     KontoBroj = "",
-                    EvBroj = y.Servis.Uredjaj.EvBroj ?? 0,
-                    TipUredjaja = y.Servis.Uredjaj.Tip == null
+                    EvBroj = s.Uredjaj.EvBroj ?? 0,
+                    TipUredjaja = s.Uredjaj.Tip == null
                         ? ""
-                        : y.Servis.Uredjaj.Tip.Naziv,
-                    Koda = y.Servis.Uredjaj.Koda,
-                    SerijskiBroj = y.Servis.Uredjaj.SerijskiBroj,
-                    OpisKodPrijema = y.Servis.Uredjaj.Prijem == null
+                        : s.Uredjaj.Tip.Naziv,
+                    Koda = s.Uredjaj.Koda,
+                    SerijskiBroj = s.Uredjaj.SerijskiBroj,
+                    OpisKodPrijema = s.Uredjaj.Prijem == null
                         ? ""
-                        : y.Servis.Uredjaj.Prijem.OpisStanja,
-                    OpisAktivnostiServisiranja = y.Servis.OpisServisa,
-                    ServisiraoIIspitao = y.Servis.Korisnik == null
+                        : s.Uredjaj.Prijem.OpisStanja,
+                    OpisAktivnostiServisiranja = s.OpisServisa,
+                    ServisiraoIIspitao = s.Korisnik == null
                         ? ""
-                        : (y.Servis.Korisnik.Ime ?? "") + " " + (y.Servis.Korisnik.Prezime ?? ""),
+                        : (s.Korisnik.Ime ?? "") + " " + (s.Korisnik.Prezime ?? ""),
                     Odobrio = "Enes Memić, dipl.ing.el",
                     Nadzor = "",
-                    BrojServisa = Context.IzvrseniServis.Count(z => z.Servis.UredjajId == y.Servis.UredjajId),
-                    ZamijenjeniElementi = y.Servis.IzvrseniServis.Select(z => new KomponenteVM()
+                    BrojServisa = Context.IzvrseniServis.Count(z => z.Servis.Uredjaj.UredjajId == s.UredjajId),
+                    Uredjaj = Mapper.Map<UredjajVM>(s.Uredjaj),
+                    ZamijenjeniElementi = s.IzvrseniServis.Select(z => new KomponenteVM()
                     {
                         KomponentaId = z.KomponentaId ?? 0,
                         Naziv = z.Komponenta == null ? "" : (z.Komponenta.Naziv ?? ""),

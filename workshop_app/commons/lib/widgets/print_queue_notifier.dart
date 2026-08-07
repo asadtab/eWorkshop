@@ -1,49 +1,47 @@
 import 'package:flutter/material.dart';
-import '../models/uredjaj.dart';
+import 'package:commons/models/servis_report.dart';
 
 class PrintQueueNotifier extends ChangeNotifier {
   final Set<int> _selectedIds = {};
-  final List<Uredjaj> _queue = [];
+  final List<ServisReport> _queue = [];
 
   Set<int> get selectedIds => _selectedIds;
-
-  List<Uredjaj> get queue => List.unmodifiable(_queue);
-
-  // alias za screen koji koristi selectedItems
-  List<Uredjaj> get selectedItems => List.unmodifiable(_queue);
-
+  List<ServisReport> get queue => List.unmodifiable(_queue);
+  List<ServisReport> get selectedItems => List.unmodifiable(_queue);
   int get count => _queue.length;
 
   bool isSelected(int id) => _selectedIds.contains(id);
 
-  void toggleSelection(Uredjaj uredjaj) {
-    final id = uredjaj.uredjajId!;
+  void toggleSelection(ServisReport report) {
+    final id = report.uredjaj.uredjajId!;
+
     if (_selectedIds.contains(id)) {
       _selectedIds.remove(id);
-      _queue.removeWhere((x) => x.uredjajId == id);
+      _queue.removeWhere((x) => x.uredjaj.uredjajId == id);
     } else {
       _selectedIds.add(id);
-      if (!_queue.any((x) => x.uredjajId == id)) {
-        _queue.add(uredjaj);
+      if (!_queue.any((x) => x.uredjaj.uredjajId == id)) {
+        _queue.add(report);
       }
     }
+
     notifyListeners();
   }
 
-  void addToQueue(Uredjaj uredjaj) {
-    if (!_queue.any((x) => x.uredjajId == uredjaj.uredjajId)) {
-      _queue.add(uredjaj);
-      if (uredjaj.uredjajId != null) {
-        _selectedIds.add(uredjaj.uredjajId!);
-      }
+  void addToQueue(ServisReport report) {
+    final id = report.uredjaj.uredjajId!;
+    if (!_queue.any((x) => x.uredjaj.uredjajId == id)) {
+      _queue.add(report);
+      _selectedIds.add(id);
       notifyListeners();
     }
   }
 
-  void addSelectedToQueue(List<Uredjaj> data) {
+  void addSelectedToQueue(List<ServisReport> data) {
     for (final x in data) {
-      if (_selectedIds.contains(x.uredjajId) &&
-          !_queue.any((q) => q.uredjajId == x.uredjajId)) {
+      final id = x.uredjaj.uredjajId!;
+      if (_selectedIds.contains(id) &&
+          !_queue.any((q) => q.uredjaj.uredjajId == id)) {
         _queue.add(x);
       }
     }
@@ -52,7 +50,7 @@ class PrintQueueNotifier extends ChangeNotifier {
 
   void removeById(int id) {
     _selectedIds.remove(id);
-    _queue.removeWhere((x) => x.uredjajId == id);
+    _queue.removeWhere((x) => x.uredjaj.uredjajId == id);
     notifyListeners();
   }
 
@@ -67,7 +65,6 @@ class PrintQueueNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  // alias za screen koji koristi clear()
   void clear() {
     clearQueue();
   }

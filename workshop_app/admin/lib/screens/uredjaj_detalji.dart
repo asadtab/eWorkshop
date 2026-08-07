@@ -487,5 +487,9 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
         )
       ],
     );
+
+    
   }
+
+  
 }

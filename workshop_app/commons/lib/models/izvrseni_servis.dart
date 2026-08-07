@@ -13,7 +13,7 @@ class IzvrseniServis {
   String? servisirao;
   int komponentaId = 0;
 
-  @JsonKey(includeToJson: false)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   bool isExpanded = false;
 
   IzvrseniServis() {}

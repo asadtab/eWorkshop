@@ -19,7 +19,6 @@ class UredjajBloc extends Bloc<UredjajEvent, UredjajState> {
   }
 
   FutureOr<void> loadingEvent(LoadingEvent event, Emitter<UredjajState> emit) async {
-    print("pozvan loaidng event");
     emit(UredjajLoadingState());
 
     try {

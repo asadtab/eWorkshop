@@ -11,7 +11,7 @@ part 'uredjaji_lista_zadatak_state.dart';
 class UredjajiListaZadatakBloc extends Bloc<UredjajiListaZadatakEvent, UredjajiListaZadatakState> {
   final UredjajProvider uredjajiProvider;
 
-  UredjajiListaZadatakBloc({required this.uredjajiProvider}) : super(UredjajiListaZadatakInitial()) {
+  UredjajiListaZadatakBloc({required this.uredjajiProvider}) : super(UredjajiListaZadatakInitial()) { 
     on<UredjajiListaZadatakEvent>((event, emit) {});
     on<UredjajiLoadZadatakEvent>(uredjajiLoadZadatakEvent);
   }

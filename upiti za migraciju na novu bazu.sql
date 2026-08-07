@@ -1718,3 +1718,133 @@ LEFT JOIN UredjajCTE u
    AND u.rn = 1
 ORDER BY r.evbroj, r.element;
 GO
+
+SELECT
+    u.UredjajID,
+    u.EvBroj,
+    ser.datpoc AS SerDatPoc,
+    iz.datpoc  AS IzDatPoc,
+    ul.datum   AS UlDatum,
+    p.Id       AS PrijemID,
+    p.Datum    AS TrenutniDatum
+FROM eWorkshop.dbo.Uredjaj u
+LEFT JOIN eWorkshop.dbo.Prijem p
+    ON p.UredjajId = u.UredjajID
+LEFT JOIN step.dbo.ser ser
+    ON ser.evbroj = u.EvBroj
+LEFT JOIN step.dbo.iz iz
+    ON iz.evbroj = u.EvBroj
+LEFT JOIN step.dbo.ul ul
+    ON ul.ulbroj = u.EvBroj
+ORDER BY u.EvBroj;
+GO
+
+SELECT
+    u.UredjajID,
+    u.EvBroj,
+    p.Id AS PrijemID,
+    p.Datum AS TrenutniDatum,
+    COALESCE(
+        TRY_CONVERT(datetime2(7), ser.datpoc),
+        TRY_CONVERT(datetime2(7), iz.datpoc),
+        TRY_CONVERT(datetime2(7), ul.datum)
+    ) AS NoviDatum,
+    ser.datpoc AS SerDatPoc,
+    iz.datpoc  AS IzDatPoc,
+    ul.datum   AS UlDatum
+FROM eWorkshop.dbo.Uredjaj u
+LEFT JOIN eWorkshop.dbo.Prijem p
+    ON p.UredjajId = u.UredjajID
+LEFT JOIN step.dbo.ser ser
+    ON ser.evbroj = u.EvBroj
+LEFT JOIN step.dbo.iz iz
+    ON iz.evbroj = u.EvBroj
+LEFT JOIN step.dbo.ul ul
+    ON ul.ulbroj = u.EvBroj
+ORDER BY u.EvBroj;
+GO
+
+WITH DatumCTE AS (
+    SELECT
+        u.UredjajID,
+        u.EvBroj,
+        COALESCE(
+            TRY_CONVERT(datetime2(7), ser.datpoc),
+            TRY_CONVERT(datetime2(7), iz.datpoc),
+            TRY_CONVERT(datetime2(7), ul.datum)
+        ) AS NoviDatum,
+        ROW_NUMBER() OVER (
+            PARTITION BY u.UredjajID
+            ORDER BY
+                CASE
+                    WHEN ser.datpoc IS NOT NULL THEN 1
+                    WHEN iz.datpoc  IS NOT NULL THEN 2
+                    WHEN ul.datum   IS NOT NULL THEN 3
+                    ELSE 4
+                END
+        ) AS rn
+    FROM eWorkshopProd.dbo.Uredjaj u
+    LEFT JOIN step.dbo.ser ser
+        ON ser.evbroj = u.EvBroj
+    LEFT JOIN step.dbo.iz iz
+        ON iz.evbroj = u.EvBroj
+    LEFT JOIN step.dbo.ul ul
+        ON ul.ulbroj = u.EvBroj
+)
+UPDATE p
+SET p.Datum = d.NoviDatum
+FROM eWorkshopProd.dbo.Prijem p
+INNER JOIN DatumCTE d
+    ON d.UredjajID = p.UredjajId
+   AND d.rn = 1
+WHERE d.NoviDatum IS NOT NULL;
+GO
+
+WITH DatumCTE AS (
+    SELECT
+        u.UredjajID,
+        u.EvBroj,
+        COALESCE(
+            TRY_CONVERT(datetime2(7), ser.datpoc),
+            TRY_CONVERT(datetime2(7), iz.datpoc),
+            TRY_CONVERT(datetime2(7), ul.datum)
+        ) AS NoviDatum,
+        ROW_NUMBER() OVER (
+            PARTITION BY u.UredjajID
+            ORDER BY
+                CASE
+                    WHEN ser.datpoc IS NOT NULL THEN 1
+                    WHEN iz.datpoc  IS NOT NULL THEN 2
+                    WHEN ul.datum   IS NOT NULL THEN 3
+                    ELSE 4
+                END
+        ) AS rn
+    FROM eWorkshop.dbo.Uredjaj u
+    LEFT JOIN step.dbo.ser ser
+        ON ser.evbroj = u.EvBroj
+    LEFT JOIN step.dbo.iz iz
+        ON iz.evbroj = u.EvBroj
+    LEFT JOIN step.dbo.ul ul
+        ON ul.ulbroj = u.EvBroj
+)
+INSERT INTO eWorkshop.dbo.Prijem
+(
+    OpisStanja,
+    Datum,
+    UredjajId,
+    KorisnikId
+)
+SELECT
+    '' AS OpisStanja,
+    d.NoviDatum,
+    d.UredjajID,
+    NULL AS KorisnikId
+FROM DatumCTE d
+WHERE d.rn = 1
+  AND d.NoviDatum IS NOT NULL
+  AND NOT EXISTS (
+      SELECT 1
+      FROM eWorkshop.dbo.Prijem p
+      WHERE p.UredjajId = d.UredjajID
+  );
+GO

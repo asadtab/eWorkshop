@@ -7,11 +7,13 @@ import 'package:commons/bloc/klijenti/klijenti_bloc.dart';
 import 'package:commons/bloc/lokacija/lokacija_bloc.dart';
 import 'package:commons/bloc/radni_zadatak/radni_zadatak_bloc.dart';
 import 'package:commons/bloc/radni_zadatak_uredjaj/bloc/radni_zadatak_uredjaj_block_bloc.dart';
+import 'package:commons/bloc/report/bloc/report_block_bloc.dart';
 import 'package:commons/bloc/statistika_bloc/statistika_bloc.dart';
 import 'package:commons/bloc/uloge/uloge_bloc.dart';
 import 'package:commons/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:commons/bloc/uredjaji_lista_zadatak.dart/bloc/uredjaji_lista_zadatak_bloc.dart';
 import 'package:commons/bloc/user/bloc/korisnici_bloc.dart';
+import 'package:commons/models/servis_report.dart';
 import 'package:commons/providers/client_grant_type_provider.dart';
 import 'package:commons/providers/ids_provider.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart';
@@ -20,6 +22,7 @@ import 'package:commons/providers/komponente_provider.dart';
 import 'package:commons/providers/lokacija_provider.dart';
 import 'package:commons/providers/reparacija_provider.dart';
 import 'package:commons/providers/client_secret_provider.dart';
+import 'package:commons/providers/servis_report_provider.dart';
 import 'package:commons/providers/statistika_provider.dart';
 import 'package:commons/providers/tip_uredjaja_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
@@ -63,7 +66,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => ClientScopeProvider()),
       ChangeNotifierProvider(create: (_) => ClientGrantTypeProvider()),
       ChangeNotifierProvider(create: (_) => StatistikaProvider()),
-      ChangeNotifierProvider(create: (_) => PrintQueueNotifier())
+      ChangeNotifierProvider(create: (_) => PrintQueueNotifier()),
+      ChangeNotifierProvider(create: (_) => ServisReportProvider()),
       
     ],
     child: const MyApp(),
@@ -88,6 +92,7 @@ class MyApp extends StatelessWidget {
     StatistikaProvider statistikaProvider = context.read<StatistikaProvider>();
     RadniZadaciProvider radniZadaciProvider = context.read<RadniZadaciProvider>();
     AuthProvider authProvider = context.read<AuthProvider>();
+    ServisReportProvider servisReportProvider = context.read<ServisReportProvider>();
 
     return MultiBlocProvider(
         providers: [
@@ -107,6 +112,7 @@ class MyApp extends StatelessWidget {
               create: (context) => ClientSecretBloc(clientSecretProvider: clientSecretProvider)..add(ClientSecretLoadDataEvent())),
           BlocProvider<StatistikaBloc>(create: (context) => StatistikaBloc(statistikaProvider: statistikaProvider)..add(StatistikaRefreshEvent())),
           BlocProvider<RadniZadatakBloc>(create: (context) => RadniZadatakBloc(radniZadatakProvider: radniZadaciProvider)),
+          BlocProvider<ReportBlockBloc>(create: (context) => ReportBlockBloc(servisReportProvider: servisReportProvider)),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

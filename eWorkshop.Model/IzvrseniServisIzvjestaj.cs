@@ -21,6 +21,7 @@ namespace eWorkshop.Model
         public string Odobrio { get; set; }
         public string Nadzor { get; set; }
         public int BrojServisa { get; set; }
+        public UredjajVM Uredjaj { get; set; }
         public List<KomponenteVM> ZamijenjeniElementi { get; set; } = new List<KomponenteVM>();
 
     }

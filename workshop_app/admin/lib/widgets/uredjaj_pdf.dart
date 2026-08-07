@@ -1,5 +1,9 @@
 import 'dart:io';
+import 'package:commons/helpers/format_datuma.dart';
+import 'package:commons/models/general_data_report.dart';
+import 'package:commons/models/komponenta.dart';
 import 'package:commons/models/radni_zadatak_uredjaj.dart';
+import 'package:commons/models/servis_report.dart';
 import 'package:commons/providers/izvrseni_servis_provider.dart' show IzvrseniServisProvider;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -60,17 +64,17 @@ class GenerisiPdf {
   static const PdfColor _border = PdfColors.black;
   static const PdfColor _labelGrey = PdfColor.fromInt(0xFF6B7280);
 
-  static Future<void> generisiPdf(List<RadniZadatakUredjaj> data) async {
+  static Future<void> generisiPdf(List<ServisReport> data, ReportGeneralData? header) async {
     
 
 
-    final filtrirani = data
+    /*final filtrirani = data
         .where((u) =>
             ['fix', 'done', 'ready', 'out', 'invoice']
                 .contains(u.uredjajStatus))
         .toList();
 
-    if (filtrirani.isEmpty) return;
+    if (filtrirani.isEmpty) return;*/
 
     // ── Fontovi ──────────────────────────────────────────────────────────
     final fontRegular = pw.Font.ttf(
@@ -90,31 +94,10 @@ final fontBold = pw.Font.ttf(
 
     final pdf = pw.Document(theme: theme);
 
-    for (int i = 0; i < filtrirani.length; i++) {
-      final u = filtrirani[i];
-      final s = ServisniIzvjestaj(
-        nadzorniOrgan: 'nadzor',
-        rukovodilac: 'Enes Memić, dipl.el.ing.',
-        datumPocetka: '12.11.2024',
-        datumZavrsetka: '',
-        brojNaloga: '123/456',
-        kontoBr: '810-001',
-        uredjaj: u,
-        opisPrijema: 'Neispravna',
-        opisServisa:
-            "Kućišta osigurača, osigurači i signalne sijalice su pregledani i izvršena je izmjena istih ako su oštećeni(vidi zamijenjene elemente).Konektori uređaja su pregledani, očišćeni i izvršen je test uklapanja konektora u odgovarajućem mjestu u ramu. Namotaji releja su ispitani dovođenjem istosmjernog napona preko zaštitnog otpornika ili direktno na pojedine namotaje u zavisnosti od tipa ispitanog releja. Ostale komponente uređaja su ispitane i izvršena je izmjena istih u slučaju neispravnog rada.",
-        opisPredaje:
-            '-Bez fizičkih oštećenja,\n-Funkcionalno ispravna i plombirana.',
-        zamijenjeniElementi: [
-          ZamijenjeniElement(rbr: 1, naziv: 'Kondenzatorski sastav', koda: '1 kom'),
-        ],
-        servisiraoIme: 'Edin Šatrović, el.tehn.',
-        servisiraoDatum: '',
-        odobriloIme: 'Enes Memić, dipl.el.ing.',
-        nadzorIme: '',
-      );
-
-      pdf.addPage(_buildPage(s, logoImage, i + 1, filtrirani.length));
+    int brojac = 0;
+    for (var uredjaj in data) {
+      
+      pdf.addPage(_buildPage(uredjaj, header!, logoImage, ++brojac, data.length));
     }
 
     final file = File('${Directory.systemTemp.path}/servisni_izvjestaj.pdf');
@@ -124,7 +107,8 @@ final fontBold = pw.Font.ttf(
 
   // ── Stranica ────────────────────────────────────────────────────────────
   static pw.Page _buildPage(
-    ServisniIzvjestaj s,
+    ServisReport s,
+    ReportGeneralData header,
     pw.MemoryImage logo,
     int pageNum,
     int totalPages,
@@ -145,7 +129,7 @@ final fontBold = pw.Font.ttf(
 
 
           // ── 3. NADZORNI ORGAN + DATUMI ────────────────────────────────
-          _buildNadzorRed(s),
+          _buildNadzorRed(header, s),
           pw.SizedBox(height: 10),
 
           // ── 4. PODACI O SKLOPU ────────────────────────────────────────
@@ -157,13 +141,13 @@ final fontBold = pw.Font.ttf(
           // ── 5. OPIS PRIJEMA ───────────────────────────────────────────
           _sectionTitle('Opis stanja sklopa kod prijema:'),
           pw.SizedBox(height: 5),
-          pw.Text(s.opisPrijema, style: pw.TextStyle(fontSize: 10)),
+          pw.Text(s.opisKodPrijema, style: pw.TextStyle(fontSize: 10)),
           pw.Spacer(),
 
           // ── 6. OPIS SERVISA ───────────────────────────────────────────
           _sectionTitle('Servisiranje - revitalizacija (opis aktivnosti):'),
           pw.SizedBox(height: 5),
-          pw.Text(s.opisServisa, style: pw.TextStyle(fontSize: 10)),
+          pw.Text(s.opisAktivnostiServisiranja, style: pw.TextStyle(fontSize: 10)),
           pw.SizedBox(height: 10),
           
 
@@ -177,11 +161,11 @@ final fontBold = pw.Font.ttf(
           // ── 8. OPIS PREDAJE ───────────────────────────────────────────
           _sectionTitle('Opis stanja sklopa kod predaje:'),
           pw.SizedBox(height: 2),
-          pw.Text(s.opisPredaje, style: pw.TextStyle(fontSize: 10)),
+          pw.Text(s.opisKodPrijema, style: pw.TextStyle(fontSize: 10)),
           pw.SizedBox(height: 10),
 
           // ── 9. POTPISNA TABELA ────────────────────────────────────────
-          _buildPotpisnaTabela(s),
+          _buildPotpisnaTabela(s, header),
           pw.SizedBox(height: 5),
 
           // ── 10. FOOTER ────────────────────────────────────────────────
@@ -193,7 +177,7 @@ final fontBold = pw.Font.ttf(
 
   // ── Header: logo + naslov + broj + strana ──────────────────────────────
   static pw.Widget _buildHeader(
-    ServisniIzvjestaj s,
+    ServisReport s,
     pw.MemoryImage logo,
     int pageNum,
     int totalPages,
@@ -230,7 +214,7 @@ final fontBold = pw.Font.ttf(
           crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
             pw.Text(
-              'BROJ: SS-TK-19/${s.uredjaj.uredjajId}',
+              'BROJ: SS-TK-19/${s.evBroj} - ${s.brojServisa}',
               style: pw.TextStyle(fontSize: 8),
             ),
             pw.SizedBox(height: 10), 
@@ -255,7 +239,7 @@ final fontBold = pw.Font.ttf(
 
   // ── Nadzorni organ + rukovodilac + datumi + nalog + konto ──────────────
   // Replicira PHP: Cell(27,9) + Cell(50,9) + gap + MultiCell(23,4.5)×2 + gap + MultiCell(23,4.5) + gap + Cell(20,9)
-static pw.Widget _buildNadzorRed(ServisniIzvjestaj s) {
+static pw.Widget _buildNadzorRed(ReportGeneralData header, ServisReport podaciOUredjaju) {
   return pw.Row(
     mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
     children: [
@@ -270,13 +254,13 @@ static pw.Widget _buildNadzorRed(ServisniIzvjestaj s) {
           pw.TableRow(
             children: [
               _tdBold('Nadzorni organ:'),
-              _td(s.nadzorniOrgan),
+              _td(header.organ),
             ],
           ),
           pw.TableRow(
             children: [
-              _tdBold('Rukovodilac projekata:'),
-              _td(s.rukovodilac),
+              _tdBold('Rukovodilac projekta:'),
+              _td(header.odobrio),
             ],
           ),
         ],
@@ -297,8 +281,8 @@ static pw.Widget _buildNadzorRed(ServisniIzvjestaj s) {
               _th('Završetak radova:'),]),
               pw.TableRow(
             children: [
-              _td(s.datumPocetka),
-              _td(s.datumZavrsetka),
+              _td(FormatirajDatum.formatiraj(podaciOUredjaju.datumPrijema)),
+              _td(FormatirajDatum.formatiraj(podaciOUredjaju.datumServisiranja)),
               
               ])]
         ),
@@ -320,8 +304,8 @@ pw.SizedBox(width: 4),
           ),
           pw.TableRow(
             children: [
-              _td(s.brojNaloga),
-              _td(s.kontoBr),
+              _td(header.brojRadnogNaloga),
+              _td(header.kontoBroj),
             ],
           ),
         ],
@@ -333,7 +317,7 @@ pw.SizedBox(width: 4),
   // ── Sklop tabela: EV.BR / TIP / KODA / SER.BROJ ───────────────────────
   // PHP: Cell(10,5) + Cell(77,5) + Cell(45,5) + Cell(49,5) — header
   //      Cell(10,10) + Cell(77,10) + Cell(45,10) + Cell(49,10) — data
-  static pw.Widget _buildSklopTabela(ServisniIzvjestaj s) {
+  static pw.Widget _buildSklopTabela(ServisReport s) {
     return pw.Table(
       border: pw.TableBorder.all(color: _border, width: 0.5),
       columnWidths: const {
@@ -353,10 +337,10 @@ pw.SizedBox(width: 4),
         ),
         pw.TableRow(
           children: [
-            _tdBold(s.uredjaj.uredjajId.toString(), height: 10),
-            _tdBold(s.uredjaj.tipNaziv ?? '', height: 10),
-            _tdBold(s.uredjaj.koda ?? '', height: 10),
-            _tdBold(s.uredjaj.serijskiBroj ?? '', height: 10),
+            _tdBold(s.evBroj.toString(), height: 10),
+            _tdBold(s.tipUredjaja ?? '', height: 10),
+            _tdBold(s.koda ?? '', height: 10),
+            _tdBold(s.serijskiBroj ?? '', height: 10),
           ],
         ),
       ],
@@ -365,7 +349,7 @@ pw.SizedBox(width: 4),
 
   // ── Zamijenjeni elementi u parovima ────────────────────────────────────
   // PHP: Cell(10,7) + Cell(57,7) + Cell(21,7) + gap(5) + Cell(10,7) + Cell(57,7) + Cell(21,7)
-  static pw.Widget _buildZamijenjeniTabela(List<ZamijenjeniElement> elementi) {
+  static pw.Widget _buildZamijenjeniTabela(List<Komponenta> elementi) {
     final parovi = <pw.TableRow>[];
 
     // Header
@@ -386,24 +370,33 @@ pw.SizedBox(width: 4),
     // Redovi u parovima (lijevo + desno)
     for (int i = 0; i < elementi.length; i += 2) {
       final left = elementi[i];
+      int leftBroj = i+1;
       final right = i + 1 < elementi.length ? elementi[i + 1] : null;
+      int rightBroj = leftBroj + 1;
       parovi.add(
         pw.TableRow(
           children: [
-            _td(left.rbr.toString()),
-            _td(left.naziv),
-            _td(left.koda),
+            _td(leftBroj.toString()),
+            _td(left.naziv.toString()),
+            _td(left.tip.toString()),
             pw.SizedBox(width: 5),
-            _td(right?.rbr.toString() ?? ''),
+            _td(rightBroj.toString()),
             _td(right?.naziv ?? ''),
-            _td(right?.koda ?? ''),
+            _td(right?.tip ?? ''),
           ],
         ),
       );
     }
-
+//pw.TableBorder.all(color: _border, width: 0.5),
     return pw.Table(
-      border: pw.TableBorder.all(color: _border, width: 0.5),
+      border: pw.TableBorder(
+  left: pw.BorderSide(color: _border, width: 0.5),
+  top: pw.BorderSide(color: _border, width: 0.5),
+  right: pw.BorderSide(color: _border, width: 0.5),
+  bottom: pw.BorderSide(color: _border, width: 0.5),
+  horizontalInside: pw.BorderSide(color: _border, width: 0),
+  verticalInside: pw.BorderSide(color: _border, width: 0),
+),
       columnWidths: const {
         0: pw.FixedColumnWidth(10),
         1: pw.FixedColumnWidth(57),
@@ -419,7 +412,7 @@ pw.SizedBox(width: 4),
 
   // ── Potpisna tabela ────────────────────────────────────────────────────
   // PHP: Cell(27,5) + Cell(60,5) + Cell(50,5) + Cell(44,5)
-  static pw.Widget _buildPotpisnaTabela(ServisniIzvjestaj s) {
+  static pw.Widget _buildPotpisnaTabela(ServisReport s, ReportGeneralData header) {
     return pw.Table(
       border: pw.TableBorder.all(color: _border, width: 0.5),
       columnWidths: const {
@@ -438,10 +431,10 @@ pw.SizedBox(width: 4),
             _th('POTPIS'),
           ],
         ),
-        _potpisRed('Servisirao i ispitao:', s.servisiraoIme, s.servisiraoDatum),
-        _potpisRed('Odobrio:', s.odobriloIme, ''),
-        _potpisRed('Nadzor:', s.nadzorIme, ''),
-        _potpisRed('Preuzeo:', '', ''),
+        _potpisRed('Servisirao i ispitao:', s.servisiraoIIspitao, FormatirajDatum.formatiraj(s.datumServisiranja)),
+        _potpisRed('Odobrio:', s.odobrio, FormatirajDatum.formatiraj(s.datumServisiranja)),
+        _potpisRed('Nadzor:', s.nadzor, ''),
+        _potpisRed('Preuzeo:', header.preuzeo, ''),
       ],
     );
   }

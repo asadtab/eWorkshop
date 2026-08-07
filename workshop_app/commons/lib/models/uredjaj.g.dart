@@ -15,7 +15,8 @@ Uredjaj _$UredjajFromJson(Map<String, dynamic> json) => Uredjaj(
       status: json['status'] as String?,
       tipNaziv: json['tipNaziv'] as String?,
       tipOpis: json['tipOpis'] as String?,
-    )..evBroj = (json['evBroj'] as num?)?.toInt();
+      evBroj: (json['evBroj'] as num?)?.toInt(),
+    );
 
 Map<String, dynamic> _$UredjajToJson(Uredjaj instance) => <String, dynamic>{
       'uredjajId': instance.uredjajId,

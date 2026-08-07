@@ -1,8 +1,13 @@
 import 'package:admin/commons/app_bar.dart';
+import 'package:admin/screens/report_print_screen.dart';
 import 'package:admin/widgets/status_icons.dart';
+import 'package:admin/widgets/uredjaj_pdf.dart';
+import 'package:commons/bloc/report/bloc/report_block_bloc.dart';
 import 'package:commons/bloc/uredjaji/bloc/uredjaj_bloc.dart';
 import 'package:commons/helpers/state_helper.dart';
+import 'package:commons/models/servis_report.dart';
 import 'package:commons/models/uredjaj.dart';
+import 'package:commons/providers/servis_report_provider.dart';
 import 'package:commons/providers/uredjaj_provider.dart';
 import 'package:commons/widgets/button.dart';
 import 'package:commons/widgets/dropdown_uredjaj.dart';
@@ -23,22 +28,39 @@ class ReportsScreen extends StatefulWidget {
 
 class _ReportsScreenState extends State<ReportsScreen> {
   UredjajProvider? uredjajProvider;
+  ServisReportProvider? servisReportProvider;
   String dropdownvalue = "Spremni";
+  List<ServisReport> servisReport = [];
 
   @override
   void initState() {
     uredjajProvider = context.read<UredjajProvider>();
+    servisReportProvider = context.read<ServisReportProvider>();
     _fetchData(null);
     super.initState();
   }
 
   Future<void> _fetchData(Map<String, String>? map) async {
-    setState(() {});
+
+    List<ServisReport> temp = [];
+
+    try {
+      temp = await servisReportProvider!.get({'Status' : 'out'}, "ServisIzvrsen/ServisIzvrsenIzvjestaj");
+    } catch (e) {
+      print(e);
+    }
+
+    
+    
+
+    setState(() {
+      servisReport = temp;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final uredjajBloc = BlocProvider.of<UredjajBloc>(context);
+    final uredjajBloc = BlocProvider.of<ReportBlockBloc>(context);
     final printQueue = context.read<PrintQueueNotifier>();
 
     return Scaffold(
@@ -54,7 +76,9 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   text: "Kreiraj izvještaj",
                   textColor: Colors.white,
                   color: const Color(0xFFae8765),
-                  onPressed: () => _openDialog(context, uredjajBloc),
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReportPrintScreen()));
+                  },
                 ),
               ),
 
@@ -77,7 +101,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   // ─── Dialog ──────────────────────────────────────────────────────────────
 
-  void _openDialog(BuildContext context, UredjajBloc uredjajBloc) {
+  void _openDialog(BuildContext context, ReportBlockBloc uredjajBloc) {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -100,7 +124,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           onChanged: (val) {
                             dialogSetState(() => dropdownvalue = val);
                             uredjajBloc.add(
-                              UredjajFilterEvent(
+                              ReportEvent(
                                 status: StateHelper.nizSearch(val),
                               ),
                             );
@@ -132,7 +156,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
                     // ─── Dvije tabele (lijevo/desno) ────────
                     Expanded(
-                      child: BlocConsumer<UredjajBloc, UredjajState>(
+                      child: BlocConsumer<ReportBlockBloc, ReportBlockState>(
                         bloc: uredjajBloc,
                         listener: (context, state) {},
                         builder: (context, state) {
@@ -142,7 +166,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                             );
                           }
 
-                          if (state is UredjajDataLoadedState) {
+                          if (state is ReportLoadedState) {
                             return Consumer<PrintQueueNotifier>(
                               builder: (context, queue, _) {
                                 return Row(
@@ -188,10 +212,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           : () async {
                               final items = queue.selectedItems;
 
-                              // TODO: Ovdje pozovi svoj servis za print
-                              // await reportService.print(items);
-
-                              // Nakon uspješnog printa očisti listu
+                              GenerisiPdf.generisiPdf(items, null);
                               queue.clear();
 
                               // Zatvori dialog
@@ -213,7 +234,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   Widget _buildAvailableDevicesTable(
     BuildContext context,
-    List<Uredjaj> data,
+    List<ServisReport> data,
     PrintQueueNotifier queue,
   ) {
     return Card(
@@ -233,30 +254,28 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   child: DataTable(
                     showCheckboxColumn: true,
                     columns: const [
-                      DataColumn(label: Text('Id')),
+                      DataColumn(label: Text('Ev.Broj')),
                       DataColumn(label: Text('Tip')),
-                      DataColumn(label: Text('Naziv')),
                       DataColumn(label: Text('Koda')),
                       DataColumn(label: Text('Ser. broj')),
-                      DataColumn(label: Text('Status')),
-                      DataColumn(label: Text('Lokacija')),
-                      DataColumn(label: Text('Opcije')),
+                     // DataColumn(label: Text('Status')),
+                     // DataColumn(label: Text('Lokacija')),
+                      //DataColumn(label: Text('Opcije')),
                     ],
                     rows: data.map((x) {
-                      final isSelected = queue.isSelected(x.uredjajId!);
+                      final isSelected = queue.isSelected(x.uredjaj!.uredjajId!);
 
                       return DataRow(
                         selected: isSelected,
                         onSelectChanged: (_) => queue.toggleSelection(x),
                         cells: [
-                          DataCell(Text(x.uredjajId.toString())),
-                          DataCell(Text(x.tipNaziv ?? "")),
-                          DataCell(Text(x.tipOpis ?? "")),
-                          DataCell(Text(x.koda ?? "")),
+                          DataCell(Text(x.evBroj.toString())),
+                          DataCell(Text(x.tipUredjaja ?? "")),
                           DataCell(Text(x.serijskiBroj ?? "")),
-                          DataCell(buildIcon.buildStatusCellUredjaj(x.status)),
-                          DataCell(Text(x.lokacijaNaziv ?? "")),
-                          DataCell(OpcijePupup(uredjaj: x)),
+                          DataCell(Text(x.serijskiBroj ?? "")),
+                          //DataCell(buildIcon.buildStatusCellUredjaj(x.s)),
+                          //DataCell(Text(x.lokacijaNaziv ?? "")),
+                          //DataCell(OpcijePupup(uredjaj: x)),
                         ],
                       );
                     }).toList(),
@@ -313,8 +332,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
                           rows: selected.map((x) {
                             return DataRow(
                               cells: [
-                                DataCell(Text(x.uredjajId.toString())),
-                                DataCell(Text(x.tipNaziv ?? "")),
+                                DataCell(Text(x.evBroj.toString())),
+                                DataCell(Text(x.tipUredjaja ?? "")),
                                
                                
                                 DataCell(
@@ -324,7 +343,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                       color: Colors.red,
                                     ),
                                     onPressed: () {
-                                      queue.removeById(x.uredjajId!);
+                                      queue.removeById(x.evBroj!);
                                     },
                                   ),
                                 ),

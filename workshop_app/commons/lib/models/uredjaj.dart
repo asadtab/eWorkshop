@@ -11,7 +11,7 @@ class Uredjaj {
   String? status;
   String? tipNaziv;
   String? tipOpis;
-  String? lokacijaNaziv;
+  String? lokacijaNaziv;  
   int? evBroj;
 
   @JsonKey(includeToJson: false, includeFromJson: false)
@@ -19,7 +19,7 @@ class Uredjaj {
 
   //Uredjaj() {}
 
-  Uredjaj({this.uredjajId, this.godinaIzvedbe, this.koda, this.lokacijaNaziv, this.serijskiBroj, this.status, this.tipNaziv, this.tipOpis, int? evBroj}) {
+  Uredjaj({this.uredjajId, this.godinaIzvedbe, this.koda, this.lokacijaNaziv, this.serijskiBroj, this.status, this.tipNaziv, this.tipOpis, this.evBroj}) {
 
   }
 

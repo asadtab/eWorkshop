@@ -12,6 +12,8 @@ public partial class _190128Context : DbContext
     }
 
     public virtual DbSet<IzvrseniServi> IzvrseniServis { get; set; }
+
+    public virtual DbSet<Servi> Servi { get; set; }
     public virtual DbSet<Prijem> Prijem { get; set; }
     public virtual DbSet<Komponente> Komponentes { get; set; }
     public virtual DbSet<Korisnici> Korisnicis { get; set; }
@@ -180,11 +182,20 @@ public partial class _190128Context : DbContext
                 .HasForeignKey(d => d.LokacijaId)
                 .HasConstraintName("FK__Uredjaj__Lokacij__45F365D3");
 
+            entity.HasOne(u => u.Prijem)
+    .WithOne(p => p.Uredjaj)
+    .HasForeignKey<Prijem>(p => p.UredjajId)
+    .OnDelete(DeleteBehavior.Cascade);
+
             entity.HasOne(d => d.Tip).WithMany(p => p.Uredjajs)
                 .HasForeignKey(d => d.TipId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UredjajTip");
         });
+
+        modelBuilder.Entity<Prijem>()
+    .HasIndex(p => p.UredjajId)
+    .IsUnique();
 
         modelBuilder.Entity<IdentityUserRole<int>>(entity =>
         {
