@@ -1848,3 +1848,62 @@ WHERE d.rn = 1
       WHERE p.UredjajId = d.UredjajID
   );
 GO
+
+SELECT
+    u.UredjajID,
+    u.EvBroj,
+    u.Status,
+    p.Id AS PostojeciPrijemID,
+    p.Datum AS PostojeciDatum,
+    p.UredjajId AS PrijemUredjajID,
+    p.KorisnikId
+FROM eWorkshopProd.dbo.Uredjaj u
+LEFT JOIN eWorkshopProd.dbo.Prijem p
+    ON p.UredjajId = u.UredjajID
+WHERE u.Status = 'out'
+ORDER BY u.UredjajID;
+GO
+
+INSERT INTO eWorkshopProd.dbo.Prijem
+(
+    OpisStanja,
+    Datum,
+    UredjajId,
+    KorisnikId
+)
+SELECT
+    N'Inicijalno dodavanje' AS OpisStanja,
+    CAST('2018-01-01 00:00:00.0000000' AS datetime2(7)) AS Datum,
+    u.UredjajID AS UredjajId,
+    1 AS KorisnikId
+FROM eWorkshopProd.dbo.Uredjaj u
+WHERE u.Status = 'out'
+  AND NOT EXISTS
+  (
+      SELECT 1
+      FROM eWorkshopProd.dbo.Prijem p
+      WHERE p.UredjajId = u.UredjajID
+  );
+GO
+
+SELECT
+    p.Id,
+    p.OpisStanja,
+    p.Datum,
+    p.UredjajId,
+    p.KorisnikId,
+    u.EvBroj,
+    u.Status
+FROM eWorkshopProd.dbo.Prijem p
+INNER JOIN eWorkshopProd.dbo.Uredjaj u
+    ON u.UredjajID = p.UredjajId
+WHERE p.OpisStanja = N'Inicijalno dodavanje'
+  AND p.Datum = CAST('2018-01-01 00:00:00.0000000' AS datetime2(7))
+  AND p.KorisnikId = 1
+ORDER BY p.Id;
+GO
+
+UPDATE eWorkshopProd.dbo.Prijem
+SET OpisStanja = 'Inicijalni prijem'
+WHERE OpisStanja = 'Inicijalno dodavanje';
+GO
