@@ -129,7 +129,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                 SizedBox(height: 20),
                                 DataTable(
                                   columns: const [
-                                    DataColumn(label: Text('ID')),
+                                    DataColumn(label: Text('Ev. broj')),
                                     DataColumn(label: Text('Tip')),
                                     DataColumn(label: Text('Koda')),
                                     DataColumn(label: Text('Serijski broj')),
@@ -140,7 +140,7 @@ class _UredjajDetaljiScreenState extends State<UredjajDetaljiScreen> {
                                     DataRow(
                                       cells: [
                                         DataCell(tekstInfo(
-                                            uredjaj.uredjajId.toString())),
+                                            uredjaj.evBroj.toString())),
                                         DataCell(
                                             tekstInfo(uredjaj.tipNaziv ?? "")),
                                         DataCell(tekstInfo(uredjaj.koda ?? "")),
